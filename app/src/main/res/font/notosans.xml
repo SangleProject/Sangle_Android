@@ -30,4 +30,13 @@
         app:fontStyle="normal"
         tools:targetApi="o" />
 
+    <font
+        android:font="@font/notosanskr_light"
+        android:fontWeight="300"
+        android:fontStyle="normal"
+        app:font="@font/notosanskr_light"
+        app:fontWeight="300"
+        app:fontStyle="normal"
+        tools:targetApi="o" />
+
 </font-family>
