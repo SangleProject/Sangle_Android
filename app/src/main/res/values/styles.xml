@@ -12,19 +12,19 @@
         <item name="android:fontFamily">@font/notosans</item>
     </style>
 
-    <style name="H1_24pt_Regular" parent="baseFontSetting">
+    <style name="H1_H2_24pt" parent="baseFontSetting">
         <item name="android:textSize">24sp</item>
         <item name="android:lineSpacingExtra">12sp</item>
         <item name="android:letterSpacing">-0.02</item>
     </style>
 
-    <style name="P1_16pt_SemiBold" parent="baseFontSetting">
+    <style name="P1_P2_16pt" parent="baseFontSetting">
         <item name="android:textSize">16sp</item>
         <item name="android:lineSpacingExtra">8sp</item>
         <item name="android:letterSpacing">-0.02</item>
     </style>
     
-    <style name="P4_14pt_Light" parent="baseFontSetting">
+    <style name="P3_P4_14pt" parent="baseFontSetting">
         <item name="android:textSize">14sp</item>
         <item name="android:lineSpacingExtra">7sp</item>
         <item name="android:letterSpacing">-0.03</item>
