@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 
 class SignUpViewModel : ViewModel() {
     var progress = MutableLiveData<Int>()
+    var email = MutableLiveData<String>("")
 
     init {
         progress.value = 0

@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity() {
             R.layout.activity_main
         )
         binding.activity = this
-
         mImm = getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as android.view.inputmethod.InputMethodManager
 
         //상태바 투명으로 만들기

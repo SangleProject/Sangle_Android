@@ -30,6 +30,7 @@
         android:backgroundTint="@color/black_20"
         android:hint="ex) malang@brain.com"
         android:lines="1"
+        android:paddingBottom="8dp"
         android:textColor="@color/black_100"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
