@@ -17,6 +17,12 @@
         <item name="android:lineSpacingExtra">12sp</item>
         <item name="android:letterSpacing">-0.02</item>
     </style>
+    
+    <style name="H3_18pt" parent="baseFontSetting">
+        <item name="android:textSize">18dp</item>
+        <item name="android:lineSpacingExtra">6dp</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
 
     <style name="P1_P2_16pt" parent="baseFontSetting">
         <item name="android:textSize">16sp</item>

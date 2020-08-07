@@ -1,12 +1,15 @@
-package org.three.minutes
+package org.three.minutes.login.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import kotlinx.android.synthetic.main.activity_main.*
+import org.three.minutes.R
 import org.three.minutes.databinding.ActivityMainBinding
+import org.three.minutes.signup.ui.SignupActivity
 import org.three.minutes.singleton.StatusObject
 import org.three.minutes.util.keyBoardObserve
 
@@ -17,7 +20,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this,
+            R.layout.activity_main
+        )
         binding.activity = this
 
         mImm = getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as android.view.inputmethod.InputMethodManager
@@ -42,7 +47,13 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    // 로그인 클릭 시 확인 함수
     fun checkLogin(){
         Toast.makeText(this,"login",Toast.LENGTH_SHORT).show()
+    }
+
+    fun goToSignUp(){
+        val intent = Intent(this,SignupActivity::class.java)
+        startActivity(intent)
     }
 }
