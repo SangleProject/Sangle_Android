@@ -16,11 +16,10 @@ import org.three.minutes.util.keyBoardObserve
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mImm : InputMethodManager
-    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,
+        val binding : ActivityMainBinding = DataBindingUtil.setContentView(this@MainActivity,
             R.layout.activity_main
         )
         binding.activity = this

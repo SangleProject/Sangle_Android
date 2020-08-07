@@ -24,32 +24,30 @@
 
         <TextView
             android:id="@+id/main_title_txt"
-            style="@style/H1_H2_24pt"
+            style="@style/H1_24pt_Regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="32dp"
             android:text="생각을 글로 \n자유롭게 써볼까요?"
             android:textColor="@color/black"
-            android:textFontWeight="400"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/sub_title_txt"
-            style="@style/P1_P2_16pt"
+            style="@style/P1_16pt_SemiBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="먼저 로그인이 필요해요."
             android:textColor="@color/black_60"
-            android:textFontWeight="400"
             app:layout_constraintStart_toStartOf="@+id/main_title_txt"
             app:layout_constraintTop_toBottomOf="@+id/main_title_txt" />
 
         <EditText
             android:id="@+id/login_edt"
-            style="@style/P1_P2_16pt"
+            style="@style/P1_16pt_SemiBold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
@@ -62,7 +60,6 @@
             android:paddingVertical="12dp"
             android:paddingStart="12dp"
             android:textColor="@color/black_60"
-            android:textFontWeight="500"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/sub_title_txt"
             app:layout_constraintTop_toBottomOf="@+id/sub_title_txt"
@@ -70,7 +67,7 @@
 
         <EditText
             android:id="@+id/password_edt"
-            style="@style/P1_P2_16pt"
+            style="@style/P1_16pt_SemiBold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -83,7 +80,6 @@
             android:paddingVertical="12dp"
             android:paddingStart="12dp"
             android:textColor="@color/black_60"
-            android:textFontWeight="500"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/login_edt"
             app:layout_constraintTop_toBottomOf="@+id/login_edt"
@@ -91,7 +87,7 @@
 
         <TextView
             android:id="@+id/start_login_btn"
-            style="@style/P1_P2_16pt"
+            style="@style/P1_16pt_SemiBold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -101,34 +97,31 @@
             android:paddingVertical="12dp"
             android:text="로그인"
             android:textColor="@color/white"
-            android:textFontWeight="500"
             app:layout_constraintEnd_toEndOf="@+id/password_edt"
             app:layout_constraintStart_toStartOf="@+id/password_edt"
             app:layout_constraintTop_toBottomOf="@+id/password_edt" />
 
         <TextView
             android:id="@+id/find_password_btn"
-            style="@style/P3_P4_14pt"
+            style="@style/P4_14pt_Light"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="28dp"
             android:layout_marginBottom="102dp"
             android:text="비밀번호 찾기"
             android:textColor="@color/black_60"
-            android:textFontWeight="300"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/signup_btn"
-            style="@style/P3_P4_14pt"
+            style="@style/P3_14pt_Regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="26dp"
             android:onClick="@{()->activity.goToSignUp()}"
             android:text="회원가입"
             android:textColor="@color/black_80"
-            android:textFontWeight="400"
             app:layout_constraintBottom_toBottomOf="@+id/find_password_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/find_password_btn" />
