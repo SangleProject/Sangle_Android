@@ -10,6 +10,11 @@
             name="signupViewmodel"
             type="org.three.minutes.signup.viewmodel.SignUpViewModel" />
 
+        <variable
+            name="activity"
+            type="org.three.minutes.signup.ui.SignupActivity" />
+
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -75,6 +80,7 @@
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:padding="12dp"
+                            android:onClick="@{()->activity.finishActivity()}"
                             android:src="@drawable/ic_cancle"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintDimensionRatio="1:1"
@@ -88,51 +94,40 @@
             </com.google.android.material.appbar.AppBarLayout>
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-        <ScrollView
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/signup_contents"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:fillViewport="true"
-            app:layout_constraintBottom_toTopOf="@id/signup_next_txt"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/coordi_layout">
+            app:layout_constraintTop_toBottomOf="@+id/coordi_layout">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/signup_contents"
+            <ProgressBar
+                android:id="@+id/signup_progress"
+                style="@android:style/Widget.Holo.Light.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_height="wrap_content"
+                android:max="100"
+                android:progress="@{signupViewmodel.progress}"
+                android:progressBackgroundTint="@color/light_gray"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/coordi_layout">
+                app:layout_constraintTop_toTopOf="parent"
+                />
 
-                <ProgressBar
-                    android:id="@+id/signup_progress"
-                    style="@android:style/Widget.Holo.Light.ProgressBar.Horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:max="100"
-                    android:progress="@{signupViewmodel.progress}"
-                    android:progressBackgroundTint="@color/light_gray"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:progress="30" />
-
-                <org.three.minutes.util.NoSwipeViewPager
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/signup_progress">
-
-                </org.three.minutes.util.NoSwipeViewPager>
+            <org.three.minutes.util.NoSwipeViewPager
+                android:id="@+id/contents_viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/signup_progress" />
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </ScrollView>
 
         <TextView
             android:id="@+id/signup_next_txt"
@@ -140,6 +135,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="4dp"
             android:background="@drawable/signup_button"
             android:enabled="false"
             android:paddingVertical="14dp"
@@ -148,9 +144,9 @@
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-             />
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </layout>

@@ -19,11 +19,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding : ActivityMainBinding = DataBindingUtil.setContentView(this@MainActivity,
-            R.layout.activity_main
-        )
+        val binding : ActivityMainBinding = DataBindingUtil.setContentView(this,R.layout.activity_main)
         binding.activity = this
-        mImm = getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as android.view.inputmethod.InputMethodManager
+        mImm = getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         //상태바 투명으로 만들기
         StatusObject.setStatusBar(this)
@@ -39,6 +37,7 @@ class MainActivity : AppCompatActivity() {
 
     // 레이아웃 클릭 시 키보드 내리기
     fun hideKeyboard() {
+        //키보드가 활성화 되어있는지 확인 -> isAcceptingText
         if(mImm.isAcceptingText){
             mImm.hideSoftInputFromWindow(this.currentFocus?.windowToken, 0)
         }

@@ -8,7 +8,13 @@ class SignUpViewModel : ViewModel() {
     var email = MutableLiveData<String>("")
 
     init {
-        progress.value = 0
+        progress.value = 25
     }
 
+    fun increaseProgress(){
+        progress.value = progress.value?.plus(25)
+    }
+    fun decreaseProgress(){
+        progress.value = progress.value?.minus(25)
+    }
 }

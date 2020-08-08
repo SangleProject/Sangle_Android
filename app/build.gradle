@@ -80,7 +80,7 @@ dependencies {
     //KeyBoardObserve
     implementation 'gun0912.ted:tedkeyboardobserver:1.0.2'
 
-    kapt 'androidx.databinding:databinding-compiler-common:3.4.0'
+//    kapt 'androidx.databinding:databinding-compiler-common:4.0.1'
 
 
 
