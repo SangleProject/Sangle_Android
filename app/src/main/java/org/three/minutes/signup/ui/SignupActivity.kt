@@ -18,14 +18,15 @@ import org.three.minutes.singleton.StatusObject
 import java.util.regex.Pattern
 
 class SignupActivity : AppCompatActivity() {
-    private val mSignUpModel : SignUpViewModel by viewModels()
-    private lateinit var mPageAdapter : ViewPagerAdapter
-    private lateinit var mImm : InputMethodManager
+    private val mSignUpModel: SignUpViewModel by viewModels()
+    private lateinit var mPageAdapter: ViewPagerAdapter
+    private lateinit var mImm: InputMethodManager
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding : ActivitySignupBinding = DataBindingUtil.setContentView(this,R.layout.activity_signup)
+        val binding: ActivitySignupBinding =
+            DataBindingUtil.setContentView(this, R.layout.activity_signup)
         binding.lifecycleOwner = this
         binding.signupViewmodel = mSignUpModel
         binding.activity = this
@@ -38,15 +39,16 @@ class SignupActivity : AppCompatActivity() {
 
         //상태바 투명으로 만들기
         StatusObject.setStatusBar(this)
-        mImm = getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as android.view.inputmethod.InputMethodManager
+        mImm =
+            getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as android.view.inputmethod.InputMethodManager
 
         setSupportActionBar(signup_toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         //이메일 체크 observe
-        mSignUpModel.email.observe(this, Observer<String> {email ->
+        mSignUpModel.email.observe(this, Observer<String> { email ->
             val m = p.matcher(email)
-                signup_next_txt.isEnabled = m.matches()
+            signup_next_txt.isEnabled = m.matches()
         })
 
 
@@ -54,11 +56,25 @@ class SignupActivity : AppCompatActivity() {
 
         //최하단 다음 버튼 클릭 시 다음페이지로 이동
         signup_next_txt.setOnClickListener {
-            when(contents_viewpager.currentItem){
+            when (contents_viewpager.currentItem) {
                 0 -> {
                     contents_viewpager.currentItem += 1
                     signup_next_txt.isEnabled = false
                     mSignUpModel.increaseProgress()
+                }
+            }
+        }
+
+        //좌측 뒤로가기 버튼 클릭 시 이전 페이지로 이동
+        back_img.setOnClickListener {
+            when(contents_viewpager.currentItem){
+                0->{
+                    finish()
+                }
+
+                1->{
+                    contents_viewpager.currentItem -= 1
+                    mSignUpModel.decreaseProgress()
                 }
             }
         }
@@ -70,10 +86,8 @@ class SignupActivity : AppCompatActivity() {
     }
 
     // x 버튼 누르면 액티비티 종료
-    fun finishActivity(){
+    fun finishActivity() {
         finish()
     }
 
-    //프래그먼트에 키보드 내리는 InputMethodManager 전달
-    fun getMethodManager() : InputMethodManager = mImm
 }

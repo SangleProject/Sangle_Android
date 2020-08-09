@@ -11,7 +11,7 @@ import org.three.minutes.R
 import org.three.minutes.databinding.ActivityMainBinding
 import org.three.minutes.signup.ui.SignupActivity
 import org.three.minutes.singleton.StatusObject
-import org.three.minutes.util.keyBoardObserve
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,12 +26,6 @@ class MainActivity : AppCompatActivity() {
         //상태바 투명으로 만들기
         StatusObject.setStatusBar(this)
 
-        //키보드가 내려가면 포커스 해제
-        this.keyBoardObserve {
-            login_edt.clearFocus()
-            password_edt.clearFocus()
-        }
-
 
     }
 
@@ -39,6 +33,8 @@ class MainActivity : AppCompatActivity() {
     fun hideKeyboard() {
         //키보드가 활성화 되어있는지 확인 -> isAcceptingText
         if(mImm.isAcceptingText){
+            login_edt.clearFocus()
+            password_edt.clearFocus()
             mImm.hideSoftInputFromWindow(this.currentFocus?.windowToken, 0)
         }
 

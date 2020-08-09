@@ -67,4 +67,12 @@
         <item name="android:letterSpacing">-0.03</item>
     </style>
 
+
+    <style name="CustomEdit" parent="H4_18pt_Light">
+        <item name="android:backgroundTint">@color/black_20</item>
+        <item name="android:textColor">@color/black_100</item>
+        <item name="android:lines">1</item>
+        <item name="android:paddingBottom">20dp</item>
+    </style>
+
 </resources>

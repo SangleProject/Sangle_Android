@@ -13,22 +13,16 @@ import kotlinx.android.synthetic.main.fragment_email.*
 import org.three.minutes.R
 import org.three.minutes.databinding.FragmentEmailBinding
 import org.three.minutes.signup.viewmodel.SignUpViewModel
-import org.three.minutes.util.keyBoardObserve
+
 
 
 class EmailFragment : Fragment() {
 
-    private lateinit var mActivity: SignupActivity
     private lateinit var mContext : Context
     private lateinit var mViewModel : SignUpViewModel
     private lateinit var mImm : InputMethodManager
     private lateinit var mBinding : FragmentEmailBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        mActivity = activity as SignupActivity
-
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -47,21 +41,20 @@ class EmailFragment : Fragment() {
         mBinding.apply {
             lifecycleOwner = this@EmailFragment
             viewModel = mViewModel
-            fragment = this@EmailFragment
         }
-
-        mActivity.keyBoardObserve {
-            email_edt.clearFocus()
-        }
-
-        mImm = mActivity.getMethodManager()
+        mImm = mView.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         return mView
     }
 
-    fun hideKeyBoard(){
-        if(mImm.isAcceptingText){
-            mImm.hideSoftInputFromWindow(view?.windowToken,0)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        email_layout.setOnClickListener {
+            if(mImm.isAcceptingText) {
+                mBinding.emailLayout.clearFocus()
+                mImm.hideSoftInputFromWindow(view.windowToken, 0)
+            }
         }
     }
 
