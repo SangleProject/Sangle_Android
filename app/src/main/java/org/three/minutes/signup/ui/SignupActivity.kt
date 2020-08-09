@@ -15,6 +15,7 @@ import org.three.minutes.databinding.ActivitySignupBinding
 import org.three.minutes.signup.adapter.ViewPagerAdapter
 import org.three.minutes.signup.viewmodel.SignUpViewModel
 import org.three.minutes.singleton.StatusObject
+import org.three.minutes.util.PatternObject
 import java.util.regex.Pattern
 
 class SignupActivity : AppCompatActivity() {
@@ -31,12 +32,6 @@ class SignupActivity : AppCompatActivity() {
         binding.signupViewmodel = mSignUpModel
         binding.activity = this
 
-        //이메일 체크 패턴
-        val p = Pattern.compile(
-            "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
-            Pattern.CASE_INSENSITIVE
-        )
-
         //상태바 투명으로 만들기
         StatusObject.setStatusBar(this)
         mImm =
@@ -47,7 +42,12 @@ class SignupActivity : AppCompatActivity() {
 
         //이메일 체크 observe
         mSignUpModel.email.observe(this, Observer<String> { email ->
-            val m = p.matcher(email)
+            val m = PatternObject.ePattern.matcher(email)
+            signup_next_txt.isEnabled = m.matches()
+        })
+
+        mSignUpModel.password.observe(this, Observer<String>{password ->
+            val m = PatternObject.pPattern.matcher(password)
             signup_next_txt.isEnabled = m.matches()
         })
 
