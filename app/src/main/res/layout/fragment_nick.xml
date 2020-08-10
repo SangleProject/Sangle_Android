@@ -13,6 +13,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/nick_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
@@ -39,6 +40,7 @@
             android:layout_marginTop="38dp"
             android:ems="10"
             android:hint="사용할 닉네임을 말해주세요."
+            android:text="@={viewModel.nickname}"
             android:importantForAutofill="no"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"

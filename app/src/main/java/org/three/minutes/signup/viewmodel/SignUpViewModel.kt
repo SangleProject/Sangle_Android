@@ -13,6 +13,7 @@ class SignUpViewModel : ViewModel() {
     var passwordCheck = MutableLiveData<String>("")
     var age = MutableLiveData<String>("")
     var gender = MutableLiveData<Int>()
+    var nickname = MutableLiveData<String>("")
 
     init {
         progress.value = 25
