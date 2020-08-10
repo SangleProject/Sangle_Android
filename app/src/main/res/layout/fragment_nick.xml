@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="HardcodedText">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="org.three.minutes.signup.viewmodel.SignUpViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/nick_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".signup.ui.NickFragment">
+
+        <TextView
+            android:id="@+id/nick_title"
+            style="@style/H1_24pt_Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="72dp"
+            android:text="가입의 마지막 단계입니다!"
+            android:textColor="@color/black_100"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/nick_edt"
+            style="@style/CustomEdit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="38dp"
+            android:ems="10"
+            android:hint="사용할 닉네임을 말해주세요."
+            android:text="@={viewModel.nickname}"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nick_title" />
+
+        <TextView
+            android:id="@+id/service_txt"
+            style="@style/P6_12pt_Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:text="서비스 이용 약관"
+            android:textColor="@color/main_blue"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/txt_num1"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_num1"
+            style="@style/P6_12pt_Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="을 읽고 동의한 것으로 간주합니다."
+            android:textColor="@color/black_60"
+            app:layout_constraintBottom_toBottomOf="@+id/service_txt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/service_txt"
+            app:layout_constraintTop_toTopOf="@+id/service_txt" />
+
+        <TextView
+            android:id="@+id/txt_num2"
+            style="@style/P6_12pt_Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="'시작하기'버튼을 누르면 생글의"
+            android:textColor="@color/black_60"
+            app:layout_constraintBottom_toTopOf="@+id/service_txt"
+            app:layout_constraintEnd_toStartOf="@+id/guard_txt"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/guard_txt"
+            style="@style/P6_12pt_Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="개인정보보호 정책"
+            android:textColor="@color/main_blue"
+            app:layout_constraintBottom_toTopOf="@+id/txt_num1"
+            app:layout_constraintEnd_toStartOf="@+id/txt_num3"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/txt_num2" />
+
+        <TextView
+            android:id="@+id/txt_num3"
+            style="@style/P6_12pt_Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="과"
+            android:textColor="@color/black_60"
+            app:layout_constraintBottom_toBottomOf="@+id/guard_txt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/guard_txt" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
