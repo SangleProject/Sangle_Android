@@ -2,7 +2,6 @@ package org.three.minutes.signup.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,7 +19,6 @@ import org.three.minutes.util.PatternObject
 
 
 class PasswordFragment : Fragment() {
-    private lateinit var mContext: Context
     private lateinit var mViewModel: SignUpViewModel
     private lateinit var mImm: InputMethodManager
     private lateinit var mBinding: FragmentPasswordBinding
@@ -33,7 +31,6 @@ class PasswordFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        mContext = context
         mViewModel = ViewModelProvider(requireActivity())[SignUpViewModel::class.java]
     }
 
@@ -82,7 +79,17 @@ class PasswordFragment : Fragment() {
 
         //패스워드 체크 조건 observe
         mViewModel.passwordCheck.observe(this, Observer<String> { passwordCheck ->
-            mActivity.signup_next_txt.isEnabled = passwordCheck == mViewModel.password.value
+
+            if(passwordCheck == mViewModel.password.value){
+                mActivity.signup_next_txt.isEnabled = true
+                password_check_error_txt.visibility = View.INVISIBLE
+            }
+            else{
+                mActivity.signup_next_txt.isEnabled = false
+                password_check_error_txt.visibility = View.VISIBLE
+            }
+
+
         })
 
     }

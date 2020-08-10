@@ -46,12 +46,6 @@ class SignupActivity : AppCompatActivity() {
         })
 
 
-        //패스워드 체크 조건 observe
-//        mSignUpModel.passwordCheck.observe(this, Observer<String> { passwordCheck ->
-//            signup_next_txt.isEnabled = passwordCheck == mSignUpModel.password.toString()
-//        })
-
-
         initViewPager()
 
         //최하단 다음 버튼 클릭 시 다음페이지로 이동
