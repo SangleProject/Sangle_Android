@@ -2,14 +2,13 @@ package org.three.minutes.signup.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.core.view.isInvisible
+import androidx.core.view.size
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.activity_signup.*
-import kotlinx.android.synthetic.main.fragment_password.*
 import org.three.minutes.R
 import org.three.minutes.databinding.ActivitySignupBinding
 import org.three.minutes.signup.adapter.ViewPagerAdapter
@@ -51,7 +50,10 @@ class SignupActivity : AppCompatActivity() {
         //최하단 다음 버튼 클릭 시 다음페이지로 이동
         signup_next_txt.setOnClickListener {
             when (contents_viewpager.currentItem) {
-                0 -> {
+                contents_viewpager.size -1 ->{
+                    Toast.makeText(this,"No",Toast.LENGTH_SHORT).show()
+                }
+                else -> {
                     contents_viewpager.currentItem += 1
                     signup_next_txt.isEnabled = false
                     mSignUpModel.increaseProgress()
@@ -65,8 +67,7 @@ class SignupActivity : AppCompatActivity() {
                 0 -> {
                     finish()
                 }
-
-                1 -> {
+                else -> {
                     contents_viewpager.currentItem -= 1
                     mSignUpModel.decreaseProgress()
                 }
