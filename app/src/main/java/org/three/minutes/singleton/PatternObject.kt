@@ -9,7 +9,7 @@ object PatternObject {
     )
 
     val pPattern = Pattern.compile(
-        "^(?=.*[A-Za-z])(?=.*[0-9]).{6,12}.\$",
+        "^(?=.*[A-Za-z])(?=.*[0-9]).{5,12}.\$",
         Pattern.CASE_INSENSITIVE
     )
 }
