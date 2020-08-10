@@ -1,4 +1,4 @@
-package org.three.minutes.util
+package org.three.minutes.singleton
 
 import java.util.regex.Pattern
 

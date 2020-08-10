@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_password.*
 import org.three.minutes.R
 import org.three.minutes.databinding.FragmentPasswordBinding
 import org.three.minutes.signup.viewmodel.SignUpViewModel
-import org.three.minutes.util.PatternObject
+import org.three.minutes.singleton.PatternObject
 
 
 class PasswordFragment : Fragment() {

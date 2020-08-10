@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.core.view.size
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.activity_signup.*
@@ -14,7 +13,7 @@ import org.three.minutes.databinding.ActivitySignupBinding
 import org.three.minutes.signup.adapter.ViewPagerAdapter
 import org.three.minutes.signup.viewmodel.SignUpViewModel
 import org.three.minutes.singleton.StatusObject
-import org.three.minutes.util.PatternObject
+import org.three.minutes.singleton.PatternObject
 
 class SignupActivity : AppCompatActivity() {
     private val mSignUpModel: SignUpViewModel by viewModels()
@@ -60,6 +59,7 @@ class SignupActivity : AppCompatActivity() {
 
                 2-> {
                     nextPage()
+                    signup_next_txt.text = "시작하기"
                 }
                 else -> {
                     Toast.makeText(this,"require code",Toast.LENGTH_SHORT).show()
