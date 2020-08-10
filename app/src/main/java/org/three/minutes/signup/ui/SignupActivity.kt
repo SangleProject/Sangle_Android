@@ -50,13 +50,19 @@ class SignupActivity : AppCompatActivity() {
         //최하단 다음 버튼 클릭 시 다음페이지로 이동
         signup_next_txt.setOnClickListener {
             when (contents_viewpager.currentItem) {
-                contents_viewpager.size -1 ->{
-                    Toast.makeText(this,"No",Toast.LENGTH_SHORT).show()
+                0 -> {
+                    nextPage()
+                }
+
+                1-> {
+                    nextPage()
+                }
+
+                2-> {
+                    nextPage()
                 }
                 else -> {
-                    contents_viewpager.currentItem += 1
-                    signup_next_txt.isEnabled = false
-                    mSignUpModel.increaseProgress()
+                    Toast.makeText(this,"require code",Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -68,8 +74,7 @@ class SignupActivity : AppCompatActivity() {
                     finish()
                 }
                 else -> {
-                    contents_viewpager.currentItem -= 1
-                    mSignUpModel.decreaseProgress()
+                    prePage()
                 }
             }
         }
@@ -83,6 +88,17 @@ class SignupActivity : AppCompatActivity() {
     // x 버튼 누르면 액티비티 종료
     fun finishActivity() {
         finish()
+    }
+
+    private fun nextPage(){
+        contents_viewpager.currentItem += 1
+        signup_next_txt.isEnabled = false
+        mSignUpModel.increaseProgress()
+    }
+
+    private fun prePage(){
+        contents_viewpager.currentItem -= 1
+        mSignUpModel.decreaseProgress()
     }
 
 }
