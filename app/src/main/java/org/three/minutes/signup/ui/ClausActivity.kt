@@ -19,8 +19,8 @@ class ClausActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding: ActivityClausBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_claus)
-//        val title = intent.getStringExtra("title")
-        val title = "서비스 이용약관"
+        val title = intent.getStringExtra("title")
+
         mViewModel.layoutTitle.value = title
         binding.lifecycleOwner = this
         binding.viewModel = mViewModel
