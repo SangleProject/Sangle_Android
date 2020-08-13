@@ -24,8 +24,8 @@ android {
         }
     }
 
-    dataBinding{
-        enabled true
+    buildFeatures{
+        dataBinding = true
     }
 
     compileOptions{
@@ -80,10 +80,11 @@ dependencies {
 //    //KeyBoardObserve
 //    implementation 'gun0912.ted:tedkeyboardobserver:1.0.2'
 
-//    kapt 'androidx.databinding:databinding-compiler-common:4.0.1'
+//    implementation 'androidx.databinding:databinding-compiler-common:4.0.1'
 
     //Pdf Viewer
-    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
+    implementation 'com.github.barteksc:android-pdf-viewer:3.2.0-beta.1'
+
 
 
 
