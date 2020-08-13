@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".signup.ui.ClausActivity" />
+        <activity android:name=".signup.ui.ClausActivity" android:exported="true" />
         <activity
             android:name=".signup.ui.SignupActivity"
             android:exported="true"
