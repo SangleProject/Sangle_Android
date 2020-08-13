@@ -36,3 +36,4 @@
 | [ViewModel](https://developer.android.com/jetpack/androidx/releases/lifecycle?hl=ko) | 데이터와 UI로직의 분리       |
 | [LiveData](https://developer.android.com/jetpack/androidx/releases/lifecycle?hl=ko)  | 데이터의 실시간 감지         |
 | [Material Design](https://material.io/develop/android/docs/getting-started)          | 머티리얼 디자인              |
+| [PDF Viewer](https://github.com/barteksc/AndroidPdfViewer)                           | PDF파일을 화면에 보여줄 때   |
