@@ -82,6 +82,9 @@ dependencies {
 
 //    kapt 'androidx.databinding:databinding-compiler-common:4.0.1'
 
+    //Pdf Viewer
+    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
+
 
 
 }

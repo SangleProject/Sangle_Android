@@ -15,7 +15,6 @@ import kotlinx.android.synthetic.main.activity_signup.*
 import kotlinx.android.synthetic.main.fragment_nick.*
 import org.three.minutes.R
 import org.three.minutes.databinding.FragmentNickBinding
-import org.three.minutes.signup.ui.claus.ClausActivity
 import org.three.minutes.signup.viewmodel.SignUpViewModel
 
 
@@ -74,7 +73,8 @@ class NickFragment : Fragment() {
     }
 
     private fun makeIntentAndStart(title : String){
-        val intent = Intent(mActivity,ClausActivity::class.java)
+        val intent = Intent(mActivity,
+            ClausActivity::class.java)
         intent.putExtra("title",title)
         startActivity(intent)
     }

@@ -13,14 +13,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".signup.ui.claus.ClausActivity" />
+        <activity android:name=".signup.ui.ClausActivity" />
         <activity
             android:name=".signup.ui.SignupActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".login.ui.MainActivity"
-            android:windowSoftInputMode="adjustNothing">
+            android:windowSoftInputMode="stateHidden|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
