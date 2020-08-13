@@ -37,6 +37,9 @@ class SignupActivity : AppCompatActivity() {
         setSupportActionBar(signup_toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
+        //초기 버튼 클릭 방지
+        signup_next_txt.isEnabled = false
+
         //이메일 체크 observe
         mSignUpModel.email.observe(this, Observer<String> { email ->
             val m = PatternObject.ePattern.matcher(email)

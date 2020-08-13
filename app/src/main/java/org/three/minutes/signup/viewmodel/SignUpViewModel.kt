@@ -1,8 +1,5 @@
 package org.three.minutes.signup.viewmodel
 
-import android.widget.EditText
-import androidx.databinding.BindingAdapter
-import androidx.databinding.InverseBindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 

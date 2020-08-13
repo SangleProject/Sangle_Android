@@ -1,6 +1,7 @@
 package org.three.minutes.signup.ui
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -59,6 +60,23 @@ class NickFragment : Fragment() {
             nick_edt.clearFocus()
             mImm.hideSoftInputFromWindow(view.windowToken,0)
         }
+
+        //개인정보 글씨 눌렀을 때
+        guard_txt.setOnClickListener {
+            makeIntentAndStart("개인정보보호 정책")
+        }
+
+        //이용약관 글씨 눌렀을 때
+        service_txt.setOnClickListener {
+            makeIntentAndStart("서비스 이용약관")
+        }
+    }
+
+    private fun makeIntentAndStart(title : String){
+        val intent = Intent(mActivity,
+            ClausActivity::class.java)
+        intent.putExtra("title",title)
+        startActivity(intent)
     }
 
 }
