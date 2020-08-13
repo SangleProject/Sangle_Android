@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import org.three.minutes.R
 
 
-class PriavacyFragment : Fragment() {
+class PrivacyFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

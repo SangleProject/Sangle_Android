@@ -5,6 +5,9 @@
     tools:ignore="HardcodedText,ContentDescription,RtlSymmetry">
 
     <data>
+        <variable
+            name="viewModel"
+            type="org.three.minutes.signup.viewmodel.ClausViewModel" />
 
     </data>
 
@@ -61,6 +64,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginVertical="10dp"
                             tools:text="약관 관련 텍스트 내용"
+                            android:text="@{viewModel.layoutTitle}"
                             android:textColor="@color/black"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintLeft_toLeftOf="parent"
