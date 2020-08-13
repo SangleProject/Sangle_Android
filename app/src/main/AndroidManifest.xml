@@ -8,10 +8,12 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:usesCleartextTraffic="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".signup.ui.claus.ClausActivity"></activity>
+
+        <activity android:name=".signup.ui.claus.ClausActivity" />
         <activity
             android:name=".signup.ui.SignupActivity"
             android:exported="true"

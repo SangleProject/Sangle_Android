@@ -1,7 +1,10 @@
 package org.three.minutes.signup.ui.claus
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.webkit.WebSettings
+import android.webkit.WebViewClient
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import kotlinx.android.synthetic.main.activity_claus.*
@@ -12,6 +15,7 @@ import org.three.minutes.signup.viewmodel.ClausViewModel
 class ClausActivity : AppCompatActivity() {
     private val mViewModel : ClausViewModel by viewModels()
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding: ActivityClausBinding =
@@ -21,13 +25,28 @@ class ClausActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.viewModel = mViewModel
 
-        val transaction = supportFragmentManager.beginTransaction()
+        claus_web.webViewClient = WebViewClient()
+        //클릭 시 새창이 안뜨게
+
+        claus_web.settings.apply {
+            javaScriptEnabled = true // 자바 스크립트 허용 여부
+//            useWideViewPort = true // 화면 사이즈 맞추기 혀용 여부
+            setSupportZoom(false) // 화면 줌 허용 여부
+            builtInZoomControls = false // 화면 확대 축소 허용 여부
+            cacheMode = WebSettings.LOAD_NO_CACHE // 브라우저 캐시 허용 여부
+            allowFileAccess = true
+        }
+
+
+
+//        val googleDocs = "https://docs.google.com/gview?embedded=true&url="
+
         when(mViewModel.layoutTitle.value){
             "개인정보보호 정책" -> {
-                transaction.add(R.id.claus_contents_layout, PrivacyFragment()).commit()
+                claus_web.loadUrl("")
             }
             "서비스 이용약관" -> {
-                transaction.add(R.id.claus_contents_layout, ServiceFragment()).commit()
+                claus_web.loadUrl("https://drive.google.com/file/d/1IpZhJX0DUTTqmOqVWET_flIggbV3rz6Y/view")
             }
         }
 
