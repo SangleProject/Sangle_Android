@@ -16,7 +16,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:backgroud="@color/white"
+            android:background="@color/white"
             tools:context=".home.ui.HomeActiviy">
 
             <androidx.appcompat.widget.Toolbar
@@ -37,6 +37,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:backgroundTint="@color/white"
+                app:itemIconSize="36dp"
+                app:menu="@menu/bottom_menu"
+                app:labelVisibilityMode="unlabeled"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
