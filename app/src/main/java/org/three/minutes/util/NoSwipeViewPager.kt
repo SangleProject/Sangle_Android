@@ -7,12 +7,13 @@ import android.view.MotionEvent
 import android.view.animation.DecelerateInterpolator
 import androidx.viewpager.widget.ViewPager
 
+@Suppress("NAME_SHADOWING")
 class NoSwipeViewPager : ViewPager{
-    var enable = false
+    private var enable = false
     private var mScroller: FixedSpeedScroller? = null
 
-    constructor(context : Context?) : super(context!!){}
-    constructor(context: Context?, attrs : AttributeSet?) : super(context!!, attrs){}
+    constructor(context : Context?) : super(context!!)
+    constructor(context: Context?, attrs : AttributeSet?) : super(context!!, attrs)
 
     init {
         try {

@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import org.three.minutes.R
 
 
-class PorfileFragment : Fragment() {
+class FeedFragment : Fragment() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,8 +21,7 @@ class PorfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_porfile, container, false)
+        return inflater.inflate(R.layout.fragment_feed, container, false)
     }
-
 
 }

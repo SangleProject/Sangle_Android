@@ -2,12 +2,45 @@ package org.three.minutes.home.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.databinding.DataBindingUtil
+import kotlinx.android.synthetic.main.activity_home.*
 import org.three.minutes.R
+import org.three.minutes.databinding.ActivityHomeBinding
+import org.three.minutes.home.adapter.HomePageAdapter
+import org.three.minutes.util.customChangeListener
 
 class HomeActiviy : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
 
+        val binding : ActivityHomeBinding = DataBindingUtil.setContentView(this,R.layout.activity_home)
+        binding.apply {
+            lifecycleOwner = this@HomeActiviy
+        }
+
+        initViewPager()
+
+    }
+
+    private fun initViewPager() {
+        home_page.adapter = HomePageAdapter(supportFragmentManager)
+        //가운데가 기준
+        home_bottom_navi.menu.getItem(1).isChecked = true
+        home_page.currentItem = 1
+
+        //뷰페이저 슬라이드 시 바텀네비 아이콘 상태 변경
+        home_page.customChangeListener {
+            home_bottom_navi.menu.getItem(it).isChecked = true
+        }
+
+        home_bottom_navi.setOnNavigationItemSelectedListener {
+            when(it.itemId){
+                R.id.menu_feed -> home_page.currentItem = 0
+                R.id.menu_main-> home_page.currentItem = 1
+                R.id.menu_calender -> home_page.currentItem = 2
+            }
+            true
+        }
     }
 }

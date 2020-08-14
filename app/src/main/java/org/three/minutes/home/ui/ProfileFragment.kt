@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import org.three.minutes.R
 
 
-class PopularFragment : Fragment() {
+class ProfileFragment : Fragment() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +21,8 @@ class PopularFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_popular, container, false)
+        return inflater.inflate(R.layout.fragment_profile, container, false)
     }
+
 
 }
