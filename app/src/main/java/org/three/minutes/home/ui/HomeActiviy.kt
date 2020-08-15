@@ -19,6 +19,15 @@ class HomeActiviy : AppCompatActivity() {
             lifecycleOwner = this@HomeActiviy
         }
 
+        setSupportActionBar(home_toolbar)
+        supportActionBar?.apply {
+            setDisplayShowCustomEnabled(true)
+            setDisplayShowTitleEnabled(false)
+        }
+
+
+
+
         initViewPager()
 
     }
@@ -33,6 +42,9 @@ class HomeActiviy : AppCompatActivity() {
         home_page.customChangeListener {
             home_bottom_navi.menu.getItem(it).isChecked = true
         }
+
+        //아이콘 안보여서 속성 설정
+        home_bottom_navi.itemIconTintList = null
 
         home_bottom_navi.setOnNavigationItemSelectedListener {
             when(it.itemId){
