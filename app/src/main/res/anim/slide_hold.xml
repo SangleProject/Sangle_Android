@@ -4,9 +4,6 @@
     android:shareInterpolator="@android:anim/accelerate_decelerate_interpolator">
     <translate
         android:fromXDelta="0%"
-        android:toXDelta="100%" />
+        android:toXDelta="0%" />
 
-    <alpha
-        android:fromAlpha="1"
-        android:toAlpha="0" />
 </set>

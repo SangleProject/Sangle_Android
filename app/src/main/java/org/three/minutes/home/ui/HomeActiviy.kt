@@ -55,4 +55,10 @@ class HomeActiviy : AppCompatActivity() {
             true
         }
     }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.slide_hold, R.anim.slide_out_right)
+
+    }
 }
