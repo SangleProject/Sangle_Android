@@ -5,6 +5,9 @@
     tools:ignore="HardcodedText">
 
     <data>
+        <variable
+            name="viewModel"
+            type="org.three.minutes.home.viewmodel.HomeViewModel" />
 
     </data>
 

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
+import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
@@ -12,9 +13,12 @@ import kotlinx.android.synthetic.main.activity_home.*
 import org.three.minutes.R
 import org.three.minutes.databinding.ActivityHomeBinding
 import org.three.minutes.home.adapter.HomePageAdapter
+import org.three.minutes.home.viewmodel.HomeViewModel
 import org.three.minutes.util.customChangeListener
 
 class HomeActiviy : AppCompatActivity() {
+
+    private val mViewModel : HomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +27,7 @@ class HomeActiviy : AppCompatActivity() {
             DataBindingUtil.setContentView(this, R.layout.activity_home)
         binding.apply {
             lifecycleOwner = this@HomeActiviy
+            viewModel = mViewModel
         }
 
         setSupportActionBar(home_toolbar)
