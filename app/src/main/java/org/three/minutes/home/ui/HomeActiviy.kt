@@ -2,7 +2,12 @@ package org.three.minutes.home.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.Gravity
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
+import androidx.drawerlayout.widget.DrawerLayout
 import kotlinx.android.synthetic.main.activity_home.*
 import org.three.minutes.R
 import org.three.minutes.databinding.ActivityHomeBinding
@@ -14,7 +19,8 @@ class HomeActiviy : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding : ActivityHomeBinding = DataBindingUtil.setContentView(this,R.layout.activity_home)
+        val binding: ActivityHomeBinding =
+            DataBindingUtil.setContentView(this, R.layout.activity_home)
         binding.apply {
             lifecycleOwner = this@HomeActiviy
         }
@@ -25,11 +31,24 @@ class HomeActiviy : AppCompatActivity() {
             setDisplayShowTitleEnabled(false)
         }
 
+        settingDrawer()
 
+
+
+        home_toolbar.setNavigationOnClickListener {
+            Log.d("OpenDrawer", "Open")
+            if (!home_drawer.isDrawerOpen(GravityCompat.START)) {
+                home_drawer.openDrawer(GravityCompat.START)
+            }
+        }
 
 
         initViewPager()
 
+    }
+
+    private fun settingDrawer() {
+        home_drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
     }
 
     private fun initViewPager() {
@@ -47,13 +66,22 @@ class HomeActiviy : AppCompatActivity() {
         home_bottom_navi.itemIconTintList = null
 
         home_bottom_navi.setOnNavigationItemSelectedListener {
-            when(it.itemId){
+            when (it.itemId) {
                 R.id.menu_feed -> home_page.currentItem = 0
-                R.id.menu_main-> home_page.currentItem = 1
+                R.id.menu_main -> home_page.currentItem = 1
                 R.id.menu_calender -> home_page.currentItem = 2
             }
             true
         }
+    }
+
+    override fun onBackPressed() {
+        if (home_drawer.isDrawerOpen(GravityCompat.START)) {
+            home_drawer.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
+
     }
 
     override fun finish() {

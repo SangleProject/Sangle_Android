@@ -9,8 +9,11 @@
     </data>
 
     <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/home_drawer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:openDrawer="start">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -54,6 +57,9 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <include
+            layout="@layout/home_navigation"/>
 
 
     </androidx.drawerlayout.widget.DrawerLayout>
