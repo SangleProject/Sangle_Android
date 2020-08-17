@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="HardcodedText,ContentDescription,RtlSymmetry">
+
+    <data>
+
+    </data>
+
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/home_navi"
+        android:layout_width="210dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/white"
+        android:fitsSystemWindows="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/close_navi_img"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginEnd="162dp"
+                android:scaleType="center"
+                android:src="@drawable/ic_cancle"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/ic_navi_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:scaleType="center"
+                android:src="@drawable/ic_right"
+                app:layout_constraintBottom_toBottomOf="@+id/navi_nick_txt"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/navi_nick_txt" />
+
+            <TextView
+                android:id="@+id/navi_nick_txt"
+                style="@style/P1_16pt_Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="아이디"
+                android:textColor="@color/black_100"
+                app:layout_constraintBottom_toBottomOf="@+id/navi_profile_img"
+                app:layout_constraintStart_toEndOf="@+id/navi_profile_img"
+                app:layout_constraintTop_toTopOf="@+id/navi_profile_img" />
+
+            <ImageView
+                android:id="@+id/navi_profile_img"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/profile1"
+                app:layout_constraintBottom_toTopOf="@+id/guideline2"
+                app:layout_constraintDimensionRatio="H,1:1"
+                app:layout_constraintEnd_toStartOf="@+id/navi_nick_txt"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/close_navi_img" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="118dp" />
+
+            <TextView
+                android:id="@+id/navi_badge"
+                style="@style/P3_14pt_Regular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:paddingVertical="12dp"
+                android:paddingStart="20dp"
+                android:text="활동 배지"
+                android:textColor="@color/black_80"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/navi_profile_img" />
+
+            <TextView
+                android:id="@+id/navi_draw_txt"
+                style="@style/H4_18pt_Light"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingVertical="10dp"
+                android:paddingStart="20dp"
+                android:text="MY 서랍"
+                android:textColor="@color/black_100"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/navi_badge" />
+
+            <TextView
+                android:id="@+id/navi_writing_txt"
+                style="@style/H4_18pt_Light"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:paddingVertical="10dp"
+                android:paddingStart="20dp"
+                android:text="글감"
+                android:textColor="@color/black_100"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/navi_draw_txt" />
+
+            <TextView
+                android:id="@+id/navi_notice_txt"
+                style="@style/P2_16pt_Light"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingVertical="6dp"
+                android:paddingStart="20dp"
+                android:text="공지사항"
+                android:textColor="@color/black_60"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/navi_writing_txt" />
+
+            <TextView
+                android:id="@+id/navi_info_txt"
+                style="@style/P2_16pt_Light"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:paddingVertical="6dp"
+                android:paddingStart="20dp"
+                android:text="이용안내"
+                android:textColor="@color/black_60"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/navi_notice_txt" />
+
+            <TextView
+                android:id="@+id/navi_mail_txt"
+                style="@style/P2_16pt_Light"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:paddingVertical="6dp"
+                android:paddingStart="20dp"
+                android:text="메일 문의하기"
+                android:textColor="@color/black_60"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/navi_info_txt" />
+
+            <TextView
+                style="@style/P3_14pt_Regular"
+                android:textColor="@color/red"
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="52dp"
+                android:text="로그아웃"
+                android:padding="14dp"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ImageView
+                android:id="@+id/ic_setting"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="12dp"
+                android:scaleType="center"
+                android:src="@drawable/ic_setting"
+                app:layout_constraintBottom_toBottomOf="@+id/textView7"
+                app:layout_constraintDimensionRatio="H,1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView7" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.navigation.NavigationView>
+</layout>
