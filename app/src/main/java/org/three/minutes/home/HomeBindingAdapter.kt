@@ -2,16 +2,30 @@ package org.three.minutes.home
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import org.three.minutes.R
 
 object HomeBindingAdapter {
-    @BindingAdapter("app:lottie_fileName")
+//    @BindingAdapter("app:lottie_fileName")
+//    @JvmStatic
+//    fun loadLottie(view : LottieAnimationView, json : String){
+//        view.setAnimation(json)
+//    }
+
+    @BindingAdapter("writingImg")
     @JvmStatic
-    fun loadLottie(view : LottieAnimationView, json : String){
-        view.setAnimation(json)
+    fun loadingWritingImg(view : ImageView, writingCount : Int){
+        val glideManager = Glide.with(view).asGif()
+        when (writingCount){
+            0 -> {
+                glideManager.load(R.raw.sample_none).diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                    .into(view)
+
+            }
+        }
     }
+
     @BindingAdapter("progressImg")
     @JvmStatic
     fun loadProgressImg(view : ImageView, checkCount : Int){

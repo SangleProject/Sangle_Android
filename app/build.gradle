@@ -91,5 +91,9 @@ dependencies {
     //Lottie
     implementation 'com.airbnb.android:lottie:3.4.1'
 
+    //Line apng
+    implementation "com.linecorp:apng:1.9.1"
+
+    implementation 'com.github.penfeizhou.android.animation:apng:2.0.0'
 
 }
