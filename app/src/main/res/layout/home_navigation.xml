@@ -14,7 +14,6 @@
         android:layout_width="210dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/white"
         android:fitsSystemWindows="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout

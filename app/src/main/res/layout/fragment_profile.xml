@@ -53,9 +53,9 @@
             <TextView
                 android:id="@+id/textView3"
                 style="@style/H2_24pt_Light"
+                android:lineSpacingExtra="1sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:layout_marginBottom="60dp"
                 android:text="오늘따라 생각이\n쑥쑥 자라날 것 같아요~"
                 android:textColor="@color/white"
@@ -88,7 +88,7 @@
             android:layout_height="100dp"
             android:layout_below="@id/top_layout"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="-60dp"
+            android:layout_marginTop="-50dp"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="6dp">
 

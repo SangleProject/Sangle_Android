@@ -11,6 +11,7 @@ import android.view.Gravity
 import android.view.Window
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import kotlinx.android.synthetic.main.activity_main.*
 import org.three.minutes.R
@@ -62,11 +63,18 @@ class MainActivity : AppCompatActivity() {
     fun checkLogin(){
         val intent = Intent(this, HomeActiviy::class.java)
         startActivity(intent)
-        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_hold)
+//        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_hold)
     }
 
     fun goToSignUp(){
         val intent = Intent(this,SignupActivity::class.java)
         startActivity(intent)
+    }
+
+    // 앱 종료
+    override fun onBackPressed() {
+        super.onBackPressed()
+        ActivityCompat.finishAffinity(this)
+
     }
 }
