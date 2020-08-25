@@ -94,6 +94,5 @@ dependencies {
     //Line apng
     implementation "com.linecorp:apng:1.9.1"
 
-    implementation 'com.github.penfeizhou.android.animation:apng:2.0.0'
 
 }
