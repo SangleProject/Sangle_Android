@@ -1,4 +1,4 @@
-package org.three.minutes.home
+package org.three.minutes.home.data
 
 data class CalendarData(
     val year : Int = 0,

@@ -2,16 +2,15 @@ package org.three.minutes.home
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.MutableLiveData
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import org.three.minutes.R
+import org.three.minutes.home.adapter.CalendarAdapter
+import org.three.minutes.home.data.CalendarData
 
 object HomeBindingAdapter {
-//    @BindingAdapter("app:lottie_fileName")
-//    @JvmStatic
-//    fun loadLottie(view : LottieAnimationView, json : String){
-//        view.setAnimation(json)
-//    }
 
     @BindingAdapter("writingImg")
     @JvmStatic
@@ -42,6 +41,14 @@ object HomeBindingAdapter {
                 Glide.with(view.context).load(R.drawable.ic_increase).into(view)
             }
         }
+    }
+
+    @BindingAdapter("item")
+    @JvmStatic
+    fun setRevItem(recyclerView : RecyclerView, calendarData : MutableLiveData<List<CalendarData>>){
+        val adapter = recyclerView.adapter as CalendarAdapter
+        adapter.data
+        adapter.notifyDataSetChanged()
     }
 
 }
