@@ -13,11 +13,16 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Default
 import org.three.minutes.R
 import org.three.minutes.databinding.FragmentCalenderBinding
+import org.three.minutes.home.adapter.CalendarAdapter
 import org.three.minutes.home.viewmodel.HomeViewModel
 import java.util.*
+import kotlin.coroutines.CoroutineContext
 
 
-class CalenderFragment : Fragment() {
+class CalenderFragment : Fragment(), CoroutineScope {
+    private val job = Job()
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
 
     private lateinit var mBinding: FragmentCalenderBinding
 
@@ -31,15 +36,20 @@ class CalenderFragment : Fragment() {
 
         mBinding =
             DataBindingUtil.inflate(layoutInflater, R.layout.fragment_calender, container, false)
+        mBinding.lifecycleOwner = this
 
-        val mViewModel : HomeViewModel by activityViewModels()
-
+        val mViewModel: HomeViewModel by activityViewModels()
+        mViewModel.settingDate()
         mBinding.viewModel = mViewModel
 
-        CoroutineScope(Default).launch {
-            val cal = Calendar.getInstance() // 현재 날짜 요일 및 시간
-            Log.d("ShowDate","${cal.get(Calendar.YEAR)}년 ${cal.get(Calendar.MONTH) + 1}월 ${cal.get(Calendar.DATE)}일")
-        }
+        val calendarAdp = CalendarAdapter(
+            mBinding.root.context,
+            mViewModel
+        )
+
+        mBinding.rcvCalendar.adapter = calendarAdp
+        calendarAdp.notifyDataSetChanged()
+
 
         return mBinding.root
     }
@@ -48,6 +58,11 @@ class CalenderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
     }
 
 

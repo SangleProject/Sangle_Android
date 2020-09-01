@@ -67,7 +67,9 @@
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toEndOf="@+id/calender_left_btn"
                 app:layout_constraintTop_toTopOf="@+id/calender_left_btn"
-                tools:text="2020년 8월" />
+                tools:text="2020년 8월"
+                app:setYear="@{viewModel.year}"
+                app:setMonth="@{viewModel.month}"/>
 
             <ImageView
                 android:id="@+id/calender_right_btn"
@@ -169,7 +171,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginBottom="22dp"
-                app:item="@{viewModel.calendarData}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

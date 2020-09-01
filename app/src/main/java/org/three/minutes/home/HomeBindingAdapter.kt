@@ -1,6 +1,8 @@
 package org.three.minutes.home
 
+import android.annotation.SuppressLint
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
@@ -43,12 +45,11 @@ object HomeBindingAdapter {
         }
     }
 
-    @BindingAdapter("item")
+    @SuppressLint("SetTextI18n")
+    @BindingAdapter("setYear","setMonth")
     @JvmStatic
-    fun setRevItem(recyclerView : RecyclerView, calendarData : MutableLiveData<List<CalendarData>>){
-        val adapter = recyclerView.adapter as CalendarAdapter
-        adapter.data
-        adapter.notifyDataSetChanged()
+    fun setCalendarTitle(view : TextView, year : Int, month : Int){
+        view.text="${year}년 ${month}월"
     }
 
 }

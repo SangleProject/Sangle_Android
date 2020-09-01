@@ -6,14 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.three.minutes.R
 import org.three.minutes.databinding.CalendarDayItemBinding
-import org.three.minutes.home.data.CalendarData
 import org.three.minutes.home.viewholder.CalendarEmptyViewHolder
 import org.three.minutes.home.viewholder.CalendarViewHolder
+import org.three.minutes.home.viewmodel.HomeViewModel
 
-class CalendarAdapter(private val context: Context) :
+class CalendarAdapter(private val context: Context, viewModel : HomeViewModel) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var data = arrayListOf<CalendarData>()
+    var data = viewModel.arrayCalendar
 
     override fun getItemViewType(position: Int): Int {
         return when (data[position].empty) {
@@ -24,14 +24,14 @@ class CalendarAdapter(private val context: Context) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        if (viewType == 1) {
+        return if (viewType == 1) {
             val binding =
                 CalendarDayItemBinding.inflate(LayoutInflater.from(context), parent, false)
-            return CalendarViewHolder(binding)
+            CalendarViewHolder(binding)
         } else {
             val view =
                 LayoutInflater.from(context).inflate(R.layout.calendar_empty_item, parent, false)
-            return CalendarEmptyViewHolder(view)
+            CalendarEmptyViewHolder(view)
         }
     }
 
