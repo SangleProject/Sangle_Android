@@ -10,10 +10,15 @@ import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.three.minutes.R
 import org.three.minutes.databinding.ActivityHomeBinding
 import org.three.minutes.home.adapter.HomePageAdapter
 import org.three.minutes.home.viewmodel.HomeViewModel
+import org.three.minutes.singleton.LoadingObject
 import org.three.minutes.util.customChangeListener
 
 class HomeActiviy : AppCompatActivity() {
@@ -28,6 +33,14 @@ class HomeActiviy : AppCompatActivity() {
         binding.apply {
             lifecycleOwner = this@HomeActiviy
             viewModel = mViewModel
+        }
+
+        val progress = LoadingObject.setLoading(this)
+
+        CoroutineScope(Main).launch {
+            progress.show()
+            delay(2000)
+            progress.dismiss()
         }
 
         setSupportActionBar(home_toolbar)

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="calendarData"
+            type="org.three.minutes.home.data.CalendarData" />
+
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/calendar_day"
+            style="@style/P4_14pt_Light"
+            app:layout_constraintDimensionRatio="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:textColor="@color/black_80"
+            android:gravity="center"
+            android:text="@{Integer.toString(calendarData.day)}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
