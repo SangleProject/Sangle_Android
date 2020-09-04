@@ -18,7 +18,7 @@ class WritingActivity : AppCompatActivity() {
         mBinging = DataBindingUtil.setContentView(this, R.layout.activity_writing)
         mBinging.lifecycleOwner = this
         mBinging.activity = this
-
+        
         mImm = getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as InputMethodManager
     }
 
