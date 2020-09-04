@@ -1,4 +1,4 @@
-package org.three.minutes.home
+package org.three.minutes.home.adapter
 
 import android.annotation.SuppressLint
 import android.widget.ImageView

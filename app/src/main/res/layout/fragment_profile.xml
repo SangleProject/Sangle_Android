@@ -6,6 +6,9 @@
         <variable
             name="viewModel"
             type="org.three.minutes.home.viewmodel.HomeViewModel" />
+        <variable
+            name="fragment"
+            type="org.three.minutes.home.ui.ProfileFragment" />
 
     </data>
 
@@ -236,7 +239,8 @@
             android:paddingHorizontal="68dp"
             android:paddingVertical="14dp"
             android:text="글쓰러 가기"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:onClick="@{()->fragment.goToWriting()}"/>
 
 
     </RelativeLayout>
