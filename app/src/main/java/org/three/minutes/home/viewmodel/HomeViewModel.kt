@@ -3,10 +3,8 @@ package org.three.minutes.home.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.*
-import kotlinx.coroutines.Dispatchers.Default
 import org.three.minutes.home.data.CalendarData
 import java.util.*
-import kotlin.collections.ArrayList
 
 class HomeViewModel : ViewModel(){
 
@@ -24,11 +22,11 @@ class HomeViewModel : ViewModel(){
 
     fun settingDate(){
         viewModelScope.launch {
-            addDayData()
+                addDayData()
         }
     }
 
-    suspend fun addDayData(){
+    private suspend fun addDayData(){
         val today = GregorianCalendar()
         val emptyDay = today.get(Calendar.DAY_OF_WEEK) - 1 // 비어 있는 요일
         val max = today.getActualMaximum(Calendar.DAY_OF_MONTH) //마지막 날짜

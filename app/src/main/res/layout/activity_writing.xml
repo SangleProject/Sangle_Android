@@ -10,6 +10,10 @@
             name="activity"
             type="org.three.minutes.writing.ui.WritingActivity" />
 
+        <variable
+            name="viewmodel"
+            type="org.three.minutes.writing.viewmodel.WritingViewModel" />
+
     </data>
 
 
@@ -147,6 +151,16 @@
             android:textColor="@color/black_60"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/writing_timer_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{Integer.toString(viewmodel.timerCount)}"
+            tools:text = "타이머"
+            app:layout_constraintEnd_toStartOf="@+id/writing_count_txt"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/writing_scroll" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
