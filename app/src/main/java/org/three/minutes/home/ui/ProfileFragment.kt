@@ -20,6 +20,7 @@ import kotlinx.coroutines.withContext
 import org.three.minutes.R
 import org.three.minutes.databinding.FragmentProfileBinding
 import org.three.minutes.home.viewmodel.HomeViewModel
+import org.three.minutes.writing.ui.WritingActivity
 import org.three.minutes.writing.ui.WritingReadyActivity
 
 
@@ -71,7 +72,7 @@ class ProfileFragment : Fragment() {
     }
 
     fun goToWriting(){
-        val intent = Intent(mContext,WritingReadyActivity::class.java)
+        val intent = Intent(mContext, WritingActivity::class.java)
         startActivity(intent)
     }
 
