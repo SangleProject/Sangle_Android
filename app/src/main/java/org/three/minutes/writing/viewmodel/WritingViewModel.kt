@@ -11,7 +11,9 @@ class WritingViewModel() : ViewModel() {
     private val viewModelScope = CoroutineScope(Dispatchers.Main + job)
 
 
+
     var timerCount= MutableLiveData(35)
+    var writingCount = MutableLiveData(0)
 
     fun timerThreeMin() {
         viewModelScope.launch {
