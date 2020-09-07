@@ -134,7 +134,7 @@
             style="@style/H4_18pt_Light"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="100"
+            android:text="@{Integer.toString(viewmodel.writingCount)}"
             android:textColor="@color/black_60"
             android:layout_marginEnd="4dp"
             app:layout_constraintBottom_toBottomOf="@+id/textView"

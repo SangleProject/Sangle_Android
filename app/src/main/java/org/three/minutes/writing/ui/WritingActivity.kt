@@ -3,6 +3,8 @@ package org.three.minutes.writing.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -39,8 +41,33 @@ class WritingActivity : AppCompatActivity() {
                 }
             })
 
+        countingWrite()
+
+//      글자 수 카운팅
+        mBinging.writingContentsEdt.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(p0: Editable?) {}
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, count: Int) {
+                if ( s.isNullOrBlank()){
+                    mViewModel.writingCount.postValue(0)
+                }
+                else{
+                    mViewModel.writingCount.postValue(s.length)
+                }
+            }
+        })
 
         mImm = getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    }
+
+    private fun countingWrite() {
+        val count = mBinging.writingContentsEdt.text.toString()
+        if ( count.isBlank()){
+            mViewModel.writingCount.value = 0
+        }
+        else{
+            mViewModel.writingCount.value = count.length
+        }
     }
 
     // 작성 공간 외 다른 공간 클릭 시 키보드 내리고 포커스 해제
