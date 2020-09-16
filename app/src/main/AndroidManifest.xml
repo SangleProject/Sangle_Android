@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".writing.ui.WritingActivity" android:exported="true"/>
+        <activity android:name=".writing.ui.WritingActivity" android:exported="true" android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".writing.ui.WritingReadyActivity" android:exported="true" />
         <activity
             android:name=".login.ui.MainActivity"
