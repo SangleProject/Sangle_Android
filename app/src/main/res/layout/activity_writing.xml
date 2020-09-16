@@ -92,75 +92,120 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/writing_word_txt" />
 
-        <ScrollView
-            android:id="@+id/writing_scroll"
+
+        <EditText
+            android:id="@+id/writing_contents_edt"
+            style="@style/P2_16pt_Light"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:fillViewport="true"
-            android:overScrollMode="never"
+            android:backgroundTint="@android:color/transparent"
+            android:ems="10"
+            android:gravity="top"
+            android:hint="오늘의 키워드를 보고 떠오르는 생각들을 자유롭게 써 보세요!(제한시간 3분)"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName|textMultiLine"
+            android:paddingHorizontal="16dp"
+            android:textColor="@color/black_80"
+            app:layout_constraintTop_toBottomOf="@id/view_line"
+            app:layout_constraintBottom_toTopOf="@id/writing_t1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_line"
-            app:layout_constraintBottom_toTopOf="@id/writing_count_txt">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:id="@+id/writing_contents_edt"
-                    style="@style/P2_16pt_Light"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:backgroundTint="@android:color/transparent"
-                    android:ems="10"
-                    android:gravity="top"
-                    android:hint="오늘의 키워드를 보고 떠오르는 생각들을 자유롭게 써 보세요!(제한시간 3분)"
-                    android:importantForAutofill="no"
-                    android:inputType="textPersonName|textMultiLine"
-                    android:paddingHorizontal="16dp"
-                    android:textColor="@color/black_80"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </ScrollView>
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/writing_count_txt"
             style="@style/H4_18pt_Light"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
             android:text="@{Integer.toString(viewmodel.writingCount)}"
             android:textColor="@color/black_60"
-            android:layout_marginEnd="4dp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView"
-            app:layout_constraintEnd_toStartOf="@+id/textView" />
+            app:layout_constraintBottom_toBottomOf="@+id/writing_t1"
+            app:layout_constraintEnd_toStartOf="@+id/writing_t1"
+            app:layout_constraintTop_toTopOf="@+id/writing_t1"
+            tools:text="100" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/writing_t1"
             style="@style/H4_18pt_Light"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="60dp"
             android:text="자"
             android:textColor="@color/black_60"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/timer_layout"/>
 
-        <TextView
-            android:id="@+id/writing_timer_txt"
-            android:layout_width="wrap_content"
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/timer_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{Integer.toString(viewmodel.timerCount)}"
-            tools:text = "타이머"
-            app:layout_constraintEnd_toStartOf="@+id/writing_count_txt"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="60dp"
+            android:background="@drawable/timer_blue"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/writing_scroll" />
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:id="@+id/t2"
+                style="@style/P6_12pt_Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="4dp"
+                android:text="글쓰기 종료까지"
+                android:textColor="@color/main_blue"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/t3"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/t3"
+                style="@style/P5_12pt_Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00:00:"
+                android:textColor="@color/main_blue"
+                app:layout_constraintBottom_toBottomOf="@+id/t2"
+                app:layout_constraintEnd_toStartOf="@+id/writing_timer_txt"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/t2"
+                app:layout_constraintTop_toTopOf="@+id/t2" />
+
+            <TextView
+                android:id="@+id/writing_timer_txt"
+                style="@style/P5_12pt_Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{Integer.toString(viewmodel.timerCount)}"
+                android:textColor="@color/main_blue"
+                app:layout_constraintBottom_toBottomOf="@+id/t3"
+                app:layout_constraintEnd_toStartOf="@+id/t4"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/t3"
+                app:layout_constraintTop_toTopOf="@+id/t3"
+                tools:text="15" />
+
+            <TextView
+                android:id="@+id/t4"
+                style="@style/P6_12pt_Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="남음"
+                android:textColor="@color/main_blue"
+                app:layout_constraintBottom_toBottomOf="@+id/writing_timer_txt"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/writing_timer_txt"
+                app:layout_constraintTop_toTopOf="@+id/writing_timer_txt" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

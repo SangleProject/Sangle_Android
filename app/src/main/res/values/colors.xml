@@ -10,6 +10,8 @@
     <color name="black_20">#dbdbdb</color>
     <color name="white">#ffffff</color>
     <color name="main_blue">#4c9aff</color>
+    <color name="light_blue">#ECF4FF</color>
     <color name="light_gray">#f3f3f3</color>
     <color name="red">#FF3D3D</color>
+    <color name="light_red">#FFF1F1</color>
 </resources>

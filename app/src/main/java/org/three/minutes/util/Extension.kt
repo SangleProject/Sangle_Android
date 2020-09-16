@@ -1,8 +1,14 @@
 package org.three.minutes.util
 
+import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.TypedValue
+import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.LinearLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.viewpager.widget.ViewPager
 
 fun EditText.textCheckListener(textCheck: (CharSequence?) -> Unit) {
@@ -28,8 +34,8 @@ fun EditText.textCheckListener(textCheck: (CharSequence?) -> Unit) {
     })
 }
 
-fun ViewPager.customChangeListener(pageSelect :(Int) -> Unit){
-    this.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
+fun ViewPager.customChangeListener(pageSelect: (Int) -> Unit) {
+    this.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
         override fun onPageScrollStateChanged(state: Int) {
         }
 
@@ -45,3 +51,36 @@ fun ViewPager.customChangeListener(pageSelect :(Int) -> Unit){
         }
     })
 }
+
+// margin값 동적 할당
+fun View.margin(
+    left: Float? = null,
+    top: Float? = null,
+    right: Float? = null,
+    bottom: Float? = null
+) {
+//    layoutParams<ViewGroup.MarginLayoutParams> {
+//        left?.run { leftMargin = dpToPx(this) }
+//        top?.run { topMargin = dpToPx(this) }
+//        right?.run { rightMargin = dpToPx(this) }
+//        bottom?.run { bottomMargin = dpToPx(this) }
+//    }
+
+    val params = this.layoutParams as ConstraintLayout.LayoutParams
+    left?.run { params.leftMargin = dpToPx(this) }
+    top?.run { params.topMargin = dpToPx(this) }
+    right?.run { params.rightMargin = dpToPx(this) }
+    bottom?.run { params.bottomMargin = dpToPx(this) }
+
+    this.layoutParams = params
+
+}
+
+//inline fun <reified T : ViewGroup.LayoutParams> View.layoutParams(block: T.() -> Unit) {
+//    if (layoutParams is T) block(layoutParams as T)
+//}
+
+fun View.dpToPx(dp: Float): Int = context.dpToPx(dp)
+fun Context.dpToPx(dp: Float): Int =
+    TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics).toInt()
+
