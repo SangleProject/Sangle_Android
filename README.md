@@ -28,13 +28,14 @@
 
 ## Library
 
-| 라이브러리                                                                           | 사용목적                     |
-| ------------------------------------------------------------------------------------ | ---------------------------- |
-| [Glide](https://github.com/bumptech/glide)                                           | uri를 이용한 이미지 처리     |
-| [Retrofit2](https://github.com/square/retrofit)                                      | RESTful API 비동기 서버 통신 |
-| [Gson](https://github.com/google/gson)                                               | Json 객체를 Gson으로 변환    |
-| [ViewModel](https://developer.android.com/jetpack/androidx/releases/lifecycle?hl=ko) | 데이터와 UI로직의 분리       |
-| [LiveData](https://developer.android.com/jetpack/androidx/releases/lifecycle?hl=ko)  | 데이터의 실시간 감지         |
-| [Material Design](https://material.io/develop/android/docs/getting-started)          | 머티리얼 디자인              |
-| [PDF Viewer](https://github.com/barteksc/AndroidPdfViewer)                           | PDF파일을 화면에 보여줄 때   |
-|[Lottie](https://github.com/airbnb/lottie-android)|Lottie 애니메이션|
+| 라이브러리                                                                           | 사용목적                                        |
+| ------------------------------------------------------------------------------------ | ----------------------------------------------- |
+| [Glide](https://github.com/bumptech/glide)                                           | uri를 이용한 이미지 처리                        |
+| [Retrofit2](https://github.com/square/retrofit)                                      | RESTful API 비동기 서버 통신                    |
+| [Gson](https://github.com/google/gson)                                               | Json 객체를 Gson으로 변환                       |
+| [ViewModel](https://developer.android.com/jetpack/androidx/releases/lifecycle?hl=ko) | 데이터와 UI로직의 분리                          |
+| [LiveData](https://developer.android.com/jetpack/androidx/releases/lifecycle?hl=ko)  | 데이터의 실시간 감지                            |
+| [Material Design](https://material.io/develop/android/docs/getting-started)          | 머티리얼 디자인                                 |
+| [PDF Viewer](https://github.com/barteksc/AndroidPdfViewer)                           | PDF파일을 화면에 보여줄 때                      |
+| [Lottie](https://github.com/airbnb/lottie-android)                                   | Lottie 애니메이션                               |
+| [TedKeyboardObserver](https://github.com/ParkSangGwon/TedKeyboardObserver)           | 키보드 액션에 따른 margin 동적 할당을 위해 사용 |
