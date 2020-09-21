@@ -64,6 +64,7 @@
                     android:layout_alignParentEnd="true"
                     android:padding="16dp"
                     android:text="완료"
+                    android:onClick="@{()->activity.showCompletePopup()}"
                     android:textColor="@color/white" />
             </RelativeLayout>
 

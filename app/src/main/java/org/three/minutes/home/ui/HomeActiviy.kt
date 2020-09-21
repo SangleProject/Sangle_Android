@@ -66,6 +66,7 @@ class HomeActiviy : AppCompatActivity() {
     }
 
     private fun settingDrawer() {
+        // 드로어 레이아웃 슬라이드 잠금 여부 설정
         home_drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
     }
 
