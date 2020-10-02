@@ -3,9 +3,7 @@ package org.three.minutes.home.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
 import androidx.activity.viewModels
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
@@ -18,7 +16,7 @@ import org.three.minutes.R
 import org.three.minutes.databinding.ActivityHomeBinding
 import org.three.minutes.home.adapter.HomePageAdapter
 import org.three.minutes.home.viewmodel.HomeViewModel
-import org.three.minutes.singleton.LoadingObject
+import org.three.minutes.singleton.PopUpObject
 import org.three.minutes.util.customChangeListener
 
 class HomeActiviy : AppCompatActivity() {
@@ -35,7 +33,7 @@ class HomeActiviy : AppCompatActivity() {
             viewModel = mViewModel
         }
 
-        val progress = LoadingObject.setLoading(this)
+        val progress = PopUpObject.setLoading(this)
 
         CoroutineScope(Main).launch {
             progress.show()
@@ -66,6 +64,7 @@ class HomeActiviy : AppCompatActivity() {
     }
 
     private fun settingDrawer() {
+        // 드로어 레이아웃 슬라이드 잠금 여부 설정
         home_drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
     }
 
