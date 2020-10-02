@@ -5,7 +5,7 @@ import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatDialog
 import org.three.minutes.R
 
-object LoadingObject {
+object PopUpObject {
 
     // 로딩 팝업
     fun setLoading(activity: Activity) : AppCompatDialog{
@@ -19,7 +19,7 @@ object LoadingObject {
     }
 
     // 제출 팝업
-    fun setComplete(activity: Activity) : AppCompatDialog{
+    fun showComplete(activity: Activity) : AppCompatDialog{
         val progress = AppCompatDialog(activity)
         progress.apply {
             setCancelable(true)
@@ -29,5 +29,16 @@ object LoadingObject {
         }
 
         return progress
+    }
+
+    fun showTimeOver(activity: Activity) : AppCompatDialog{
+        val progress = AppCompatDialog(activity)
+        progress.apply {
+            setCancelable(false)
+            window?.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
+            setCanceledOnTouchOutside(false)
+            setContentView(R.layout.writing_timeover_popup)
+            return progress
+        }
     }
 }

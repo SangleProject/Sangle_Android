@@ -22,7 +22,8 @@ class WritingViewModel() : ViewModel() {
     }
 
     private suspend fun startTimer() {
-        for (i in 5 downTo 0) {
+        for (i in 15 downTo 0) {
+
             timerCount.postValue(i)
             delay(1000)
         }

@@ -12,9 +12,10 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import gun0912.tedkeyboardobserver.TedKeyboardObserver
 import kotlinx.android.synthetic.main.writing_complete_popup.*
+import kotlinx.android.synthetic.main.writing_timeover_popup.*
 import org.three.minutes.R
 import org.three.minutes.databinding.ActivityWritingBinding
-import org.three.minutes.singleton.LoadingObject
+import org.three.minutes.singleton.PopUpObject
 import org.three.minutes.util.margin
 import org.three.minutes.util.textCheckListener
 import org.three.minutes.writing.viewmodel.WritingViewModel
@@ -23,7 +24,9 @@ class WritingActivity : AppCompatActivity() {
     private lateinit var mBinging: ActivityWritingBinding
     private lateinit var mImm: InputMethodManager
     private val mViewModel: WritingViewModel by viewModels()
-    private lateinit var completePopup : AppCompatDialog
+    private lateinit var mCompletePopup: AppCompatDialog
+    private lateinit var mTimeoverPopup: AppCompatDialog
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +35,8 @@ class WritingActivity : AppCompatActivity() {
         mBinging.activity = this
         mViewModel.timerThreeMin()
         mBinging.viewmodel = mViewModel
-        completePopup = LoadingObject.setComplete(this)
+        mCompletePopup = PopUpObject.showComplete(this)
+        mTimeoverPopup = PopUpObject.showTimeOver(this)
 
 
         //팝업 클릭 리스너 세팅
@@ -53,6 +57,11 @@ class WritingActivity : AppCompatActivity() {
                         )
                         t4.setTextColor(ContextCompat.getColor(mBinging.root.context, R.color.red))
                     }
+                } else if (count == 0) {
+                    if(mCompletePopup.isShowing){
+                        mCompletePopup.dismiss()
+                    }
+                    mTimeoverPopup.show()
                 }
             })
 
@@ -75,15 +84,22 @@ class WritingActivity : AppCompatActivity() {
     }
 
     private fun initPopup() {
-        completePopup.apply {
+        mCompletePopup.apply {
             complete_stop_btn.setOnClickListener {
-                Toast.makeText(this@WritingActivity,"ok", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@WritingActivity, "ok", Toast.LENGTH_SHORT).show()
             }
             complete_close_btn.setOnClickListener {
                 dismiss()
             }
             complete_continue_btn.setOnClickListener {
                 dismiss()
+            }
+        }
+
+        mTimeoverPopup.apply {
+            timeover_stop_btn.setOnClickListener {
+                Toast.makeText(this@WritingActivity, "go to complete"
+                    , Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -118,7 +134,7 @@ class WritingActivity : AppCompatActivity() {
     }
 
     fun showCompletePopup() {
-        completePopup.show()
+        mCompletePopup.show()
 
     }
 }
