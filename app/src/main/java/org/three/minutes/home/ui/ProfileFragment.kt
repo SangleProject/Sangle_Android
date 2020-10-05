@@ -10,21 +10,20 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import kotlinx.android.synthetic.main.fragment_profile.view.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.Default
-import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import org.three.minutes.R
 import org.three.minutes.databinding.FragmentProfileBinding
 import org.three.minutes.home.viewmodel.HomeViewModel
-import org.three.minutes.writing.ui.WritingActivity
+import org.three.minutes.singleton.PopUpObject
 import org.three.minutes.writing.ui.WritingReadyActivity
+import kotlin.coroutines.CoroutineContext
 
 
-class ProfileFragment : Fragment() {
+class ProfileFragment : Fragment(),CoroutineScope {
+
+    private lateinit var job : Job
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
 
     private lateinit var mActiviy : HomeActiviy
     private lateinit var mContext : Context
@@ -40,6 +39,7 @@ class ProfileFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
+        job = Job()
     }
 
     override fun onCreateView(
@@ -55,26 +55,32 @@ class ProfileFragment : Fragment() {
         }
 
         //코루틴을 사용해서 시간 지나면 이미지 변경 + 데이터 바인딩
-        CoroutineScope(Default).launch {
-            launch {
-                delay(5000)
-            }.join()
+        launch {
+            delay(5000)
 
-            Log.d("checkIncrease", "${mViewModel.increDecre.value}")
-
-            withContext(Main) {
-                mViewModel.increDecre.value = 2
-            }
-
+            mViewModel.increDecre.value = 2
         }
 
         return mBinding.root
     }
 
     fun goToWriting(){
-        val intent = Intent(mContext, WritingActivity::class.java)
-        startActivity(intent)
+        launch {
+            val progress = PopUpObject.setLoading(activity as HomeActiviy)
+            progress.show()
+
+            delay(2000)
+            progress.dismiss()
+
+            val intent = Intent(mContext, WritingReadyActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
+    }
 
 }

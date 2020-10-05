@@ -42,6 +42,8 @@ class WritingActivity : AppCompatActivity() {
         //팝업 클릭 리스너 세팅
         initPopup()
 
+        
+        // 타이머의 시간에 따라 UI 변경
         mViewModel.timerCount.observe(this,
             { count ->
                 if (count == 3) {
@@ -136,5 +138,10 @@ class WritingActivity : AppCompatActivity() {
     fun showCompletePopup() {
         mCompletePopup.show()
 
+    }
+
+    // 취소 버튼 누르면 뒤로 가기
+    fun clickCancleBtn(){
+        finish()
     }
 }

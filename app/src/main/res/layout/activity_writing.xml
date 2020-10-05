@@ -45,6 +45,7 @@
                     android:layout_height="wrap_content"
                     android:padding="16dp"
                     android:text="취소"
+                    android:onClick="@{()->activity.clickCancleBtn()}"
                     android:textColor="@color/white" />
 
                 <TextView

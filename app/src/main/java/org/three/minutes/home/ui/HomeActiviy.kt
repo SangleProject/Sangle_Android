@@ -8,23 +8,25 @@ import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import org.three.minutes.R
 import org.three.minutes.databinding.ActivityHomeBinding
 import org.three.minutes.home.adapter.HomePageAdapter
 import org.three.minutes.home.viewmodel.HomeViewModel
-import org.three.minutes.singleton.PopUpObject
 import org.three.minutes.util.customChangeListener
+import kotlin.coroutines.CoroutineContext
 
-class HomeActiviy : AppCompatActivity() {
+class HomeActiviy : AppCompatActivity(), CoroutineScope {
+
+    private lateinit var job: Job
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
 
     private val mViewModel : HomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        job = Job()
 
         val binding: ActivityHomeBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_home)
@@ -33,13 +35,7 @@ class HomeActiviy : AppCompatActivity() {
             viewModel = mViewModel
         }
 
-        val progress = PopUpObject.setLoading(this)
 
-        CoroutineScope(Main).launch {
-            progress.show()
-            delay(2000)
-            progress.dismiss()
-        }
 
         setSupportActionBar(home_toolbar)
         supportActionBar?.apply {
@@ -105,5 +101,10 @@ class HomeActiviy : AppCompatActivity() {
         super.finish()
         overridePendingTransition(R.anim.slide_hold, R.anim.slide_out_right)
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
     }
 }
