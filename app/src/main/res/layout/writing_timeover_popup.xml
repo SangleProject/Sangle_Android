@@ -60,7 +60,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:background="@drawable/popup_btn_right"
+            android:background="@drawable/timeout_popup_btn"
             android:paddingVertical="12dp"
             android:text="방금 쓴 글 보러가기"
             android:textAlignment="center"
