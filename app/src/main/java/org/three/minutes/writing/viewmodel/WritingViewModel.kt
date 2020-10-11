@@ -1,6 +1,6 @@
 package org.three.minutes.writing.viewmodel
 
-import android.util.Log
+
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.*
@@ -27,6 +27,10 @@ class WritingViewModel() : ViewModel() {
             timerCount.postValue(i)
             delay(1000)
         }
+    }
+
+    fun stopCount(){
+        job.cancel()
     }
 
 

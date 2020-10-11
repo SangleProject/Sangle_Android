@@ -6,7 +6,8 @@
     <color name="black">#000000</color>
     <color name="black_100">#2a2a2a</color>
     <color name="black_80">#434343</color>
-    <color name ="black_60">#868686</color>
+    <color name="black_60">#868686</color>
+    <color name="black_40">#C5C7CA</color>
     <color name="black_20">#dbdbdb</color>
     <color name="white">#ffffff</color>
     <color name="main_blue">#4c9aff</color>
