@@ -1,5 +1,6 @@
 package org.three.minutes.writing.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +12,8 @@ import androidx.appcompat.app.AppCompatDialog
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import gun0912.tedkeyboardobserver.TedKeyboardObserver
+import kotlinx.android.synthetic.main.activity_writing.*
+import kotlinx.android.synthetic.main.activity_writing.view.*
 import kotlinx.android.synthetic.main.writing_complete_popup.*
 import kotlinx.android.synthetic.main.writing_timeover_popup.*
 import org.three.minutes.R
@@ -88,7 +91,9 @@ class WritingActivity : AppCompatActivity() {
     private fun initPopup() {
         mCompletePopup.apply {
             complete_stop_btn.setOnClickListener {
-                Toast.makeText(this@WritingActivity, "ok", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@WritingActivity, WritingResultActivity::class.java)
+                startActivity(intent)
+                finish()
             }
             complete_close_btn.setOnClickListener {
                 dismiss()
@@ -100,8 +105,14 @@ class WritingActivity : AppCompatActivity() {
 
         mTimeoverPopup.apply {
             timeover_stop_btn.setOnClickListener {
-                Toast.makeText(this@WritingActivity, "go to complete"
-                    , Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@WritingActivity, WritingResultActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+            timeover_close_btn.setOnClickListener {
+                val intent = Intent(this@WritingActivity, WritingResultActivity::class.java)
+                startActivity(intent)
+                finish()
             }
         }
     }
