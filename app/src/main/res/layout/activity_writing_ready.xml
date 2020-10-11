@@ -1,21 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/main_blue"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/ready_lottie"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"/>
+    <data>
+        <variable
+            name="activity"
+            type="org.three.minutes.writing.ui.WritingReadyActivity" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/main_blue"
+        tools:ignore="HardcodedText,ContentDescription">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/ready_lottie"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="70dp"
+            android:scaleType="centerCrop"
+            android:scaleX='2'
+            android:scaleY="2"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView8"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="keyword.json"
+            app:lottie_loop="true" />
+
+        <TextView
+            style="@style/P1_16pt_SemiBold"
+            android:id="@+id/ready_word_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="글감"
+            android:textAlignment="center"
+            android:textSize="36sp"
+            android:textColor="@color/black_100"
+            app:layout_constraintBottom_toBottomOf="@+id/ready_lottie"
+            app:layout_constraintEnd_toEndOf="@id/ready_lottie"
+            app:layout_constraintStart_toStartOf="@+id/ready_lottie"
+            app:layout_constraintTop_toTopOf="@+id/ready_lottie" />
+
+        <TextView
+            style="@style/H1_24pt_Regular"
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="96dp"
+            android:text="3초뒤 시작합니다."
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            style="@style/P2_16pt_Light"
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="3분동안 주어지는 키워드를 보고\n자유롭게 글을 쓰세요!"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+        <ImageView
+            android:id="@+id/ready_cancle_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_cancle_white"
+            android:padding="24dp"
+            android:onClick="@{()->activity.finishActivity()"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
