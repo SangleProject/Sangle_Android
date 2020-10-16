@@ -6,14 +6,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDialog
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import gun0912.tedkeyboardobserver.TedKeyboardObserver
-import kotlinx.android.synthetic.main.activity_writing.*
-import kotlinx.android.synthetic.main.activity_writing.view.*
 import kotlinx.android.synthetic.main.writing_complete_popup.*
 import kotlinx.android.synthetic.main.writing_timeover_popup.*
 import org.three.minutes.R
@@ -24,7 +21,7 @@ import org.three.minutes.util.textCheckListener
 import org.three.minutes.writing.viewmodel.WritingViewModel
 
 class WritingActivity : AppCompatActivity() {
-    private lateinit var mBinging: ActivityWritingBinding
+    private lateinit var mBinding: ActivityWritingBinding
     private lateinit var mImm: InputMethodManager
     private val mViewModel: WritingViewModel by viewModels()
     private lateinit var mCompletePopup: AppCompatDialog
@@ -33,11 +30,11 @@ class WritingActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBinging = DataBindingUtil.setContentView(this, R.layout.activity_writing)
-        mBinging.lifecycleOwner = this
-        mBinging.activity = this
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_writing)
+        mBinding.lifecycleOwner = this
+        mBinding.activity = this
         mViewModel.timerThreeMin()
-        mBinging.viewmodel = mViewModel
+        mBinding.viewmodel = mViewModel
         mCompletePopup = PopUpObject.showComplete(this)
         mTimeoverPopup = PopUpObject.showTimeOver(this)
 
@@ -50,17 +47,17 @@ class WritingActivity : AppCompatActivity() {
         mViewModel.timerCount.observe(this,
             { count ->
                 if (count == 3) {
-                    mBinging.timerLayout.setBackgroundResource(R.drawable.timer_red)
-                    mBinging.apply {
-                        t2.setTextColor(ContextCompat.getColor(mBinging.root.context, R.color.red))
-                        t3.setTextColor(ContextCompat.getColor(mBinging.root.context, R.color.red))
+                    mBinding.timerLayout.setBackgroundResource(R.drawable.timer_red)
+                    mBinding.apply {
+                        t2.setTextColor(ContextCompat.getColor(mBinding.root.context, R.color.red))
+                        t3.setTextColor(ContextCompat.getColor(mBinding.root.context, R.color.red))
                         writingTimerTxt.setTextColor(
                             ContextCompat.getColor(
-                                mBinging.root.context,
+                                mBinding.root.context,
                                 R.color.red
                             )
                         )
-                        t4.setTextColor(ContextCompat.getColor(mBinging.root.context, R.color.red))
+                        t4.setTextColor(ContextCompat.getColor(mBinding.root.context, R.color.red))
                     }
                 } else if (count == 0) {
                     if(mCompletePopup.isShowing){
@@ -76,11 +73,11 @@ class WritingActivity : AppCompatActivity() {
         // 키보드가 올라오는 것에 따라 타이머 위치 변경
         TedKeyboardObserver(this).listen {
             if (it) {
-                mBinging.timerLayout.margin(bottom = 4F)
+                mBinding.timerLayout.margin(bottom = 4F)
 
                 Log.d("checkKeyboard", "open")
             } else {
-                mBinging.timerLayout.margin(bottom = 60F)
+                mBinding.timerLayout.margin(bottom = 60F)
             }
         }
 
@@ -92,6 +89,7 @@ class WritingActivity : AppCompatActivity() {
         mCompletePopup.apply {
             complete_stop_btn.setOnClickListener {
                 val intent = Intent(this@WritingActivity, WritingResultActivity::class.java)
+                intent.putExtra("contents",mBinding.writingContentsEdt.text.toString())
                 startActivity(intent)
                 finish()
             }
@@ -106,11 +104,13 @@ class WritingActivity : AppCompatActivity() {
         mTimeoverPopup.apply {
             timeover_stop_btn.setOnClickListener {
                 val intent = Intent(this@WritingActivity, WritingResultActivity::class.java)
+                intent.putExtra("contents",mBinding.writingContentsEdt.text.toString())
                 startActivity(intent)
                 finish()
             }
             timeover_close_btn.setOnClickListener {
                 val intent = Intent(this@WritingActivity, WritingResultActivity::class.java)
+                intent.putExtra("contents",mBinding.writingContentsEdt.text.toString())
                 startActivity(intent)
                 finish()
             }
@@ -119,7 +119,7 @@ class WritingActivity : AppCompatActivity() {
 
 
     private fun countingWrite() {
-        val count = mBinging.writingContentsEdt.text.toString()
+        val count = mBinding.writingContentsEdt.text.toString()
         if (count.isBlank()) {
             mViewModel.writingCount.value = 0
         } else {
@@ -127,7 +127,7 @@ class WritingActivity : AppCompatActivity() {
         }
 
         //      글자 수 카운팅
-        mBinging.writingContentsEdt.textCheckListener { s ->
+        mBinding.writingContentsEdt.textCheckListener { s ->
             if (s.isNullOrBlank()) {
                 mViewModel.writingCount.postValue(0)
             } else {
@@ -141,7 +141,7 @@ class WritingActivity : AppCompatActivity() {
     fun clearAllFocus(view: View) {
         if (mImm.isAcceptingText) {
             view.clearFocus()
-            mImm.hideSoftInputFromWindow(mBinging.writingContentsEdt.windowToken, 0)
+            mImm.hideSoftInputFromWindow(mBinding.writingContentsEdt.windowToken, 0)
 
         }
     }
