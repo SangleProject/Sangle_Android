@@ -2,9 +2,10 @@ package org.three.minutes.writing.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import kotlinx.android.synthetic.main.activity_signup.*
 import kotlinx.android.synthetic.main.activity_writing_result.*
 import org.three.minutes.R
 import org.three.minutes.databinding.ActivityWritingResultBinding
@@ -26,5 +27,11 @@ class WritingResultActivity : AppCompatActivity() {
         }
         setSupportActionBar(result_toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        val intent = intent
+        mViewModel.contents.value = intent.getStringExtra("contents").toString()
+
+        // 글 내용 TextView 스크롤
+        mBinding.resultContentsTxt.movementMethod = ScrollingMovementMethod()
     }
 }
