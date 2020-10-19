@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "22102442288",
+    "firebase_url": "https://sangle-b4d7c.firebaseio.com",
+    "project_id": "sangle-b4d7c",
+    "storage_bucket": "sangle-b4d7c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:22102442288:android:d0cc339dd3a621fe2f48f5",
+        "android_client_info": {
+          "package_name": "org.three.minutes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "22102442288-g4hcc2alq7aiqt89nb3t98llj4o6fijk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.three.minutes",
+            "certificate_hash": "b28e4ef28f00200fe3ac2720b4314bd0ebfb9c49"
+          }
+        },
+        {
+          "client_id": "22102442288-dnpv3i2veuc1d29lhpk5uabfj3tjq8c8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeMeKLnrBmbAK-FckjzBB1kjcYw-48spM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "22102442288-dnpv3i2veuc1d29lhpk5uabfj3tjq8c8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
