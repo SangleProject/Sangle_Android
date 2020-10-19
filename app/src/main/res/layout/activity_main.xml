@@ -124,6 +124,24 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/find_password_btn" />
 
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/signin_google"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="@+id/start_login_btn"
+            app:layout_constraintStart_toStartOf="@+id/start_login_btn"
+            app:layout_constraintTop_toBottomOf="@id/start_login_btn" />
+
+        <Button
+            android:id="@+id/signout_google"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="구글 로그아웃 시험 버튼"
+            app:layout_constraintEnd_toEndOf="@+id/signin_google"
+            app:layout_constraintStart_toStartOf="@+id/signin_google"
+            app:layout_constraintTop_toBottomOf="@+id/signin_google" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
