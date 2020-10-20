@@ -124,23 +124,60 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/find_password_btn" />
 
-        <com.google.android.gms.common.SignInButton
+        <View
+            android:id="@+id/line1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/black_20"
+            android:layout_marginEnd="26dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView9"
+            app:layout_constraintEnd_toStartOf="@+id/textView9"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="@+id/start_login_btn"
+            app:layout_constraintTop_toTopOf="@+id/textView9" />
+
+        <TextView
+            android:id="@+id/textView9"
+            style="@style/P2_16pt_Light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:text="또는"
+            android:textColor="@color/black_60"
+            app:layout_constraintEnd_toStartOf="@+id/line2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/line1"
+            app:layout_constraintTop_toBottomOf="@+id/start_login_btn" />
+
+        <View
+            android:id="@+id/line2"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="26dp"
+            android:background="@color/black_20"
+            app:layout_constraintBottom_toBottomOf="@+id/textView9"
+            app:layout_constraintEnd_toEndOf="@+id/start_login_btn"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView9"
+            app:layout_constraintTop_toTopOf="@+id/textView9" />
+
+
+        <Button
             android:id="@+id/signin_google"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="16dp"
+            android:text="Sign in with Google"
+            android:gravity="start|center_vertical"
+            android:fontFamily="@font/roboto_medium"
+            android:background="@drawable/common_google_signin_btn_text_light"
+            android:textSize="14sp"
+            android:textAllCaps="false"
+            android:textColor="@color/black_60"
             app:layout_constraintEnd_toEndOf="@+id/start_login_btn"
             app:layout_constraintStart_toStartOf="@+id/start_login_btn"
-            app:layout_constraintTop_toBottomOf="@id/start_login_btn" />
-
-        <Button
-            android:id="@+id/signout_google"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="구글 로그아웃 시험 버튼"
-            app:layout_constraintEnd_toEndOf="@+id/signin_google"
-            app:layout_constraintStart_toStartOf="@+id/signin_google"
-            app:layout_constraintTop_toBottomOf="@+id/signin_google" />
+            app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
