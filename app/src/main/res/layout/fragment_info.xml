@@ -33,7 +33,7 @@
 
         <TextView
             android:id="@+id/info_sub_title"
-            style="@style/P1_16pt_Regular"
+            style="@style/P1_16pt_Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
