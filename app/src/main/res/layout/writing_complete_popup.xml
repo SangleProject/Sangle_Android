@@ -56,7 +56,7 @@
 
         <TextView
             android:id="@+id/complete_stop_btn"
-            style="@style/P1_16pt_Regular"
+            style="@style/P1_16pt_Medium"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
@@ -75,7 +75,7 @@
 
         <TextView
             android:id="@+id/complete_continue_btn"
-            style="@style/P1_16pt_Regular"
+            style="@style/P1_16pt_Medium"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/popup_btn_right"

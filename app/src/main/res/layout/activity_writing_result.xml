@@ -184,7 +184,7 @@
 
             <TextView
                 android:id="@+id/result_delete_txt"
-                style="@style/P1_16pt_Regular"
+                style="@style/P1_16pt_Medium"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:gravity="center"
@@ -198,7 +198,7 @@
 
             <TextView
                 android:id="@+id/result_modify_txt"
-                style="@style/P1_16pt_Regular"
+                style="@style/P1_16pt_Medium"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:gravity="center"
@@ -215,7 +215,7 @@
 
         <TextView
             android:id="@+id/textView4"
-            style="@style/P1_16pt_Regular"
+            style="@style/P1_16pt_Medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"

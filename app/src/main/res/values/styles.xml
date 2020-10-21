@@ -61,8 +61,9 @@
         <item name="android:lineSpacingExtra">8sp</item>
         <item name="android:letterSpacing">-0.02</item>
     </style>
-    <style name="P1_16pt_Regular" parent="baseFontSetting">
-        <item name="fontFamily">@font/notosanskr_regular</item>
+
+    <style name="P1_16pt_Medium" parent="baseFontSetting">
+        <item name="fontFamily">@font/notosanskr_medium</item>
         <item name="android:textSize">16sp</item>
         <item name="android:lineSpacingExtra">8sp</item>
         <item name="android:letterSpacing">-0.02</item>
