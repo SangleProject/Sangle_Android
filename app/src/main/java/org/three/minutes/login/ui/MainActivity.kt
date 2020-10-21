@@ -17,6 +17,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import gun0912.tedkeyboardobserver.TedKeyboardObserver
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
 import org.three.minutes.R
@@ -91,6 +92,16 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
             }
         }
 
+        mBinding.mainLayout.setOnClickListener {
+            clearFocus()
+        }
+        TedKeyboardObserver(this)
+            .listen { isShow ->
+                if(!isShow){
+                    clearFocus()
+                }
+            }
+
     }
 
     override fun onStart() {
@@ -119,14 +130,14 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
     }
 
     // 레이아웃 클릭 시 키보드 내리기
-    fun hideKeyboard() {
+    private fun clearFocus() {
         //키보드가 활성화 되어있는지 확인 -> isAcceptingText
         if (mImm.isAcceptingText) {
-            login_edt.clearFocus()
-            password_edt.clearFocus()
             mImm.hideSoftInputFromWindow(this.currentFocus?.windowToken, 0)
         }
 
+        mBinding.loginEdt.clearFocus()
+        mBinding.passwordEdt.clearFocus()
     }
 
     // 로그인 클릭 시 확인 함수

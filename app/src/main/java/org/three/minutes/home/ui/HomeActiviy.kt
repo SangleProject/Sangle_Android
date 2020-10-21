@@ -1,10 +1,12 @@
 package org.three.minutes.home.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
@@ -15,6 +17,7 @@ import org.three.minutes.R
 import org.three.minutes.databinding.ActivityHomeBinding
 import org.three.minutes.home.adapter.HomePageAdapter
 import org.three.minutes.home.viewmodel.HomeViewModel
+import org.three.minutes.profile.ui.ProfileChangeActivity
 import org.three.minutes.util.customChangeListener
 import kotlin.coroutines.CoroutineContext
 
@@ -29,6 +32,8 @@ class HomeActiviy : AppCompatActivity(), CoroutineScope {
     private val mBinding : ActivityHomeBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_home)
     }
+
+    private val PROFILE_CODE = 100
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +72,11 @@ class HomeActiviy : AppCompatActivity(), CoroutineScope {
         // 드로어 레이아웃 슬라이드 잠금 여부 설정
         mBinding.homeDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         mBinding.homeDrawer.ic_navi_right.setOnClickListener {
-            Toast.makeText(this,"open",Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, ProfileChangeActivity::class.java)
+            startActivityForResult(intent,PROFILE_CODE)
+        }
+        mBinding.homeDrawer.close_navi_img.setOnClickListener {
+            mBinding.homeDrawer.close()
         }
     }
 
@@ -96,12 +105,14 @@ class HomeActiviy : AppCompatActivity(), CoroutineScope {
     }
 
     override fun onBackPressed() {
-        if (mBinding.homeDrawer.isDrawerOpen(GravityCompat.START)) {
-            mBinding.homeDrawer.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
-        }
-
+//        if (mBinding.homeDrawer.isDrawerOpen(GravityCompat.START)) {
+//            mBinding.homeDrawer.closeDrawer(GravityCompat.START)
+//        } else {
+//            super.onBackPressed()
+//        }
+        super.onBackPressed()
+        ActivityCompat.finishAffinity(this)
+//        exitProcess(0)
     }
 
     override fun finish() {
@@ -113,5 +124,17 @@ class HomeActiviy : AppCompatActivity(), CoroutineScope {
     override fun onDestroy() {
         super.onDestroy()
         job.cancel()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == PROFILE_CODE){
+            if (resultCode == RESULT_OK){
+                Toast.makeText(this,"Profile Change Success",Toast.LENGTH_SHORT).show()
+            }
+            else{
+                Toast.makeText(this,"Profile Change Cancel",Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

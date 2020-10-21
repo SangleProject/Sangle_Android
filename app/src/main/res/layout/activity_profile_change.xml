@@ -1,9 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".profile.ui.ProfileChangeActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <data>
+
+        <variable
+            name="viewModel"
+            type="org.three.minutes.profile.viewmodel.ProfileViewModel" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".profile.ui.ProfileChangeActivity"
+        tools:ignore="HardcodedText">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:contentInsetStart="0dp">
+
+                <ImageView
+                    android:id="@+id/profile_menu_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_menu_hamburg"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    style="@style/H3_18pt_SemiBold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="프로필 변경"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/profile_changed_txt"
+                    style="@style/H4_18pt_Light"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:padding="16dp"
+                    android:text="저장"
+                    android:textColor="@color/white" />
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/profile_img_rcv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+
+        <EditText
+            android:id="@+id/profile_nickname_edt"
+            style="@style/H4_18pt_Light"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="9dp"
+            android:layout_marginTop="48dp"
+            android:backgroundTint="@color/black_20"
+            android:ems="10"
+            android:hint="변경할 닉네임을 입력해 주세요. (최대 10자)"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:lines="1"
+            android:maxLength="10"
+            android:paddingBottom="26dp"
+            android:textColor="@color/black_60"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_img_rcv" />
+
+        <EditText
+            android:id="@+id/profile_introduce_edt"
+            style="@style/H4_18pt_Light"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:backgroundTint="@color/black_20"
+            android:ellipsize="none"
+            android:ems="10"
+            android:hint="한줄 소개를 입력해 주세요."
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:maxLength="30"
+            android:paddingBottom="26dp"
+            android:singleLine="true"
+            android:textColor="@color/black_60"
+            android:text="@={viewModel.introduce}"
+            app:layout_constraintEnd_toEndOf="@+id/profile_nickname_edt"
+            app:layout_constraintStart_toStartOf="@+id/profile_nickname_edt"
+            app:layout_constraintTop_toBottomOf="@+id/profile_nickname_edt" />
+
+        <TextView
+            android:id="@+id/num"
+            style="@style/P3_14pt_Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="6dp"
+            android:text="/30자"
+            android:textColor="@color/black_40"
+            app:layout_constraintEnd_toEndOf="@+id/profile_introduce_edt"
+            app:layout_constraintTop_toBottomOf="@+id/profile_introduce_edt" />
+
+        <TextView
+            android:id="@+id/intro_count_txt"
+            style="@style/P3_14pt_Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{Integer.toString(viewModel.introduceCount)}"
+            android:textColor="@color/black_40"
+            app:layout_constraintBottom_toBottomOf="@+id/num"
+            app:layout_constraintEnd_toStartOf="@+id/num"
+            app:layout_constraintTop_toTopOf="@+id/num" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
