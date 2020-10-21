@@ -12,8 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".writing.ui.WritingResultActivity"
-            android:exported="true"/>
+        <activity android:name=".profile.ui.ProfileChangeActivity"></activity>
+        <activity
+            android:name=".writing.ui.WritingResultActivity"
+            android:exported="true" />
         <activity
             android:name=".writing.ui.WritingActivity"
             android:exported="true"
