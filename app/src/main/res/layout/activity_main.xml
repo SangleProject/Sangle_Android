@@ -16,7 +16,6 @@
         android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:onClick="@{()->activity.hideKeyboard()}"
         tools:context=".login.ui.MainActivity"
         tools:ignore="HardcodedText"
         tools:targetApi="p">
@@ -172,7 +171,7 @@
             android:gravity="start|center_vertical"
             android:fontFamily="@font/roboto"
             android:textFontWeight="400"
-            android:background="@drawable/common_google_signin_btn_text_light"
+            android:background="@drawable/common_google_signin_btn_text_light_normal"
             android:textSize="14sp"
             android:textAllCaps="false"
             android:textColor="@color/black_60"

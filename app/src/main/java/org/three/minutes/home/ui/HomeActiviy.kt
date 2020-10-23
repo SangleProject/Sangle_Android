@@ -1,18 +1,23 @@
 package org.three.minutes.home.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.home_navigation.view.*
 import kotlinx.coroutines.*
 import org.three.minutes.R
 import org.three.minutes.databinding.ActivityHomeBinding
 import org.three.minutes.home.adapter.HomePageAdapter
 import org.three.minutes.home.viewmodel.HomeViewModel
+import org.three.minutes.profile.ui.ProfileChangeActivity
 import org.three.minutes.util.customChangeListener
 import kotlin.coroutines.CoroutineContext
 
@@ -24,13 +29,17 @@ class HomeActiviy : AppCompatActivity(), CoroutineScope {
 
     private val mViewModel : HomeViewModel by viewModels()
 
+    private val mBinding : ActivityHomeBinding by lazy {
+        DataBindingUtil.setContentView(this, R.layout.activity_home)
+    }
+
+    private val PROFILE_CODE = 100
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         job = Job()
 
-        val binding: ActivityHomeBinding =
-            DataBindingUtil.setContentView(this, R.layout.activity_home)
-        binding.apply {
+        mBinding.apply {
             lifecycleOwner = this@HomeActiviy
             viewModel = mViewModel
         }
@@ -47,7 +56,7 @@ class HomeActiviy : AppCompatActivity(), CoroutineScope {
 
 
 
-        home_toolbar.setNavigationOnClickListener {
+        mBinding.homeToolbar.setNavigationOnClickListener {
             Log.d("OpenDrawer", "Open")
             if (!home_drawer.isDrawerOpen(GravityCompat.START)) {
                 home_drawer.openDrawer(GravityCompat.START)
@@ -61,24 +70,31 @@ class HomeActiviy : AppCompatActivity(), CoroutineScope {
 
     private fun settingDrawer() {
         // 드로어 레이아웃 슬라이드 잠금 여부 설정
-        home_drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        mBinding.homeDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        mBinding.homeDrawer.ic_navi_right.setOnClickListener {
+            val intent = Intent(this, ProfileChangeActivity::class.java)
+            startActivityForResult(intent,PROFILE_CODE)
+        }
+        mBinding.homeDrawer.close_navi_img.setOnClickListener {
+            mBinding.homeDrawer.close()
+        }
     }
 
     private fun initViewPager() {
-        home_page.adapter = HomePageAdapter(supportFragmentManager)
+        mBinding.homePage.adapter = HomePageAdapter(supportFragmentManager)
         //가운데가 기준
-        home_bottom_navi.menu.getItem(1).isChecked = true
-        home_page.currentItem = 1
+        mBinding.homeBottomNavi.menu.getItem(1).isChecked = true
+        mBinding.homePage.currentItem = 1
 
         //뷰페이저 슬라이드 시 바텀네비 아이콘 상태 변경
-        home_page.customChangeListener {
-            home_bottom_navi.menu.getItem(it).isChecked = true
+        mBinding.homePage.customChangeListener {
+            mBinding.homeBottomNavi.menu.getItem(it).isChecked = true
         }
 
         //아이콘 안보여서 속성 설정
-        home_bottom_navi.itemIconTintList = null
+        mBinding.homeBottomNavi.itemIconTintList = null
 
-        home_bottom_navi.setOnNavigationItemSelectedListener {
+        mBinding.homeBottomNavi.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_feed -> home_page.currentItem = 0
                 R.id.menu_main -> home_page.currentItem = 1
@@ -89,12 +105,14 @@ class HomeActiviy : AppCompatActivity(), CoroutineScope {
     }
 
     override fun onBackPressed() {
-        if (home_drawer.isDrawerOpen(GravityCompat.START)) {
-            home_drawer.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
-        }
-
+//        if (mBinding.homeDrawer.isDrawerOpen(GravityCompat.START)) {
+//            mBinding.homeDrawer.closeDrawer(GravityCompat.START)
+//        } else {
+//            super.onBackPressed()
+//        }
+        super.onBackPressed()
+        ActivityCompat.finishAffinity(this)
+//        exitProcess(0)
     }
 
     override fun finish() {
@@ -106,5 +124,17 @@ class HomeActiviy : AppCompatActivity(), CoroutineScope {
     override fun onDestroy() {
         super.onDestroy()
         job.cancel()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == PROFILE_CODE){
+            if (resultCode == RESULT_OK){
+                Toast.makeText(this,"Profile Change Success",Toast.LENGTH_SHORT).show()
+            }
+            else{
+                Toast.makeText(this,"Profile Change Cancel",Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }
