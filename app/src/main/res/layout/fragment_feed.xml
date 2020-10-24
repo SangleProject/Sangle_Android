@@ -30,13 +30,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="4dp"
-            android:text="어제의 인기글🏆"
+            android:text="어제의 인기글"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView11"
+            android:id="@+id/info_txt"
             style="@style/P4_14pt_Light"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,6 +47,8 @@
             app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/feed_rcv"
+            android:clipToPadding="false"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="20dp"
@@ -54,7 +56,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView11" />
+            app:layout_constraintTop_toBottomOf="@+id/info_txt"
+            tools:listitem="@layout/feed_list_item"
+            tools:itemCount="3"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
