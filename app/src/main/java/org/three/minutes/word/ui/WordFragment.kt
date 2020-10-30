@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import org.three.minutes.R
 import org.three.minutes.databinding.FragmentWordBinding
+import org.three.minutes.word.data.TodayWordData
 import org.three.minutes.word.viewmodel.WordViewModel
 
 
@@ -24,6 +25,12 @@ class WordFragment : Fragment() {
 
         mBinding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_word, container,false)
         mBinding.viewModel = mViewModel
+        mViewModel.todayWordList = mutableListOf(
+            TodayWordData("바다",16,true),
+            TodayWordData("바다",16,false),
+            TodayWordData("바다",16,false)
+        )
+
         return mBinding.root
     }
 

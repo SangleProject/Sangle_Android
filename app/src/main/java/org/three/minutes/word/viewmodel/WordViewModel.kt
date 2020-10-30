@@ -1,11 +1,11 @@
 package org.three.minutes.word.viewmodel
 
+
 import androidx.lifecycle.ViewModel
-import org.three.minutes.util.changeEmoji
+import org.three.minutes.word.data.TodayWordData
 
 class WordViewModel () : ViewModel(){
 
-    val pageEmoji = 0x1F4DD.changeEmoji()
-    val wordTitle = "오늘의 글감 $pageEmoji"
+    var todayWordList = mutableListOf<TodayWordData>()
 
 }
