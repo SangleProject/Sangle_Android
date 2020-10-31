@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".word.ui.WordFragment"
-        tools:ignore="HardcodedText">
+        tools:ignore="HardcodedText,RtlSymmetry">
 
         <TextView
             android:id="@+id/today_word_title_txt"
@@ -46,13 +46,44 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            android:paddingStart="12dp"
             app:itemlist="@{viewModel.todayWordList}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:listitem="@layout/word_lock_item_list"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/textView12" />
+            app:layout_constraintTop_toBottomOf="@+id/textView12"
+            tools:listitem="@layout/word_lock_item_list" />
+
+
+        <TextView
+            android:id="@+id/txt_num5"
+            style="@style/P6_12pt_Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="가려진 오늘의 글감이 궁금하다면?"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/today_word_rcv" />
+
+        <TextView
+            style="@style/P1_16pt_Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/timer_blue"
+            android:paddingHorizontal="14dp"
+            android:layout_marginTop="18dp"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:paddingVertical="6dp"
+            android:text="지금 바로 글 쓰러 가기"
+            android:textColor="@color/main_blue"
+            app:layout_constraintEnd_toEndOf="@+id/txt_num5"
+            app:layout_constraintStart_toStartOf="@+id/txt_num5"
+            app:layout_constraintTop_toBottomOf="@+id/txt_num5" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

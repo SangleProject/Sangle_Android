@@ -13,5 +13,6 @@ fun RecyclerView.setData(data : MutableList<TodayWordData>){
     this.adapter = adapter
     this.layoutManager =
         LinearLayoutManager(this.context,LinearLayoutManager.HORIZONTAL,false)
+    this.addItemDecoration(TodayRcvItemDeco(this.context,true,4))
     adapter.notifyDataSetChanged()
 }
