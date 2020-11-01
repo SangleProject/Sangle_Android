@@ -39,6 +39,7 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
         super.onCreate(savedInstanceState)
         mBinding.apply {
             lifecycleOwner = this@WordActivity
+            viewModel = mViewModel
         }
 
         mImm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

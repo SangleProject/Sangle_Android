@@ -6,7 +6,7 @@ import android.util.TypedValue
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
-class TodayRcvItemDeco(context: Context, private val isHorizon: Boolean, size: Int = 20) :
+class WordRcvItemDeco(context: Context, private val isHorizon: Boolean, size: Int = 20) :
     RecyclerView.ItemDecoration() {
     private val size_space: Int
 
@@ -31,9 +31,12 @@ class TodayRcvItemDeco(context: Context, private val isHorizon: Boolean, size: I
         super.getItemOffsets(outRect, view, parent, state)
 
         if (isHorizon){
-
             outRect.left = size_space
             outRect.right = size_space
+        }
+        else{
+            outRect.top = size_space
+            outRect.bottom = size_space
         }
     }
 }
