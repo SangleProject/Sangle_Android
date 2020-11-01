@@ -114,7 +114,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:background="@drawable/timer_blue"
+            android:background="@drawable/past_writing_group_box"
             android:orientation="horizontal"
             android:padding="2dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -123,6 +123,7 @@
 
             <RadioButton
                 style="@style/P6_12pt_Regular"
+                android:elevation="1dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -137,6 +138,7 @@
 
             <RadioButton
                 style="@style/P6_12pt_Regular"
+                android:elevation="1dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -149,6 +151,7 @@
 
             <RadioButton
                 style="@style/P6_12pt_Regular"
+                android:elevation="1dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
