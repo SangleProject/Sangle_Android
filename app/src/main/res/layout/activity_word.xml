@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="org.three.minutes.word.viewmodel.WordViewModel" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".word.WordActivity"
+        tools:ignore="HardcodedText">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/word_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:navigationIcon="@drawable/ic_back"
+                app:contentInsetStartWithNavigation="0dp"
+                app:contentInsetStart="0dp">
+
+                <EditText
+                    android:id="@+id/search_box_edt"
+                    style="@style/P3_14pt_Regular"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="검색어를 입력하세요."
+                    android:layout_marginEnd="16dp"
+                    android:paddingVertical="6dp"
+                    android:drawableStart="@drawable/ic_search_gray"
+                    android:drawablePadding="4dp"
+                    android:paddingStart="10dp"
+                    android:background="@drawable/search_box"
+                    android:inputType="text"
+                    android:lines="1"
+                    android:ellipsize="end"
+                    android:imeOptions="actionSearch"
+                    tools:ignore="RtlSymmetry"
+                    android:visibility="gone"/>
+
+                <TextView
+                    style="@style/H3_18pt_Regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="글감"
+                    android:textColor="@color/white" />
+
+                <ImageView
+                    android:id="@+id/search_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_search_white"
+                    android:layout_gravity="end"/>
+
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appbar_layout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -12,7 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".profile.ui.ProfileChangeActivity" android:exported="true"/>
+        <activity android:name=".word.WordActivity" android:exported="true"/>
+        <activity
+            android:name=".profile.ui.ProfileChangeActivity"
+            android:exported="true" />
         <activity
             android:name=".writing.ui.WritingResultActivity"
             android:exported="true" />
@@ -41,7 +44,6 @@
             android:windowSoftInputMode="stateHidden|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
