@@ -19,6 +19,7 @@ import org.three.minutes.home.adapter.HomePageAdapter
 import org.three.minutes.home.viewmodel.HomeViewModel
 import org.three.minutes.profile.ui.ProfileChangeActivity
 import org.three.minutes.util.customChangeListener
+import org.three.minutes.word.WordActivity
 import kotlin.coroutines.CoroutineContext
 
 class HomeActiviy : AppCompatActivity(), CoroutineScope {
@@ -77,6 +78,10 @@ class HomeActiviy : AppCompatActivity(), CoroutineScope {
         }
         mBinding.homeDrawer.close_navi_img.setOnClickListener {
             mBinding.homeDrawer.close()
+        }
+        mBinding.homeDrawer.navi_writing_txt.setOnClickListener {
+            val intent = Intent(this, WordActivity::class.java)
+            startActivity(intent)
         }
     }
 
