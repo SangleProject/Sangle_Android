@@ -57,7 +57,7 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
             if (mBinding.searchBoxEdt.visibility == View.VISIBLE) {
                 downKeyBoard()
             } else {
-                Toast.makeText(this, "Go Back", Toast.LENGTH_SHORT).show()
+                finish()
             }
         }
 
@@ -92,6 +92,11 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
             return false
         }
         return true
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
     }
 
     override fun onBackPressed() {
