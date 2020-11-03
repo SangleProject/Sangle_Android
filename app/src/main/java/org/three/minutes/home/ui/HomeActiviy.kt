@@ -124,11 +124,6 @@ class HomeActiviy : AppCompatActivity(), CoroutineScope {
     override fun onDestroy() {
         super.onDestroy()
         job.cancel()
-<<<<<<< HEAD
-
-=======
-        
->>>>>>> #42
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
