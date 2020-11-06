@@ -16,4 +16,5 @@
     <color name="red">#FF3D3D</color>
     <color name="light_red">#FFF1F1</color>
     <color name="light_light_gray">#fbfbfb</color>
+    <color name="light_mint">#e7fffb</color>
 </resources>
