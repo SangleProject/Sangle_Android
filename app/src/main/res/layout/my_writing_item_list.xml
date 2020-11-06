@@ -5,6 +5,9 @@
     tools:ignore="HardcodedText">
 
     <data>
+        <variable
+            name="data"
+            type="org.three.minutes.mypage.data.MyWritingData" />
 
     </data>
 
@@ -24,6 +27,7 @@
             android:textColor="@color/main_blue"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:text="@{data.title}"
             tools:text="빨대" />
 
         <TextView
@@ -34,7 +38,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/item_title_txt"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/item_title_txt"
-            tools:text="2020.06.22 (월) PM 2:30" />
+            android:text="@{data.date}"
+            tools:text="@string/date_sample" />
 
         <View
             android:id="@+id/blue_line"
@@ -69,6 +74,7 @@
             android:background="@drawable/favorite_box"
             android:drawablePadding="4dp"
             android:padding="8dp"
+            android:text="@{Integer.toString(data.favoriteCount)}"
             app:drawableStartCompat="@drawable/ic_favorite_selected"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/item_contents"

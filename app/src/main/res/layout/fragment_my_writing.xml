@@ -33,14 +33,15 @@
             app:drawableStartCompat="@drawable/ic_align"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="인기순" />
+            tools:text="최신순" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/my_writing_rcv"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="20dp"
             android:overScrollMode="never"
+            app:myWritingItem="@{viewModel.myWritingList}"
+            android:layout_marginHorizontal="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
