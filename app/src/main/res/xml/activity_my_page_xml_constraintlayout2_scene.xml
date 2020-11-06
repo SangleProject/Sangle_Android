@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@id/start"
+        motion:motionInterpolator="linear">
+
+        <KeyFrameSet>
+            <KeyAttribute
+                android:alpha="0"
+                android:translationY="-30dp"
+                motion:framePosition="100"
+                motion:motionTarget="@+id/my_profile_img" />
+
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="100"
+                android:translationY="-30dp"
+                motion:motionTarget="@+id/my_id_txt"/>
+
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="100"
+                android:translationY="-30dp"
+                motion:motionTarget="@+id/my_intro_txt"/>
+        </KeyFrameSet>
+
+        <OnSwipe
+            motion:dragDirection="dragUp"
+            motion:touchAnchorId="@+id/my_writing_tab_layout"
+            motion:touchAnchorSide="top" />
+        <OnSwipe />
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start" />
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@+id/my_writing_tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@+id/appbar_layout" />
+    </ConstraintSet>
+</MotionScene>
