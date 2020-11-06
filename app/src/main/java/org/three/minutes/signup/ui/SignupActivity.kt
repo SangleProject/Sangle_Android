@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.activity_signup.*
 import org.three.minutes.R
+import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.ActivitySignupBinding
 import org.three.minutes.signup.adapter.ViewPagerAdapter
 import org.three.minutes.signup.viewmodel.SignUpViewModel
@@ -31,8 +32,7 @@ class SignupActivity : AppCompatActivity() {
 
         //상태바 투명으로 만들기
         StatusObject.setStatusBar(this)
-        mImm =
-            getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        mImm = ThreeApplication.getInstance().getInputMethodManager()
 
         setSupportActionBar(signup_toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)

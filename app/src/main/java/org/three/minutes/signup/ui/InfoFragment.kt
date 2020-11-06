@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.activity_signup.*
 import kotlinx.android.synthetic.main.fragment_info.*
 import org.three.minutes.R
+import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.FragmentInfoBinding
 import org.three.minutes.signup.viewmodel.SignUpViewModel
 
@@ -32,7 +33,7 @@ class InfoFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        mImm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        mImm = ThreeApplication.getInstance().getInputMethodManager()
         mViewModel = ViewModelProvider(requireActivity())[SignUpViewModel::class.java]
     }
 

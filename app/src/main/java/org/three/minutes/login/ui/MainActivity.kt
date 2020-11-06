@@ -21,6 +21,7 @@ import gun0912.tedkeyboardobserver.TedKeyboardObserver
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
 import org.three.minutes.R
+import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.ActivityMainBinding
 import org.three.minutes.home.ui.HomeActiviy
 import org.three.minutes.signup.ui.SignupActivity
@@ -54,7 +55,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
 
         super.onCreate(savedInstanceState)
         mBinding.activity = this
-        mImm = getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        mImm = ThreeApplication.getInstance().getInputMethodManager()
         job = Job()
 
         //상태바 투명으로 만들기

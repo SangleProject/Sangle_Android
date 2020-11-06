@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.activity_signup.*
 import kotlinx.android.synthetic.main.fragment_nick.*
 import org.three.minutes.R
+import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.FragmentNickBinding
 import org.three.minutes.signup.viewmodel.SignUpViewModel
 
@@ -32,7 +33,7 @@ class NickFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        mImm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        mImm = ThreeApplication.getInstance().getInputMethodManager()
         mViewModel = ViewModelProvider(requireActivity())[SignUpViewModel::class.java]
     }
 
@@ -46,7 +47,7 @@ class NickFragment : Fragment() {
             viewModel = mViewModel
         }
 
-        mViewModel.nickname.observe(this, Observer<String> {nickname ->
+        mViewModel.nickname.observe(viewLifecycleOwner, Observer<String> {nickname ->
             mActivity.signup_next_txt.isEnabled = !nickname.isNullOrBlank() && nickname.length >=2
         })
 

@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.activity_signup.*
 import kotlinx.android.synthetic.main.fragment_password.*
 import org.three.minutes.R
+import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.FragmentPasswordBinding
 import org.three.minutes.signup.viewmodel.SignUpViewModel
 import org.three.minutes.singleton.PatternObject
@@ -49,7 +50,7 @@ class PasswordFragment : Fragment() {
 
         val view = mBinding.root
 
-        mImm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        mImm = ThreeApplication.getInstance().getInputMethodManager()
 
         return view
     }

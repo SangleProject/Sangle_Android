@@ -9,6 +9,7 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import gun0912.tedkeyboardobserver.TedKeyboardObserver
 import org.three.minutes.R
+import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.ActivityProfileChangeBinding
 import org.three.minutes.profile.viewmodel.ProfileViewModel
 
@@ -22,7 +23,7 @@ class ProfileChangeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        setContentView(R.layout.activity_profile_change)
-        mImm = getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        mImm = ThreeApplication.getInstance().getInputMethodManager()
 
         mBinding.apply {
             lifecycleOwner = this@ProfileChangeActivity
