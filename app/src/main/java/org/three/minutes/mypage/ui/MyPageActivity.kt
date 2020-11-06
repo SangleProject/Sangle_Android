@@ -6,6 +6,7 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import org.three.minutes.R
 import org.three.minutes.databinding.ActivityMyPageBinding
+import org.three.minutes.mypage.adapter.MyViewPagerAdapter
 import org.three.minutes.mypage.data.MyWritingData
 import org.three.minutes.mypage.viewmodel.MyPageViewModel
 
@@ -24,23 +25,22 @@ class MyPageActivity : AppCompatActivity() {
             viewModel = mViewModel
         }
 
-        setMyWritingData()
+        setMyViewPager()
+        setMyTabLayout()
     }
 
-    private fun setMyWritingData() {
-        mViewModel.myWritingList = mutableListOf(
-            MyWritingData(title = "빨대", date = getString(R.string.date_sample),
-                contents = getString(R.string.contents_sample), favoriteCount = 1224),
-            MyWritingData(title = "빨대", date = getString(R.string.date_sample),
-                contents = getString(R.string.contents_sample), favoriteCount = 1224),
-            MyWritingData(title = "빨대", date = getString(R.string.date_sample),
-                contents = getString(R.string.contents_sample), favoriteCount = 1224),
-            MyWritingData(title = "빨대", date = getString(R.string.date_sample),
-                contents = getString(R.string.contents_sample), favoriteCount = 1224),
-            MyWritingData(title = "빨대", date = getString(R.string.date_sample),
-                contents = getString(R.string.contents_sample), favoriteCount = 1224),
-            MyWritingData(title = "빨대", date = getString(R.string.date_sample),
-                contents = getString(R.string.contents_sample), favoriteCount = 1224)
-        )
+    private fun setMyTabLayout() {
+        mBinding.myWritingTabLayout.setupWithViewPager(mBinding.myWritingViewpager)
+        mBinding.myWritingTabLayout.apply {
+            getTabAt(0)?.text = "첫번째"
+            getTabAt(1)?.text = "두번째"
+        }
     }
+
+    private fun setMyViewPager() {
+        val adapter = MyViewPagerAdapter(supportFragmentManager)
+        mBinding.myWritingViewpager.adapter = adapter
+    }
+
+
 }

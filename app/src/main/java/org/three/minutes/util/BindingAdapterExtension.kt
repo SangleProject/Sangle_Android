@@ -39,5 +39,7 @@ fun RecyclerView.setMyWritingData(data : MutableList<MyWritingData>){
     this.layoutManager =
         LinearLayoutManager(this.context)
 
+    adapter.data = data
+
     adapter.notifyDataSetChanged()
 }

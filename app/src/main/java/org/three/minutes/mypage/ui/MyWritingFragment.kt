@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import org.three.minutes.R
 import org.three.minutes.databinding.FragmentMyWritingBinding
+import org.three.minutes.mypage.data.MyWritingData
 import org.three.minutes.mypage.viewmodel.MyPageViewModel
 
 
@@ -26,7 +27,26 @@ class MyWritingFragment : Fragment() {
             viewModel = mViewModel
         }
 
+        setMyWritingData()
+
         return mBinding.root
+    }
+
+    private fun setMyWritingData() {
+        mViewModel.myWritingList = mutableListOf(
+            MyWritingData(title = "빨대", date = getString(R.string.date_sample),
+                contents = getString(R.string.contents_sample), favoriteCount = 1224),
+            MyWritingData(title = "빨대", date = getString(R.string.date_sample),
+                contents = getString(R.string.contents_sample), favoriteCount = 1224),
+            MyWritingData(title = "빨대", date = getString(R.string.date_sample),
+                contents = getString(R.string.contents_sample), favoriteCount = 1224),
+            MyWritingData(title = "빨대", date = getString(R.string.date_sample),
+                contents = getString(R.string.contents_sample), favoriteCount = 1224),
+            MyWritingData(title = "빨대", date = getString(R.string.date_sample),
+                contents = getString(R.string.contents_sample), favoriteCount = 1224),
+            MyWritingData(title = "빨대", date = getString(R.string.date_sample),
+                contents = getString(R.string.contents_sample), favoriteCount = 1224)
+        )
     }
 
 }

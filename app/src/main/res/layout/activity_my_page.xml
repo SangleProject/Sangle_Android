@@ -14,11 +14,11 @@
 
 
     <androidx.constraintlayout.motion.widget.MotionLayout
-        android:id="@+id/constraintLayout2"
+        android:id="@+id/top_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/main_blue"
-        app:layoutDescription="@xml/activity_my_page_xml_constraintlayout2_scene">
+        app:layoutDescription="@xml/activity_my_page_xml_top_container_scene">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar_layout"
@@ -85,26 +85,22 @@
 
         <TextView
             android:id="@+id/my_id_txt"
-            style="@style/H3_18pt_Regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="30dp"
             android:textColor="@color/white"
             app:layout_constraintStart_toEndOf="@+id/my_profile_img"
-            app:layout_constraintTop_toBottomOf="@+id/appbar_layout"
-            tools:text="머리가 말랑말랑" />
+            app:layout_constraintTop_toBottomOf="@+id/appbar_layout" />
 
         <TextView
             android:id="@+id/my_intro_txt"
-            style="@style/P6_12pt_Regular"
             android:layout_width="212dp"
             android:layout_height="16dp"
             android:layout_marginTop="2dp"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="@+id/my_id_txt"
-            app:layout_constraintTop_toBottomOf="@+id/my_id_txt"
-            tools:text="소소한 일상을 나답게 살아가고자 글을 씁니다!" />
+            app:layout_constraintTop_toBottomOf="@+id/my_id_txt" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline5"
@@ -113,36 +109,48 @@
             android:orientation="vertical"
             app:layout_constraintGuide_begin="80dp" />
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/my_writing_tab_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="23dp"
-            android:background="@drawable/top_radius_white_box"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/my_profile_img"
-            app:tabIndicatorColor="@color/main_blue" >
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="첫번째"/>
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="두번째"/>
-        </com.google.android.material.tabs.TabLayout>
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/my_writing_viewpager"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/my_contents_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="36dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/my_writing_tab_layout"
-            app:layout_constraintVertical_bias="0.0"
-            tools:background="@color/white" />
+            app:layout_constraintTop_toBottomOf="@id/my_profile_img">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/my_writing_tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tabIndicatorColor="@color/main_blue">
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="첫번째" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="두번째" />
+            </com.google.android.material.tabs.TabLayout>
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/my_writing_viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/my_writing_tab_layout" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.constraintlayout.motion.widget.MotionLayout>
