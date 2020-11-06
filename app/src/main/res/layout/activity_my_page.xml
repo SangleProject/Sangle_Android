@@ -2,9 +2,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="HardcodedText,ContentDescription">
+    tools:ignore="HardcodedText,ContentDescription,Autofill,RtlSymmetry">
 
     <data>
+
         <variable
             name="viewModel"
             type="org.three.minutes.mypage.viewmodel.MyPageViewModel" />
@@ -15,6 +16,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/main_blue"
         tools:context=".mypage.ui.MyPageActivity">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -28,27 +30,27 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/draw_toolbar"
                 android:layout_width="match_parent"
-                app:navigationIcon="@drawable/ic_back"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent"
+                app:navigationIcon="@drawable/ic_back">
 
                 <EditText
                     android:id="@+id/search_box_edt"
                     style="@style/P3_14pt_Regular"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="검색어를 입력하세요."
                     android:layout_marginEnd="16dp"
-                    android:paddingVertical="6dp"
+                    android:background="@drawable/search_box"
                     android:drawableStart="@drawable/ic_search_gray"
                     android:drawablePadding="4dp"
-                    android:paddingStart="10dp"
-                    android:background="@drawable/search_box"
+                    android:ellipsize="end"
+                    android:hint="검색어를 입력하세요."
+                    android:imeOptions="actionSearch"
                     android:inputType="text"
                     android:lines="1"
-                    android:ellipsize="end"
-                    android:imeOptions="actionSearch"
-                    tools:ignore="RtlSymmetry"
-                    android:visibility="gone"/>
+                    android:paddingVertical="6dp"
+                    android:paddingStart="10dp"
+                    android:visibility="gone"
+                    />
 
                 <TextView
                     style="@style/H3_18pt_Regular"
@@ -56,19 +58,81 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="MY 서랍"
-                    android:textColor="@color/white"
-                     />
+                    android:textColor="@color/white" />
 
                 <ImageView
                     android:id="@+id/search_img"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_search_white"
                     android:layout_gravity="end"
-                    />
+                    android:src="@drawable/ic_search_white" />
 
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
+
+        <ImageView
+            android:id="@+id/my_profile_img"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/profile1"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toStartOf="@+id/guideline5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appbar_layout" />
+
+        <TextView
+            android:id="@+id/my_id_txt"
+            style="@style/H3_18pt_Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="30dp"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toEndOf="@+id/my_profile_img"
+            app:layout_constraintTop_toBottomOf="@+id/appbar_layout"
+            tools:text="머리가 말랑말랑" />
+
+        <TextView
+            android:id="@+id/textView13"
+            style="@style/P6_12pt_Regular"
+            android:layout_width="212dp"
+            android:layout_height="16dp"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="@+id/my_id_txt"
+            app:layout_constraintTop_toBottomOf="@+id/my_id_txt"
+            tools:text="소소한 일상을 나답게 살아가고자 글을 씁니다!" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="80dp" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/my_writing_tablayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="23dp"
+            app:tabIndicatorColor="@color/main_blue"
+            android:background="@drawable/top_radius_white_box"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/my_profile_img"/>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/my_writing_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            tools:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/my_writing_tablayout"
+            app:layout_constraintVertical_bias="0.0" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
