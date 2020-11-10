@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/top_radius_white_box"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
     tools:ignore="HardcodedText,ContentDescription">
 
     <TextView
@@ -36,8 +36,8 @@
         app:layout_constraintTop_toBottomOf="@id/sort_txt">
 
         <TextView
-            style="@style/P1_16pt_Medium"
             android:id="@+id/recent_txt"
+            style="@style/P1_16pt_Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -72,8 +72,8 @@
         app:layout_constraintTop_toBottomOf="@id/recent_box">
 
         <TextView
-            style="@style/P1_16pt_Medium"
             android:id="@+id/popular_txt"
+            style="@style/P1_16pt_Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"

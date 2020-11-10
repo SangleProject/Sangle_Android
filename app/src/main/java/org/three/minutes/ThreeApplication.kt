@@ -3,6 +3,7 @@ package org.three.minutes
 import android.app.Application
 import android.content.Context
 import android.view.inputmethod.InputMethodManager
+import org.three.minutes.mypage.ui.MyBottomSheet
 
 class ThreeApplication : Application(){
     private lateinit var mImm : InputMethodManager

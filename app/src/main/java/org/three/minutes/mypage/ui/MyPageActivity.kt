@@ -17,6 +17,7 @@ class MyPageActivity : AppCompatActivity() {
     }
 
     private val mViewModel : MyPageViewModel by viewModels()
+    private lateinit var bottomSheet : MyBottomSheet
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +25,9 @@ class MyPageActivity : AppCompatActivity() {
             lifecycleOwner = this@MyPageActivity
             viewModel = mViewModel
         }
+
+        // Set Bottom Sheet
+        bottomSheet = MyBottomSheet()
 
         setMyViewPager()
         setMyTabLayout()
@@ -40,6 +44,10 @@ class MyPageActivity : AppCompatActivity() {
     private fun setMyViewPager() {
         val adapter = MyViewPagerAdapter(supportFragmentManager)
         mBinding.myWritingViewpager.adapter = adapter
+    }
+
+    fun showBottomSheet(){
+        bottomSheet.show(supportFragmentManager,"MyBottom")
     }
 
 

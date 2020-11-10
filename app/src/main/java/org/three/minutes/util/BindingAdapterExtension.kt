@@ -40,6 +40,6 @@ fun RecyclerView.setMyWritingData(data : MutableList<MyWritingData>){
         LinearLayoutManager(this.context)
 
     adapter.data = data
-
+    this.addItemDecoration(WordRcvItemDeco(this.context,false,6))
     adapter.notifyDataSetChanged()
 }

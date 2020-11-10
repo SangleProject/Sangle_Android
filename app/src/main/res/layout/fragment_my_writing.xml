@@ -42,6 +42,8 @@
             android:overScrollMode="never"
             app:myWritingItem="@{viewModel.myWritingList}"
             android:layout_marginHorizontal="16dp"
+            android:clipToPadding="false"
+            android:layout_marginTop="6dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

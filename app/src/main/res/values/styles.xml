@@ -6,7 +6,17 @@
         <item name="colorPrimaryDark">@color/main_blue</item>
         <item name="colorAccent">@color/main_blue</item>
         <item name="android:windowBackground">@color/white</item>
+        <item name="bottomSheetDialogTheme">@style/customBottomSheet</item>
 <!--        <item name="android:windowAnimationStyle"></item>-->
+    </style>
+
+
+    <style name="customBottomSheet" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/bottomSheetRounding</item>
+    </style>
+
+    <style name="bottomSheetRounding" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/top_radius_white_box</item>
     </style>
 
     <style name="CustomActivityAnimation" parent="@android:style/Animation.Activity">

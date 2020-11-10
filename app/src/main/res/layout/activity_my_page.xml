@@ -84,21 +84,27 @@
             app:layout_constraintTop_toBottomOf="@+id/appbar_layout" />
 
         <TextView
+            style="@style/H3_18pt_Regular"
             android:id="@+id/my_id_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="30dp"
+            android:text="@{viewModel.myId}"
             android:textColor="@color/white"
+            tools:text="머리가 말랑말랑"
             app:layout_constraintStart_toEndOf="@+id/my_profile_img"
             app:layout_constraintTop_toBottomOf="@+id/appbar_layout" />
 
         <TextView
+            style="@style/P6_12pt_Regular"
             android:id="@+id/my_intro_txt"
-            android:layout_width="212dp"
-            android:layout_height="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:textColor="@color/white"
+            android:text="@{viewModel.myIntro}"
+            tools:text="@string/sample_intro"
             app:layout_constraintStart_toStartOf="@+id/my_id_txt"
             app:layout_constraintTop_toBottomOf="@+id/my_id_txt" />
 
