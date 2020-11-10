@@ -3,6 +3,8 @@ package org.three.minutes.util
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import org.three.minutes.mypage.adapter.MyWritingAdapter
+import org.three.minutes.mypage.data.MyWritingData
 import org.three.minutes.word.adapter.PastWritingRcvAdapter
 import org.three.minutes.word.adapter.TodayWordRcvAdapter
 import org.three.minutes.word.data.PastWritingData
@@ -26,6 +28,18 @@ fun RecyclerView.setPastWritingData(data : MutableList<PastWritingData>){
     this.adapter = adapter
     this.layoutManager =
         LinearLayoutManager(this.context)
+    this.addItemDecoration(WordRcvItemDeco(this.context,false,6))
+    adapter.notifyDataSetChanged()
+}
+
+@BindingAdapter("app:myWritingItem")
+fun RecyclerView.setMyWritingData(data : MutableList<MyWritingData>){
+    val adapter = MyWritingAdapter(this.context)
+    this.adapter = adapter
+    this.layoutManager =
+        LinearLayoutManager(this.context)
+
+    adapter.data = data
     this.addItemDecoration(WordRcvItemDeco(this.context,false,6))
     adapter.notifyDataSetChanged()
 }

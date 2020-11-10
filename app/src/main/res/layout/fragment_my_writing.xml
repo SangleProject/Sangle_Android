@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="org.three.minutes.mypage.viewmodel.MyPageViewModel" />
+
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/light_light_gray">
+
+        <TextView
+            android:id="@+id/my_writing_filter_txt"
+            style="@style/P6_12pt_Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/gray_filter"
+            android:drawablePadding="8dp"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="8dp"
+            android:text="@{viewModel.filter}"
+            android:textColor="@color/black_80"
+            app:drawableStartCompat="@drawable/ic_align"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="최신순" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/my_writing_rcv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:overScrollMode="never"
+            app:myWritingItem="@{viewModel.myWritingList}"
+            android:layout_marginHorizontal="16dp"
+            android:clipToPadding="false"
+            android:layout_marginTop="6dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/my_writing_filter_txt" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

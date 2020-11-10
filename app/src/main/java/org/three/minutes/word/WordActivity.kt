@@ -15,6 +15,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import org.three.minutes.R
+import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.ActivityWordBinding
 import org.three.minutes.word.ui.WordFragment
 import org.three.minutes.word.viewmodel.WordViewModel
@@ -28,10 +29,11 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
     private val mBinding: ActivityWordBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_word)
     }
+
     private lateinit var mImm: InputMethodManager
 
     private val mViewModel: WordViewModel by viewModels()
-    private val wordFragment : WordFragment by lazy {
+    private val wordFragment: WordFragment by lazy {
         WordFragment()
     }
 
@@ -41,14 +43,15 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
             lifecycleOwner = this@WordActivity
             viewModel = mViewModel
         }
-
-        mImm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        mImm = ThreeApplication.getInstance().getInputMethodManager()
         settingToolbar()
         settingFragment()
+
     }
 
     private fun settingFragment() {
-       supportFragmentManager.beginTransaction().add(mBinding.containerLayout.id,wordFragment).commit()
+        supportFragmentManager.beginTransaction().add(mBinding.containerLayout.id, wordFragment)
+            .commit()
     }
 
     private fun settingToolbar() {

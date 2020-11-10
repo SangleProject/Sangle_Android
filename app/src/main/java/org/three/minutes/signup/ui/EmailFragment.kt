@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.fragment_email.*
 import org.three.minutes.R
+import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.FragmentEmailBinding
 import org.three.minutes.signup.viewmodel.SignUpViewModel
 
@@ -42,7 +43,7 @@ class EmailFragment : Fragment() {
             lifecycleOwner = this@EmailFragment
             viewModel = mViewModel
         }
-        mImm = mView.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        mImm = ThreeApplication.getInstance().getInputMethodManager()
 
         return mView
     }
