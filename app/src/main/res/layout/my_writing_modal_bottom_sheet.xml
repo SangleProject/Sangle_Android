@@ -37,6 +37,7 @@
 
         <TextView
             style="@style/P1_16pt_Medium"
+            android:id="@+id/recent_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -53,6 +54,7 @@
             android:layout_height="0dp"
             android:scaleType="center"
             android:src="@drawable/ic_check_blue"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="H,1"
             app:layout_constraintEnd_toEndOf="parent"
@@ -71,6 +73,7 @@
 
         <TextView
             style="@style/P1_16pt_Medium"
+            android:id="@+id/popular_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -87,6 +90,7 @@
             android:layout_height="0dp"
             android:scaleType="center"
             android:src="@drawable/ic_check_blue"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="H,1"
             app:layout_constraintEnd_toEndOf="parent"
