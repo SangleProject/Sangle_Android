@@ -1,6 +1,5 @@
 package org.three.minutes.word
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
@@ -11,20 +10,21 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import gun0912.tedkeyboardobserver.TedKeyboardObserver
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 import org.three.minutes.R
 import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.ActivityWordBinding
+import org.three.minutes.word.ui.SearchEmptyFragment
 import org.three.minutes.word.ui.WordFragment
 import org.three.minutes.word.viewmodel.WordViewModel
 import kotlin.coroutines.CoroutineContext
 
 class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, CoroutineScope {
-    private val TAG_WORD = "search"
-    private val TAG_SEARCH = "search"
+    private val TAG_WORD = "word"
+    private val TAG_EMPTY = "empty"
     private lateinit var job: Job
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
@@ -36,6 +36,8 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
     private lateinit var mImm: InputMethodManager
     private val wordFragment = supportFragmentManager.findFragmentByTag(TAG_WORD)
         ?: WordFragment()
+    private val searchEmptyFragment = supportFragmentManager.findFragmentByTag(TAG_EMPTY)
+        ?: SearchEmptyFragment()
 
     private val mViewModel: WordViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,10 +51,17 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
         settingToolbar()
         settingFragment()
 
+        TedKeyboardObserver(this).listen {isShow ->
+            if(!isShow && mBinding.searchBoxEdt.visibility == View.VISIBLE){
+                mBinding.searchBoxEdt.clearFocus()
+            }
+        }
+
     }
 
     private fun settingFragment() {
-        supportFragmentManager.beginTransaction().add(mBinding.containerLayout.id, wordFragment,TAG_WORD)
+        supportFragmentManager.beginTransaction()
+            .add(mBinding.containerLayout.id, wordFragment, TAG_WORD)
             .commit()
     }
 
@@ -60,7 +69,7 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
 
         mBinding.wordToolbar.setNavigationOnClickListener {
             if (mBinding.searchBoxEdt.visibility == View.VISIBLE) {
-                downKeyBoard()
+                downKeyBoard(false)
             } else {
                 finish()
             }
@@ -70,28 +79,40 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
 
         mBinding.searchImg.setOnClickListener {
             mBinding.searchBoxEdt.apply {
+                text = null
                 visibility = View.VISIBLE
                 isFocusableInTouchMode = true
                 requestFocus()
                 mImm.showSoftInput(this, 0)
             }
+
+            supportFragmentManager.beginTransaction()
+                .replace(mBinding.containerLayout.id, searchEmptyFragment, TAG_EMPTY)
+                .addToBackStack(null).commit()
         }
     }
 
-    private fun downKeyBoard() {
+    private fun downKeyBoard(isSearch : Boolean) {
         if (mImm.isAcceptingText) {
             mImm.hideSoftInputFromWindow(this.currentFocus?.windowToken, 0)
             mBinding.searchBoxEdt.apply {
-                visibility = View.GONE
                 clearFocus()
             }
         }
+        if(!isSearch){
+            mBinding.searchBoxEdt.visibility = View.GONE
+            replaceWordFragment()
+        }
+    }
+
+    private fun replaceWordFragment() {
+        supportFragmentManager.popBackStack()
     }
 
     override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
         if (EditorInfo.IME_ACTION_SEARCH == actionId) {
+            downKeyBoard(true)
             val searchResult = mBinding.searchBoxEdt.text.toString()
-            downKeyBoard()
             Toast.makeText(this, searchResult, Toast.LENGTH_SHORT).show()
         } else {
             return false
@@ -106,7 +127,7 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
 
     override fun onBackPressed() {
         super.onBackPressed()
-        downKeyBoard()
+        downKeyBoard(false)
     }
 
 }
