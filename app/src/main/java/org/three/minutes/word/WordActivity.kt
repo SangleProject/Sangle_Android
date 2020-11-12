@@ -14,6 +14,7 @@ import androidx.databinding.DataBindingUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import org.three.minutes.R
 import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.ActivityWordBinding
@@ -22,6 +23,8 @@ import org.three.minutes.word.viewmodel.WordViewModel
 import kotlin.coroutines.CoroutineContext
 
 class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, CoroutineScope {
+    private val TAG_WORD = "search"
+    private val TAG_SEARCH = "search"
     private lateinit var job: Job
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
@@ -31,14 +34,13 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
     }
 
     private lateinit var mImm: InputMethodManager
+    private val wordFragment = supportFragmentManager.findFragmentByTag(TAG_WORD)
+        ?: WordFragment()
 
     private val mViewModel: WordViewModel by viewModels()
-    private val wordFragment: WordFragment by lazy {
-        WordFragment()
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        job = Job()
         mBinding.apply {
             lifecycleOwner = this@WordActivity
             viewModel = mViewModel
@@ -50,7 +52,7 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
     }
 
     private fun settingFragment() {
-        supportFragmentManager.beginTransaction().add(mBinding.containerLayout.id, wordFragment)
+        supportFragmentManager.beginTransaction().add(mBinding.containerLayout.id, wordFragment,TAG_WORD)
             .commit()
     }
 
