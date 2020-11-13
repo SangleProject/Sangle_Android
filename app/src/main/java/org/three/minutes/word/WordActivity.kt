@@ -112,6 +112,7 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
         if (EditorInfo.IME_ACTION_SEARCH == actionId) {
             downKeyBoard(true)
             val searchResult = mBinding.searchBoxEdt.text.toString()
+            mViewModel.searchWord.value = searchResult
             Toast.makeText(this, searchResult, Toast.LENGTH_SHORT).show()
         } else {
             return false
