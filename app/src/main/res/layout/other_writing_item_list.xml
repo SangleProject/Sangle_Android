@@ -1,19 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="HardcodedText">
-
+<layout>
     <data>
-
         <variable
             name="data"
-            type="org.three.minutes.mypage.data.MyWritingData" />
-
+            type="org.three.minutes.word.data.SearchWritingData" />
     </data>
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -31,6 +26,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/calender_frame"
                 tools:ignore="HardcodedText">
 
                 <TextView
@@ -74,7 +70,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:ellipsize="end"
-                    android:lines="3"
                     android:textColor="@color/black_80"
                     android:text="@{data.contents}"
                     app:layout_constraintEnd_toEndOf="@+id/blue_line"
@@ -87,21 +82,44 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:layout_marginBottom="16dp"
                     android:background="@drawable/favorite_box"
                     android:drawablePadding="4dp"
                     android:padding="8dp"
                     android:text="@{Integer.toString(data.favoriteCount)}"
                     app:drawableStartCompat="@drawable/ic_favorite_selected"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/item_user_img"
                     app:layout_constraintEnd_toEndOf="@+id/item_contents"
                     app:layout_constraintTop_toBottomOf="@+id/item_contents"
                     tools:text="1,224" />
 
+                <ImageView
+                    android:id="@+id/item_user_img"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/profile1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintWidth_percent="0.052"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    style="@style/P3_14pt_Regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:textColor="@color/black_60"
+                    android:text="@{data.userName}"
+                    app:layout_constraintBottom_toBottomOf="@+id/item_user_img"
+                    app:layout_constraintStart_toEndOf="@+id/item_user_img"
+                    tools:text="창의적인 똑똑이씨" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

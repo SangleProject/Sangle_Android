@@ -28,6 +28,7 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
     private lateinit var job: Job
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
+
     private val mBinding: ActivityWordBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_word)
     }
