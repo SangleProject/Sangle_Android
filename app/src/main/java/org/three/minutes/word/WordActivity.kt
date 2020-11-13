@@ -28,18 +28,16 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
     private lateinit var job: Job
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
-
     private val mBinding: ActivityWordBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_word)
     }
-
     private lateinit var mImm: InputMethodManager
     private val wordFragment = supportFragmentManager.findFragmentByTag(TAG_WORD)
         ?: WordFragment()
     private val searchEmptyFragment = supportFragmentManager.findFragmentByTag(TAG_EMPTY)
         ?: SearchEmptyFragment()
-
     private val mViewModel: WordViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         job = Job()
