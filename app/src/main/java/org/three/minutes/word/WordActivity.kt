@@ -64,6 +64,10 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
             }
         }
 
+        mBinding.containerLayout.setOnClickListener {
+            downKeyBoard(true)
+        }
+
     }
 
     private fun settingFragment() {
