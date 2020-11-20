@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
-            type="org.three.minutes.mypage.viewmodel.MyPageViewModel" />
-
+            type="org.three.minutes.word.viewmodel.WordViewModel" />
     </data>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/light_light_gray">
 
         <TextView
-            android:id="@+id/my_writing_filter_txt"
+            android:id="@+id/search_writing_filter_txt"
             style="@style/P6_12pt_Regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,17 +36,18 @@
             tools:text="최신순" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/my_writing_rcv"
+            android:id="@+id/search_writing_rcv"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:overScrollMode="never"
-            app:myWritingItem="@{viewModel.myWritingList}"
             android:paddingTop="6dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/my_writing_filter_txt" />
+            app:layout_constraintTop_toBottomOf="@+id/search_writing_filter_txt"
+            app:searchWritingItem="@{viewModel.searchList}" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

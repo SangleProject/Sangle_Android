@@ -6,8 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import org.three.minutes.mypage.adapter.MyWritingAdapter
 import org.three.minutes.mypage.data.MyWritingData
 import org.three.minutes.word.adapter.PastWritingRcvAdapter
+import org.three.minutes.word.adapter.SearchWritingAdapter
 import org.three.minutes.word.adapter.TodayWordRcvAdapter
 import org.three.minutes.word.data.PastWritingData
+import org.three.minutes.word.data.SearchWritingData
 import org.three.minutes.word.data.TodayWordData
 
 @BindingAdapter("app:addTodayItem")
@@ -40,6 +42,16 @@ fun RecyclerView.setMyWritingData(data : MutableList<MyWritingData>){
         LinearLayoutManager(this.context)
 
     adapter.data = data
-    this.addItemDecoration(WordRcvItemDeco(this.context,false,6))
+    adapter.notifyDataSetChanged()
+}
+
+@BindingAdapter("app:searchWritingItem")
+fun RecyclerView.setSearchResult(data : List<SearchWritingData>){
+    val adapter = SearchWritingAdapter(this.context)
+    this.adapter = adapter
+    this.layoutManager =
+        LinearLayoutManager(this.context)
+
+    adapter.data = data
     adapter.notifyDataSetChanged()
 }

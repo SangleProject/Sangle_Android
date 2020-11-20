@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Default
 import org.three.minutes.R

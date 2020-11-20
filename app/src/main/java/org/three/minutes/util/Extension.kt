@@ -7,9 +7,13 @@ import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.ViewPager
+import org.three.minutes.R
 
 fun EditText.textCheckListener(textCheck: (CharSequence?) -> Unit) {
     this.addTextChangedListener(object : TextWatcher {
@@ -74,6 +78,17 @@ fun View.dpToPx(dp: Float): Int = context.dpToPx(dp)
 fun Context.dpToPx(dp: Float): Int =
     TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics).toInt()
 
-fun Int.changeEmoji() : String {
-    return Character.toChars(this).toString()
+fun TextView.changeBlueColor(){
+    this.setTextColor(ContextCompat.getColor(this.context, R.color.main_blue))
+}
+
+fun TextView.changeBlackColor(){
+    this.setTextColor(ContextCompat.getColor(this.context, R.color.black_60))
+}
+
+fun ImageView.showView(){
+    this.visibility = View.VISIBLE
+}
+fun ImageView.hideView(){
+    this.visibility = View.INVISIBLE
 }
