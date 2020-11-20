@@ -10,6 +10,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import gun0912.tedkeyboardobserver.TedKeyboardObserver
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,6 +20,7 @@ import org.three.minutes.R
 import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.ActivityWordBinding
 import org.three.minutes.word.ui.SearchEmptyFragment
+import org.three.minutes.word.ui.SearchResultFragment
 import org.three.minutes.word.ui.WordFragment
 import org.three.minutes.word.viewmodel.WordViewModel
 import kotlin.coroutines.CoroutineContext
@@ -25,6 +28,7 @@ import kotlin.coroutines.CoroutineContext
 class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, CoroutineScope {
     private val TAG_WORD = "word"
     private val TAG_EMPTY = "empty"
+    private val TAG_SEARCH = "search"
     private lateinit var job: Job
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
@@ -37,6 +41,10 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
         ?: WordFragment()
     private val searchEmptyFragment = supportFragmentManager.findFragmentByTag(TAG_EMPTY)
         ?: SearchEmptyFragment()
+
+    private val searchResultFragment = supportFragmentManager.findFragmentByTag(TAG_SEARCH)
+        ?: SearchResultFragment()
+
     private val mViewModel: WordViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,16 +86,15 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
 
         mBinding.searchImg.setOnClickListener {
             mBinding.searchBoxEdt.apply {
-                text = null
                 visibility = View.VISIBLE
                 isFocusableInTouchMode = true
                 requestFocus()
                 mImm.showSoftInput(this, 0)
             }
-
-            supportFragmentManager.beginTransaction()
-                .replace(mBinding.containerLayout.id, searchEmptyFragment, TAG_EMPTY)
-                .addToBackStack(null).commit()
+            if (mViewModel.searchWord.value.isNullOrBlank())
+                replaceSearchFragment(searchEmptyFragment,TAG_EMPTY)
+            else
+                replaceSearchFragment(searchResultFragment,TAG_SEARCH)
         }
     }
 
@@ -99,21 +106,37 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
             }
         }
         if(!isSearch){
-            mBinding.searchBoxEdt.visibility = View.GONE
             replaceWordFragment()
+            mBinding.searchBoxEdt.visibility = View.GONE
         }
     }
 
     private fun replaceWordFragment() {
-        supportFragmentManager.popBackStack()
+        supportFragmentManager.popBackStackImmediate(null,FragmentManager.POP_BACK_STACK_INCLUSIVE)
+    }
+
+    private fun replaceSearchFragment(fragment : Fragment, tag : String){
+        supportFragmentManager
+            .beginTransaction()
+            .replace(mBinding.containerLayout.id, fragment, tag)
+            .addToBackStack(tag)
+            .commit()
     }
 
     override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
         if (EditorInfo.IME_ACTION_SEARCH == actionId) {
             downKeyBoard(true)
             val searchResult = mBinding.searchBoxEdt.text.toString()
-            mViewModel.searchWord.value = searchResult
-            Toast.makeText(this, searchResult, Toast.LENGTH_SHORT).show()
+            if(!searchResult.isBlank()){
+                mViewModel.searchWord.value = searchResult
+                if(supportFragmentManager.findFragmentByTag(TAG_SEARCH) != SearchResultFragment())
+                    replaceSearchFragment(searchResultFragment,TAG_SEARCH)
+            }
+            else{
+                mViewModel.searchWord.value = ""
+                if(supportFragmentManager.findFragmentByTag(TAG_EMPTY) != SearchEmptyFragment())
+                    replaceSearchFragment(searchEmptyFragment,TAG_EMPTY)
+            }
         } else {
             return false
         }
@@ -127,7 +150,9 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
 
     override fun onBackPressed() {
         super.onBackPressed()
-        downKeyBoard(false)
+        if (mBinding.searchBoxEdt.visibility == View.VISIBLE) {
+            downKeyBoard(false)
+        }
     }
 
 }
