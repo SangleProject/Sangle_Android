@@ -20,4 +20,5 @@
     <string name="date_sample">2020.06.22 (월) PM 2:30</string>
     <string name="sample_intro">소소한 일상을 나답게 살아가고자 글을 씁니다!</string>
     <string name="word_search_empty">혹시 내가 생각하고 있는 글감이 있을까요?\n글감을 검색해 보세요.</string>
+    <string name ="word_search_count_string">개의 글을 썼어요! &#x1F60E;</string>
 </resources>

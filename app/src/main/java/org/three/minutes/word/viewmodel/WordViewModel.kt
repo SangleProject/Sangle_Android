@@ -21,4 +21,5 @@ class WordViewModel () : ViewModel(){
     var searchWord = MutableLiveData("")
     var filter = MutableLiveData("최신순")
     var searchList = listOf<SearchWritingData>()
+    var searchCount = MutableLiveData<Int>(126)
 }

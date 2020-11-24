@@ -131,7 +131,7 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
         if (EditorInfo.IME_ACTION_SEARCH == actionId) {
             downKeyBoard(true)
             val searchResult = mBinding.searchBoxEdt.text.toString()
-            if(!searchResult.isBlank()){
+            if(searchResult.isNotBlank()){
                 mViewModel.searchWord.value = searchResult
                 if(supportFragmentManager.findFragmentByTag(TAG_SEARCH) != SearchResultFragment())
                     replaceSearchFragment(searchResultFragment,TAG_SEARCH)
