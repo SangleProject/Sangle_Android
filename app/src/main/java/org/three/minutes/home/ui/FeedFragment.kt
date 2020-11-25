@@ -7,10 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
 import org.three.minutes.R
 import org.three.minutes.databinding.FragmentFeedBinding
 import org.three.minutes.home.adapter.FeedRcvAdapter
 import org.three.minutes.home.data.FeedData
+import org.three.minutes.util.LinePagerIndicatorDecoration
 import org.three.minutes.util.RcvItemDeco
 
 
@@ -31,14 +33,15 @@ class FeedFragment : Fragment() {
 
     private fun setFeedRcv() {
         mAdapter = FeedRcvAdapter(mBinding.root.context)
+        val snapHelper = PagerSnapHelper()
         mBinding.feedRcv.apply {
             adapter = mAdapter
             layoutManager = LinearLayoutManager(mBinding.root.context
                 , LinearLayoutManager.HORIZONTAL
                 , false)
-            addItemDecoration(RcvItemDeco(mBinding.root.context,8))
+            addItemDecoration(LinePagerIndicatorDecoration(mBinding.root.context))
         }
-
+        snapHelper.attachToRecyclerView(mBinding.feedRcv)
         mAdapter.data = listOf(
             FeedData("빨대", "2020.06.22 (월) PM 2:30"),
             FeedData("빨대", "2020.06.22 (월) PM 2:30"),
