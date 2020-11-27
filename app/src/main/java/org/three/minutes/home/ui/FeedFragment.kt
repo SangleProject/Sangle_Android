@@ -43,9 +43,9 @@ class FeedFragment : Fragment() {
         }
         snapHelper.attachToRecyclerView(mBinding.feedRcv)
         mAdapter.data = listOf(
-            FeedData("빨대", "2020.06.22 (월) PM 2:30"),
-            FeedData("빨대", "2020.06.22 (월) PM 2:30"),
-            FeedData("빨대", "2020.06.22 (월) PM 2:30")
+            FeedData("빨대", "2020.06.22 (월) PM 2:30", "글감 내용","창의적인 똑똑씨",1224),
+            FeedData("빨대", "2020.06.22 (월) PM 2:30","글감 내용","창의적인 똑똑씨",1224),
+            FeedData("빨대", "2020.06.22 (월) PM 2:30","글감 내용","창의적인 똑똑씨",1224)
             )
 
         mAdapter.notifyDataSetChanged()
