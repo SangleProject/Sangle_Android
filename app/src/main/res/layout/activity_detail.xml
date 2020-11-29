@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="HardcodedText">
 
     <data>
 
@@ -62,6 +63,7 @@
                 app:layout_constraintTop_toTopOf="@+id/detail_word_title" />
 
             <TextView
+                android:id="@+id/detail_date_txt"
                 style="@style/P6_12pt_Regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -71,6 +73,56 @@
                 app:layout_constraintBottom_toBottomOf="@+id/detail_word_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/detail_word_title" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@color/light_blue"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="@+id/detail_date_txt"
+                app:layout_constraintStart_toStartOf="@+id/detail_word_title"
+                app:layout_constraintTop_toBottomOf="@id/detail_word_title" />
+
+            <RadioGroup
+                android:id="@+id/detail_font_size_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp"
+                android:layout_marginStart="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <RadioButton
+                    android:id="@+id/size_from_plus_to_minus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/ic_minus"
+                    android:checked="true"
+                    android:layout_marginEnd="16dp"
+                    />
+
+                <RadioButton
+                    android:id="@+id/size_from_minus_to_plus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/ic_plus"
+                    android:layout_marginStart="16dp"/>
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/detail_font_txt"
+                style="@style/H3_18pt_Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="가"
+                android:textColor="@color/black_80"
+                app:layout_constraintBottom_toBottomOf="@+id/detail_font_size_group"
+                app:layout_constraintEnd_toEndOf="@+id/detail_font_size_group"
+                app:layout_constraintStart_toStartOf="@+id/detail_font_size_group"
+                app:layout_constraintTop_toTopOf="@+id/detail_font_size_group" />
+
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
