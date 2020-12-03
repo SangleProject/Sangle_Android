@@ -6,6 +6,10 @@
 
     <data>
 
+        <variable
+            name="viewmodel"
+            type="org.three.minutes.detail.viewmodel.DetailViewModel" />
+
     </data>
 
 
@@ -44,6 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="40dp"
+                android:text="@{viewmodel.feedData.title}"
                 android:textColor="@color/main_blue"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -69,11 +74,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:text="@string/date_sample"
+                android:text="@{viewmodel.feedData.date}"
                 android:textColor="@color/black_60"
                 app:layout_constraintBottom_toBottomOf="@+id/detail_word_title"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/detail_word_title" />
+                app:layout_constraintTop_toTopOf="@+id/detail_word_title"
+                tools:text="@string/date_sample" />
 
             <View
                 android:id="@+id/view4"
@@ -86,14 +92,15 @@
                 app:layout_constraintTop_toBottomOf="@id/detail_word_title" />
 
             <TextView
-                style="@style/P2_16pt_Light"
-                android:textColor="@color/black_80"
                 android:id="@+id/detail_contents_txt"
+                style="@style/P2_16pt_Light"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginVertical="12dp"
                 android:layout_marginHorizontal="16dp"
+                android:layout_marginVertical="12dp"
                 android:scrollbars="vertical"
+                android:text="@{viewmodel.feedData.contents}"
+                android:textColor="@color/black_80"
                 app:layout_constraintBottom_toTopOf="@id/detail_word_count_txt"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -103,38 +110,39 @@
                 android:id="@+id/profile_img"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:src="@drawable/profile1"
-                android:layout_marginBottom="16dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginBottom="16dp"
+                android:src="@drawable/profile1"
                 app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
                 app:layout_constraintDimensionRatio="1"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintWidth_percent="0.06"
-                 />
+                app:layout_constraintWidth_percent="0.06" />
 
             <TextView
                 android:id="@+id/profile_id"
                 style="@style/P3_14pt_Regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/sample_id"
-                android:textColor="@color/black_60"
                 android:layout_marginStart="4dp"
+                android:text="@{viewmodel.feedData.profileId}"
+                android:textColor="@color/black_60"
                 app:layout_constraintBottom_toBottomOf="@id/profile_img"
+                app:layout_constraintStart_toEndOf="@+id/profile_img"
                 app:layout_constraintTop_toTopOf="@id/profile_img"
-                app:layout_constraintStart_toEndOf="@+id/profile_img" />
+                tools:text="@string/sample_id" />
 
             <TextView
                 android:id="@+id/detail_word_count_txt"
                 style="@style/H3_18pt_Regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="146"
                 android:layout_marginEnd="4dp"
+                android:text="@{Integer.toString(viewmodel.wordLength)}"
                 android:textColor="@color/black_60"
                 app:layout_constraintBottom_toBottomOf="@+id/textView15"
                 app:layout_constraintEnd_toStartOf="@+id/textView15"
-                app:layout_constraintTop_toTopOf="@+id/textView15" />
+                app:layout_constraintTop_toTopOf="@+id/textView15"
+                tools:text="126" />
 
             <TextView
                 android:id="@+id/textView15"
@@ -151,17 +159,18 @@
             <CheckedTextView
                 android:id="@+id/detail_like_txt"
                 style="@style/P3_14pt_Regular"
-                android:textColor="@color/black_60"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/favorite_state_box"
                 android:drawableStart="@drawable/favorite_state_icon"
                 android:drawablePadding="4dp"
-                android:background="@drawable/favorite_state_box"
-                android:text="1,224"
                 android:padding="8dp"
-                android:layout_marginEnd="16dp"
+                android:text="@{Integer.toString(viewmodel.feedData.count)}"
+                android:textColor="@color/black_60"
                 app:layout_constraintBottom_toBottomOf="@+id/profile_id"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="1,224" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout2"
@@ -225,7 +234,6 @@
                     app:layout_constraintEnd_toEndOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
