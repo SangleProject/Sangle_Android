@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="HardcodedText">
+    tools:ignore="HardcodedText,ContentDescription">
 
     <data>
 
@@ -50,14 +50,15 @@
                 tools:text="빨대" />
 
             <TextView
+                android:id="@+id/textView14"
                 style="@style/P6_12pt_Regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:background="@drawable/modified_box"
                 android:padding="6dp"
                 android:text="@string/modified"
                 android:textColor="@color/black_40"
-                android:layout_marginStart="10dp"
                 app:layout_constraintBottom_toBottomOf="@+id/detail_word_title"
                 app:layout_constraintStart_toEndOf="@+id/detail_word_title"
                 app:layout_constraintTop_toTopOf="@+id/detail_word_title" />
@@ -75,52 +76,155 @@
                 app:layout_constraintTop_toTopOf="@+id/detail_word_title" />
 
             <View
+                android:id="@+id/view4"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
-                android:background="@color/light_blue"
                 android:layout_marginTop="20dp"
+                android:background="@color/light_blue"
                 app:layout_constraintEnd_toEndOf="@+id/detail_date_txt"
                 app:layout_constraintStart_toStartOf="@+id/detail_word_title"
                 app:layout_constraintTop_toBottomOf="@id/detail_word_title" />
 
-            <RadioGroup
-                android:id="@+id/detail_font_size_group"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="20dp"
-                android:layout_marginStart="20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+            <TextView
+                style="@style/P2_16pt_Light"
+                android:textColor="@color/black_80"
+                android:id="@+id/detail_contents_txt"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginVertical="12dp"
+                android:layout_marginHorizontal="16dp"
+                android:scrollbars="vertical"
+                app:layout_constraintBottom_toTopOf="@id/detail_word_count_txt"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view4" />
 
-                <RadioButton
-                    android:id="@+id/size_from_plus_to_minus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:button="@drawable/ic_minus"
-                    android:checked="true"
-                    android:layout_marginEnd="16dp"
-                    />
-
-                <RadioButton
-                    android:id="@+id/size_from_minus_to_plus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:button="@drawable/ic_plus"
-                    android:layout_marginStart="16dp"/>
-            </RadioGroup>
+            <ImageView
+                android:id="@+id/profile_img"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/profile1"
+                android:layout_marginBottom="16dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+                app:layout_constraintDimensionRatio="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintWidth_percent="0.06"
+                 />
 
             <TextView
-                android:id="@+id/detail_font_txt"
+                android:id="@+id/profile_id"
+                style="@style/P3_14pt_Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sample_id"
+                android:textColor="@color/black_60"
+                android:layout_marginStart="4dp"
+                app:layout_constraintBottom_toBottomOf="@id/profile_img"
+                app:layout_constraintTop_toTopOf="@id/profile_img"
+                app:layout_constraintStart_toEndOf="@+id/profile_img" />
+
+            <TextView
+                android:id="@+id/detail_word_count_txt"
                 style="@style/H3_18pt_Regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="가"
-                android:textColor="@color/black_80"
-                app:layout_constraintBottom_toBottomOf="@+id/detail_font_size_group"
-                app:layout_constraintEnd_toEndOf="@+id/detail_font_size_group"
-                app:layout_constraintStart_toStartOf="@+id/detail_font_size_group"
-                app:layout_constraintTop_toTopOf="@+id/detail_font_size_group" />
+                android:text="146"
+                android:layout_marginEnd="4dp"
+                android:textColor="@color/black_60"
+                app:layout_constraintBottom_toBottomOf="@+id/textView15"
+                app:layout_constraintEnd_toStartOf="@+id/textView15"
+                app:layout_constraintTop_toTopOf="@+id/textView15" />
+
+            <TextView
+                android:id="@+id/textView15"
+                style="@style/H4_18pt_Light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="자"
+                android:textColor="@color/black_60"
+                app:layout_constraintBottom_toTopOf="@id/detail_like_txt"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <CheckedTextView
+                android:id="@+id/detail_like_txt"
+                style="@style/P3_14pt_Regular"
+                android:textColor="@color/black_60"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/favorite_state_icon"
+                android:drawablePadding="4dp"
+                android:background="@drawable/favorite_state_box"
+                android:text="1,224"
+                android:padding="8dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/profile_id"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:elevation="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <RadioGroup
+                    android:id="@+id/detail_font_size_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <RadioButton
+                        android:id="@+id/size_from_plus_to_minus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:button="@drawable/ic_minus"
+                        android:checked="true" />
+
+                    <RadioButton
+                        android:id="@+id/size_from_minus_to_plus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:button="@drawable/ic_plus" />
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/detail_font_txt"
+                    style="@style/H3_18pt_Regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="가"
+                    android:textColor="@color/black_80"
+                    app:layout_constraintBottom_toBottomOf="@+id/detail_font_size_group"
+                    app:layout_constraintEnd_toEndOf="@+id/detail_font_size_group"
+                    app:layout_constraintStart_toStartOf="@+id/detail_font_size_group"
+                    app:layout_constraintTop_toTopOf="@+id/detail_font_size_group" />
+
+                <TextView
+                    android:id="@+id/detail_put_btn"
+                    style="@style/P1_16pt_Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="16dp"
+                    android:text="담기"
+                    android:textColor="@color/black_80"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 

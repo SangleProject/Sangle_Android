@@ -81,7 +81,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:background="@drawable/favorite_box"
+                    android:background="@drawable/favorite_selected_box"
                     android:drawablePadding="4dp"
                     android:padding="8dp"
                     android:text="@{Integer.toString(data.favoriteCount)}"
