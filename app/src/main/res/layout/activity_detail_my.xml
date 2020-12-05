@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="HardcodedText,ContentDescription">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="org.three.minutes.detail.viewmodel.DetailViewModel" />
+
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/main_blue">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/my_appbar_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/my_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/my_contents_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/ic_bg_notepad"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/my_appbar_layout">
+
+            <TextView
+                android:id="@+id/my_word_title"
+                style="@style/H1_24pt_Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="40dp"
+                android:text="@{viewmodel.feedData.title}"
+                android:textColor="@color/main_blue"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="빨대" />
+
+            <TextView
+                android:id="@+id/textView14"
+                style="@style/P6_12pt_Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/modified_box"
+                android:padding="6dp"
+                android:text="@string/modified"
+                android:textColor="@color/black_40"
+                app:layout_constraintBottom_toBottomOf="@+id/my_word_title"
+                app:layout_constraintStart_toEndOf="@+id/my_word_title"
+                app:layout_constraintTop_toTopOf="@+id/my_word_title" />
+
+            <TextView
+                android:id="@+id/my_date_txt"
+                style="@style/P6_12pt_Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="@{viewmodel.feedData.date}"
+                android:textColor="@color/black_60"
+                app:layout_constraintBottom_toBottomOf="@+id/my_word_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/my_word_title"
+                tools:text="@string/date_sample" />
+
+            <View
+                android:id="@+id/view4"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/light_blue"
+                app:layout_constraintEnd_toEndOf="@+id/my_date_txt"
+                app:layout_constraintStart_toStartOf="@+id/my_word_title"
+                app:layout_constraintTop_toBottomOf="@id/my_word_title" />
+
+            <TextView
+                android:id="@+id/my_contents_txt"
+                style="@style/P2_16pt_Light"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginVertical="12dp"
+                android:scrollbars="vertical"
+                android:text="@{viewmodel.feedData.contents}"
+                android:textColor="@color/black_80"
+                app:layout_constraintBottom_toTopOf="@id/my_word_count_txt"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view4" />
+
+
+            <TextView
+                android:id="@+id/my_word_count_txt"
+                style="@style/H3_18pt_Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:text="@{Integer.toString(viewmodel.wordLength)}"
+                android:textColor="@color/black_60"
+                app:layout_constraintBottom_toBottomOf="@+id/textView15"
+                app:layout_constraintEnd_toStartOf="@+id/textView15"
+                app:layout_constraintTop_toTopOf="@+id/textView15"
+                tools:text="126" />
+
+            <TextView
+                android:id="@+id/textView15"
+                style="@style/H4_18pt_Light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="자"
+                android:textColor="@color/black_60"
+                app:layout_constraintBottom_toTopOf="@id/my_like_txt"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <Switch
+                android:id="@+id/my_word_open_switch"
+                style="@style/P3_14pt_Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="16dp"
+                android:checked="true"
+                android:switchMinWidth="52dp"
+                android:switchPadding="6dp"
+                android:text="전체공개"
+                android:textColor="@color/black_60"
+                app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+            <CheckedTextView
+                android:id="@+id/my_like_txt"
+                style="@style/P3_14pt_Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/favorite_state_box"
+                android:drawableStart="@drawable/favorite_state_icon"
+                android:drawablePadding="4dp"
+                android:padding="8dp"
+                android:text="@{Integer.toString(viewmodel.feedData.count)}"
+                android:textColor="@color/black_60"
+                app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="1,224" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:elevation="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <RadioGroup
+                    android:id="@+id/detail_font_size_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <RadioButton
+                        android:id="@+id/size_from_plus_to_minus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:button="@drawable/ic_minus"
+                        android:checked="true" />
+
+                    <RadioButton
+                        android:id="@+id/size_from_minus_to_plus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:button="@drawable/ic_plus" />
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/detail_font_txt"
+                    style="@style/H3_18pt_Regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="가"
+                    android:textColor="@color/black_80"
+                    app:layout_constraintBottom_toBottomOf="@+id/detail_font_size_group"
+                    app:layout_constraintEnd_toEndOf="@+id/detail_font_size_group"
+                    app:layout_constraintStart_toStartOf="@+id/detail_font_size_group"
+                    app:layout_constraintTop_toTopOf="@+id/detail_font_size_group" />
+
+                <TextView
+                    android:id="@+id/detail_put_btn"
+                    style="@style/P1_16pt_Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="16dp"
+                    android:text="담기"
+                    android:textColor="@color/black_80"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

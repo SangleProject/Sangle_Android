@@ -7,9 +7,12 @@
         <item name="colorAccent">@color/main_blue</item>
         <item name="android:windowBackground">@color/white</item>
         <item name="bottomSheetDialogTheme">@style/customBottomSheet</item>
+        <item name="actionOverflowButtonStyle">@style/OverFlow</item>
 <!--        <item name="android:windowAnimationStyle"></item>-->
     </style>
-
+    <style name="OverFlow" parent="Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:tint">@color/white</item>
+    </style>
 
     <style name="customBottomSheet" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/bottomSheetRounding</item>

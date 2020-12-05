@@ -7,5 +7,6 @@ data class FeedData (
     val date : String,
     val contents : String,
     val profileId : String,
-    val count : Int
+    val count : Int,
+    val isMy : Boolean
 ) : Serializable
