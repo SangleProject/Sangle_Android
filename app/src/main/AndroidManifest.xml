@@ -5,15 +5,21 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".ThreeApplication"
         android:allowBackup="true"
         android:icon="@drawable/app_icon"
         android:label="@string/app_name"
         android:roundIcon="@drawable/app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true"
-        android:name=".ThreeApplication">
-        <activity android:name=".mypage.ui.MyPageActivity" android:exported="true"/>
+        android:usesCleartextTraffic="true">
+        <activity android:name=".detail.ui.DetailMyActivity" android:exported="true"/>
+        <activity
+            android:name=".detail.ui.DetailActivity"
+            android:exported="true" />
+        <activity
+            android:name=".mypage.ui.MyPageActivity"
+            android:exported="true" />
         <activity
             android:name=".word.WordActivity"
             android:exported="true" />

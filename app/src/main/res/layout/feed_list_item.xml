@@ -13,14 +13,13 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:elevation="30dp"
-        android:background="@drawable/shadow_notepad">
+        android:background="@drawable/shadow_notepad"
+        android:elevation="30dp">
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/feed_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -38,11 +37,9 @@
             android:layout_marginStart="8dp"
             android:text="@{data.title}"
             android:textColor="@color/main_blue"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-            app:layout_constraintEnd_toStartOf="@+id/feed_date"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/imageView2"
-            app:layout_constraintTop_toTopOf="@+id/imageView2"
+            app:layout_constraintBottom_toBottomOf="@+id/feed_img"
+            app:layout_constraintStart_toEndOf="@+id/feed_img"
+            app:layout_constraintTop_toTopOf="@+id/feed_img"
             tools:text="빨대" />
 
         <TextView
@@ -50,16 +47,82 @@
             style="@style/P6_12pt_Regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="70dp"
             android:layout_marginEnd="16dp"
             android:text="@{data.date}"
-            android:layout_marginStart="70dp"
             android:textColor="@color/black_60"
             app:layout_constraintBottom_toBottomOf="@+id/feed_word"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/feed_word"
             app:layout_constraintTop_toTopOf="@+id/feed_word"
             tools:text="2020.06.22 (월) PM 2:30" />
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/light_blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/feed_word" />
+
+        <TextView
+            android:id="@+id/feed_contents"
+            style="@style/P2_16pt_Light"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="12dp"
+            android:ellipsize="end"
+            android:text="@{data.contents}"
+            android:textColor="@color/black_80"
+            app:layout_constraintBottom_toTopOf="@+id/feed_like_count"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view3"
+            tools:text="Feed" />
+
+        <ImageView
+            android:id="@+id/profile_img"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/profile1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.06" />
+
+        <TextView
+            android:id="@+id/profile_name"
+            style="@style/P3_14pt_Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@{data.profileId}"
+            tools:text="@string/sample_id"
+            android:textColor="@color/black_60"
+            app:layout_constraintBottom_toBottomOf="@+id/profile_img"
+            app:layout_constraintStart_toEndOf="@+id/profile_img"
+            app:layout_constraintTop_toTopOf="@+id/profile_img" />
+
+        <TextView
+            android:id="@+id/feed_like_count"
+            style="@style/P3_14pt_Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/favorite_selected_box"
+            android:drawablePadding="4dp"
+            android:padding="8dp"
+            android:text="@{Integer.toString(data.count)}"
+            tools:text="1224"
+            android:textColor="@color/black_60"
+            android:layout_marginEnd="16dp"
+            app:drawableStartCompat="@drawable/ic_favorite_selected"
+            app:layout_constraintBottom_toBottomOf="@+id/profile_name"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
