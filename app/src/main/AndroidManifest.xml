@@ -13,7 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".detail.ui.DetailMyActivity" android:exported="true"/>
+        <activity
+            android:name=".badge.ui.BadgeActivity"
+            android:exported="true" />
+        <activity
+            android:name=".detail.ui.DetailMyActivity"
+            android:exported="true" />
         <activity
             android:name=".detail.ui.DetailActivity"
             android:exported="true" />

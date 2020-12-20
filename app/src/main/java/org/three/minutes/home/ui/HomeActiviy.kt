@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.home_navigation.view.*
 import kotlinx.coroutines.*
 import org.three.minutes.R
+import org.three.minutes.badge.ui.BadgeActivity
 import org.three.minutes.databinding.ActivityHomeBinding
 import org.three.minutes.home.adapter.HomePageAdapter
 import org.three.minutes.home.viewmodel.HomeViewModel
@@ -86,6 +87,12 @@ class HomeActiviy : AppCompatActivity(), CoroutineScope {
         }
         mBinding.homeDrawer.navi_draw_txt.setOnClickListener {
             val intent = Intent(this, MyPageActivity::class.java)
+            startActivity(intent)
+        }
+
+        // 뱃지 탭 클릭 시 뱃지 화면으로 이동
+        mBinding.homeDrawer.navi_badge.setOnClickListener {
+            val intent = Intent(this, BadgeActivity::class.java)
             startActivity(intent)
         }
     }

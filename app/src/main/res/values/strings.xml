@@ -23,4 +23,5 @@
     <string name="word_search_empty">혹시 내가 생각하고 있는 글감이 있을까요?\n글감을 검색해 보세요.</string>
     <string name="word_search_count_string">개의 글을 썼어요! &#x1F60E;</string>
     <string name="modified">수정됨</string>
+    <string name="badge_title">생글과 함께한 생각의 흔적들</string>
 </resources>

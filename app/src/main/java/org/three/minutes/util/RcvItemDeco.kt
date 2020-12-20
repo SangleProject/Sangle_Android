@@ -4,17 +4,37 @@ import android.content.Context
 import android.graphics.Rect
 import android.util.TypedValue
 import android.view.View
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class RcvItemDeco (context : Context, size : Int = 20) : RecyclerView.ItemDecoration(){
-    private val size_space :Int
+class RcvItemDeco(
+    context: Context,
+    top: Int,
+    bottom: Int,
+    right: Int,
+    left: Int,
+    private val isGrid: Boolean = false,
+    private val spanCount: Int = 0
+) : RecyclerView.ItemDecoration() {
+    private val sizeTop: Int
+    private val sizeBottom: Int
+    private val sizeRight: Int
+    private val sizeLeft: Int
+
     init {
 
-        size_space = dpToPx(context,size)
+        sizeTop = dpToPx(context, top)
+        sizeBottom = dpToPx(context, bottom)
+        sizeRight = dpToPx(context, right)
+        sizeLeft = dpToPx(context, left)
     }
 
-    private fun dpToPx(context : Context, dp : Int) : Int {
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), context.resources.displayMetrics).toInt()
+    private fun dpToPx(context: Context, dp: Int): Int {
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            dp.toFloat(),
+            context.resources.displayMetrics
+        ).toInt()
     }
 
     override fun getItemOffsets(
@@ -25,14 +45,59 @@ class RcvItemDeco (context : Context, size : Int = 20) : RecyclerView.ItemDecora
     ) {
         super.getItemOffsets(outRect, view, parent, state)
 
-        val index = parent.getChildAdapterPosition(view)
+        if (isGrid) {
+            val lp = view.layoutParams as GridLayoutManager.LayoutParams
 
-        if(index == 0 )
-            outRect.left = size_space
-        else
-            outRect.left = size_space / 2
+            when (lp.spanIndex) {
+                0 -> { // 가장 왼쪽 아이템
+                    setOutRect(
+                        outRect, sizeTop / 2, sizeBottom / 2,
+                        sizeRight / 2, sizeLeft
+                    )
+                }
+                spanCount - 1 -> { // 가장 오른쪽 아이템
+                    setOutRect(
+                        outRect, sizeTop / 2, sizeBottom / 2,
+                        sizeRight, sizeLeft / 2
+                    )
+                }
+                else -> { // 그 외 가운데 아이템
+                    setOutRect(
+                        outRect, sizeTop / 2, sizeBottom / 2,
+                        sizeRight / 2, sizeLeft / 2
+                    )
+                }
 
-        outRect.right = size_space / 2
+            }
+        } else {
+            when (parent.getChildAdapterPosition(view)) {
+                0 -> { // 첫 번째 인덱스
+                    setOutRect(
+                        outRect, sizeTop, sizeBottom / 2,
+                        sizeLeft, sizeRight / 2
+                    )
+                }
+                state.itemCount - 1 -> { // 마지막 인덱스
+                    setOutRect(
+                        outRect, sizeTop / 2, sizeBottom,
+                        sizeLeft / 2, sizeRight
+                    )
+                }
+                else -> {  // 그 외 인덱스
+                    setOutRect(
+                        outRect, sizeTop / 2, sizeBottom / 2,
+                        sizeLeft / 2, sizeRight / 2
+                    )
+                }
+            }
+        }
 
+    }
+
+    private fun setOutRect(outRect: Rect, top: Int, bottom: Int, right: Int, left: Int) {
+        outRect.top = top
+        outRect.bottom = bottom
+        outRect.right = right
+        outRect.left = left
     }
 }

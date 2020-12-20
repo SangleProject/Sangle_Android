@@ -3,6 +3,8 @@ package org.three.minutes.util
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import org.three.minutes.badge.adapter.BadgeListAdapter
+import org.three.minutes.badge.data.BadgeListData
 import org.three.minutes.mypage.adapter.MyWritingAdapter
 import org.three.minutes.mypage.data.MyWritingData
 import org.three.minutes.word.adapter.PastWritingRcvAdapter
@@ -54,4 +56,23 @@ fun RecyclerView.setSearchResult(data : List<SearchWritingData>){
 
     adapter.data = data
     adapter.notifyDataSetChanged()
+}
+// 뱃지 리스트를 표현하는 바인딩 어댑터 Extension
+@BindingAdapter("app:setBadgeList")
+fun RecyclerView.setBadgeList(listData : MutableList<BadgeListData>){
+    val rcvAdapter = BadgeListAdapter(this.context)
+    this.apply {
+        adapter = rcvAdapter
+        addItemDecoration(RcvItemDeco(
+            context =this.context,
+            top = 16,
+            bottom = 16,
+            right = 0,
+            left = 0,
+            isGrid = true,
+            spanCount = 3
+        ))
+    }
+    rcvAdapter.data = listData
+    rcvAdapter.notifyDataSetChanged()
 }
