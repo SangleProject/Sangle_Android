@@ -4,12 +4,15 @@ import android.content.Context
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import org.three.minutes.R
+import org.three.minutes.badge.adapter.BadgeListAdapter
 import org.three.minutes.badge.data.BadgeListData
 import org.three.minutes.databinding.BadgeItemListBinding
+import org.three.minutes.singleton.PopUpObject
 
-class BadgeListViewHolder(val binding : BadgeItemListBinding):RecyclerView.ViewHolder(binding.root)
+class BadgeListViewHolder(val binding : BadgeItemListBinding) :RecyclerView.ViewHolder(binding.root)
 {
-    fun onBind(data: BadgeListData){
+    fun onBind(data: BadgeListData,
+    clickListener : BadgeListAdapter.OnItemClickListener){
         binding.badgeData = data
         when(data.isOpen){
             0 -> { // 아직 비활성화
@@ -22,6 +25,10 @@ class BadgeListViewHolder(val binding : BadgeItemListBinding):RecyclerView.ViewH
                     ContextCompat.getColor(itemView.context, R.color.black_80)
                 )
             }
+        }
+
+        itemView.setOnClickListener {
+            clickListener.onItemClick(itemView, data)
         }
     }
 }

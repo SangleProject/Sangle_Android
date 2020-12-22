@@ -24,4 +24,9 @@
     <string name="word_search_count_string">개의 글을 썼어요! &#x1F60E;</string>
     <string name="modified">수정됨</string>
     <string name="badge_title">생글과 함께한 생각의 흔적들</string>
+    <string name="badge_popup_info_sample">
+        칭찬은 고래도 춤춘다고 하죠.\n
+        당신의 하트로 인해 많은 사람들이 행복해졌을거에요.\n
+        사랑을 나눌 줄 아는 당신이 바로 생글의 큐피트?!</string>
+    <string name="badge_popup_title_sample">사랑꾼</string>
 </resources>

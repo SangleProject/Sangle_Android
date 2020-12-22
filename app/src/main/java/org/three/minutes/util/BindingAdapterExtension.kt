@@ -1,12 +1,17 @@
 package org.three.minutes.util
 
+import android.util.Log
+import android.view.View
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.badge_opened_popup.*
 import org.three.minutes.badge.adapter.BadgeListAdapter
 import org.three.minutes.badge.data.BadgeListData
+import org.three.minutes.badge.ui.OpenedBadgePopup
 import org.three.minutes.mypage.adapter.MyWritingAdapter
 import org.three.minutes.mypage.data.MyWritingData
+import org.three.minutes.singleton.PopUpObject
 import org.three.minutes.word.adapter.PastWritingRcvAdapter
 import org.three.minutes.word.adapter.SearchWritingAdapter
 import org.three.minutes.word.adapter.TodayWordRcvAdapter
@@ -60,7 +65,21 @@ fun RecyclerView.setSearchResult(data : List<SearchWritingData>){
 // 뱃지 리스트를 표현하는 바인딩 어댑터 Extension
 @BindingAdapter("app:setBadgeList")
 fun RecyclerView.setBadgeList(listData : MutableList<BadgeListData>){
+    Log.d("Show BindingAdapter","call")
+//    val openBadgePopup = PopUpObject.showOpenedBadge(this.context)
+//    openBadgePopup.apply {
+//        badge_cancle.setOnClickListener {
+//            dismiss()
+//        }
+//    }
+    val popUp = OpenedBadgePopup(this.context)
     val rcvAdapter = BadgeListAdapter(this.context)
+    rcvAdapter.setOnItemClickListener(object : BadgeListAdapter.OnItemClickListener{
+        override fun onItemClick(v: View, data: BadgeListData) {
+//            openBadgePopup.show()
+            popUp.show()
+        }
+    })
     this.apply {
         adapter = rcvAdapter
         addItemDecoration(RcvItemDeco(

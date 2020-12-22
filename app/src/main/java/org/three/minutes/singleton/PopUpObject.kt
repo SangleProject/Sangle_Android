@@ -1,6 +1,7 @@
 package org.three.minutes.singleton
 
 import android.app.Activity
+import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatDialog
 import org.three.minutes.R
