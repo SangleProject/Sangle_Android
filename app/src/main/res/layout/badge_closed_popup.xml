@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -27,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.37" />
+                app:layout_constraintGuide_percent="0.44" />
 
             <TextView
                 android:id="@+id/badge_title"
@@ -42,21 +43,36 @@
                 app:layout_constraintTop_toTopOf="@+id/horizontal_guideline" />
 
             <TextView
-                android:id="@+id/badge_info"
+                android:id="@+id/textView16"
+                style="@style/P5_12pt_Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/timer_blue"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="4dp"
+                android:text="@string/how_to_get"
+                android:textColor="@color/main_blue"
+                android:layout_marginTop="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/badge_title" />
+
+            <TextView
+                android:id="@+id/badge_challenge"
                 style="@style/P6_12pt_Regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="44dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginBottom="24dp"
+                android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:text="@string/badge_popup_info_sample"
+                android:text="@string/badge_hot_to_get"
                 android:textAlignment="center"
                 android:textColor="@color/black_60"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/badge_title" />
+                app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
             <ImageView
                 android:id="@+id/badge_cancle"
@@ -76,7 +92,7 @@
             android:id="@+id/badge_img"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:src="@drawable/ic_badge11_xl"
+            android:src="@drawable/ic_badge01_none"
             android:scaleType="fitXY"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintEnd_toEndOf="parent"
