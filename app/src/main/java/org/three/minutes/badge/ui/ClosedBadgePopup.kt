@@ -9,10 +9,11 @@ import android.view.WindowManager
 import kotlinx.android.synthetic.main.badge_opened_popup.*
 import org.three.minutes.R
 
-class OpenedBadgePopup(context : Context) : Dialog(context) {
+class ClosedBadgePopup(context : Context) : Dialog(context) {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.badge_opened_popup)
+        setContentView(R.layout.badge_closed_popup)
 
         window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         setCanceledOnTouchOutside(false)

@@ -1,17 +1,19 @@
 package org.three.minutes.util
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.badge_opened_popup.*
 import org.three.minutes.badge.adapter.BadgeListAdapter
 import org.three.minutes.badge.data.BadgeListData
+import org.three.minutes.badge.ui.ClosedBadgePopup
 import org.three.minutes.badge.ui.OpenedBadgePopup
 import org.three.minutes.mypage.adapter.MyWritingAdapter
 import org.three.minutes.mypage.data.MyWritingData
-import org.three.minutes.singleton.PopUpObject
 import org.three.minutes.word.adapter.PastWritingRcvAdapter
 import org.three.minutes.word.adapter.SearchWritingAdapter
 import org.three.minutes.word.adapter.TodayWordRcvAdapter
@@ -66,18 +68,24 @@ fun RecyclerView.setSearchResult(data : List<SearchWritingData>){
 @BindingAdapter("app:setBadgeList")
 fun RecyclerView.setBadgeList(listData : MutableList<BadgeListData>){
     Log.d("Show BindingAdapter","call")
-//    val openBadgePopup = PopUpObject.showOpenedBadge(this.context)
-//    openBadgePopup.apply {
-//        badge_cancle.setOnClickListener {
-//            dismiss()
-//        }
-//    }
-    val popUp = OpenedBadgePopup(this.context)
+    val openedBadgePopup = OpenedBadgePopup(this.context)
+    val closedBadgePopup = ClosedBadgePopup(this.context)
     val rcvAdapter = BadgeListAdapter(this.context)
+
     rcvAdapter.setOnItemClickListener(object : BadgeListAdapter.OnItemClickListener{
         override fun onItemClick(v: View, data: BadgeListData) {
-//            openBadgePopup.show()
-            popUp.show()
+            when(data.isOpen){
+                // 뱃지가 닫힌 경우
+                0 -> {
+                    closedBadgePopup.show()
+
+                }
+                // 뱃지 오픈
+                else->{
+                    openedBadgePopup.show()
+                }
+            }
+
         }
     })
     this.apply {
