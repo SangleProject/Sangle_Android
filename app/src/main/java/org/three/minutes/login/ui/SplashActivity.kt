@@ -3,6 +3,9 @@ package org.three.minutes.login.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_splash.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Main
@@ -15,6 +18,17 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         StatusObject.setStatusBar(this)
+        
+        // fcm을 위한 현재 기기 토큰 받기
+//        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+//            if (!task.isSuccessful){
+//                return@OnCompleteListener
+//            }
+//
+//            val token = task.result
+//            Log.e("New Token", "token : $token")
+//
+//        })
 
 
         CoroutineScope(Main).launch {
