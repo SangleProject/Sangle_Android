@@ -108,4 +108,7 @@ dependencies {
     // Google login
     implementation 'com.google.firebase:firebase-auth:20.0.1'
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
+    //Google Fcm
+    implementation 'com.google.firebase:firebase-messaging'
+    implementation 'com.google.firebase:firebase-analytics'
 }
