@@ -1,10 +1,17 @@
 package org.three.minutes.util
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.util.Log
+import android.view.View
+import android.view.WindowManager
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.three.minutes.badge.adapter.BadgeListAdapter
 import org.three.minutes.badge.data.BadgeListData
+import org.three.minutes.badge.ui.ClosedBadgePopup
+import org.three.minutes.badge.ui.OpenedBadgePopup
 import org.three.minutes.mypage.adapter.MyWritingAdapter
 import org.three.minutes.mypage.data.MyWritingData
 import org.three.minutes.word.adapter.PastWritingRcvAdapter
@@ -60,7 +67,27 @@ fun RecyclerView.setSearchResult(data : List<SearchWritingData>){
 // 뱃지 리스트를 표현하는 바인딩 어댑터 Extension
 @BindingAdapter("app:setBadgeList")
 fun RecyclerView.setBadgeList(listData : MutableList<BadgeListData>){
+    Log.d("Show BindingAdapter","call")
+    val openedBadgePopup = OpenedBadgePopup(this.context)
+    val closedBadgePopup = ClosedBadgePopup(this.context)
     val rcvAdapter = BadgeListAdapter(this.context)
+
+    rcvAdapter.setOnItemClickListener(object : BadgeListAdapter.OnItemClickListener{
+        override fun onItemClick(v: View, data: BadgeListData) {
+            when(data.isOpen){
+                // 뱃지가 닫힌 경우
+                0 -> {
+                    closedBadgePopup.show()
+
+                }
+                // 뱃지 오픈
+                else->{
+                    openedBadgePopup.show()
+                }
+            }
+
+        }
+    })
     this.apply {
         adapter = rcvAdapter
         addItemDecoration(RcvItemDeco(

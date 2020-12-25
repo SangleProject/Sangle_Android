@@ -3,12 +3,16 @@ package org.three.minutes.badge.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatDialog
 import androidx.databinding.DataBindingUtil
+import kotlinx.android.synthetic.main.badge_opened_popup.*
 import org.three.minutes.R
 import org.three.minutes.badge.data.BadgeListData
 import org.three.minutes.badge.viewmodel.BadgeViewModel
 import org.three.minutes.databinding.ActivityBadgeBinding
+import org.three.minutes.singleton.PopUpObject
 import org.three.minutes.singleton.StatusObject
 
 class BadgeActivity : AppCompatActivity() {
@@ -26,9 +30,10 @@ class BadgeActivity : AppCompatActivity() {
         StatusObject.setStatusBar(this)
 
         settingToolbar()
-        settingRcv()
 
+        settingRcv()
     }
+
     // 뱃지 리스트 리사이클러뷰 세팅
     private fun settingRcv() {
         mViewModel.badgeList = mutableListOf(
