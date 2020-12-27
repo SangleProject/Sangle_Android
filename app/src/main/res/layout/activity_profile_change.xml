@@ -86,7 +86,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
                     android:layout_marginEnd="6dp"
-                    android:background="@drawable/profile1"
+                    android:background="@drawable/state_profile1"
+                    android:checked="false"
                     android:button="@null" />
 
                 <RadioButton
@@ -94,7 +95,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="6dp"
-                    android:background="@drawable/profile2"
+                    android:background="@drawable/state_profile2"
                     android:button="@null" />
 
                 <RadioButton
@@ -102,7 +103,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="6dp"
-                    android:background="@drawable/profile3"
+                    android:background="@drawable/state_profile3"
                     android:button="@null" />
 
                 <RadioButton
@@ -110,7 +111,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="6dp"
-                    android:background="@drawable/profile4"
+                    android:background="@drawable/state_profile4"
                     android:button="@null" />
 
                 <RadioButton
@@ -118,7 +119,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="6dp"
-                    android:background="@drawable/profile5"
+                    android:background="@drawable/state_profile5"
                     android:button="@null" />
 
                 <RadioButton
@@ -126,7 +127,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="6dp"
-                    android:background="@drawable/profile6"
+                    android:background="@drawable/state_profile6"
                     android:button="@null" />
 
                 <RadioButton
@@ -134,7 +135,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="6dp"
-                    android:background="@drawable/profile7"
+                    android:background="@drawable/state_profile7"
                     android:button="@null" />
 
                 <RadioButton
@@ -143,7 +144,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
                     android:layout_marginEnd="12dp"
-                    android:background="@drawable/profile8"
+                    android:background="@drawable/state_profile8"
                     android:button="@null" />
 
 
