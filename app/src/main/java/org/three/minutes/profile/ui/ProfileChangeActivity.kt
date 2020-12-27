@@ -12,7 +12,10 @@ import gun0912.tedkeyboardobserver.TedKeyboardObserver
 import org.three.minutes.R
 import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.ActivityProfileChangeBinding
+import org.three.minutes.profile.adapter.ProfileChangeAdapter
+import org.three.minutes.profile.data.ProfileData
 import org.three.minutes.profile.viewmodel.ProfileViewModel
+import org.three.minutes.util.RcvItemDeco
 
 class ProfileChangeActivity : AppCompatActivity() {
     private val mBinding : ActivityProfileChangeBinding by lazy {
@@ -58,8 +61,30 @@ class ProfileChangeActivity : AppCompatActivity() {
 
         // 프로필 설정 체크박스 이벤트 리스너 설정
         setProfileState()
+        // 실험 리사이클러뷰 singleselection
+        setRcv()
 
 
+    }
+
+    private fun setRcv() {
+        val profileAdapter = ProfileChangeAdapter(this)
+        mBinding.profileSelectRcv.adapter = profileAdapter
+//        mBinding.profileSelectRcv.addItemDecoration(RcvItemDeco(
+//            context =this,
+//            top = 0,
+//            bottom = 0,
+//            right = 12,
+//            left = 12,
+//            isGrid = false,
+//            spanCount = 0
+//        ))
+
+        profileAdapter.profileList = mutableListOf(
+            ProfileData(0),
+            ProfileData(0))
+
+        profileAdapter.notifyDataSetChanged()
     }
 
     private fun setProfileState() {
