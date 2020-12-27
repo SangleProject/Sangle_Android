@@ -6,14 +6,16 @@ import android.text.TextWatcher
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.ViewPager
+import okhttp3.ResponseBody
+import org.json.JSONObject
 import org.three.minutes.R
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 fun EditText.textCheckListener(textCheck: (CharSequence?) -> Unit) {
     this.addTextChangedListener(object : TextWatcher {
@@ -91,4 +93,24 @@ fun ImageView.showView(){
 }
 fun ImageView.hideView(){
     this.visibility = View.INVISIBLE
+}
+
+// retrofit 통신 확장 함수
+fun<T> Call<T>.customEnqueue(
+    onSuccess : (T) -> Unit,
+    onError : (ResponseBody?) -> Unit = {}
+){
+    this.enqueue(object : Callback<T>{
+        override fun onFailure(call: Call<T>, t: Throwable) {
+
+        }
+
+        override fun onResponse(call: Call<T>, response: Response<T>) {
+            response.takeIf { it.isSuccessful }
+                ?.body()
+                ?.let{
+                    onSuccess(it)
+                } ?: onError(response.errorBody())
+        }
+    })
 }
