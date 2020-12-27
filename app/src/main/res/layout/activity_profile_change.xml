@@ -60,13 +60,97 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/profile_img_rcv"
+        <HorizontalScrollView
+            android:id="@+id/profile_select_scroll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            android:layout_marginTop="40dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+            app:layout_constraintTop_toBottomOf="@id/appBarLayout">
+
+            <RadioGroup
+                android:id="@+id/profile_img_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/appBarLayout">
+
+                <RadioButton
+                    android:id="@+id/profile1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="6dp"
+                    android:background="@drawable/profile1"
+                    android:button="@null" />
+
+                <RadioButton
+                    android:id="@+id/profile2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="6dp"
+                    android:background="@drawable/profile2"
+                    android:button="@null" />
+
+                <RadioButton
+                    android:id="@+id/profile3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="6dp"
+                    android:background="@drawable/profile3"
+                    android:button="@null" />
+
+                <RadioButton
+                    android:id="@+id/profile4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="6dp"
+                    android:background="@drawable/profile4"
+                    android:button="@null" />
+
+                <RadioButton
+                    android:id="@+id/profile5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="6dp"
+                    android:background="@drawable/profile5"
+                    android:button="@null" />
+
+                <RadioButton
+                    android:id="@+id/profile6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="6dp"
+                    android:background="@drawable/profile6"
+                    android:button="@null" />
+
+                <RadioButton
+                    android:id="@+id/profile7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="6dp"
+                    android:background="@drawable/profile7"
+                    android:button="@null" />
+
+                <RadioButton
+                    android:id="@+id/profile8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/profile8"
+                    android:button="@null" />
+
+
+            </RadioGroup>
+
+        </HorizontalScrollView>
+
 
         <EditText
             android:id="@+id/profile_nickname_edt"
@@ -86,7 +170,7 @@
             android:textColor="@color/black_60"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_img_rcv" />
+            app:layout_constraintTop_toBottomOf="@id/profile_select_scroll" />
 
         <EditText
             android:id="@+id/profile_introduce_edt"
@@ -103,8 +187,8 @@
             android:maxLength="30"
             android:paddingBottom="26dp"
             android:singleLine="true"
-            android:textColor="@color/black_60"
             android:text="@={viewModel.introduce}"
+            android:textColor="@color/black_60"
             app:layout_constraintEnd_toEndOf="@+id/profile_nickname_edt"
             app:layout_constraintStart_toStartOf="@+id/profile_nickname_edt"
             app:layout_constraintTop_toBottomOf="@+id/profile_nickname_edt" />
