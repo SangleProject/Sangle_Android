@@ -81,17 +81,18 @@
                 app:layout_constraintTop_toBottomOf="@id/appBarLayout">
 
                 <RadioButton
-                    android:id="@+id/profile1"
+                    android:id="@+id/select_profile1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
                     android:layout_marginEnd="6dp"
+                    android:stateListAnimator="@anim/profile_select_ani"
                     android:background="@drawable/state_profile1"
                     android:checked="false"
                     android:button="@null" />
 
                 <RadioButton
-                    android:id="@+id/profile2"
+                    android:id="@+id/select_profile2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="6dp"
@@ -99,7 +100,7 @@
                     android:button="@null" />
 
                 <RadioButton
-                    android:id="@+id/profile3"
+                    android:id="@+id/select_profile3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="6dp"
@@ -107,7 +108,7 @@
                     android:button="@null" />
 
                 <RadioButton
-                    android:id="@+id/profile4"
+                    android:id="@+id/select_profile4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="6dp"
@@ -115,7 +116,7 @@
                     android:button="@null" />
 
                 <RadioButton
-                    android:id="@+id/profile5"
+                    android:id="@+id/select_profile5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="6dp"
@@ -123,7 +124,7 @@
                     android:button="@null" />
 
                 <RadioButton
-                    android:id="@+id/profile6"
+                    android:id="@+id/select_profile6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="6dp"
@@ -131,7 +132,7 @@
                     android:button="@null" />
 
                 <RadioButton
-                    android:id="@+id/profile7"
+                    android:id="@+id/select_profile7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="6dp"
@@ -139,7 +140,7 @@
                     android:button="@null" />
 
                 <RadioButton
-                    android:id="@+id/profile8"
+                    android:id="@+id/select_profile8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"

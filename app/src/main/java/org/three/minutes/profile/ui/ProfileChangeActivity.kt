@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
@@ -55,7 +56,41 @@ class ProfileChangeActivity : AppCompatActivity() {
             Log.d("IntroduceCount", "${introduce.length}")
         })
 
+        // 프로필 설정 체크박스 이벤트 리스너 설정
+        setProfileState()
 
+
+    }
+
+    private fun setProfileState() {
+
+        mBinding.profileImgGroup.setOnCheckedChangeListener { group, checkedId ->
+            when(checkedId){
+                R.id.select_profile1 ->{
+                }
+                R.id.select_profile2 ->{
+
+                }
+                R.id.select_profile3 ->{
+
+                }
+                R.id.select_profile4 ->{
+
+                }
+                R.id.select_profile5 ->{
+
+                }
+                R.id.select_profile6 ->{
+
+                }
+                R.id.select_profile7 ->{
+
+                }
+                R.id.select_profile8 ->{
+
+                }
+            }
+        }
     }
 
     private fun clearFocus(){
