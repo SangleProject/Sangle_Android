@@ -98,7 +98,7 @@ fun ImageView.hideView(){
 // retrofit 통신 확장 함수
 fun<T> Call<T>.customEnqueue(
     onSuccess : (T) -> Unit,
-    onError : (ResponseBody?) -> Unit = {}
+    onError : (Response<T>) -> Unit = {}
 ){
     this.enqueue(object : Callback<T>{
         override fun onFailure(call: Call<T>, t: Throwable) {
@@ -110,7 +110,11 @@ fun<T> Call<T>.customEnqueue(
                 ?.body()
                 ?.let{
                     onSuccess(it)
-                } ?: onError(response.errorBody())
+                } ?: onError(response)
         }
     })
+}
+
+fun Context.showToast(message : String){
+    Toast.makeText(this,message,Toast.LENGTH_SHORT).show()
 }
