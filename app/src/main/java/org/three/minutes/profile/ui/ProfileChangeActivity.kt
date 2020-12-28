@@ -59,9 +59,7 @@ class ProfileChangeActivity : AppCompatActivity() {
             Log.d("IntroduceCount", "${introduce.length}")
         })
 
-        // 프로필 설정 체크박스 이벤트 리스너 설정
-        setProfileState()
-        // 실험 리사이클러뷰 singleselection
+        // 프로필 선택 Single Selection Rcv
         setRcv()
 
 
@@ -70,53 +68,10 @@ class ProfileChangeActivity : AppCompatActivity() {
     private fun setRcv() {
         val profileAdapter = ProfileChangeAdapter(this)
         mBinding.profileSelectRcv.adapter = profileAdapter
-//        mBinding.profileSelectRcv.addItemDecoration(RcvItemDeco(
-//            context =this,
-//            top = 0,
-//            bottom = 0,
-//            right = 12,
-//            left = 12,
-//            isGrid = false,
-//            spanCount = 0
-//        ))
-
-        profileAdapter.profileList = mutableListOf(
-            ProfileData(0),
-            ProfileData(0))
-
+        profileAdapter.profileList = mViewModel.profileImgList
         profileAdapter.notifyDataSetChanged()
     }
 
-    private fun setProfileState() {
-
-        mBinding.profileImgGroup.setOnCheckedChangeListener { group, checkedId ->
-            when(checkedId){
-                R.id.select_profile1 ->{
-                }
-                R.id.select_profile2 ->{
-
-                }
-                R.id.select_profile3 ->{
-
-                }
-                R.id.select_profile4 ->{
-
-                }
-                R.id.select_profile5 ->{
-
-                }
-                R.id.select_profile6 ->{
-
-                }
-                R.id.select_profile7 ->{
-
-                }
-                R.id.select_profile8 ->{
-
-                }
-            }
-        }
-    }
 
     private fun clearFocus(){
         if(mImm.isAcceptingText){

@@ -60,98 +60,18 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <HorizontalScrollView
-            android:id="@+id/profile_select_scroll"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/profile_select_rcv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:overScrollMode="never"
-            android:scrollbars="none"
-            android:layout_marginTop="40dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/profile_select_item"
+            android:layout_marginTop="28dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/appBarLayout">
+            app:layout_constraintTop_toBottomOf="@id/appBarLayout" />
 
-            <RadioGroup
-                android:id="@+id/profile_img_group"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/appBarLayout">
-
-                <RadioButton
-                    android:id="@+id/select_profile1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="6dp"
-                    android:stateListAnimator="@anim/profile_select_ani"
-                    android:background="@drawable/state_profile1"
-                    android:checked="false"
-                    android:button="@null" />
-
-                <RadioButton
-                    android:id="@+id/select_profile2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="6dp"
-                    android:background="@drawable/state_profile2"
-                    android:button="@null" />
-
-                <RadioButton
-                    android:id="@+id/select_profile3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="6dp"
-                    android:background="@drawable/state_profile3"
-                    android:button="@null" />
-
-                <RadioButton
-                    android:id="@+id/select_profile4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="6dp"
-                    android:background="@drawable/state_profile4"
-                    android:button="@null" />
-
-                <RadioButton
-                    android:id="@+id/select_profile5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="6dp"
-                    android:background="@drawable/state_profile5"
-                    android:button="@null" />
-
-                <RadioButton
-                    android:id="@+id/select_profile6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="6dp"
-                    android:background="@drawable/state_profile6"
-                    android:button="@null" />
-
-                <RadioButton
-                    android:id="@+id/select_profile7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="6dp"
-                    android:background="@drawable/state_profile7"
-                    android:button="@null" />
-
-                <RadioButton
-                    android:id="@+id/select_profile8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:layout_marginEnd="12dp"
-                    android:background="@drawable/state_profile8"
-                    android:button="@null" />
-
-
-            </RadioGroup>
-
-        </HorizontalScrollView>
 
 
         <EditText
@@ -172,7 +92,7 @@
             android:textColor="@color/black_60"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/profile_select_scroll" />
+            app:layout_constraintTop_toBottomOf="@id/profile_select_rcv" />
 
         <EditText
             android:id="@+id/profile_introduce_edt"
@@ -219,16 +139,7 @@
             app:layout_constraintTop_toTopOf="@+id/num" />
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/profile_select_rcv"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/num" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
