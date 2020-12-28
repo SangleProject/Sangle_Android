@@ -61,12 +61,18 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/profile_img_rcv"
+            android:id="@+id/profile_select_rcv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/profile_select_item"
+            android:layout_marginTop="28dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+            app:layout_constraintTop_toBottomOf="@id/appBarLayout" />
+
+
 
         <EditText
             android:id="@+id/profile_nickname_edt"
@@ -86,7 +92,7 @@
             android:textColor="@color/black_60"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_img_rcv" />
+            app:layout_constraintTop_toBottomOf="@id/profile_select_rcv" />
 
         <EditText
             android:id="@+id/profile_introduce_edt"
@@ -103,8 +109,8 @@
             android:maxLength="30"
             android:paddingBottom="26dp"
             android:singleLine="true"
-            android:textColor="@color/black_60"
             android:text="@={viewModel.introduce}"
+            android:textColor="@color/black_60"
             app:layout_constraintEnd_toEndOf="@+id/profile_nickname_edt"
             app:layout_constraintStart_toStartOf="@+id/profile_nickname_edt"
             app:layout_constraintTop_toBottomOf="@+id/profile_nickname_edt" />
@@ -131,6 +137,9 @@
             app:layout_constraintBottom_toBottomOf="@+id/num"
             app:layout_constraintEnd_toStartOf="@+id/num"
             app:layout_constraintTop_toTopOf="@+id/num" />
+
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

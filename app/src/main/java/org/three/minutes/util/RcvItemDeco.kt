@@ -70,34 +70,15 @@ class RcvItemDeco(
 
             }
         } else {
-            when (parent.getChildAdapterPosition(view)) {
-                0 -> { // 첫 번째 인덱스
-                    setOutRect(
-                        outRect, sizeTop, sizeBottom / 2,
-                        sizeLeft, sizeRight / 2
-                    )
-                }
-                state.itemCount - 1 -> { // 마지막 인덱스
-                    setOutRect(
-                        outRect, sizeTop / 2, sizeBottom,
-                        sizeLeft / 2, sizeRight
-                    )
-                }
-                else -> {  // 그 외 인덱스
-                    setOutRect(
-                        outRect, sizeTop / 2, sizeBottom / 2,
-                        sizeLeft / 2, sizeRight / 2
-                    )
-                }
-            }
+            setOutRect(outRect, sizeTop, sizeBottom, sizeRight, sizeLeft)
         }
-
     }
 
-    private fun setOutRect(outRect: Rect, top: Int, bottom: Int, right: Int, left: Int) {
-        outRect.top = top
-        outRect.bottom = bottom
-        outRect.right = right
-        outRect.left = left
-    }
+}
+
+private fun setOutRect(outRect: Rect, top: Int, bottom: Int, right: Int, left: Int) {
+    outRect.top = top
+    outRect.bottom = bottom
+    outRect.right = right
+    outRect.left = left
 }

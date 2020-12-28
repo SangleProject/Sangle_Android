@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
@@ -11,7 +12,10 @@ import gun0912.tedkeyboardobserver.TedKeyboardObserver
 import org.three.minutes.R
 import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.ActivityProfileChangeBinding
+import org.three.minutes.profile.adapter.ProfileChangeAdapter
+import org.three.minutes.profile.data.ProfileData
 import org.three.minutes.profile.viewmodel.ProfileViewModel
+import org.three.minutes.util.RcvItemDeco
 
 class ProfileChangeActivity : AppCompatActivity() {
     private val mBinding : ActivityProfileChangeBinding by lazy {
@@ -55,8 +59,19 @@ class ProfileChangeActivity : AppCompatActivity() {
             Log.d("IntroduceCount", "${introduce.length}")
         })
 
+        // 프로필 선택 Single Selection Rcv
+        setRcv()
+
 
     }
+
+    private fun setRcv() {
+        val profileAdapter = ProfileChangeAdapter(this)
+        mBinding.profileSelectRcv.adapter = profileAdapter
+        profileAdapter.profileList = mViewModel.profileImgList
+        profileAdapter.notifyDataSetChanged()
+    }
+
 
     private fun clearFocus(){
         if(mImm.isAcceptingText){
