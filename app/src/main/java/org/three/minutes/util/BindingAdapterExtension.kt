@@ -7,6 +7,7 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -108,5 +109,6 @@ fun RecyclerView.setBadgeList(listData : MutableList<BadgeListData>){
 
 @BindingAdapter("app:setProfileImg")
 fun ImageView.setProfile(profileImg : String){
+    Log.e("BindingAdapter",profileImg)
     Glide.with(this.context).load(profileImg).into(this)
 }

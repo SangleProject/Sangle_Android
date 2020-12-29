@@ -13,7 +13,9 @@ import androidx.drawerlayout.widget.DrawerLayout
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.home_navigation.view.*
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.collect
 import org.three.minutes.R
+import org.three.minutes.ThreeApplication
 import org.three.minutes.badge.ui.BadgeActivity
 import org.three.minutes.databinding.ActivityHomeBinding
 import org.three.minutes.home.adapter.HomePageAdapter
@@ -45,6 +47,13 @@ class HomeActiviy : AppCompatActivity(), CoroutineScope {
         mBinding.apply {
             lifecycleOwner = this@HomeActiviy
             viewModel = mViewModel
+        }
+
+        // 기기에 저장된 token값 가져오기
+        launch {
+            ThreeApplication.getInstance().getDataStore().token.collect {
+                mViewModel.token = it
+            }
         }
 
         //Home_Info Api
