@@ -21,4 +21,8 @@ interface SangleService {
     fun putGoogleSignUp(
         @Body body : RequestGoogleSignUpData
     ) : Call<ResponseGoogleSignUpData>
+
+    // 일반 로그인 API
+    @POST("/users/signin")
+    fun postLogIn()
 }
