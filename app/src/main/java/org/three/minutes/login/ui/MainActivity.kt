@@ -10,6 +10,7 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -19,6 +20,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import gun0912.tedkeyboardobserver.TedKeyboardObserver
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_calender.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
 import org.json.JSONObject
@@ -27,6 +29,7 @@ import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.ActivityMainBinding
 import org.three.minutes.home.ui.HomeActiviy
 import org.three.minutes.login.data.RequestGoogleLoginData
+import org.three.minutes.login.viewmodel.LogInViewModel
 import org.three.minutes.server.SangleServiceImpl
 import org.three.minutes.signup.ui.SignupActivity
 import org.three.minutes.singleton.GoogleLoginObject
@@ -53,13 +56,19 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
     private val mBinding: ActivityMainBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_main)
     }
+    private val mViewModel : LogInViewModel by viewModels()
 
     private val GOOGLE_CODE = 100
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        mBinding.activity = this
+        mBinding.apply {
+            lifecycleOwner = this@MainActivity
+            activity = this@MainActivity
+            viewModel = mViewModel
+        }
+
         mImm = ThreeApplication.getInstance().getInputMethodManager()
         job = Job()
 
@@ -149,6 +158,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
 
     // 로그인 클릭 시 확인 함수
     fun checkLogin() {
+
         val intent = Intent(this, HomeActiviy::class.java)
         startActivity(intent)
 //        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_hold)
