@@ -5,9 +5,7 @@ import org.three.minutes.login.data.ResponseGoogleLoginData
 import org.three.minutes.signup.data.RequestGoogleSignUpData
 import org.three.minutes.signup.data.ResponseGoogleSignUpData
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.POST
-import retrofit2.http.PUT
+import retrofit2.http.*
 
 interface SangleService {
     // 구글 로그인 검증
@@ -21,4 +19,10 @@ interface SangleService {
     fun putGoogleSignUp(
         @Body body : RequestGoogleSignUpData
     ) : Call<ResponseGoogleSignUpData>
+
+    // 메인 정보 불러오기
+    @GET("/main/info")
+    fun getMainInfo(
+        @Header("token") token : String
+    )
 }
