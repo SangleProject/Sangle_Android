@@ -29,6 +29,7 @@ import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.ActivityMainBinding
 import org.three.minutes.home.ui.HomeActiviy
 import org.three.minutes.login.data.RequestGoogleLoginData
+import org.three.minutes.login.data.RequestLoginData
 import org.three.minutes.login.viewmodel.LogInViewModel
 import org.three.minutes.server.SangleServiceImpl
 import org.three.minutes.signup.ui.SignupActivity
@@ -159,8 +160,27 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
     // 로그인 클릭 시 확인 함수
     fun checkLogin() {
 
-        val intent = Intent(this, HomeActiviy::class.java)
-        startActivity(intent)
+        SangleServiceImpl.service.postLogIn(
+            RequestLoginData(
+                email = mViewModel.email.value.toString(),
+                password = mViewModel.password.value.toString()
+            )
+        ).customEnqueue(
+            onSuccess = {
+                launch {
+                    //토큰 저장
+                    ThreeApplication.getInstance().getDataStore().setToken(it.token)
+                    ThreeApplication.getInstance().getDataStore().setRefreshToken(it.refresh)
+                }
+
+                val intent = Intent(this, HomeActiviy::class.java)
+                startActivity(intent)
+            },
+            onError = {
+                showToast("${it.code()}")
+            }
+        )
+
 //        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_hold)
     }
 

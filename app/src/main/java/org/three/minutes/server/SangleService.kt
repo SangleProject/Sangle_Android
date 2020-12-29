@@ -1,7 +1,9 @@
 package org.three.minutes.server
 
 import org.three.minutes.login.data.RequestGoogleLoginData
+import org.three.minutes.login.data.RequestLoginData
 import org.three.minutes.login.data.ResponseGoogleLoginData
+import org.three.minutes.login.data.ResponseLoginData
 import org.three.minutes.signup.data.RequestGoogleSignUpData
 import org.three.minutes.signup.data.ResponseGoogleSignUpData
 import retrofit2.Call
@@ -24,5 +26,7 @@ interface SangleService {
 
     // 일반 로그인 API
     @POST("/users/signin")
-    fun postLogIn()
+    fun postLogIn(
+        @Body body : RequestLoginData
+    ) : Call<ResponseLoginData>
 }
