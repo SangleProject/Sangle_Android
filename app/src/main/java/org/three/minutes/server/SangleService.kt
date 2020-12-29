@@ -1,5 +1,6 @@
 package org.three.minutes.server
 
+import org.three.minutes.home.data.ResponseMainInfoData
 import org.three.minutes.login.data.RequestGoogleLoginData
 import org.three.minutes.login.data.ResponseGoogleLoginData
 import org.three.minutes.signup.data.RequestGoogleSignUpData
@@ -24,5 +25,5 @@ interface SangleService {
     @GET("/main/info")
     fun getMainInfo(
         @Header("token") token : String
-    )
+    ) : Call<ResponseMainInfoData>
 }

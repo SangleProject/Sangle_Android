@@ -5,9 +5,11 @@ import android.graphics.drawable.ColorDrawable
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import org.three.minutes.badge.adapter.BadgeListAdapter
 import org.three.minutes.badge.data.BadgeListData
 import org.three.minutes.badge.ui.ClosedBadgePopup
@@ -102,4 +104,9 @@ fun RecyclerView.setBadgeList(listData : MutableList<BadgeListData>){
     }
     rcvAdapter.data = listData
     rcvAdapter.notifyDataSetChanged()
+}
+
+@BindingAdapter("app:setProfileImg")
+fun ImageView.setProfile(profileImg : String){
+    Glide.with(this.context).load(profileImg).into(this)
 }
