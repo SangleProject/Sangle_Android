@@ -24,6 +24,9 @@ class HomeViewModel : ViewModel() {
     //이번 주 쓴 글 증가 감소 추이
     var writingCount = MutableLiveData(0)
 
+    //token값
+    lateinit var token : String
+
     //메인 화면에 띄워놓을 데이터들
     //아이디
     var nickName = MutableLiveData("")
@@ -74,32 +77,18 @@ class HomeViewModel : ViewModel() {
     }
 
     fun setInfo() {
-        Log.e("Show MainInfo", "start")
-        CoroutineScope(Dispatchers.Main).launch {
-            Log.e("Show MainInfo", "start Coroutine")
-            var token = ""
-            launch {
-                Log.e("Show MainInfo", "start getToken")
-                ThreeApplication.getInstance().getDataStore().token.collect {
-                    token = it
-                }
-                Log.e("Show MainInfo", token)
-            }.join()
-            Log.e("Show MainInfo", "get MainInfo")
-
+        viewModelScope.launch {
             SangleServiceImpl.service.getMainInfo(token)
                 .customEnqueue(
                     onSuccess = {
                         nickName.postValue(it.nickName)
-                        profileImg.postValue(it.nickName)
+                        profileImg.postValue(it.profileImg)
                         postCount.postValue(it.postCount)
                         week.postValue(it.week)
                         compare.postValue(it.compare)
                         remaining.postValue(it.remaining)
                         percentage.postValue(it.remaining)
                         percentage.postValue(it.percentage)
-
-                        Log.e("Show MainInfo", "$it")
                     },
                     onError = {
                         Log.e("ERROR in MainInfo API", "${it.code()}")
