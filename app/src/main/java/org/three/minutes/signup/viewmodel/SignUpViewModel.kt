@@ -12,6 +12,8 @@ class SignUpViewModel : ViewModel() {
     var gender = MutableLiveData<Int>()
     var nickname = MutableLiveData<String>("")
 
+    var isGoogle = false
+
     init {
         progress.value = 25
     }

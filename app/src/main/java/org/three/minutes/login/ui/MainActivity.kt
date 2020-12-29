@@ -30,6 +30,7 @@ import org.three.minutes.login.data.RequestGoogleLoginData
 import org.three.minutes.server.SangleServiceImpl
 import org.three.minutes.signup.ui.SignupActivity
 import org.three.minutes.singleton.GoogleLoginObject
+import org.three.minutes.singleton.PopUpObject
 import org.three.minutes.singleton.StatusObject
 import org.three.minutes.util.customEnqueue
 import org.three.minutes.util.showToast
@@ -177,7 +178,8 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
 //                    "GoogleInfo",
 //                    "email : ${account.email} , displayName : ${account.displayName}"
 //                )
-                firebaseAuthWithGoogle(account.idToken!!)
+                PopUpObject.setLoading(this).show()
+                firebaseAuthWithGoogle(account.idToken!!, account.id!!)
             } catch (e: ApiException) {
 
             }
@@ -185,13 +187,13 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
     }
 
     // 인증에 성공했을 때 실제로 로그인이 되었는지?
-    private fun firebaseAuthWithGoogle(idToken: String) {
+    private fun firebaseAuthWithGoogle(idToken: String, id : String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         GoogleLoginObject.auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(this, "GoogleLoginOk", Toast.LENGTH_SHORT).show()
                     // 구글 로그인 인증 서버 통신
+
                     SangleServiceImpl.service.postLoginGoogle(
                         RequestGoogleLoginData(idToken = idToken)
                     ).customEnqueue(
@@ -201,8 +203,11 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
                                 startActivity(intent)
                             } else {
                                 val intent = Intent(this, SignupActivity::class.java)
+                                intent.putExtra("google", true)
+                                intent.putExtra("googleId", id)
                                 startActivity(intent)
                             }
+                            PopUpObject.setLoading(this).dismiss()
                         },
                         onError = {
                             showToast("${it.code()}")

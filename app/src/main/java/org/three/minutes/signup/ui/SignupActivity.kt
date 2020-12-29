@@ -30,6 +30,9 @@ class SignupActivity : AppCompatActivity() {
         binding.signupViewmodel = mSignUpModel
         binding.activity = this
 
+        //구글 로그인 경로로 들어왔는지 확인
+        checkGoogle()
+
         //상태바 투명으로 만들기
         StatusObject.setStatusBar(this)
         mImm = ThreeApplication.getInstance().getInputMethodManager()
@@ -80,6 +83,17 @@ class SignupActivity : AppCompatActivity() {
                     prePage()
                 }
             }
+        }
+    }
+
+    // 구글 버튼을 누르고 들어왔는지에 대한 체크
+    private fun checkGoogle() {
+        val intent = intent
+        mSignUpModel.isGoogle = intent.getBooleanExtra("google",false)
+        if(mSignUpModel.isGoogle){
+            contents_viewpager.currentItem = 2
+            // email 부분을 구글 이메일로 변경
+            mSignUpModel.email.value =  intent.getStringExtra("googleId")
         }
     }
 
