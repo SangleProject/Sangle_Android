@@ -37,7 +37,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="16dp"
-                android:text="아이디"
+                android:text="@{viewModel.nickName}"
+                tools:text="아이디"
                 android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -73,11 +74,11 @@
                 android:layout_marginStart="11dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="100dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/profile1"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="H,1:1"
+                app:setProfileImg="@{viewModel.profileImg}"
+                tools:src="@drawable/profile1"
+                app:layout_constraintWidth_percent="0.17"
+                app:layout_constraintDimensionRatio="1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView3"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -116,7 +117,8 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="48"
+                        android:text="@{Integer.toString(viewModel.postCount)}"
+                        tools:text="0"
                         android:textColor="@color/black_100" />
 
                     <TextView
@@ -151,7 +153,8 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:text="48"
+                            tools:text="0"
+                            android:text="@{Integer.toString(viewModel.week)}"
                             android:textColor="@color/black_100" />
 
                         <ImageView
@@ -161,7 +164,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="4dp"
                             android:scaleType="fitXY"
-                            app:progressImg="@{viewModel.increDecre}" />
+                            app:progressImg="@{viewModel.compare}" />
 
 
                     </LinearLayout>
@@ -193,7 +196,8 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="48"
+                        tools:text="0"
+                        android:text="@{Integer.toString(viewModel.remaining)}"
                         android:textColor="@color/black_100" />
 
                     <TextView

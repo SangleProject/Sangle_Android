@@ -47,7 +47,8 @@ class HomeActiviy : AppCompatActivity(), CoroutineScope {
             viewModel = mViewModel
         }
 
-
+        //Home_Info Api
+        mViewModel.setInfo()
 
         setSupportActionBar(home_toolbar)
         supportActionBar?.apply {

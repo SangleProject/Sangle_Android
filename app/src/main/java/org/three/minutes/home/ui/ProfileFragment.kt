@@ -54,13 +54,6 @@ class ProfileFragment : Fragment(),CoroutineScope {
             fragment = this@ProfileFragment
         }
 
-        //코루틴을 사용해서 시간 지나면 이미지 변경 + 데이터 바인딩
-        launch {
-            delay(5000)
-
-            mViewModel.increDecre.value = 2
-        }
-
         return mBinding.root
     }
 
