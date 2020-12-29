@@ -5,15 +5,11 @@ import android.content.Context
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import org.three.minutes.util.changeBlackColor
-import org.three.minutes.util.changeBlueColor
-import org.three.minutes.util.hideView
-import org.three.minutes.util.showView
-import org.w3c.dom.Text
+import org.three.minutes.util.*
 
 class ThreeApplication : Application(){
     private lateinit var mImm : InputMethodManager
+    private lateinit var dataStore : SangleDataStoreManager
 
     companion object{
         private lateinit var threeApplication : ThreeApplication
@@ -24,10 +20,11 @@ class ThreeApplication : Application(){
         super.onCreate()
         threeApplication = this
         mImm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-
+        dataStore = SangleDataStoreManager(this)
     }
 
     fun getInputMethodManager() : InputMethodManager = mImm
+    fun getDataStore() : SangleDataStoreManager = dataStore
 
     fun changeTextColor(blueText : TextView, blackText : TextView){
         blueText.changeBlueColor()

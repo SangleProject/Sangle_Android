@@ -20,21 +20,26 @@ import com.google.firebase.auth.GoogleAuthProvider
 import gun0912.tedkeyboardobserver.TedKeyboardObserver
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.collect
+import org.json.JSONObject
 import org.three.minutes.R
 import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.ActivityMainBinding
 import org.three.minutes.home.ui.HomeActiviy
+import org.three.minutes.login.data.RequestGoogleLoginData
+import org.three.minutes.server.SangleServiceImpl
 import org.three.minutes.signup.ui.SignupActivity
 import org.three.minutes.singleton.GoogleLoginObject
+import org.three.minutes.singleton.PopUpObject
 import org.three.minutes.singleton.StatusObject
+import org.three.minutes.util.customEnqueue
+import org.three.minutes.util.showToast
+import retrofit2.Call
 import kotlin.coroutines.CoroutineContext
 
 
 class MainActivity : AppCompatActivity(), CoroutineScope {
     private lateinit var job: Job
-
-    //    override val coroutineContext: CoroutineContext
-//        get() = Dispatchers.Main + job
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
@@ -57,6 +62,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         mBinding.activity = this
         mImm = ThreeApplication.getInstance().getInputMethodManager()
         job = Job()
+
 
         //상태바 투명으로 만들기
         StatusObject.setStatusBar(this)
@@ -98,7 +104,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         }
         TedKeyboardObserver(this)
             .listen { isShow ->
-                if(!isShow){
+                if (!isShow) {
                     clearFocus()
                 }
             }
@@ -167,12 +173,13 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 val account = task.getResult(ApiException::class.java)!!
-                Log.d("GoogleInfo", "id : ${account.id} , idToken : ${account.idToken}")
-                Log.d(
-                    "GoogleInfo",
-                    "email : ${account.email} , displayName : ${account.displayName}"
-                )
-                firebaseAuthWithGoogle(account.idToken!!)
+//                Log.d("GoogleInfo", "id : ${account.id} , idToken : ${account.idToken}")
+//                Log.d(
+//                    "GoogleInfo",
+//                    "email : ${account.email} , displayName : ${account.displayName}"
+//                )
+                PopUpObject.setLoading(this).show()
+                firebaseAuthWithGoogle(account.idToken!!, account.id!!)
             } catch (e: ApiException) {
 
             }
@@ -180,12 +187,32 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
     }
 
     // 인증에 성공했을 때 실제로 로그인이 되었는지?
-    private fun firebaseAuthWithGoogle(idToken: String) {
+    private fun firebaseAuthWithGoogle(idToken: String, id : String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         GoogleLoginObject.auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(this, "GoogleLoginOk", Toast.LENGTH_SHORT).show()
+                    // 구글 로그인 인증 서버 통신
+
+                    SangleServiceImpl.service.postLoginGoogle(
+                        RequestGoogleLoginData(idToken = idToken)
+                    ).customEnqueue(
+                        onSuccess = {
+                            if (it.user) {
+                                val intent = Intent(this, HomeActiviy::class.java)
+                                startActivity(intent)
+                            } else {
+                                val intent = Intent(this, SignupActivity::class.java)
+                                intent.putExtra("google", true)
+                                intent.putExtra("googleId", id)
+                                startActivity(intent)
+                            }
+                            PopUpObject.setLoading(this).dismiss()
+                        },
+                        onError = {
+                            showToast("${it.code()}")
+                        }
+                    )
                 } else {
                     Toast.makeText(this, "GoogleLoginFail", Toast.LENGTH_SHORT).show()
                 }
