@@ -5,24 +5,23 @@ import android.os.Bundle
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.activity_signup.*
 import org.three.minutes.R
 import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.ActivitySignupBinding
-import org.three.minutes.server.SangleServiceImpl
 import org.three.minutes.signup.adapter.ViewPagerAdapter
-import org.three.minutes.signup.data.RequestCheckEmailData
+import org.three.minutes.signup.viewmodel.SignUpRepoImpl
+import org.three.minutes.signup.viewmodel.SignUpUseCase
 import org.three.minutes.signup.viewmodel.SignUpViewModel
+import org.three.minutes.signup.viewmodel.SignUpViewModelFactory
 import org.three.minutes.singleton.StatusObject
 import org.three.minutes.singleton.PatternObject
-import org.three.minutes.util.customEnqueue
-import org.three.minutes.util.showToast
 
 class SignupActivity : AppCompatActivity() {
-    private val mSignUpModel: SignUpViewModel by viewModels()
+    private lateinit var mSignUpModel: SignUpViewModel
     private lateinit var mPageAdapter: ViewPagerAdapter
     private lateinit var mImm: InputMethodManager
 
@@ -31,6 +30,12 @@ class SignupActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding: ActivitySignupBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_signup)
+
+        val signUpImpl = SignUpRepoImpl()
+
+        mSignUpModel = ViewModelProvider(this , SignUpViewModelFactory(ThreeApplication.getInstance(), SignUpUseCase(signUpImpl)))
+            .get(SignUpViewModel::class.java)
+
         binding.lifecycleOwner = this
         binding.signupViewmodel = mSignUpModel
         binding.activity = this
@@ -63,8 +68,7 @@ class SignupActivity : AppCompatActivity() {
         signup_next_txt.setOnClickListener {
             when (contents_viewpager.currentItem) {
                 0 -> {
-                    mSignUpModel.callCheckEmailAPI(this,
-                        nextPage = { nextPage() } )
+                    mSignUpModel.callCheckEmail {  nextPage() }
                 }
 
                 1-> {

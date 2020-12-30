@@ -1,7 +1,9 @@
 package org.three.minutes.signup.viewmodel
 
+import android.app.Application
 import android.content.Context
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.viewpager.widget.ViewPager
@@ -14,10 +16,13 @@ import org.three.minutes.signup.data.RequestCheckEmailData
 import org.three.minutes.util.customEnqueue
 import org.three.minutes.util.showToast
 
-class SignUpViewModel : ViewModel() {
+class SignUpViewModel(application: Application, private val useCase: SignUpUseCase)
+    : AndroidViewModel(application) {
 
     private val job = Job()
     private val viewModelScope = CoroutineScope(Dispatchers.Main + job)
+
+    private val context = getApplication<Application>().applicationContext
 
     var progress = MutableLiveData<Int>()
     var email = MutableLiveData("")
@@ -41,19 +46,14 @@ class SignUpViewModel : ViewModel() {
         progress.value = progress.value?.minus(25)
     }
 
-    fun callCheckEmailAPI(context : Context, nextPage : () -> Unit) {
-        SangleServiceImpl.service.postCheckEmail(
-            RequestCheckEmailData(email = email.value!!)
-        ).customEnqueue(
-            onSuccess = {
-                if(it.isCheck){
-                    nextPage()
-                }
-                else{
-                    context.showToast("중복된 이메일 입니다.")
-                }
-            }
-        )
+    // 이메일 체크
+    fun callCheckEmail(nextPage: () -> Unit){
+        useCase.checkEmail(context = context, nextPage = {nextPage()}, email = email.value!!)
+    }
+
+    // 닉네임 중복 체크
+    fun callCheckNickNameAPI(context: Context) {
+
     }
 
     override fun onCleared() {
