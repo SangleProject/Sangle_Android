@@ -30,6 +30,12 @@ class SplashActivity : AppCompatActivity() {
             CoroutineScope(Main).launch{
                 ThreeApplication.getInstance().getDataStore().setDeviceToken(token!!)
             }
+
+//            CoroutineScope(Main).launch {
+//                ThreeApplication.getInstance().getDataStore().deviceToken.collect {
+//                    Log.e("DeviceToken",it)
+//                }
+//            }
         })
 
 

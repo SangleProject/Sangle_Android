@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.activity_signup.*
 import kotlinx.android.synthetic.main.fragment_info.*
@@ -40,7 +39,7 @@ class InfoFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         mBinding = DataBindingUtil.inflate(layoutInflater,R.layout.fragment_info,container,false)
         mBinding.lifecycleOwner = this
@@ -50,8 +49,8 @@ class InfoFragment : Fragment() {
 
         //다음 단계로 가기 위한 조건
         //나이 항목을 입력하고, 성별 체크까지 마쳤을 경우
-       mViewModel.age.observe(this, Observer<String> { age ->
-            mActivity.signup_next_txt.isEnabled = !age.isNullOrBlank() && mViewModel.gender.value != 0
+       mViewModel.age.observe(viewLifecycleOwner,  { age ->
+            mActivity.signup_next_txt.isEnabled = !age.isNullOrBlank() && mViewModel.gender.value!!.isNotEmpty()
         })
 
         return mBinding.root
@@ -71,11 +70,11 @@ class InfoFragment : Fragment() {
         gender_rg.setOnCheckedChangeListener { _, buttonId ->
             when(buttonId){
                 R.id.man_rb -> {
-                    mViewModel.gender.value = 1
+                    mViewModel.gender.value = "m"
                 }
 
                 R.id.woman_rb -> {
-                    mViewModel.gender.value = 2
+                    mViewModel.gender.value = "f"
                 }
             }
         }

@@ -4,6 +4,7 @@ import org.three.minutes.home.data.ResponseMainInfoData
 import org.three.minutes.login.data.RequestGoogleLoginData
 import org.three.minutes.login.data.RequestLoginData
 import org.three.minutes.login.data.ResponseGoogleLoginData
+import org.three.minutes.signup.data.*
 import org.three.minutes.login.data.ResponseLoginData
 import org.three.minutes.signup.data.RequestGoogleSignUpData
 import org.three.minutes.signup.data.ResponseGoogleSignUpData
@@ -21,7 +22,25 @@ interface SangleService {
     @PUT("/users/social")
     fun putGoogleSignUp(
         @Body body : RequestGoogleSignUpData
-    ) : Call<ResponseGoogleSignUpData>
+    ) : Call<ResponseSignUpData>
+
+    // 이메일 중복 체크 api
+    @POST("/users/checkEmail")
+    fun postCheckEmail(
+        @Body body : RequestCheckEmailData
+    ) : Call<ResponseCheckData>
+
+    // 닉네임 중복 체크 api
+    @POST("/users/checkNickName")
+    fun postCheckNickName(
+        @Body body : RequestCheckNickNameData
+    ) : Call<ResponseCheckData>
+
+    // 일반 회원가입 api
+    @POST("/users/signup")
+    fun postSignUp(
+        @Body body : RequestSignUpData
+    ) : Call<ResponseSignUpData>
 
     // 일반 로그인 API
     @POST("/users/signin")
@@ -34,4 +53,5 @@ interface SangleService {
     fun getMainInfo(
         @Header("token") token : String
     ) : Call<ResponseMainInfoData>
+
 }
