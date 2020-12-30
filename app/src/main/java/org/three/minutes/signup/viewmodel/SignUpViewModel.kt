@@ -1,16 +1,18 @@
 package org.three.minutes.signup.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import org.three.minutes.server.SangleServiceImpl
 
 class SignUpViewModel : ViewModel() {
     var progress = MutableLiveData<Int>()
-    var email = MutableLiveData<String>("")
-    var password = MutableLiveData<String>("")
-    var passwordCheck = MutableLiveData<String>("")
-    var age = MutableLiveData<String>("")
-    var gender = MutableLiveData<Int>()
-    var nickname = MutableLiveData<String>("")
+    var email = MutableLiveData("")
+    var password = MutableLiveData("")
+    var passwordCheck = MutableLiveData("")
+    var age = MutableLiveData("")
+    var gender = MutableLiveData<String>()
+    var nickname = MutableLiveData("")
 
     var isGoogle = false
 
@@ -24,6 +26,9 @@ class SignUpViewModel : ViewModel() {
 
     fun decreaseProgress() {
         progress.value = progress.value?.minus(25)
+    }
+
+    fun callCheckEmailAPI(context : Context){
     }
 
 }

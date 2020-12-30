@@ -2,7 +2,9 @@ package org.three.minutes.server
 
 import org.three.minutes.login.data.RequestGoogleLoginData
 import org.three.minutes.login.data.ResponseGoogleLoginData
+import org.three.minutes.signup.data.RequestCheckEmailData
 import org.three.minutes.signup.data.RequestGoogleSignUpData
+import org.three.minutes.signup.data.ResponseCheckEmailData
 import org.three.minutes.signup.data.ResponseGoogleSignUpData
 import retrofit2.Call
 import retrofit2.http.Body
@@ -21,4 +23,10 @@ interface SangleService {
     fun putGoogleSignUp(
         @Body body : RequestGoogleSignUpData
     ) : Call<ResponseGoogleSignUpData>
+
+    // 이메일 중복 체크 api
+    @POST("/users/checkEmail")
+    fun postCheckEmail(
+        @Body body : RequestCheckEmailData
+    ) : Call<ResponseCheckEmailData>
 }
