@@ -12,10 +12,13 @@ import kotlinx.android.synthetic.main.activity_signup.*
 import org.three.minutes.R
 import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.ActivitySignupBinding
+import org.three.minutes.server.SangleServiceImpl
 import org.three.minutes.signup.adapter.ViewPagerAdapter
+import org.three.minutes.signup.data.RequestCheckEmailData
 import org.three.minutes.signup.viewmodel.SignUpViewModel
 import org.three.minutes.singleton.StatusObject
 import org.three.minutes.singleton.PatternObject
+import org.three.minutes.util.customEnqueue
 import org.three.minutes.util.showToast
 
 class SignupActivity : AppCompatActivity() {
@@ -60,12 +63,8 @@ class SignupActivity : AppCompatActivity() {
         signup_next_txt.setOnClickListener {
             when (contents_viewpager.currentItem) {
                 0 -> {
-                    if(mSignUpModel.callCheckEmailAPI()){
-                        nextPage()
-                    }
-                    else{
-                        showToast("중복된 이메일입니다.")
-                    }
+                    mSignUpModel.callCheckEmailAPI(this,
+                        nextPage = { nextPage() } )
                 }
 
                 1-> {
@@ -84,14 +83,20 @@ class SignupActivity : AppCompatActivity() {
 
         //좌측 뒤로가기 버튼 클릭 시 이전 페이지로 이동
         back_img.setOnClickListener {
-            when (contents_viewpager.currentItem) {
-                0 -> {
-                    finish()
-                }
-                else -> {
-                    prePage()
+            if(!mSignUpModel.isGoogle){
+                when (contents_viewpager.currentItem) {
+                    0 -> {
+                        finish()
+                    }
+                    else -> {
+                        prePage()
+                    }
                 }
             }
+            else{
+                finish()
+            }
+
         }
     }
 
