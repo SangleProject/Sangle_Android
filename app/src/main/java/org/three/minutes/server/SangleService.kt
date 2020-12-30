@@ -29,7 +29,7 @@ interface SangleService {
 
     // 닉네임 중복 체크 api
     @POST("/users/checkNickName")
-    fun postNickName(
+    fun postCheckNickName(
         @Body body : RequestCheckNickNameData
     ) : Call<ResponseCheckData>
 }

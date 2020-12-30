@@ -1,20 +1,11 @@
 package org.three.minutes.signup.viewmodel
 
 import android.app.Application
-import android.content.Context
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.viewpager.widget.ViewPager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import org.three.minutes.server.SangleServiceImpl
-import org.three.minutes.signup.data.RequestCheckEmailData
-import org.three.minutes.util.customEnqueue
-import org.three.minutes.util.showToast
 
 class SignUpViewModel(application: Application, private val useCase: SignUpUseCase)
     : AndroidViewModel(application) {
@@ -51,9 +42,9 @@ class SignUpViewModel(application: Application, private val useCase: SignUpUseCa
         useCase.checkEmail(context = context, nextPage = {nextPage()}, email = email.value!!)
     }
 
-    // 닉네임 중복 체크
-    fun callCheckNickNameAPI(context: Context) {
-
+    // 회원가입 통신
+    fun callSignUp() {
+        useCase.callSignUp(context = context , nickName = nickname.value!!)
     }
 
     override fun onCleared() {
