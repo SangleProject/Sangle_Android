@@ -7,7 +7,6 @@ import org.three.minutes.login.data.ResponseGoogleLoginData
 import org.three.minutes.signup.data.*
 import org.three.minutes.login.data.ResponseLoginData
 import org.three.minutes.signup.data.RequestGoogleSignUpData
-import org.three.minutes.signup.data.ResponseGoogleSignUpData
 import retrofit2.Call
 import retrofit2.http.*
 
