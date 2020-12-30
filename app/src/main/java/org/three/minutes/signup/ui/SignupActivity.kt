@@ -2,6 +2,7 @@ package org.three.minutes.signup.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -30,8 +31,7 @@ class SignupActivity : AppCompatActivity() {
         binding.signupViewmodel = mSignUpModel
         binding.activity = this
 
-        //구글 로그인 경로로 들어왔는지 확인
-        checkGoogle()
+
 
         //상태바 투명으로 만들기
         StatusObject.setStatusBar(this)
@@ -51,6 +51,9 @@ class SignupActivity : AppCompatActivity() {
 
 
         initViewPager()
+
+        //구글 로그인 경로로 들어왔는지 확인
+        checkGoogle()
 
         //최하단 다음 버튼 클릭 시 다음페이지로 이동
         signup_next_txt.setOnClickListener {
@@ -91,9 +94,13 @@ class SignupActivity : AppCompatActivity() {
         val intent = intent
         mSignUpModel.isGoogle = intent.getBooleanExtra("google",false)
         if(mSignUpModel.isGoogle){
+            Log.e("Into Google","check OK")
             contents_viewpager.currentItem = 2
+
             // email 부분을 구글 이메일로 변경
             mSignUpModel.email.value =  intent.getStringExtra("googleId")
+            mSignUpModel.increaseProgress()
+            mSignUpModel.increaseProgress()
         }
     }
 

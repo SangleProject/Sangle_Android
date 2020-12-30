@@ -5,11 +5,12 @@ import android.content.Intent
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatDialog
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -20,8 +21,6 @@ import com.google.firebase.auth.GoogleAuthProvider
 import gun0912.tedkeyboardobserver.TedKeyboardObserver
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.collect
-import org.json.JSONObject
 import org.three.minutes.R
 import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.ActivityMainBinding
@@ -34,7 +33,6 @@ import org.three.minutes.singleton.PopUpObject
 import org.three.minutes.singleton.StatusObject
 import org.three.minutes.util.customEnqueue
 import org.three.minutes.util.showToast
-import retrofit2.Call
 import kotlin.coroutines.CoroutineContext
 
 
@@ -56,6 +54,8 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
 
     private val GOOGLE_CODE = 100
 
+    private lateinit var progress : AppCompatDialog
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -63,6 +63,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         mImm = ThreeApplication.getInstance().getInputMethodManager()
         job = Job()
 
+        progress = PopUpObject.setLoading(this)
 
         //상태바 투명으로 만들기
         StatusObject.setStatusBar(this)
@@ -178,8 +179,9 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
 //                    "GoogleInfo",
 //                    "email : ${account.email} , displayName : ${account.displayName}"
 //                )
-                PopUpObject.setLoading(this).show()
-                firebaseAuthWithGoogle(account.idToken!!, account.id!!)
+
+                progress.show()
+                firebaseAuthWithGoogle(account.idToken!!, account.email!!)
             } catch (e: ApiException) {
 
             }
@@ -187,7 +189,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
     }
 
     // 인증에 성공했을 때 실제로 로그인이 되었는지?
-    private fun firebaseAuthWithGoogle(idToken: String, id : String) {
+    private fun firebaseAuthWithGoogle(idToken: String, email: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         GoogleLoginObject.auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
@@ -198,16 +200,26 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
                         RequestGoogleLoginData(idToken = idToken)
                     ).customEnqueue(
                         onSuccess = {
-                            if (it.user) {
+                            if (it.user && it.status) {
+                                // token과 refreshToken 저장
+                                launch {
+
+                                    ThreeApplication.getInstance().getDataStore()
+                                        .setToken(it.token)
+
+                                    ThreeApplication.getInstance().getDataStore()
+                                        .setRefreshToken(it.refresh)
+                                }
+
                                 val intent = Intent(this, HomeActiviy::class.java)
                                 startActivity(intent)
                             } else {
                                 val intent = Intent(this, SignupActivity::class.java)
                                 intent.putExtra("google", true)
-                                intent.putExtra("googleId", id)
+                                intent.putExtra("googleId", email)
                                 startActivity(intent)
                             }
-                            PopUpObject.setLoading(this).dismiss()
+                            progress.dismiss()
                         },
                         onError = {
                             showToast("${it.code()}")
