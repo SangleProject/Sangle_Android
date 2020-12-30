@@ -25,17 +25,17 @@ object HomeBindingAdapter {
 
     @BindingAdapter("progressImg")
     @JvmStatic
-    fun loadProgressImg(view : ImageView, checkCount : Int){
+    fun loadProgressImg(view : ImageView, checkCount : String){
         when(checkCount){
-            0 -> {
+            "decrease" -> {
                 Glide.with(view.context).load(R.drawable.ic_decrease).into(view)
             }
 
-            1 -> {
+            "same" -> {
                 Glide.with(view.context).load(R.drawable.ic_same).into(view)
             }
 
-            2->{
+            "increase"->{
                 Glide.with(view.context).load(R.drawable.ic_increase).into(view)
             }
         }

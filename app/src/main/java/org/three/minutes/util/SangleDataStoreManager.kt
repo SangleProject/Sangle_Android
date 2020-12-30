@@ -11,61 +11,61 @@ import kotlinx.coroutines.flow.map
 import java.io.IOException
 import kotlin.concurrent.thread
 
-class SangleDataStoreManager(val context : Context) {
-    private val dataStore = context.createDataStore(name="sangleDataStore")
+class SangleDataStoreManager(val context: Context) {
+    private val dataStore = context.createDataStore(name = "sangleDataStore")
 
-    companion object{
+    companion object {
         val deviceTokenKey = preferencesKey<String>("deviceToken")
         val tokenKey = preferencesKey<String>("token")
         val refreshTokenKey = preferencesKey<String>("refreshTokenKey")
     }
 
-    val deviceToken : Flow<String> = dataStore.data
+    val deviceToken: Flow<String> = dataStore.data
         .catch { exception ->
-            if(exception is IOException){
+            if (exception is IOException) {
                 emit(emptyPreferences())
-            }else{
+            } else {
                 throw exception
             }
         }.map {
-        it[deviceTokenKey] ?: ""
-    }
-
-    val token : Flow<String> = dataStore.data
-        .catch { exception ->
-            if(exception is IOException){
-                emit(emptyPreferences())
-            }else {
-                throw exception
-            }
-        }.map {
-            it[tokenKey] ?: ""
+            it[deviceTokenKey] ?: ""
         }
 
-    val refreshToken : Flow<String> = dataStore.data
+    val token: Flow<String> = dataStore.data
         .catch { exception ->
-            if(exception is IOException){
+        if (exception is IOException) {
+            emit(emptyPreferences())
+        } else {
+            throw exception
+        }
+    }.map {
+        it[tokenKey] ?: ""
+    }
+
+    val refreshToken: Flow<String> = dataStore.data
+        .catch { exception ->
+            if (exception is IOException) {
                 emit(emptyPreferences())
-            }else{
+            } else {
                 throw exception
             }
         }.map {
             it[refreshTokenKey] ?: ""
         }
 
-    suspend fun setDeviceToken(deviceToken : String){
+    suspend fun setDeviceToken(deviceToken: String) {
         dataStore.edit { preferences ->
             preferences[deviceTokenKey] = deviceToken
         }
     }
 
-    suspend fun setToken(token : String){
+    suspend fun setToken(token: String) {
         dataStore.edit { preferences ->
             preferences[tokenKey] = token
         }
     }
 
-    suspend fun setRefreshToken(refreshToken : String){
+    suspend fun setRefreshToken(refreshToken: String) {
         dataStore.edit { preferences ->
             preferences[refreshTokenKey] = refreshToken
         }

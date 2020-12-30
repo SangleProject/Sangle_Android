@@ -3,7 +3,6 @@ package org.three.minutes.home.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,20 +44,13 @@ class ProfileFragment : Fragment(),CoroutineScope {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         mBinding = DataBindingUtil.inflate(layoutInflater,R.layout.fragment_profile,container,false)
         val mViewModel : HomeViewModel by activityViewModels()
         mBinding.apply {
             lifecycleOwner = this@ProfileFragment
             viewModel = mViewModel
             fragment = this@ProfileFragment
-        }
-
-        //코루틴을 사용해서 시간 지나면 이미지 변경 + 데이터 바인딩
-        launch {
-            delay(5000)
-
-            mViewModel.increDecre.value = 2
         }
 
         return mBinding.root
