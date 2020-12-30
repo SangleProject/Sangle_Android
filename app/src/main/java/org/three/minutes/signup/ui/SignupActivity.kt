@@ -16,6 +16,7 @@ import org.three.minutes.signup.adapter.ViewPagerAdapter
 import org.three.minutes.signup.viewmodel.SignUpViewModel
 import org.three.minutes.singleton.StatusObject
 import org.three.minutes.singleton.PatternObject
+import org.three.minutes.util.showToast
 
 class SignupActivity : AppCompatActivity() {
     private val mSignUpModel: SignUpViewModel by viewModels()
@@ -59,7 +60,12 @@ class SignupActivity : AppCompatActivity() {
         signup_next_txt.setOnClickListener {
             when (contents_viewpager.currentItem) {
                 0 -> {
-                    nextPage()
+                    if(mSignUpModel.callCheckEmailAPI()){
+                        nextPage()
+                    }
+                    else{
+                        showToast("중복된 이메일입니다.")
+                    }
                 }
 
                 1-> {
