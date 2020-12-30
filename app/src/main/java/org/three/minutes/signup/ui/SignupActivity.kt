@@ -1,5 +1,6 @@
 package org.three.minutes.signup.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -8,9 +9,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.activity_signup.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.three.minutes.R
 import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.ActivitySignupBinding
+import org.three.minutes.home.ui.HomeActiviy
 import org.three.minutes.signup.adapter.ViewPagerAdapter
 import org.three.minutes.signup.viewmodel.SignUpRepoImpl
 import org.three.minutes.signup.viewmodel.SignUpUseCase
@@ -57,6 +63,14 @@ class SignupActivity : AppCompatActivity() {
             signup_next_txt.isEnabled = m.matches()
         })
 
+        // Home 화면으로 넘어가는지 체크 observe
+        mSignUpModel.isGoHome.observe(this, { check ->
+            if (check){
+                val intent = Intent(this, HomeActiviy::class.java)
+                startActivity(intent)
+            }
+        })
+
 
         initViewPager()
 
@@ -79,7 +93,13 @@ class SignupActivity : AppCompatActivity() {
                     signup_next_txt.text = "시작하기"
                 }
                 else -> {
-                    mSignUpModel.callSignUp()
+                    var deviceToken = ""
+                    CoroutineScope(Dispatchers.Default).launch {
+                        ThreeApplication.getInstance().getDataStore().deviceToken.collect {
+                            deviceToken = it
+                        }
+                    }
+                    mSignUpModel.callSignUp(deviceToken)
                 }
             }
         }

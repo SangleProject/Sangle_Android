@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import org.three.minutes.signup.data.RequestGoogleSignUpData
+import org.three.minutes.signup.data.RequestSignUpData
 
 class SignUpViewModel(application: Application, private val useCase: SignUpUseCase)
     : AndroidViewModel(application) {
@@ -24,6 +26,7 @@ class SignUpViewModel(application: Application, private val useCase: SignUpUseCa
     var nickname = MutableLiveData("")
 
     var isGoogle = false
+    var isGoHome = MutableLiveData(false)
 
     init {
         progress.value = 25
@@ -43,8 +46,30 @@ class SignUpViewModel(application: Application, private val useCase: SignUpUseCa
     }
 
     // 회원가입 통신
-    fun callSignUp() {
-        useCase.callSignUp(context = context , nickName = nickname.value!!)
+    fun callSignUp(deviceToken : String) {
+        val signUpData = RequestSignUpData(
+            email = email.value!!,
+            password = password.value!!,
+            gender = gender.value!!,
+            birth = age.value!!,
+            nickName = nickname.value!!,
+            deviceToken = deviceToken
+        )
+        val googleSignUpData = RequestGoogleSignUpData(
+            email = email.value!!,
+            gender = password.value!!,
+            birth = age.value!!,
+            nickName = nickname.value!!,
+            deviceToken = deviceToken
+        )
+
+        useCase.callSignUp(
+            context = context,
+            isGoogle = isGoogle,
+            isGoHome = isGoHome,
+            requestSignUp = signUpData,
+            requestGoogleSignUp = googleSignUpData)
+
     }
 
     override fun onCleared() {
