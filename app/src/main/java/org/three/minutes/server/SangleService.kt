@@ -19,7 +19,7 @@ interface SangleService {
     @PUT("/users/social")
     fun putGoogleSignUp(
         @Body body : RequestGoogleSignUpData
-    ) : Call<ResponseGoogleSignUpData>
+    ) : Call<ResponseSignUpData>
 
     // 이메일 중복 체크 api
     @POST("/users/checkEmail")
@@ -32,4 +32,10 @@ interface SangleService {
     fun postCheckNickName(
         @Body body : RequestCheckNickNameData
     ) : Call<ResponseCheckData>
+
+    // 일반 회원가입 api
+    @POST("/users/signup")
+    fun postSignUp(
+        @Body body : RequestSignUpData
+    ) : Call<ResponseSignUpData>
 }
