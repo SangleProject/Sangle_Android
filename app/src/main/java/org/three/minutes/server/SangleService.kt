@@ -11,6 +11,12 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface SangleService {
+    //토큰 만료 api
+    @GET("/users/refresh")
+    fun getToken(
+        @Header("refresh") refresh : String
+    ) : Call<ResponseSignUpData>
+    
     // 구글 로그인 검증
     @POST("/users/google")
     fun postLoginGoogle(
