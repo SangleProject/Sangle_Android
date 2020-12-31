@@ -226,7 +226,7 @@
             android:layout_marginVertical="24dp"
             android:scaleType="fitXY"
             android:layout_marginHorizontal="66dp"
-            app:writingImg="@{viewModel.writingCount}"
+            app:writingImg="@{viewModel.percentage}"
             />
 
 
