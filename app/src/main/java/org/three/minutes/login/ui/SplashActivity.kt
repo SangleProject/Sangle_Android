@@ -8,6 +8,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_splash.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.flow.collect
 import org.three.minutes.R
 import org.three.minutes.ThreeApplication
 import org.three.minutes.singleton.StatusObject
@@ -42,9 +43,20 @@ class SplashActivity : AppCompatActivity() {
         CoroutineScope(Main).launch {
             splash_img.setAnimation("splash.json")
             delay(2000)
-            val intent = Intent(this@SplashActivity, MainActivity::class.java)
-            startActivity(intent)
+            var token = ""
+            var refresh = ""
+            launch{
+                ThreeApplication.getInstance().getDataStore().token.collect { token = it }
+                ThreeApplication.getInstance().getDataStore().refreshToken.collect { refresh = it }
+            }.join()
 
+            if (!token.isEmpty()){
+                // do something
+            }
+            else{
+                val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                startActivity(intent)
+            }
         }
 
 
