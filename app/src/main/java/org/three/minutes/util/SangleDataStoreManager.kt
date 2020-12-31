@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.io.IOException
-import kotlin.concurrent.thread
 
 class SangleDataStoreManager(val context: Context) {
     private val dataStore = context.createDataStore(name = "sangleDataStore")
@@ -17,7 +16,7 @@ class SangleDataStoreManager(val context: Context) {
     companion object {
         val deviceTokenKey = preferencesKey<String>("deviceToken")
         val tokenKey = preferencesKey<String>("token")
-        val refreshTokenKey = preferencesKey<String>("refreshTokenKey")
+        val refreshTokenKey = preferencesKey<String>("refreshToken")
     }
 
     val deviceToken: Flow<String> = dataStore.data
@@ -43,10 +42,10 @@ class SangleDataStoreManager(val context: Context) {
     }
 
     val refreshToken: Flow<String> = dataStore.data
-        .catch { exception ->
-            if (exception is IOException) {
+        .catch {exception ->
+            if(exception is IOException){
                 emit(emptyPreferences())
-            } else {
+            } else{
                 throw exception
             }
         }.map {
@@ -68,6 +67,14 @@ class SangleDataStoreManager(val context: Context) {
     suspend fun setRefreshToken(refreshToken: String) {
         dataStore.edit { preferences ->
             preferences[refreshTokenKey] = refreshToken
+        }
+    }
+
+    suspend fun setReTokens(token : String, refresh : String) {
+        dataStore.edit {
+            preferences ->
+            preferences[tokenKey] = token
+            preferences[refreshTokenKey] = refresh
         }
     }
 

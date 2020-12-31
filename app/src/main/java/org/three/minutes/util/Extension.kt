@@ -3,6 +3,7 @@ package org.three.minutes.util
 import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
@@ -102,7 +103,7 @@ fun<T> Call<T>.customEnqueue(
 ){
     this.enqueue(object : Callback<T>{
         override fun onFailure(call: Call<T>, t: Throwable) {
-
+            Log.e("Server Fail", "Server Closed")
         }
 
         override fun onResponse(call: Call<T>, response: Response<T>) {

@@ -3,49 +3,100 @@ package org.three.minutes.login.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.lifecycle.asLiveData
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_splash.*
 import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.flow.collect
 import org.three.minutes.R
 import org.three.minutes.ThreeApplication
+import org.three.minutes.home.ui.HomeActiviy
+import org.three.minutes.server.SangleServiceImpl
 import org.three.minutes.singleton.StatusObject
+import org.three.minutes.util.customEnqueue
+import org.three.minutes.util.showToast
 
 class SplashActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
         StatusObject.setStatusBar(this)
-        
+
+        var token = ""
+        var refresh = ""
+
 //         fcm을 위한 현재 기기 토큰 받기
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-            if (!task.isSuccessful){
+            if (!task.isSuccessful) {
                 return@OnCompleteListener
             }
-            val token = task.result
+            val deviceToken = task.result
 
             // DataStore에 DeviceToken 저장
-            CoroutineScope(Main).launch{
-                ThreeApplication.getInstance().getDataStore().setDeviceToken(token!!)
+            CoroutineScope(IO).launch {
+                ThreeApplication.getInstance().getDataStore().setDeviceToken(deviceToken!!)
             }
 
-//            CoroutineScope(Main).launch {
-//                ThreeApplication.getInstance().getDataStore().deviceToken.collect {
-//                    Log.e("DeviceToken",it)
-//                }
-//            }
         })
 
+//        CoroutineScope(Main).launch {
+//            ThreeApplication.getInstance().getDataStore().token.collect {
+//                token = it
+//                Log.e("AutoLogin", "token : $it")
+//            }
+//        }
+
+        ThreeApplication.getInstance().getDataStore().token.asLiveData().observe(this@SplashActivity,{
+            token = it
+            Log.e("Auto Login", "token : $token")
+        })
+        ThreeApplication.getInstance().getDataStore().refreshToken.asLiveData().observe(this@SplashActivity,{
+            refresh = it
+            Log.e("Auto Login", "refresh : $refresh")
+
+        })
 
         CoroutineScope(Main).launch {
-            splash_img.setAnimation("splash.json")
-            delay(2000)
-            val intent = Intent(this@SplashActivity, MainActivity::class.java)
-            startActivity(intent)
+
+            launch {
+                splash_img.setAnimation("splash.json")
+                delay(2000)
+            }.join()
+
+            if (token.isNotEmpty()) {
+                // do something
+                Log.e("AutoLogin", "start Auto Login")
+                SangleServiceImpl.service.getToken(refresh)
+                    .customEnqueue(
+                        onSuccess = {
+                            Log.e("AutoLogin", "go to Home")
+                            launch(IO) {
+                                ThreeApplication.getInstance().getDataStore()
+                                    .setReTokens(it.token, it.refresh)
+                            }
+                            val intent = Intent(this@SplashActivity, HomeActiviy::class.java)
+                            startActivity(intent)
+                            finish()
+                        },
+                        onError = {
+                            showToast("자동 로그인에 실패하였습니다. : ${it.code()}")
+                            val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                            startActivity(intent)
+                        }
+                    )
+            } else {
+                val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                startActivity(intent)
+            }
 
         }
+
 
 
     }
