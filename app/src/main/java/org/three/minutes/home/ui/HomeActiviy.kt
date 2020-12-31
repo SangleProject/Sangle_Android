@@ -10,6 +10,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.asLiveData
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.home_navigation.view.*
 import kotlinx.coroutines.*
@@ -51,9 +52,9 @@ class HomeActiviy : AppCompatActivity(), CoroutineScope {
 
         // 기기에 저장된 token값 가져오기
         launch {
-            ThreeApplication.getInstance().getDataStore().token.collect {
+            ThreeApplication.getInstance().getDataStore().token.asLiveData().observe(this@HomeActiviy,{
                 mViewModel.token = it
-            }
+            })
         }
 
         //Home_Info Api

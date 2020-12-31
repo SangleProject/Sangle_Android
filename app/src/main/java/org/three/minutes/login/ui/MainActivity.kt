@@ -265,9 +265,9 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
     // 구글아이디로 로그인했으면 자동 로그인
     private fun autoLogin(user: FirebaseUser?) {
         if (user != null) {
-            Toast.makeText(this, "Auto Login : ${user.email}", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, "Auto Login : ${user.email}", Toast.LENGTH_SHORT).show()
         } else {
-            Toast.makeText(this, "Not yet Auto Login", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, "Not yet Auto Login", Toast.LENGTH_SHORT).show()
         }
     }
 }

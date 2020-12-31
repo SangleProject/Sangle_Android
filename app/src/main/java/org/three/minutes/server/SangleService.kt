@@ -16,7 +16,7 @@ interface SangleService {
     fun getToken(
         @Header("refresh") refresh : String
     ) : Call<ResponseSignUpData>
-    
+
     // 구글 로그인 검증
     @POST("/users/google")
     fun postLoginGoogle(

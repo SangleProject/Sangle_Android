@@ -45,10 +45,11 @@ class SignUpUseCase(private val signUpImpl: SignUpRepository) {
         SangleServiceImpl.service.putGoogleSignUp(request)
             .customEnqueue(
                 onSuccess = {
-                    CoroutineScope(Dispatchers.Default).launch {
+                    CoroutineScope(Dispatchers.IO).launch {
                         ThreeApplication.getInstance().getDataStore().setToken(it.token)
                         ThreeApplication.getInstance().getDataStore().setRefreshToken(it.refresh)
-                        Log.e("DataStore", "Set Token OK")
+                        Log.e("DataStore", "Google Set Token : ${it.token}")
+                        Log.e("DataStore", "Google Set Refresh : ${it.refresh}")
                     }
                     isGoHome.value = true
                 },
@@ -62,10 +63,12 @@ class SignUpUseCase(private val signUpImpl: SignUpRepository) {
         SangleServiceImpl.service.postSignUp(request)
             .customEnqueue(
                 onSuccess = {
-                    CoroutineScope(Dispatchers.Default).launch{
+                    CoroutineScope(Dispatchers.IO).launch{
                         ThreeApplication.getInstance().getDataStore().setToken(it.token)
                         ThreeApplication.getInstance().getDataStore().setRefreshToken(it.refresh)
-                        Log.e("DataStore", "Set Token OK")
+                        Log.e("DataStore", "Normal Set Token : ${it.token}")
+                        Log.e("DataStore", "Normal Set Refresh : ${it.refresh}")
+
                     }
                     isGoHome.value = true
                 },
