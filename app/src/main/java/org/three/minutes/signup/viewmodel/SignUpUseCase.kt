@@ -31,7 +31,7 @@ class SignUpUseCase(private val signUpImpl: SignUpRepository) {
             isAvailable =
             {
                 if (isGoogle) {
-                    googleSignUp(requestGoogleSignUp)
+                    googleSignUp(requestGoogleSignUp,isGoHome)
                 } else {
                     signUp(requestSignUp, isGoHome)
                 }
@@ -41,7 +41,21 @@ class SignUpUseCase(private val signUpImpl: SignUpRepository) {
             })
     }
 
-    private fun googleSignUp(request : RequestGoogleSignUpData) {
+    private fun googleSignUp(request : RequestGoogleSignUpData, isGoHome: MutableLiveData<Boolean>) {
+        SangleServiceImpl.service.putGoogleSignUp(request)
+            .customEnqueue(
+                onSuccess = {
+                    CoroutineScope(Dispatchers.Default).launch {
+                        ThreeApplication.getInstance().getDataStore().setToken(it.token)
+                        ThreeApplication.getInstance().getDataStore().setRefreshToken(it.refresh)
+                        Log.e("DataStore", "Set Token OK")
+                    }
+                    isGoHome.value = true
+                },
+                onError = {
+                    Log.e("putGoogleSignUp", "${it.code()}")
+                }
+            )
     }
 
     private fun signUp(request: RequestSignUpData, isGoHome: MutableLiveData<Boolean>) {
