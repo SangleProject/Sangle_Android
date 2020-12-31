@@ -87,7 +87,6 @@ class HomeViewModel : ViewModel() {
                         week.postValue(it.week)
                         compare.postValue(it.compare)
                         remaining.postValue(it.remaining)
-                        percentage.postValue(it.remaining)
                         percentage.postValue(it.percentage)
                     },
                     onError = {

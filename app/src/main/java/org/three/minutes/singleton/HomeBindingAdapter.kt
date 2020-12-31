@@ -20,6 +20,18 @@ object HomeBindingAdapter {
                     .into(view)
 
             }
+            1->{
+                glideManager.load(R.raw.once).diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                    .into(view)
+            }
+            2->{
+                glideManager.load(R.raw.twice).diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                    .into(view)
+            }
+            3->{
+                glideManager.load(R.raw.three).diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                    .into(view)
+            }
         }
     }
 
