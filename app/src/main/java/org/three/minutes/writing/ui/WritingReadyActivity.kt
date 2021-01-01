@@ -32,6 +32,7 @@ class WritingReadyActivity : AppCompatActivity(), CoroutineScope {
             delay(3000)
 
             val intent = Intent(this@WritingReadyActivity, WritingActivity::class.java)
+            intent.putExtra("topic",topic)
             startActivity(intent)
 
             finish()

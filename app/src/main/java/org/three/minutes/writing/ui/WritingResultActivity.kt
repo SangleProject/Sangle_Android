@@ -25,11 +25,13 @@ class WritingResultActivity : AppCompatActivity() {
             lifecycleOwner = this@WritingResultActivity
             viewModel = mViewModel
         }
+
         setSupportActionBar(result_toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         val intent = intent
-        mViewModel.contents.value = intent.getStringExtra("contents").toString()
+        mViewModel.contents.value = intent.getStringExtra("contents")
+        mViewModel.topic.value = intent.getStringExtra("topic")
 
         // 글 내용 TextView 스크롤
         mBinding.resultContentsTxt.movementMethod = ScrollingMovementMethod()
