@@ -3,9 +3,11 @@ package org.three.minutes.signup.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import org.three.minutes.ThreeApplication
 import org.three.minutes.signup.data.RequestGoogleSignUpData
 import org.three.minutes.signup.data.RequestSignUpData
 
@@ -17,6 +19,8 @@ class SignUpViewModel(application: Application, private val useCase: SignUpUseCa
 
     private val context = getApplication<Application>().applicationContext
 
+    val getDeviceToken = ThreeApplication.getInstance().getDataStore().deviceToken.asLiveData()
+
     var progress = MutableLiveData<Int>()
     var email = MutableLiveData("")
     var password = MutableLiveData("")
@@ -27,6 +31,7 @@ class SignUpViewModel(application: Application, private val useCase: SignUpUseCa
 
     var isGoogle = false
     var isGoHome = MutableLiveData(false)
+    var deviceToken = ""
 
     init {
         progress.value = 25
@@ -46,7 +51,7 @@ class SignUpViewModel(application: Application, private val useCase: SignUpUseCa
     }
 
     // 회원가입 통신
-    fun callSignUp(deviceToken : String) {
+    fun callSignUp() {
         val signUpData = RequestSignUpData(
             email = email.value!!,
             password = password.value!!,
@@ -57,7 +62,7 @@ class SignUpViewModel(application: Application, private val useCase: SignUpUseCa
         )
         val googleSignUpData = RequestGoogleSignUpData(
             email = email.value!!,
-            gender = password.value!!,
+            gender = gender.value!!,
             birth = age.value!!,
             nickName = nickname.value!!,
             deviceToken = deviceToken

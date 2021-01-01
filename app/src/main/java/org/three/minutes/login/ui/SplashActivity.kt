@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.asLiveData
+import com.airbnb.lottie.LottieDrawable
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_splash.*
@@ -54,32 +55,30 @@ class SplashActivity : AppCompatActivity() {
 
         ThreeApplication.getInstance().getDataStore().token.asLiveData().observe(this@SplashActivity,{
             token = it
-            Log.e("Auto Login", "token : $token")
         })
         ThreeApplication.getInstance().getDataStore().refreshToken.asLiveData().observe(this@SplashActivity,{
             refresh = it
-            Log.e("Auto Login", "refresh : $refresh")
-
         })
 
         CoroutineScope(Main).launch {
 
-            launch {
+            launch{
                 splash_img.setAnimation("splash.json")
+                splash_img.repeatCount = LottieDrawable.INFINITE
                 delay(2000)
             }.join()
 
+
             if (token.isNotEmpty()) {
                 // do something
-                Log.e("AutoLogin", "start Auto Login")
                 SangleServiceImpl.service.getToken(refresh)
                     .customEnqueue(
                         onSuccess = {
-                            Log.e("AutoLogin", "go to Home")
-                            launch(IO) {
+                            CoroutineScope(IO).launch {
                                 ThreeApplication.getInstance().getDataStore()
                                     .setReTokens(it.token, it.refresh)
                             }
+
                             val intent = Intent(this@SplashActivity, HomeActiviy::class.java)
                             startActivity(intent)
                             finish()

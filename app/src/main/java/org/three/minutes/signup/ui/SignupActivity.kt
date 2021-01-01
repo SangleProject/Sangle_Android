@@ -8,6 +8,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
 import kotlinx.android.synthetic.main.activity_signup.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -40,6 +41,10 @@ class SignupActivity : AppCompatActivity() {
 
         mSignUpModel = ViewModelProvider(this , SignUpViewModelFactory(ThreeApplication.getInstance(), SignUpUseCase(signUpImpl)))
             .get(SignUpViewModel::class.java)
+
+        mSignUpModel.getDeviceToken.observe(this,{
+            mSignUpModel.deviceToken = it
+        })
 
         binding.lifecycleOwner = this
         binding.signupViewmodel = mSignUpModel
@@ -93,13 +98,7 @@ class SignupActivity : AppCompatActivity() {
                     signup_next_txt.text = "시작하기"
                 }
                 else -> {
-                    var deviceToken = ""
-                    CoroutineScope(Dispatchers.Default).launch {
-                        ThreeApplication.getInstance().getDataStore().deviceToken.collect {
-                            deviceToken = it
-                        }
-                    }
-                    mSignUpModel.callSignUp(deviceToken)
+                    mSignUpModel.callSignUp()
                 }
             }
         }
