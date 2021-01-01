@@ -10,7 +10,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 import org.junit.Rule
-import org.three.minutes.home.ui.HomeActiviy
+import org.three.minutes.home.ui.HomeActivity
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -27,7 +27,7 @@ class ExampleInstrumentedTest {
 //    }
 
     @get:Rule
-    var home: ActivityScenarioRule<HomeActiviy> = ActivityScenarioRule(HomeActiviy::class.java)
+    var home: ActivityScenarioRule<HomeActivity> = ActivityScenarioRule(HomeActivity::class.java)
 
     @Test
     fun moveDrawer(){

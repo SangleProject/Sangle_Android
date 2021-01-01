@@ -33,6 +33,9 @@ class WritingActivity : AppCompatActivity() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_writing)
         mBinding.lifecycleOwner = this
         mBinding.activity = this
+
+        mViewModel.topic.value = intent.getStringExtra("topic")
+
         mViewModel.timerThreeMin()
         mBinding.viewmodel = mViewModel
         mCompletePopup = PopUpObject.showComplete(this)
@@ -46,6 +49,10 @@ class WritingActivity : AppCompatActivity() {
         // 타이머의 시간에 따라 UI 변경
         mViewModel.timerCount.observe(this,
             { count ->
+                if (count == 15){
+                    mBinding.timerLayout.visibility = View.VISIBLE
+                }
+
                 if (count == 3) {
                     mBinding.timerLayout.setBackgroundResource(R.drawable.timer_red)
                     mBinding.apply {
@@ -90,6 +97,7 @@ class WritingActivity : AppCompatActivity() {
             complete_stop_btn.setOnClickListener {
                 val intent = Intent(this@WritingActivity, WritingResultActivity::class.java)
                 intent.putExtra("contents",mBinding.writingContentsEdt.text.toString())
+                intent.putExtra("topic",mViewModel.topic.value)
                 startActivity(intent)
                 finish()
             }
@@ -105,12 +113,14 @@ class WritingActivity : AppCompatActivity() {
             timeover_stop_btn.setOnClickListener {
                 val intent = Intent(this@WritingActivity, WritingResultActivity::class.java)
                 intent.putExtra("contents",mBinding.writingContentsEdt.text.toString())
+                intent.putExtra("topic",mViewModel.topic.value)
                 startActivity(intent)
                 finish()
             }
             timeover_close_btn.setOnClickListener {
                 val intent = Intent(this@WritingActivity, WritingResultActivity::class.java)
                 intent.putExtra("contents",mBinding.writingContentsEdt.text.toString())
+                intent.putExtra("topic",mViewModel.topic.value)
                 startActivity(intent)
                 finish()
             }

@@ -1,6 +1,7 @@
 package org.three.minutes.server
 
 import org.three.minutes.home.data.ResponseMainInfoData
+import org.three.minutes.home.data.ResponseTodayTopicData
 import org.three.minutes.login.data.RequestGoogleLoginData
 import org.three.minutes.login.data.RequestLoginData
 import org.three.minutes.login.data.ResponseGoogleLoginData
@@ -58,5 +59,11 @@ interface SangleService {
     fun getMainInfo(
         @Header("token") token : String
     ) : Call<ResponseMainInfoData>
+
+    //오늘의 글감 가져오기
+    @GET("/topic/today")
+    fun getTodayTopic(
+        @Header("token") token : String
+    ) : Call<List<ResponseTodayTopicData>>
 
 }

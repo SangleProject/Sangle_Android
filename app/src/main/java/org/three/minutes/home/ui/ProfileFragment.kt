@@ -24,15 +24,17 @@ class ProfileFragment : Fragment(),CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
-    private lateinit var mActiviy : HomeActiviy
+    private lateinit var mActivity : HomeActivity
     private lateinit var mContext : Context
     private lateinit var mBinding : FragmentProfileBinding
+    private val mViewModel : HomeViewModel by activityViewModels()
+    private val progress by lazy{ PopUpObject.setLoading(activity as HomeActivity)}
 
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mActiviy = activity as HomeActiviy
+        mActivity = activity as HomeActivity
     }
 
     override fun onAttach(context: Context) {
@@ -46,28 +48,31 @@ class ProfileFragment : Fragment(),CoroutineScope {
         savedInstanceState: Bundle?
     ): View {
         mBinding = DataBindingUtil.inflate(layoutInflater,R.layout.fragment_profile,container,false)
-        val mViewModel : HomeViewModel by activityViewModels()
         mBinding.apply {
             lifecycleOwner = this@ProfileFragment
             viewModel = mViewModel
             fragment = this@ProfileFragment
         }
 
+        mViewModel.topic.observe(viewLifecycleOwner, {
+            // 토픽 받기 통신 성공 후 글감을 받아 왔을 경우
+            if (it.isNotEmpty()){
+                launch {
+                    delay(2000)
+                    progress.dismiss()
+                    val intent = Intent(mContext, WritingReadyActivity::class.java)
+                    intent.putExtra("topic",it)
+                    startActivity(intent)
+                }
+            }
+        })
+
         return mBinding.root
     }
 
     fun goToWriting(){
-        launch {
-            val progress = PopUpObject.setLoading(activity as HomeActiviy)
-            progress.show()
-
-            delay(2000)
-            progress.dismiss()
-
-            val intent = Intent(mContext, WritingReadyActivity::class.java)
-            startActivity(intent)
-        }
-
+        progress.show()
+        mViewModel.callTopic()
     }
 
     override fun onDestroy() {

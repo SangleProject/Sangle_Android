@@ -9,7 +9,6 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDialog
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
@@ -26,7 +25,7 @@ import kotlinx.coroutines.*
 import org.three.minutes.R
 import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.ActivityMainBinding
-import org.three.minutes.home.ui.HomeActiviy
+import org.three.minutes.home.ui.HomeActivity
 import org.three.minutes.login.data.RequestGoogleLoginData
 import org.three.minutes.login.data.RequestLoginData
 import org.three.minutes.login.viewmodel.LogInViewModel
@@ -174,7 +173,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
                     ThreeApplication.getInstance().getDataStore().setRefreshToken(it.refresh)
                 }
 
-                val intent = Intent(this, HomeActiviy::class.java)
+                val intent = Intent(this, HomeActivity::class.java)
                 startActivity(intent)
             },
             onError = {
@@ -241,7 +240,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
                                         .setRefreshToken(it.refresh)
                                 }
 
-                                val intent = Intent(this, HomeActiviy::class.java)
+                                val intent = Intent(this, HomeActivity::class.java)
                                 startActivity(intent)
                             } else {
                                 val intent = Intent(this, SignupActivity::class.java)

@@ -6,4 +6,5 @@ import androidx.lifecycle.ViewModel
 class WritingResultViewModel : ViewModel(){
 
     var contents = MutableLiveData("")
+    var topic = MutableLiveData("")
 }

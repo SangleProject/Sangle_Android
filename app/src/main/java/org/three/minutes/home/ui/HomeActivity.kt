@@ -5,35 +5,36 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.home_navigation.view.*
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.collect
 import org.three.minutes.R
 import org.three.minutes.ThreeApplication
 import org.three.minutes.badge.ui.BadgeActivity
 import org.three.minutes.databinding.ActivityHomeBinding
 import org.three.minutes.home.adapter.HomePageAdapter
+import org.three.minutes.home.viewmodel.HomeUseCase
 import org.three.minutes.home.viewmodel.HomeViewModel
+import org.three.minutes.home.viewmodel.HomeViewModelFactory
 import org.three.minutes.mypage.ui.MyPageActivity
 import org.three.minutes.profile.ui.ProfileChangeActivity
 import org.three.minutes.util.customChangeListener
 import org.three.minutes.word.WordActivity
 import kotlin.coroutines.CoroutineContext
 
-class HomeActiviy : AppCompatActivity(), CoroutineScope {
+class HomeActivity : AppCompatActivity(), CoroutineScope {
 
     private lateinit var job: Job
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
-    private val mViewModel : HomeViewModel by viewModels()
+    private lateinit var mViewModel : HomeViewModel
 
     private val mBinding : ActivityHomeBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_home)
@@ -45,14 +46,17 @@ class HomeActiviy : AppCompatActivity(), CoroutineScope {
         super.onCreate(savedInstanceState)
         job = Job()
 
+        mViewModel = ViewModelProvider(this, HomeViewModelFactory(ThreeApplication.getInstance(), HomeUseCase()))
+            .get(HomeViewModel::class.java)
+
         mBinding.apply {
-            lifecycleOwner = this@HomeActiviy
+            lifecycleOwner = this@HomeActivity
             viewModel = mViewModel
         }
 
         // 기기에 저장된 token값 가져오기
         launch {
-            ThreeApplication.getInstance().getDataStore().token.asLiveData().observe(this@HomeActiviy,{
+            ThreeApplication.getInstance().getDataStore().token.asLiveData().observe(this@HomeActivity,{
                 mViewModel.token = it
             })
         }

@@ -12,7 +12,7 @@ import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import org.three.minutes.R
-import org.three.minutes.home.ui.HomeActiviy
+import org.three.minutes.home.ui.HomeActivity
 
 class SangleMessageService : FirebaseMessagingService() {
     override fun onMessageReceived(rm: RemoteMessage) {
@@ -35,7 +35,7 @@ class SangleMessageService : FirebaseMessagingService() {
         val channelId = getString(R.string.FCM_Channel_title)
 
         // 알림 클릭시 해당 뷰로 이동
-        val intent = Intent(this, HomeActiviy::class.java)
+        val intent = Intent(this, HomeActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         val pendingIntent = PendingIntent.getActivity(
             this,

@@ -3,7 +3,6 @@ package org.three.minutes.login.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.asLiveData
 import com.airbnb.lottie.LottieDrawable
 import com.google.android.gms.tasks.OnCompleteListener
@@ -12,10 +11,9 @@ import kotlinx.android.synthetic.main.activity_splash.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.flow.collect
 import org.three.minutes.R
 import org.three.minutes.ThreeApplication
-import org.three.minutes.home.ui.HomeActiviy
+import org.three.minutes.home.ui.HomeActivity
 import org.three.minutes.server.SangleServiceImpl
 import org.three.minutes.singleton.StatusObject
 import org.three.minutes.util.customEnqueue
@@ -79,7 +77,7 @@ class SplashActivity : AppCompatActivity() {
                                     .setReTokens(it.token, it.refresh)
                             }
 
-                            val intent = Intent(this@SplashActivity, HomeActiviy::class.java)
+                            val intent = Intent(this@SplashActivity, HomeActivity::class.java)
                             startActivity(intent)
                             finish()
                         },
