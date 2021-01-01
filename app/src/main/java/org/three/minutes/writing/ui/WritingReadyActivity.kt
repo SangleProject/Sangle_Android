@@ -26,6 +26,9 @@ class WritingReadyActivity : AppCompatActivity(), CoroutineScope {
         job = Job()
         
         launch {
+            val topic = intent.getStringExtra("topic")
+            mBinding.readyWordTxt.text = topic
+
             delay(3000)
 
             val intent = Intent(this@WritingReadyActivity, WritingActivity::class.java)

@@ -1,31 +1,32 @@
 package org.three.minutes.home.viewmodel
 
+import android.app.Application
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.collect
-import org.three.minutes.ThreeApplication
 import org.three.minutes.home.data.CalendarData
 import org.three.minutes.server.SangleServiceImpl
 import org.three.minutes.util.customEnqueue
 import java.util.*
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(application : Application , private val useCase : HomeUseCase)
+    : AndroidViewModel(application) {
 
     private val job = Job()
     private val viewModelScope = CoroutineScope(Dispatchers.Main + job)
+
+    private val context = getApplication<Application>().applicationContext
 
     //캘린더 날짜 정보가 들어있는 데이터 클래스 리스트
     var arrayCalendar = arrayListOf<CalendarData>()
     var year = MutableLiveData(0)
     val month = MutableLiveData(0)
 
-    //이번 주 쓴 글 증가 감소 추이
-    var writingCount = MutableLiveData(0)
-
     //token값
     lateinit var token : String
+    // 글 쓸 topic
+    var topic = MutableLiveData<String>()
 
     //메인 화면에 띄워놓을 데이터들
     //아이디
@@ -94,6 +95,10 @@ class HomeViewModel : ViewModel() {
                     }
                 )
         }
+    }
+
+    fun callTopic(){
+        useCase.goToWriting(token, topic)
     }
 
     override fun onCleared() {
