@@ -59,4 +59,10 @@ interface SangleService {
         @Header("token") token : String
     ) : Call<ResponseMainInfoData>
 
+    //오늘의 글감 가져오기
+    @GET("/topic/today")
+    fun getTodayTopic(
+        @Header("token") token : String
+    )
+
 }
