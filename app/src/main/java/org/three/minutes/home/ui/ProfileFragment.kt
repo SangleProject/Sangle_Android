@@ -24,17 +24,17 @@ class ProfileFragment : Fragment(),CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
-    private lateinit var mActiviy : HomeActiviy
+    private lateinit var mActivity : HomeActivity
     private lateinit var mContext : Context
     private lateinit var mBinding : FragmentProfileBinding
     private val mViewModel : HomeViewModel by activityViewModels()
-    private val progress by lazy{ PopUpObject.setLoading(activity as HomeActiviy)}
+    private val progress by lazy{ PopUpObject.setLoading(activity as HomeActivity)}
 
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mActiviy = activity as HomeActiviy
+        mActivity = activity as HomeActivity
     }
 
     override fun onAttach(context: Context) {

@@ -8,16 +8,11 @@ import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asLiveData
 import kotlinx.android.synthetic.main.activity_signup.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import org.three.minutes.R
 import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.ActivitySignupBinding
-import org.three.minutes.home.ui.HomeActiviy
+import org.three.minutes.home.ui.HomeActivity
 import org.three.minutes.signup.adapter.ViewPagerAdapter
 import org.three.minutes.signup.viewmodel.SignUpRepoImpl
 import org.three.minutes.signup.viewmodel.SignUpUseCase
@@ -71,7 +66,7 @@ class SignupActivity : AppCompatActivity() {
         // Home 화면으로 넘어가는지 체크 observe
         mSignUpModel.isGoHome.observe(this, { check ->
             if (check){
-                val intent = Intent(this, HomeActiviy::class.java)
+                val intent = Intent(this, HomeActivity::class.java)
                 startActivity(intent)
             }
         })

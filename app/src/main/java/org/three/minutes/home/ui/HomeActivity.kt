@@ -28,7 +28,7 @@ import org.three.minutes.util.customChangeListener
 import org.three.minutes.word.WordActivity
 import kotlin.coroutines.CoroutineContext
 
-class HomeActiviy : AppCompatActivity(), CoroutineScope {
+class HomeActivity : AppCompatActivity(), CoroutineScope {
 
     private lateinit var job: Job
     override val coroutineContext: CoroutineContext
@@ -50,13 +50,13 @@ class HomeActiviy : AppCompatActivity(), CoroutineScope {
             .get(HomeViewModel::class.java)
 
         mBinding.apply {
-            lifecycleOwner = this@HomeActiviy
+            lifecycleOwner = this@HomeActivity
             viewModel = mViewModel
         }
 
         // 기기에 저장된 token값 가져오기
         launch {
-            ThreeApplication.getInstance().getDataStore().token.asLiveData().observe(this@HomeActiviy,{
+            ThreeApplication.getInstance().getDataStore().token.asLiveData().observe(this@HomeActivity,{
                 mViewModel.token = it
             })
         }
