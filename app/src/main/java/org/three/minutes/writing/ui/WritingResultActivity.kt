@@ -3,7 +3,6 @@ package org.three.minutes.writing.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import kotlinx.android.synthetic.main.activity_writing_result.*
