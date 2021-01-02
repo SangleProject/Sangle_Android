@@ -1,5 +1,6 @@
 package org.three.minutes.util
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
@@ -17,6 +18,8 @@ import org.three.minutes.R
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.*
 
 fun EditText.textCheckListener(textCheck: (CharSequence?) -> Unit) {
     this.addTextChangedListener(object : TextWatcher {
@@ -118,4 +121,11 @@ fun<T> Call<T>.customEnqueue(
 
 fun Context.showToast(message : String){
     Toast.makeText(this,message,Toast.LENGTH_SHORT).show()
+}
+
+@SuppressLint("SimpleDateFormat")
+fun Date.formatDate() : String {
+    val fm = SimpleDateFormat("yyyy.MM.dd (E) ")
+    val fm2 = SimpleDateFormat("aH:mm",Locale.ENGLISH)
+    return fm.format(this) + fm2.format(this)
 }

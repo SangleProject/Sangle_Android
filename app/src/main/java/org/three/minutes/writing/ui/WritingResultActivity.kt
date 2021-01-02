@@ -30,9 +30,9 @@ class WritingResultActivity : AppCompatActivity() {
         setSupportActionBar(result_toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
+        mViewModel.getCurrentTime()
         mViewModel.contents.value = intent.getStringExtra("contents")
         mViewModel.topic.value = intent.getStringExtra("topic")
-
         mViewModel.contentsCount.value = mViewModel.contents.value?.length ?: 0
 
 
