@@ -153,7 +153,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="6dp"
-                android:text="323"
+                android:text="@{Integer.toString(viewModel.contentsCount)}"
+                tools:text="323"
                 android:textColor="@color/black_60"
                 app:layout_constraintEnd_toStartOf="@+id/textView5"
                 app:layout_constraintTop_toBottomOf="@+id/text_num1" />

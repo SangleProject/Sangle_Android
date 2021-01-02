@@ -7,4 +7,6 @@ class WritingResultViewModel : ViewModel(){
 
     var contents = MutableLiveData("")
     var topic = MutableLiveData("")
+
+    var contentsCount = MutableLiveData(0)
 }

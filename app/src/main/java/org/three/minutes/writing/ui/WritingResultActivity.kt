@@ -33,6 +33,9 @@ class WritingResultActivity : AppCompatActivity() {
         mViewModel.contents.value = intent.getStringExtra("contents")
         mViewModel.topic.value = intent.getStringExtra("topic")
 
+        mViewModel.contentsCount.value = mViewModel.contents.value?.length ?: 0
+
+
         // 글 내용 TextView 스크롤
         mBinding.resultContentsTxt.movementMethod = ScrollingMovementMethod()
 
