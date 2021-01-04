@@ -32,13 +32,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/result_cancle"
+                <TextView
+                    style="@style/H3_18pt_Regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="글쓰기 제출"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/result_done"
+                    style="@style/H4_18pt_Light"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:padding="12dp"
-                    android:src="@drawable/ic_cancle_white" />
+                    android:text="완료"
+                    android:textColor="@color/white" />
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -55,8 +65,8 @@
             android:id="@+id/result_content_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginBottom="12dp"
             android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="12dp"
             android:background="@drawable/shadow_notepad"
             android:elevation="10dp"
             android:translationZ="10dp"
@@ -73,10 +83,10 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="40dp"
                 android:text="@{viewModel.topic}"
-                tools:text="글감"
                 android:textColor="@color/main_blue"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="글감" />
 
             <TextView
                 android:id="@+id/result_time_txt"
@@ -85,10 +95,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
                 android:layout_marginEnd="16dp"
-                android:text="2020.00.00 (화) PM4:00"
+                android:text="@{viewModel.writingDate}"
                 android:textColor="@color/black_60"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="2020.00.00 (화) PM4:00" />
 
             <View
                 android:id="@+id/line"
@@ -151,10 +162,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="6dp"
-                android:text="323"
+                android:text="@{Integer.toString(viewModel.contentsCount)}"
                 android:textColor="@color/black_60"
                 app:layout_constraintEnd_toStartOf="@+id/textView5"
-                app:layout_constraintTop_toBottomOf="@+id/text_num1" />
+                app:layout_constraintTop_toBottomOf="@+id/text_num1"
+                tools:text="323" />
 
             <Switch
                 android:id="@+id/result_open_switch"
@@ -220,11 +232,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="12dp"
             android:background="@drawable/login_btn"
             android:gravity="center"
             android:paddingVertical="12dp"
             android:text="다른 유저들 글 둘러보기"
-            android:layout_marginBottom="12dp"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

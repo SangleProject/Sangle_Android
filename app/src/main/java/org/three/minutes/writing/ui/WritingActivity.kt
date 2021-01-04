@@ -95,6 +95,7 @@ class WritingActivity : AppCompatActivity() {
     private fun initPopup() {
         mCompletePopup.apply {
             complete_stop_btn.setOnClickListener {
+                dismiss()
                 val intent = Intent(this@WritingActivity, WritingResultActivity::class.java)
                 intent.putExtra("contents",mBinding.writingContentsEdt.text.toString())
                 intent.putExtra("topic",mViewModel.topic.value)
@@ -111,6 +112,7 @@ class WritingActivity : AppCompatActivity() {
 
         mTimeoverPopup.apply {
             timeover_stop_btn.setOnClickListener {
+                dismiss()
                 val intent = Intent(this@WritingActivity, WritingResultActivity::class.java)
                 intent.putExtra("contents",mBinding.writingContentsEdt.text.toString())
                 intent.putExtra("topic",mViewModel.topic.value)
@@ -118,6 +120,7 @@ class WritingActivity : AppCompatActivity() {
                 finish()
             }
             timeover_close_btn.setOnClickListener {
+                dismiss()
                 val intent = Intent(this@WritingActivity, WritingResultActivity::class.java)
                 intent.putExtra("contents",mBinding.writingContentsEdt.text.toString())
                 intent.putExtra("topic",mViewModel.topic.value)
@@ -158,7 +161,6 @@ class WritingActivity : AppCompatActivity() {
 
     fun showCompletePopup() {
         mCompletePopup.show()
-
     }
 
     // 취소 버튼 누르면 뒤로 가기

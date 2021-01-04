@@ -31,5 +31,5 @@
     <string name="badge_popup_title_sample">사랑꾼</string>
     <string name="how_to_get">획득방법</string>
     <string name="badge_hot_to_get">내가 쓴 글에 하트를 3개 받아요.</string>
-    <string name ="FCM_Channel_title">Sangle</string>
+    <string name="FCM_Channel_title">Sangle</string>
 </resources>

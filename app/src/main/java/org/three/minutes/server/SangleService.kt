@@ -1,5 +1,6 @@
 package org.three.minutes.server
 
+import okhttp3.ResponseBody
 import org.three.minutes.home.data.ResponseMainInfoData
 import org.three.minutes.home.data.ResponseTodayTopicData
 import org.three.minutes.login.data.RequestGoogleLoginData
@@ -8,6 +9,9 @@ import org.three.minutes.login.data.ResponseGoogleLoginData
 import org.three.minutes.signup.data.*
 import org.three.minutes.login.data.ResponseLoginData
 import org.three.minutes.signup.data.RequestGoogleSignUpData
+import org.three.minutes.writing.data.RequestWritingData
+import org.three.minutes.writing.data.ResponseWritingData
+import org.three.minutes.writing.data.ResponseWritingEditData
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -65,5 +69,28 @@ interface SangleService {
     fun getTodayTopic(
         @Header("token") token : String
     ) : Call<List<ResponseTodayTopicData>>
+
+    // 글쓰기 저장
+    @POST("/posts/write")
+    fun postWrite(
+        @Header("token") token : String,
+        @Body body : RequestWritingData
+    ) : Call<ResponseWritingData>
+
+    // 글쓰기 수정
+    @PUT("/posts/update/{postIdx}")
+    fun postEdit(
+        @Header("token") token : String,
+        @Path("postIdx") postIdx : Int,
+        @Body body : RequestWritingData
+    ) : Call<ResponseWritingEditData>
+
+    //글쓰기 삭제
+    @Headers("Content-Type:application/json")
+    @DELETE("/posts/delete/{postIdx}")
+    fun deleteWriting(
+        @Header("token") token : String,
+        @Path("postIdx") postIdx: Int
+    ):Call<ResponseBody>
 
 }

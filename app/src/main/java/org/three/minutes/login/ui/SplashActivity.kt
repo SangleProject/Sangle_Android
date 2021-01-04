@@ -3,6 +3,7 @@ package org.three.minutes.login.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.asLiveData
 import com.airbnb.lottie.LottieDrawable
 import com.google.android.gms.tasks.OnCompleteListener
@@ -88,6 +89,8 @@ class SplashActivity : AppCompatActivity() {
                         }
                     )
             } else {
+                Log.e("SplashActivity","Auto Login Fail : Empty Token")
+                Log.e("SplashActivity","Auto Login Fail : Token - $token")
                 val intent = Intent(this@SplashActivity, MainActivity::class.java)
                 startActivity(intent)
             }
