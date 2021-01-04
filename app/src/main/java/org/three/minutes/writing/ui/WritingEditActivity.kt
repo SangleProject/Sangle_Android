@@ -8,7 +8,9 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.asLiveData
 import org.three.minutes.R
+import org.three.minutes.ThreeApplication
 import org.three.minutes.badge.ui.OpenedBadgePopup
 import org.three.minutes.databinding.ActivityWritingEditBinding
 import org.three.minutes.singleton.PopUpObject
@@ -28,6 +30,10 @@ class WritingEditActivity : AppCompatActivity() {
             viewModel = mViewModel
         }
         mImm = getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+        ThreeApplication.getInstance().getDataStore().token.asLiveData().observe(this,{
+            mViewModel.token = it
+        })
 
         // viewModel observe
         observeViewModel()
@@ -58,14 +64,12 @@ class WritingEditActivity : AppCompatActivity() {
                 finish()
             }
         })
-        mViewModel.callToken.observe(this,{
-            mViewModel.token.value = it
-        })
 
         mViewModel.badgeList.observe(this,{
             if (it.isNotEmpty()){
                 val badgeData = it[0]
-                val badgePopUp = OpenedBadgePopup(this, badgeData)
+                val badgePopUp = OpenedBadgePopup(this)
+                badgePopUp.setNewPopUp(badgeData)
                 badgePopUp.setCancelClick(object : OpenedBadgePopup.SetOnClickListener{
                     override fun onCancelClick(dialog: Dialog) {
                         mViewModel.badgeList.value?.removeAt(0)

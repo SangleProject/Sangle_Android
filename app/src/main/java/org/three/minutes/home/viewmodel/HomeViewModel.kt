@@ -24,7 +24,7 @@ class HomeViewModel(application : Application , private val useCase : HomeUseCas
     val month = MutableLiveData(0)
 
     //token값
-    lateinit var token : String
+    var token : String = ""
     // 글 쓸 topic
     var topic = MutableLiveData<String>()
 

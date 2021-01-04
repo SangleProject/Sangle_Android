@@ -71,8 +71,8 @@ fun RecyclerView.setSearchResult(data : List<SearchWritingData>){
 @BindingAdapter("app:setBadgeList")
 fun RecyclerView.setBadgeList(listData : MutableList<BadgeListData>){
     Log.d("Show BindingAdapter","call")
-    val openedBadgePopup = OpenedBadgePopup(this.context)
-    val closedBadgePopup = ClosedBadgePopup(this.context)
+//    val openedBadgePopup = OpenedBadgePopup(this.context)
+//    val closedBadgePopup = ClosedBadgePopup(this.context)
     val rcvAdapter = BadgeListAdapter(this.context)
 
     rcvAdapter.setOnItemClickListener(object : BadgeListAdapter.OnItemClickListener{
@@ -80,12 +80,12 @@ fun RecyclerView.setBadgeList(listData : MutableList<BadgeListData>){
             when(data.isOpen){
                 // 뱃지가 닫힌 경우
                 0 -> {
-                    closedBadgePopup.show()
+//                    closedBadgePopup.show()
 
                 }
                 // 뱃지 오픈
                 else->{
-                    openedBadgePopup.show()
+//                    openedBadgePopup.show()
                 }
             }
 

@@ -12,10 +12,7 @@ import org.three.minutes.writing.data.RequestWritingData
 
 class WritingEditViewModel : ViewModel() {
 
-    var callToken = ThreeApplication.getInstance().getDataStore().token.asLiveData()
-
-
-    var token = MutableLiveData("")
+    var token = ""
     var topic = MutableLiveData("")
     var contents = MutableLiveData("")
     var contentsCount = MutableLiveData(0)
@@ -27,7 +24,7 @@ class WritingEditViewModel : ViewModel() {
 
     fun callEdit(){
         SangleServiceImpl.service.postEdit(
-            token = token.value!!,
+            token = token,
             postIdx = this.postIdx,
             body = RequestWritingData(topic = topic.value!!, postWrite = contents.value!!)
         ).customEnqueue(

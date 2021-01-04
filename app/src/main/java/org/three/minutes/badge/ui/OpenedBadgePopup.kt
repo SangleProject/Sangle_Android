@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.badge_opened_popup.*
 import org.three.minutes.R
 import org.three.minutes.writing.data.BadgeData
 
-class OpenedBadgePopup(context : Context, private val badgeData : BadgeData) : Dialog(context) {
+class OpenedBadgePopup(context : Context) : Dialog(context) {
 
     interface SetOnClickListener{
         fun onCancelClick(dialog : Dialog)
@@ -35,14 +35,12 @@ class OpenedBadgePopup(context : Context, private val badgeData : BadgeData) : D
 
         window?.attributes = lp
 
-        setPopUp()
-
         badge_cancle.setOnClickListener {
             listener.onCancelClick(this)
         }
     }
 
-    private fun setPopUp() {
+    fun setNewPopUp(badgeData: BadgeData){
         Glide.with(context).load(badgeData.badgeImg).into(badge_img)
         badge_title.text = badgeData.badgeName
         badge_info.text = badgeData.badgeInfo

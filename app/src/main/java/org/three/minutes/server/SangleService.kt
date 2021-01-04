@@ -1,5 +1,6 @@
 package org.three.minutes.server
 
+import okhttp3.ResponseBody
 import org.three.minutes.home.data.ResponseMainInfoData
 import org.three.minutes.home.data.ResponseTodayTopicData
 import org.three.minutes.login.data.RequestGoogleLoginData
@@ -77,7 +78,7 @@ interface SangleService {
     ) : Call<ResponseWritingData>
 
     // 글쓰기 수정
-    @POST("/posts/update/{postIdx}")
+    @PUT("/posts/update/{postIdx}")
     fun postEdit(
         @Header("token") token : String,
         @Path("postIdx") postIdx : Int,
@@ -90,6 +91,6 @@ interface SangleService {
     fun deleteWriting(
         @Header("token") token : String,
         @Path("postIdx") postIdx: Int
-    )
+    ):Call<ResponseBody>
 
 }
