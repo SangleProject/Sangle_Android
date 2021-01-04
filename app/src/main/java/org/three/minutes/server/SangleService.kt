@@ -10,6 +10,7 @@ import org.three.minutes.login.data.ResponseLoginData
 import org.three.minutes.signup.data.RequestGoogleSignUpData
 import org.three.minutes.writing.data.RequestWritingData
 import org.three.minutes.writing.data.ResponseWritingData
+import org.three.minutes.writing.data.ResponseWritingEditData
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -74,5 +75,13 @@ interface SangleService {
         @Header("token") token : String,
         @Body body : RequestWritingData
     ) : Call<ResponseWritingData>
+
+    // 글쓰기 수정
+    @POST("/posts/update/{postIdx}")
+    fun postEdit(
+        @Header("token") token : String,
+        @Path("postIdx") postIdx : Int,
+        @Body body : RequestWritingData
+    ) : Call<ResponseWritingEditData>
 
 }
