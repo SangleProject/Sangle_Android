@@ -40,6 +40,7 @@ class WritingEditActivity : AppCompatActivity() {
 
         mViewModel.topic.value =  intent.getStringExtra("topic")
         mViewModel.contents.value = intent.getStringExtra("contents")
+        mViewModel.postIdx = intent.getIntExtra("postIdx",-1)
 
         mBinding.writingCompleteTxt.setOnClickListener {
             mViewModel.callEdit()
@@ -65,20 +66,20 @@ class WritingEditActivity : AppCompatActivity() {
             }
         })
 
-        mViewModel.badgeList.observe(this,{
-            if (it.isNotEmpty()){
-                val badgeData = it[0]
-                val badgePopUp = OpenedBadgePopup(this)
-                badgePopUp.setNewPopUp(badgeData)
-                badgePopUp.setCancelClick(object : OpenedBadgePopup.SetOnClickListener{
-                    override fun onCancelClick(dialog: Dialog) {
-                        mViewModel.badgeList.value?.removeAt(0)
-                        dialog.dismiss()
-                    }
-                })
-                badgePopUp.show()
-            }
-        })
+//        mViewModel.badgeList.observe(this,{
+//            if (it.isNotEmpty()){
+//                val badgeData = it[0]
+//                val badgePopUp = OpenedBadgePopup(this)
+//                badgePopUp.setNewPopUp(badgeData)
+//                badgePopUp.setCancelClick(object : OpenedBadgePopup.SetOnClickListener{
+//                    override fun onCancelClick(dialog: Dialog) {
+//                        mViewModel.badgeList.value?.removeAt(0)
+//                        dialog.dismiss()
+//                    }
+//                })
+//                badgePopUp.show()
+//            }
+//        })
     }
 
     // 작성 공간 외 다른 공간 클릭 시 키보드 내리고 포커스 해제

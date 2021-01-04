@@ -85,6 +85,7 @@ class WritingResultActivity : AppCompatActivity() {
         val intent = Intent(this, WritingEditActivity::class.java)
         intent.putExtra("topic", mViewModel.topic.value)
         intent.putExtra("contents", mViewModel.contents.value)
+        intent.putExtra("postIdx",mViewModel.postIdx)
         startActivityForResult(intent, EDIT_CODE)
     }
 
@@ -96,21 +97,21 @@ class WritingResultActivity : AppCompatActivity() {
     }
 
     private fun observeViewModel() {
-
-        mViewModel.badgeList.observe(this, {
-            if (it.isNotEmpty()) {
-                val badgeData = it[0]
-                val badgePopUp = OpenedBadgePopup(this)
-                badgePopUp.setNewPopUp(badgeData)
-                badgePopUp.setCancelClick(object : OpenedBadgePopup.SetOnClickListener {
-                    override fun onCancelClick(dialog: Dialog) {
-                        mViewModel.badgeList.value?.removeAt(0)
-                        dialog.dismiss()
-                    }
-                })
-                badgePopUp.show()
-            }
-        })
+//
+//        mViewModel.badgeList.observe(this, {
+//            if (it.isNotEmpty()) {
+//                val badgeData = it[0]
+//                val badgePopUp = OpenedBadgePopup(this)
+//                badgePopUp.setNewPopUp(badgeData)
+//                badgePopUp.setCancelClick(object : OpenedBadgePopup.SetOnClickListener {
+//                    override fun onCancelClick(dialog: Dialog) {
+//                        mViewModel.badgeList.value?.removeAt(0)
+//                        dialog.dismiss()
+//                    }
+//                })
+//                badgePopUp.show()
+//            }
+//        })
 
         mViewModel.isDelete.observe(this, {
             if (it) {
