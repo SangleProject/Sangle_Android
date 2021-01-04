@@ -1,5 +1,6 @@
 package org.three.minutes.writing.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -45,6 +46,9 @@ class WritingResultViewModel : ViewModel(){
         ).customEnqueue(
             onSuccess = {
                 postIdx = it.postIdx
+            },
+            onError = {
+                Log.e("WritingResultActivity", "${it.code()}")
             }
         )
     }

@@ -9,6 +9,7 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import org.three.minutes.R
 import org.three.minutes.databinding.ActivityWritingEditBinding
+import org.three.minutes.singleton.PopUpObject
 import org.three.minutes.writing.viewmodel.WritingEditViewModel
 
 class WritingEditActivity : AppCompatActivity() {
@@ -27,16 +28,13 @@ class WritingEditActivity : AppCompatActivity() {
         mImm = getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         // 글자수 카운팅
-        checkContentsCount()
+        observeViewModel()
 
         mViewModel.topic.value =  intent.getStringExtra("topic")
         mViewModel.contents.value = intent.getStringExtra("contents")
 
         mBinding.writingCompleteTxt.setOnClickListener {
-            val intent = Intent()
-            intent.putExtra("contents",mViewModel.contents.value)
-            setResult(RESULT_OK,intent)
-            finish()
+            mViewModel.callEdit()
         }
         mBinding.writingCancleTxt.setOnClickListener {
             setResult(RESULT_CANCELED)
@@ -45,9 +43,18 @@ class WritingEditActivity : AppCompatActivity() {
 
     }
 
-    private fun checkContentsCount() {
+    private fun observeViewModel() {
         mViewModel.contents.observe(this,{
             mViewModel.contentsCount.value = it.length
+        })
+        // 글 수정 완료시 true로 변경
+        mViewModel.isEdited.observe(this,{
+            if (it){
+                val intent = Intent()
+                intent.putExtra("contents",mViewModel.contents.value)
+                setResult(RESULT_OK,intent)
+                finish()
+            }
         })
     }
 
