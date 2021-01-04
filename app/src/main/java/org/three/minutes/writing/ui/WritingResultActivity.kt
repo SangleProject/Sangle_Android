@@ -19,6 +19,8 @@ class WritingResultActivity : AppCompatActivity() {
     }
     private val mViewModel : WritingResultViewModel by viewModels()
 
+    private val EDIT_CODE = 100
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        setContentView(R.layout.activity_writing_result)
@@ -47,7 +49,25 @@ class WritingResultActivity : AppCompatActivity() {
         mBinding.resultDeleteTxt.setOnClickListener {
             startHomeActivity()
         }
+        // 수정하기 버튼
+        mBinding.resultModifyTxt.setOnClickListener {
+            startEditActivity()
+        }
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == EDIT_CODE && resultCode == RESULT_OK){
+            mViewModel.contents.value = data?.getStringExtra("contents")
+        }
+    }
+
+    private fun startEditActivity() {
+        val intent = Intent(this,WritingEditActivity::class.java)
+        intent.putExtra("topic",mViewModel.topic.value)
+        intent.putExtra("contents",mViewModel.contents.value)
+        startActivityForResult(intent,EDIT_CODE)
     }
 
     // 완료 버튼, 삭제 버튼, 뒤로가기 버튼 클릭 시 호출

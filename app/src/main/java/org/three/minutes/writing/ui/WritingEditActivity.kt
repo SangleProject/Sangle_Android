@@ -1,5 +1,6 @@
 package org.three.minutes.writing.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -27,6 +28,21 @@ class WritingEditActivity : AppCompatActivity() {
 
         // 글자수 카운팅
         checkContentsCount()
+
+        mViewModel.topic.value =  intent.getStringExtra("topic")
+        mViewModel.contents.value = intent.getStringExtra("contents")
+
+        mBinding.writingCompleteTxt.setOnClickListener {
+            val intent = Intent()
+            intent.putExtra("contents",mViewModel.contents.value)
+            setResult(RESULT_OK,intent)
+            finish()
+        }
+        mBinding.writingCancleTxt.setOnClickListener {
+            setResult(RESULT_CANCELED)
+            finish()
+        }
+
     }
 
     private fun checkContentsCount() {
