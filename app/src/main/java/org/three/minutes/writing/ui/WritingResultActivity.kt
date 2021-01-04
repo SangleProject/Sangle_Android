@@ -32,7 +32,12 @@ class WritingResultActivity : AppCompatActivity() {
         setSupportActionBar(result_toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
+        mViewModel.callToken.observe(this,{
+            mViewModel.token.value = it
+        })
+
         mViewModel.getCurrentTime()
+        mViewModel.postWriting()
         mViewModel.contents.value = intent.getStringExtra("contents")
         mViewModel.topic.value = intent.getStringExtra("topic")
         mViewModel.contentsCount.value = mViewModel.contents.value?.length ?: 0
