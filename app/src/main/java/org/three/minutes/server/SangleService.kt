@@ -8,6 +8,8 @@ import org.three.minutes.login.data.ResponseGoogleLoginData
 import org.three.minutes.signup.data.*
 import org.three.minutes.login.data.ResponseLoginData
 import org.three.minutes.signup.data.RequestGoogleSignUpData
+import org.three.minutes.writing.data.RequestWritingData
+import org.three.minutes.writing.data.ResponseWritingData
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -65,5 +67,12 @@ interface SangleService {
     fun getTodayTopic(
         @Header("token") token : String
     ) : Call<List<ResponseTodayTopicData>>
+
+    // 글쓰기 저장
+    @POST("/posts/write")
+    fun postWrite(
+        @Header("token") token : String,
+        @Body body : RequestWritingData
+    ) : Call<ResponseWritingData>
 
 }
