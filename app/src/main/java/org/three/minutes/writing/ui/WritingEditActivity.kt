@@ -1,5 +1,6 @@
 package org.three.minutes.writing.ui
 
+import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import org.three.minutes.R
+import org.three.minutes.badge.ui.OpenedBadgePopup
 import org.three.minutes.databinding.ActivityWritingEditBinding
 import org.three.minutes.singleton.PopUpObject
 import org.three.minutes.writing.viewmodel.WritingEditViewModel
@@ -27,7 +29,7 @@ class WritingEditActivity : AppCompatActivity() {
         }
         mImm = getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
-        // 글자수 카운팅
+        // viewModel observe
         observeViewModel()
 
         mViewModel.topic.value =  intent.getStringExtra("topic")
@@ -54,6 +56,23 @@ class WritingEditActivity : AppCompatActivity() {
                 intent.putExtra("contents",mViewModel.contents.value)
                 setResult(RESULT_OK,intent)
                 finish()
+            }
+        })
+        mViewModel.callToken.observe(this,{
+            mViewModel.token.value = it
+        })
+
+        mViewModel.badgeList.observe(this,{
+            if (it.isNotEmpty()){
+                val badgeData = it[0]
+                val badgePopUp = OpenedBadgePopup(this, badgeData)
+                badgePopUp.setCancelClick(object : OpenedBadgePopup.SetOnClickListener{
+                    override fun onCancelClick(dialog: Dialog) {
+                        mViewModel.badgeList.value?.removeAt(0)
+                        dialog.dismiss()
+                    }
+                })
+                badgePopUp.show()
             }
         })
     }

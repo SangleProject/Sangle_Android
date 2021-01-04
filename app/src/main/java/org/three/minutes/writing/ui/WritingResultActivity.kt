@@ -1,5 +1,6 @@
 package org.three.minutes.writing.ui
 
+import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,8 +9,10 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import kotlinx.android.synthetic.main.activity_writing_result.*
 import org.three.minutes.R
+import org.three.minutes.badge.ui.OpenedBadgePopup
 import org.three.minutes.databinding.ActivityWritingResultBinding
 import org.three.minutes.home.ui.HomeActivity
+import org.three.minutes.login.ui.MainActivity
 import org.three.minutes.writing.viewmodel.WritingResultViewModel
 
 class WritingResultActivity : AppCompatActivity() {
@@ -32,9 +35,8 @@ class WritingResultActivity : AppCompatActivity() {
         setSupportActionBar(result_toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        mViewModel.callToken.observe(this,{
-            mViewModel.token.value = it
-        })
+        observeViewModel()
+
 
         mViewModel.getCurrentTime()
         mViewModel.postWriting()
@@ -80,6 +82,34 @@ class WritingResultActivity : AppCompatActivity() {
         val intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
         finishAndRemoveTask()
+    }
+
+    private fun observeViewModel(){
+        mViewModel.callToken.observe(this,{
+            mViewModel.token.value = it
+        })
+
+        mViewModel.badgeList.observe(this,{
+            if (it.isNotEmpty()){
+                val badgeData = it[0]
+                val badgePopUp = OpenedBadgePopup(this, badgeData)
+                badgePopUp.setCancelClick(object : OpenedBadgePopup.SetOnClickListener{
+                    override fun onCancelClick(dialog: Dialog) {
+                        mViewModel.badgeList.value?.removeAt(0)
+                        dialog.dismiss()
+                    }
+                })
+                badgePopUp.show()
+            }
+        })
+
+        mViewModel.isDelete.observe(this,{
+            if (it){
+                val intent = Intent(this,MainActivity::class.java)
+                startActivity(intent)
+                finishAndRemoveTask()
+            }
+        })
     }
 
     override fun onBackPressed() {

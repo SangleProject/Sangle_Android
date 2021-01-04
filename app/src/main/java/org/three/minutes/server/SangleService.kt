@@ -84,4 +84,12 @@ interface SangleService {
         @Body body : RequestWritingData
     ) : Call<ResponseWritingEditData>
 
+    //글쓰기 삭제
+    @Headers("Content-Type:application/json")
+    @DELETE("/posts/delete/{postIdx}")
+    fun deleteWriting(
+        @Header("token") token : String,
+        @Path("postIdx") postIdx: Int
+    )
+
 }

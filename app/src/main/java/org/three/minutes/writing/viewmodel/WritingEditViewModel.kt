@@ -7,6 +7,7 @@ import androidx.lifecycle.asLiveData
 import org.three.minutes.ThreeApplication
 import org.three.minutes.server.SangleServiceImpl
 import org.three.minutes.util.customEnqueue
+import org.three.minutes.writing.data.BadgeData
 import org.three.minutes.writing.data.RequestWritingData
 
 class WritingEditViewModel : ViewModel() {
@@ -22,6 +23,8 @@ class WritingEditViewModel : ViewModel() {
 
     var isEdited = MutableLiveData(false)
 
+    var badgeList = MutableLiveData<MutableList<BadgeData>>()
+
     fun callEdit(){
         SangleServiceImpl.service.postEdit(
             token = token.value!!,
@@ -30,6 +33,9 @@ class WritingEditViewModel : ViewModel() {
         ).customEnqueue(
             onSuccess = {
                 isEdited.value = true
+                if (it.badge.isNotEmpty()){
+                    badgeList.value = it.badge.toMutableList()
+                }
             },
             onError = {
                 Log.e("WritingEditActivity", "${it.code()}")

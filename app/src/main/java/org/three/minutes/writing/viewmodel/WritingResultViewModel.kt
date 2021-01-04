@@ -12,6 +12,7 @@ import org.three.minutes.ThreeApplication
 import org.three.minutes.server.SangleServiceImpl
 import org.three.minutes.util.customEnqueue
 import org.three.minutes.util.formatDate
+import org.three.minutes.writing.data.BadgeData
 import org.three.minutes.writing.data.RequestWritingData
 import java.util.*
 
@@ -28,6 +29,9 @@ class WritingResultViewModel : ViewModel(){
     var contentsCount = MutableLiveData(0)
     var writingDate = MutableLiveData("null")
     var postIdx = -1
+    var badgeList = MutableLiveData<MutableList<BadgeData>>()
+
+    var isDelete = MutableLiveData(false)
 
     // 글 쓰기 완료 시 기점으로 현재 시간 가져오기
     fun getCurrentTime(){
@@ -46,11 +50,18 @@ class WritingResultViewModel : ViewModel(){
         ).customEnqueue(
             onSuccess = {
                 postIdx = it.postIdx
+                if (it.badge.isNotEmpty()){
+                    badgeList.value = it.badge.toMutableList()
+                }
             },
             onError = {
                 Log.e("WritingResultActivity", "${it.code()}")
             }
         )
+    }
+
+    fun deleteWriting(){
+        SangleServiceImpl.service.deleteWriting(token.value!!,postIdx)
     }
 
     override fun onCleared() {
