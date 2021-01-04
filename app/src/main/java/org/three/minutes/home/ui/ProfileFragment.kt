@@ -14,6 +14,7 @@ import org.three.minutes.R
 import org.three.minutes.databinding.FragmentProfileBinding
 import org.three.minutes.home.viewmodel.HomeViewModel
 import org.three.minutes.singleton.PopUpObject
+import org.three.minutes.util.showToast
 import org.three.minutes.writing.ui.WritingReadyActivity
 import kotlin.coroutines.CoroutineContext
 
@@ -71,8 +72,13 @@ class ProfileFragment : Fragment(),CoroutineScope {
     }
 
     fun goToWriting(){
-        progress.show()
-        mViewModel.callTopic()
+        if (mViewModel.remaining.value == 0){
+            mContext.showToast("이런! 오늘 글감을 모두 썼어요!")
+        }
+        else{
+            progress.show()
+            mViewModel.callTopic()
+        }
     }
 
     override fun onDestroy() {

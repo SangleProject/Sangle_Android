@@ -97,7 +97,7 @@ class WritingResultActivity : AppCompatActivity() {
     }
 
     private fun observeViewModel() {
-//
+//         뱃지 처리 부분 문제 있음
 //        mViewModel.badgeList.observe(this, {
 //            if (it.isNotEmpty()) {
 //                val badgeData = it[0]
