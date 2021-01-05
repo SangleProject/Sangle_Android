@@ -8,7 +8,7 @@
 
         <variable
             name="data"
-            type="org.three.minutes.home.data.FeedData" />
+            type="org.three.minutes.home.data.ResponseFameData" />
 
     </data>
 
@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@{data.title}"
+            android:text="@{data.topic}"
             android:textColor="@color/main_blue"
             app:layout_constraintBottom_toBottomOf="@+id/feed_img"
             app:layout_constraintStart_toEndOf="@+id/feed_img"
@@ -49,7 +49,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="70dp"
             android:layout_marginEnd="16dp"
-            android:text="@{data.date}"
             android:textColor="@color/black_60"
             app:layout_constraintBottom_toBottomOf="@+id/feed_word"
             app:layout_constraintEnd_toEndOf="parent"
@@ -75,7 +74,7 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginVertical="12dp"
             android:ellipsize="end"
-            android:text="@{data.contents}"
+            android:text="@{data.postWrite}"
             android:textColor="@color/black_80"
             app:layout_constraintBottom_toTopOf="@+id/feed_like_count"
             app:layout_constraintEnd_toEndOf="parent"
@@ -101,7 +100,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:text="@{data.profileId}"
+            android:text="@{data.nickName}"
             tools:text="@string/sample_id"
             android:textColor="@color/black_60"
             app:layout_constraintBottom_toBottomOf="@+id/profile_img"
@@ -116,7 +115,6 @@
             android:background="@drawable/favorite_selected_box"
             android:drawablePadding="4dp"
             android:padding="8dp"
-            android:text="@{Integer.toString(data.count)}"
             tools:text="1224"
             android:textColor="@color/black_60"
             android:layout_marginEnd="16dp"

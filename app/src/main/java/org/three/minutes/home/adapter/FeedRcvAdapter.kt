@@ -6,10 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.three.minutes.databinding.FeedListItemBinding
 import org.three.minutes.home.data.FeedData
+import org.three.minutes.home.data.ResponseFameData
 import org.three.minutes.home.viewholder.FeedViewHolder
 
 class FeedRcvAdapter (val context : Context) : RecyclerView.Adapter<FeedViewHolder>(){
-    var data = listOf<FeedData>()
+    var data = listOf<ResponseFameData>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
         val binding = FeedListItemBinding.inflate(LayoutInflater.from(context), parent,false)

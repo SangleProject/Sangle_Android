@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.*
 import org.three.minutes.home.data.CalendarData
+import org.three.minutes.home.data.ResponseFameData
 import org.three.minutes.server.SangleServiceImpl
 import org.three.minutes.util.customEnqueue
 import java.util.*
@@ -49,6 +50,9 @@ class HomeViewModel(application : Application , private val useCase : HomeUseCas
 
     //저번주 글 작성 비교 increase / same / decrease
     var compare = MutableLiveData("")
+
+    // 명예의 전당 데이터
+    var fameDataList = MutableLiveData<List<ResponseFameData>>()
 
 
     fun settingDate() {
@@ -99,6 +103,18 @@ class HomeViewModel(application : Application , private val useCase : HomeUseCas
 
     fun callTopic(){
         useCase.goToWriting(token, topic)
+    }
+
+    fun callFame(){
+        SangleServiceImpl.service.getFameData(token)
+            .customEnqueue(
+                onSuccess = {
+
+                },
+                onError = {
+                    Log.e("HomeActivity", "fun callFame() failed : ${it.code()}")
+                }
+            )
     }
 
     override fun onCleared() {

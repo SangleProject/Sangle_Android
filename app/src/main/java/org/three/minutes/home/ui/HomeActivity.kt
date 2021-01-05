@@ -63,6 +63,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
 
         //Home_Info Api
         mViewModel.setInfo()
+        mViewModel.callFame()
 
         setSupportActionBar(home_toolbar)
         supportActionBar?.apply {

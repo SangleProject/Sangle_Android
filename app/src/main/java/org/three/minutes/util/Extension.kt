@@ -18,6 +18,7 @@ import org.three.minutes.R
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -128,4 +129,10 @@ fun Date.formatDate() : String {
     val fm = SimpleDateFormat("yyyy.MM.dd (E) ")
     val fm2 = SimpleDateFormat("aH:mm",Locale.ENGLISH)
     return fm.format(this) + fm2.format(this)
+}
+
+// 돈 단위 변환
+fun Int.formatCount() : String{
+    val fm = DecimalFormat("###,###")
+    return fm.format(this)
 }
