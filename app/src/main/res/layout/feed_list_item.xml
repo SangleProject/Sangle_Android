@@ -20,12 +20,15 @@
 
         <ImageView
             android:id="@+id/feed_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="36dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_gold_medal"
+            android:scaleType="centerInside"
+            tools:src="@drawable/ic_gold_medal"
+            app:setGlide="@{data.medal}"
+            app:layout_constraintWidth_percent="0.08"
+            app:layout_constraintDimensionRatio="1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -88,7 +91,8 @@
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:layout_marginBottom="20dp"
-            android:src="@drawable/profile1"
+            tools:src="@drawable/profile1"
+            app:setGlide="@{data.profileImg}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintStart_toStartOf="parent"

@@ -1,20 +1,14 @@
 package org.three.minutes.util
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.util.Log
 import android.view.View
-import android.view.WindowManager
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import org.three.minutes.badge.adapter.BadgeListAdapter
 import org.three.minutes.badge.data.BadgeListData
-import org.three.minutes.badge.ui.ClosedBadgePopup
-import org.three.minutes.badge.ui.OpenedBadgePopup
 import org.three.minutes.mypage.adapter.MyWritingAdapter
 import org.three.minutes.mypage.data.MyWritingData
 import org.three.minutes.word.adapter.PastWritingRcvAdapter
@@ -107,8 +101,7 @@ fun RecyclerView.setBadgeList(listData : MutableList<BadgeListData>){
     rcvAdapter.notifyDataSetChanged()
 }
 
-@BindingAdapter("app:setProfileImg")
-fun ImageView.setProfile(profileImg : String){
-    Log.e("BindingAdapter",profileImg)
-    Glide.with(this.context).load(profileImg).into(this)
+@BindingAdapter("app:setGlide")
+fun ImageView.setGlide(img : String){
+    Glide.with(this.context).load(img).into(this)
 }

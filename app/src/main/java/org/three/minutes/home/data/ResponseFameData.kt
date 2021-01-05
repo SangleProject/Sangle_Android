@@ -5,6 +5,7 @@ import java.io.Serializable
 
 data class ResponseFameData(
     val postIdx : Int,
+    val profileImg : String,
     val nickName : String,
     val myNickName : String,
     val topic : String,
@@ -13,5 +14,6 @@ data class ResponseFameData(
     val time : String,
     val day : String,
     val likes : Int,
+    val medal : String,
     val badge : List<BadgeData>
 ) : Serializable

@@ -5,6 +5,10 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="org.three.minutes.home.viewmodel.HomeViewModel" />
+
     </data>
 
 
@@ -48,16 +52,16 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/feed_rcv"
-            android:clipToPadding="false"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="20dp"
+            android:clipToPadding="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/info_txt"
-            tools:listitem="@layout/feed_list_item"
-            tools:itemCount="3"/>
+            tools:itemCount="3"
+            tools:listitem="@layout/feed_list_item" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

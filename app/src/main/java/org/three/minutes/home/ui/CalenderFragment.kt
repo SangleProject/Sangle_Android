@@ -1,6 +1,7 @@
 package org.three.minutes.home.ui
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -26,6 +27,13 @@ class CalenderFragment : Fragment(), CoroutineScope {
         get() = Dispatchers.Main + job
 
     private lateinit var mBinding: FragmentCalenderBinding
+    private val mViewModel : HomeViewModel by activityViewModels()
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Log.e("Home","Calendar onAttach()")
+
+    }
 
 
     @SuppressLint("SimpleDateFormat")
@@ -34,12 +42,12 @@ class CalenderFragment : Fragment(), CoroutineScope {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        Log.e("Home","Calendar onCreatedView()")
+
 
         mBinding =
             DataBindingUtil.inflate(layoutInflater, R.layout.fragment_calender, container, false)
         mBinding.lifecycleOwner = this
-
-        val mViewModel: HomeViewModel by activityViewModels()
         mBinding.viewModel = mViewModel
 
         val calendarAdp = CalendarAdapter(
@@ -47,8 +55,12 @@ class CalenderFragment : Fragment(), CoroutineScope {
             mViewModel
         )
 
-        mBinding.rcvCalendar.adapter = calendarAdp
-        calendarAdp.notifyDataSetChanged()
+        mViewModel.isCalendarComplete.observe(viewLifecycleOwner,{
+            if (it){
+                mBinding.rcvCalendar.adapter = calendarAdp
+                calendarAdp.notifyDataSetChanged()
+            }
+        })
 
 
         return mBinding.root
@@ -58,7 +70,9 @@ class CalenderFragment : Fragment(), CoroutineScope {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-    }
+
+}
+
 
     override fun onDestroy() {
         super.onDestroy()

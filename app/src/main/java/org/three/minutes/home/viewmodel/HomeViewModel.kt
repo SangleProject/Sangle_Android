@@ -23,6 +23,7 @@ class HomeViewModel(application : Application , private val useCase : HomeUseCas
     var arrayCalendar = arrayListOf<CalendarData>()
     var year = MutableLiveData(0)
     val month = MutableLiveData(0)
+    var isCalendarComplete = MutableLiveData(false)
 
     //token값
     var token : String = ""
@@ -52,7 +53,8 @@ class HomeViewModel(application : Application , private val useCase : HomeUseCas
     var compare = MutableLiveData("")
 
     // 명예의 전당 데이터
-    var fameDataList = MutableLiveData<List<ResponseFameData>>()
+    var isFameComplete = MutableLiveData(false)
+    var fameDataList = MutableLiveData<List<ResponseFameData>>(listOf())
 
 
     fun settingDate() {
@@ -79,6 +81,7 @@ class HomeViewModel(application : Application , private val useCase : HomeUseCas
         for (i in 1..max) {
             arrayCalendar.add(CalendarData(y, m, i, false))
         }
+        isCalendarComplete.postValue(true)
     }
 
     fun setInfo() {
@@ -105,16 +108,19 @@ class HomeViewModel(application : Application , private val useCase : HomeUseCas
         useCase.goToWriting(token, topic)
     }
 
-    fun callFame(){
-        SangleServiceImpl.service.getFameData(token)
-            .customEnqueue(
-                onSuccess = {
-
-                },
-                onError = {
-                    Log.e("HomeActivity", "fun callFame() failed : ${it.code()}")
-                }
-            )
+    fun callFameData(){
+        viewModelScope.launch {
+            SangleServiceImpl.service.getFameData(token)
+                .customEnqueue(
+                    onSuccess = {
+                        fameDataList.value = it
+                        isFameComplete.value = true
+                    },
+                    onError = {
+                        Log.e("HomeActivity", "fun callFameData() error : ${it.code()}")
+                    }
+                )
+        }
     }
 
     override fun onCleared() {

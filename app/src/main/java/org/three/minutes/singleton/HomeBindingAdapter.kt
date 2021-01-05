@@ -1,12 +1,20 @@
 package org.three.minutes.singleton
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.MutableLiveData
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import org.three.minutes.R
+import org.three.minutes.home.adapter.FeedRcvAdapter
+import org.three.minutes.home.data.ResponseFameData
+import org.three.minutes.util.LinePagerIndicatorDecoration
 
 object HomeBindingAdapter {
 
