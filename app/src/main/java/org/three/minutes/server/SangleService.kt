@@ -1,6 +1,7 @@
 package org.three.minutes.server
 
 import okhttp3.ResponseBody
+import org.three.minutes.home.data.ResponseFameData
 import org.three.minutes.home.data.ResponseMainInfoData
 import org.three.minutes.home.data.ResponseTodayTopicData
 import org.three.minutes.login.data.RequestGoogleLoginData
@@ -92,5 +93,11 @@ interface SangleService {
         @Header("token") token : String,
         @Path("postIdx") postIdx: Int
     ):Call<ResponseBody>
+
+    //명예의 전당 데이터 가져오기
+    @GET("/posts/popularity")
+    fun getFameData(
+        @Header("token") token : String
+    ) : Call<List<ResponseFameData>>
 
 }

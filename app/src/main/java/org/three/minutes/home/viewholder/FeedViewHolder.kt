@@ -12,11 +12,10 @@ class FeedViewHolder (val binding : FeedListItemBinding) : RecyclerView.ViewHold
     private lateinit var intent : Intent
     init{
         itemView.setOnClickListener {
-            if (feedData.isMy){
-                intent = Intent(binding.root.context, DetailMyActivity::class.java)
-            }
-            else{
-                intent = Intent(binding.root.context, DetailActivity::class.java)
+            intent = if (feedData.isMy){
+                Intent(binding.root.context, DetailMyActivity::class.java)
+            } else{
+                Intent(binding.root.context, DetailActivity::class.java)
             }
             intent.putExtra("feedData",feedData)
             binding.root.context.startActivity(intent)
