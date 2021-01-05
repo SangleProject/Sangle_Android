@@ -71,6 +71,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
         }
 
         settingDrawer()
+        mViewModel.settingDate()
 
 
 
@@ -114,6 +115,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
 
     private fun initViewPager() {
         mBinding.homePage.adapter = HomePageAdapter(supportFragmentManager)
+        mBinding.homePage.offscreenPageLimit = 2
         //가운데가 기준
         mBinding.homeBottomNavi.menu.getItem(1).isChecked = true
         mBinding.homePage.currentItem = 1

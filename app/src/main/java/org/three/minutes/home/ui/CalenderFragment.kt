@@ -40,7 +40,6 @@ class CalenderFragment : Fragment(), CoroutineScope {
         mBinding.lifecycleOwner = this
 
         val mViewModel: HomeViewModel by activityViewModels()
-        mViewModel.settingDate()
         mBinding.viewModel = mViewModel
 
         val calendarAdp = CalendarAdapter(
