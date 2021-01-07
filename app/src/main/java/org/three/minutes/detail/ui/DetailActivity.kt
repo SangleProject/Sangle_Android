@@ -36,6 +36,21 @@ class DetailActivity : AppCompatActivity() {
         // 팩토리 패턴을 이용해서 파라미터 값 생성
         mBinding.viewmodel = mViewModel
 
+        setTextSizeButton()
+
+    }
+
+    private fun setTextSizeButton() {
+        mBinding.detailFontSizeGroup.setOnCheckedChangeListener { _, checkedId ->
+            when(checkedId){
+                R.id.size_from_minus_to_plus -> {
+                    mBinding.detailContentsTxt.textSize = 18f
+                }
+                R.id.size_from_plus_to_minus -> {
+                    mBinding.detailContentsTxt.textSize = 16f
+                }
+            }
+        }
     }
 
     private fun getIntentData() {

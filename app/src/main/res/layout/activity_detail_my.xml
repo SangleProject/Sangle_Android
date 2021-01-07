@@ -140,7 +140,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="16dp"
-                android:checked="true"
+                android:checked="@{viewmodel.detailData.open}"
                 android:switchMinWidth="52dp"
                 android:switchPadding="6dp"
                 android:text="전체공개"
@@ -152,6 +152,8 @@
             <CheckedTextView
                 android:id="@+id/my_like_txt"
                 style="@style/P3_14pt_Regular"
+                android:checked="true"
+                android:enabled="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"

@@ -36,6 +36,24 @@ class DetailMyActivity : AppCompatActivity() {
         mViewModel.callMyDetailData()
         mBinding.viewmodel = mViewModel
 
+        setTextSizeButton()
+        mBinding.myWordOpenSwitch.setOnCheckedChangeListener { _, isChecked ->
+            mViewModel.detailData.value?.open = isChecked
+        }
+
+    }
+
+    private fun setTextSizeButton() {
+        mBinding.detailFontSizeGroup.setOnCheckedChangeListener { _, checkedId ->
+            when(checkedId){
+                R.id.size_from_minus_to_plus -> {
+                    mBinding.myContentsTxt.textSize = 18f
+                }
+                R.id.size_from_plus_to_minus -> {
+                    mBinding.myContentsTxt.textSize = 16f
+                }
+            }
+        }
     }
 
     private fun getIntentData() {

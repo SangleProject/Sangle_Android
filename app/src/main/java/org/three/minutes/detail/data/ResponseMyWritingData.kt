@@ -11,5 +11,5 @@ data class ResponseMyWritingData(
     val day : String,
     val likes : Int,
     val modified : Boolean,
-    val open : Boolean
+    var open : Boolean
 )
