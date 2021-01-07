@@ -7,6 +7,7 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import org.three.minutes.R
 import org.three.minutes.badge.adapter.BadgeListAdapter
 import org.three.minutes.badge.data.BadgeListData
 import org.three.minutes.mypage.adapter.MyWritingAdapter
@@ -103,5 +104,9 @@ fun RecyclerView.setBadgeList(listData : MutableList<BadgeListData>){
 
 @BindingAdapter("app:setGlide")
 fun ImageView.setGlide(img : String){
-    Glide.with(this.context).load(img).into(this)
+    Glide.with(this.context)
+        .load(img)
+        .placeholder(R.drawable.profile1)
+        .error(R.drawable.profile1)
+        .into(this)
 }

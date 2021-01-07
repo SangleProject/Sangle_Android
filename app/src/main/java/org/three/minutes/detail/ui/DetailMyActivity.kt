@@ -36,6 +36,10 @@ class DetailMyActivity : AppCompatActivity() {
         // 팩토리 패턴을 이용해서 파라미터 값 생성
         mViewModel = ViewModelProvider(this, DetailViewModelFactory(mData))
             .get(DetailViewModel::class.java)
+        mViewModel.getToken.observe(this,{
+            mViewModel.token = it
+        })
+        mViewModel.callMyDetailData()
         mBinding.viewmodel = mViewModel
 
     }

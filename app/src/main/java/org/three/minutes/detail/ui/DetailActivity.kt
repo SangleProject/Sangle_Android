@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import org.three.minutes.R
 import org.three.minutes.databinding.ActivityDetailBinding
+import org.three.minutes.detail.viewmodel.DetailOtherViewModel
 import org.three.minutes.detail.viewmodel.DetailViewModel
 import org.three.minutes.detail.viewmodel.DetailViewModelFactory
 import org.three.minutes.home.data.FeedData
@@ -21,8 +22,7 @@ class DetailActivity : AppCompatActivity() {
     private val mBinding : ActivityDetailBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_detail)
     }
-    private lateinit var mViewModel : DetailViewModel
-    private lateinit var mData : ResponseFameData
+    private val mViewModel : DetailOtherViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding.apply {
@@ -32,17 +32,21 @@ class DetailActivity : AppCompatActivity() {
 
         setToolbarIcon()
 
+        mViewModel.getToken.observe(this,{
+            mViewModel.token = it
+        })
         getIntentData()
+        mViewModel.callOtherDetailData()
 
         // 팩토리 패턴을 이용해서 파라미터 값 생성
-        mViewModel = ViewModelProvider(this, DetailViewModelFactory(mData))
-            .get(DetailViewModel::class.java)
         mBinding.viewmodel = mViewModel
 
     }
 
     private fun getIntentData() {
-        mData = intent.getSerializableExtra("feedData") as ResponseFameData
+
+        val mData = intent.getSerializableExtra("feedData") as ResponseFameData
+        mViewModel.postIdx = mData.postIdx
     }
 
     private fun setToolbarIcon() {

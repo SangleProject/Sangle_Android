@@ -2,6 +2,7 @@ package org.three.minutes.detail.data
 
 data class ResponseOtherWritingData(
     val postIdx : Int,
+    val profileImg : String,
     val nickName : String,
     val myNickName : String,
     val topic : String,
