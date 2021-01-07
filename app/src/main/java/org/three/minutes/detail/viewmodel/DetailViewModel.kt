@@ -17,7 +17,7 @@ import org.three.minutes.server.SangleServiceImpl
 import org.three.minutes.util.customEnqueue
 import org.three.minutes.util.formatCount
 
-class DetailViewModel(data: ResponseFameData) : ViewModel() {
+class DetailViewModel : ViewModel() {
 
     private val job = Job()
     private val viewModelScope = CoroutineScope(Dispatchers.Main + job)
@@ -25,7 +25,7 @@ class DetailViewModel(data: ResponseFameData) : ViewModel() {
     val getToken = ThreeApplication.getInstance().getDataStore().token.asLiveData()
 
     var token = ""
-    private val feedData = data
+    var postIdx = -1
     var postLength = MutableLiveData(0)
     var detailData = MutableLiveData<ResponseMyWritingData>()
     var likeCount = MutableLiveData("")
@@ -35,7 +35,7 @@ class DetailViewModel(data: ResponseFameData) : ViewModel() {
 
     fun callMyDetailData() {
         viewModelScope.launch {
-            SangleServiceImpl.service.getMyDetailWriting(token, feedData.postIdx)
+            SangleServiceImpl.service.getMyDetailWriting(token, postIdx)
                 .customEnqueue(
                     onSuccess = {
                         detailData.value = it

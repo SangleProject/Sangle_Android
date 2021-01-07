@@ -2,20 +2,14 @@ package org.three.minutes.detail.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.SystemClock
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStoreOwner
 import org.three.minutes.R
 import org.three.minutes.databinding.ActivityDetailBinding
 import org.three.minutes.detail.viewmodel.DetailOtherViewModel
-import org.three.minutes.detail.viewmodel.DetailViewModel
-import org.three.minutes.detail.viewmodel.DetailViewModelFactory
-import org.three.minutes.home.data.FeedData
 import org.three.minutes.home.data.ResponseFameData
 
 class DetailActivity : AppCompatActivity() {
@@ -23,6 +17,7 @@ class DetailActivity : AppCompatActivity() {
         DataBindingUtil.setContentView(this, R.layout.activity_detail)
     }
     private val mViewModel : DetailOtherViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding.apply {
@@ -45,8 +40,8 @@ class DetailActivity : AppCompatActivity() {
 
     private fun getIntentData() {
 
-        val mData = intent.getSerializableExtra("feedData") as ResponseFameData
-        mViewModel.postIdx = mData.postIdx
+        val postIdx = intent.getIntExtra("postIdx",-1)
+        mViewModel.postIdx = postIdx
     }
 
     private fun setToolbarIcon() {

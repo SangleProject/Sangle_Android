@@ -20,7 +20,7 @@ class FeedViewHolder (val binding : FeedListItemBinding) : RecyclerView.ViewHold
             } else{
                 Intent(binding.root.context, DetailActivity::class.java)
             }
-            intent.putExtra("feedData",feedData)
+            intent.putExtra("postIdx",feedData.postIdx)
             binding.root.context.startActivity(intent)
         }
     }

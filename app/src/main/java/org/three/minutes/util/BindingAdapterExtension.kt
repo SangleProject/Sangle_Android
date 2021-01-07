@@ -103,7 +103,7 @@ fun RecyclerView.setBadgeList(listData : MutableList<BadgeListData>){
 }
 
 @BindingAdapter("app:setGlide")
-fun ImageView.setGlide(img : String){
+fun ImageView.setGlide(img : String?){
     Glide.with(this.context)
         .load(img)
         .placeholder(R.drawable.profile1)
