@@ -12,6 +12,7 @@ import org.three.minutes.databinding.ActivityDetailMyBinding
 import org.three.minutes.detail.viewmodel.DetailViewModel
 import org.three.minutes.detail.viewmodel.DetailViewModelFactory
 import org.three.minutes.home.data.FeedData
+import org.three.minutes.home.data.ResponseFameData
 
 class DetailMyActivity : AppCompatActivity() {
     private val mBinding : ActivityDetailMyBinding by lazy {
@@ -19,7 +20,7 @@ class DetailMyActivity : AppCompatActivity() {
     }
 
     private lateinit var mViewModel : DetailViewModel
-    private lateinit var mData : FeedData
+    private lateinit var mData : ResponseFameData
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding.apply {
@@ -40,7 +41,7 @@ class DetailMyActivity : AppCompatActivity() {
     }
 
     private fun getIntentData() {
-        mData = intent.getSerializableExtra("feedData") as FeedData
+        mData = intent.getSerializableExtra("feedData") as ResponseFameData
     }
 
     private fun setToolbarIcon() {

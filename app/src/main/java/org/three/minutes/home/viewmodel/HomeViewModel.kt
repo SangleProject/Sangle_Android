@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.*
 import org.three.minutes.home.data.CalendarData
+import org.three.minutes.home.data.ResponseFameData
 import org.three.minutes.server.SangleServiceImpl
 import org.three.minutes.util.customEnqueue
 import java.util.*
@@ -22,6 +23,7 @@ class HomeViewModel(application : Application , private val useCase : HomeUseCas
     var arrayCalendar = arrayListOf<CalendarData>()
     var year = MutableLiveData(0)
     val month = MutableLiveData(0)
+    var isCalendarComplete = MutableLiveData(false)
 
     //token값
     var token : String = ""
@@ -50,6 +52,10 @@ class HomeViewModel(application : Application , private val useCase : HomeUseCas
     //저번주 글 작성 비교 increase / same / decrease
     var compare = MutableLiveData("")
 
+    // 명예의 전당 데이터
+    var isFameComplete = MutableLiveData(false)
+    var fameDataList = MutableLiveData<List<ResponseFameData>>(listOf())
+
 
     fun settingDate() {
         viewModelScope.launch {
@@ -75,6 +81,7 @@ class HomeViewModel(application : Application , private val useCase : HomeUseCas
         for (i in 1..max) {
             arrayCalendar.add(CalendarData(y, m, i, false))
         }
+        isCalendarComplete.postValue(true)
     }
 
     fun setInfo() {
@@ -99,6 +106,21 @@ class HomeViewModel(application : Application , private val useCase : HomeUseCas
 
     fun callTopic(){
         useCase.goToWriting(token, topic)
+    }
+
+    fun callFameData(){
+        viewModelScope.launch {
+            SangleServiceImpl.service.getFameData(token)
+                .customEnqueue(
+                    onSuccess = {
+                        fameDataList.value = it
+                        isFameComplete.value = true
+                    },
+                    onError = {
+                        Log.e("HomeActivity", "fun callFameData() error : ${it.code()}")
+                    }
+                )
+        }
     }
 
     override fun onCleared() {

@@ -34,9 +34,9 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
-    private lateinit var mViewModel : HomeViewModel
+    private lateinit var mViewModel: HomeViewModel
 
-    private val mBinding : ActivityHomeBinding by lazy {
+    private val mBinding: ActivityHomeBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_home)
     }
 
@@ -44,9 +44,14 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.e("Home", "HomeActivity onCreate()")
+
         job = Job()
 
-        mViewModel = ViewModelProvider(this, HomeViewModelFactory(ThreeApplication.getInstance(), HomeUseCase()))
+        mViewModel = ViewModelProvider(
+            this,
+            HomeViewModelFactory(ThreeApplication.getInstance(), HomeUseCase())
+        )
             .get(HomeViewModel::class.java)
 
         mBinding.apply {
@@ -55,14 +60,15 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
         }
 
         // 기기에 저장된 token값 가져오기
-        launch {
-            ThreeApplication.getInstance().getDataStore().token.asLiveData().observe(this@HomeActivity,{
+        ThreeApplication.getInstance().getDataStore().token.asLiveData()
+            .observe(this@HomeActivity, {
                 mViewModel.token = it
             })
-        }
 
         //Home_Info Api
         mViewModel.setInfo()
+        mViewModel.callFameData()
+        mViewModel.settingDate()
 
         setSupportActionBar(home_toolbar)
         supportActionBar?.apply {
@@ -91,7 +97,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
         mBinding.homeDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         mBinding.homeDrawer.ic_navi_right.setOnClickListener {
             val intent = Intent(this, ProfileChangeActivity::class.java)
-            startActivityForResult(intent,PROFILE_CODE)
+            startActivityForResult(intent, PROFILE_CODE)
         }
         mBinding.homeDrawer.close_navi_img.setOnClickListener {
             mBinding.homeDrawer.close()
@@ -114,6 +120,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
 
     private fun initViewPager() {
         mBinding.homePage.adapter = HomePageAdapter(supportFragmentManager)
+        mBinding.homePage.offscreenPageLimit = 2
         //가운데가 기준
         mBinding.homeBottomNavi.menu.getItem(1).isChecked = true
         mBinding.homePage.currentItem = 1
@@ -160,12 +167,11 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PROFILE_CODE){
-            if (resultCode == RESULT_OK){
-                Toast.makeText(this,"Profile Change Success",Toast.LENGTH_SHORT).show()
-            }
-            else{
-                Toast.makeText(this,"Profile Change Cancel",Toast.LENGTH_SHORT).show()
+        if (requestCode == PROFILE_CODE) {
+            if (resultCode == RESULT_OK) {
+                Toast.makeText(this, "Profile Change Success", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Profile Change Cancel", Toast.LENGTH_SHORT).show()
             }
         }
     }
