@@ -12,6 +12,7 @@ import org.three.minutes.login.data.ResponseGoogleLoginData
 import org.three.minutes.signup.data.*
 import org.three.minutes.login.data.ResponseLoginData
 import org.three.minutes.signup.data.RequestGoogleSignUpData
+import org.three.minutes.writing.data.BadgeData
 import org.three.minutes.writing.data.RequestWritingData
 import org.three.minutes.writing.data.ResponseWritingData
 import org.three.minutes.writing.data.ResponseWritingEditData
@@ -115,4 +116,19 @@ interface SangleService {
         @Header("token") token : String,
         @Path("postIdx") postIdx: Int
     ) : Call<ResponseOtherWritingData>
+
+    //좋아요 설정
+    @POST("/posts/likes/{postIdx}")
+    fun postLike(
+        @Header("token") token : String,
+        @Path("postIdx") postIdx : Int
+    ): Call<List<BadgeData>>
+
+    // 좋아요 취소
+    @Headers("Content-Type:application/json")
+    @DELETE("/posts/unlikes/{postIdx}")
+    fun deleteUnlike(
+        @Header("token") token : String,
+        @Path("postIdx") postIdx: Int
+    ) : Call<ResponseBody>
 }
