@@ -23,6 +23,7 @@ class DetailViewModel : ViewModel() {
     private val viewModelScope = CoroutineScope(Dispatchers.Main + job)
 
     val getToken = ThreeApplication.getInstance().getDataStore().token.asLiveData()
+    var isDelete = MutableLiveData(false)
 
     var token = ""
     var postIdx = -1
@@ -45,6 +46,22 @@ class DetailViewModel : ViewModel() {
                     },
                     onError = {
                         Log.e("DetailMyActivity", "calMyDetailData() error : ${it.code()}")
+                    }
+                )
+        }
+    }
+
+    fun callDeleteData(){
+        viewModelScope.launch {
+            SangleServiceImpl.service.deleteWriting(
+                token = token, postIdx = postIdx)
+                .customEnqueue(
+                    onSuccess = {
+                        isDelete.value = true
+                    },
+                    onError = {
+                        Log.e("DetailMyActivity", "calDeleteData() error : ${it.code()}")
+
                     }
                 )
         }

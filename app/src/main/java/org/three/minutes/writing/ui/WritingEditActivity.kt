@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
@@ -37,6 +38,8 @@ class WritingEditActivity : AppCompatActivity() {
 
         // viewModel observe
         observeViewModel()
+
+        val intent = intent
 
         mViewModel.topic.value =  intent.getStringExtra("topic")
         mViewModel.contents.value = intent.getStringExtra("contents")
