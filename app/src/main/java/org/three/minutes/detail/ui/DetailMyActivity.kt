@@ -3,6 +3,7 @@ package org.three.minutes.detail.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -17,7 +18,7 @@ import org.three.minutes.util.showToast
 import org.three.minutes.writing.ui.WritingEditActivity
 
 class DetailMyActivity : AppCompatActivity() {
-    private val EDIT_CODE = 100
+    private val EDIT_CODE = 101
     private val mBinding: ActivityDetailMyBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_detail_my)
     }
@@ -37,9 +38,11 @@ class DetailMyActivity : AppCompatActivity() {
         mViewModel.getToken.observe(this, {
             mViewModel.token = it
         })
-        mViewModel.isDelete.observe(this,{
-            showToast("글을 삭제했어요!")
-            finish()
+        mViewModel.isDelete.observe(this, {
+            if (it) {
+                showToast("글을 삭제했어요!")
+                finish()
+            }
         })
         mViewModel.callMyDetailData()
         mBinding.viewmodel = mViewModel
@@ -94,7 +97,7 @@ class DetailMyActivity : AppCompatActivity() {
                 val intent = Intent(this, WritingEditActivity::class.java)
                 intent.putExtra("topic", mViewModel.detailData.value!!.topic)
                 intent.putExtra("contents", mViewModel.detailData.value!!.postWrite)
-                intent.putExtra("topic", mViewModel.detailData.value!!.postIdx)
+                intent.putExtra("postIdx", mViewModel.detailData.value!!.postIdx)
                 startActivityForResult(intent, EDIT_CODE)
             }
             R.id.action_delete -> {
@@ -108,6 +111,7 @@ class DetailMyActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == EDIT_CODE && resultCode == RESULT_OK) {
             // 수정 성공
+            Log.e("DetailMyActivity", "Modify Ok")
             showToast("글을 수정했어요~")
             finish()
         }
