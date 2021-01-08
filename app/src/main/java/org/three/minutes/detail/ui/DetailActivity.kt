@@ -2,27 +2,22 @@ package org.three.minutes.detail.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.SystemClock
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStoreOwner
 import org.three.minutes.R
 import org.three.minutes.databinding.ActivityDetailBinding
-import org.three.minutes.detail.viewmodel.DetailViewModel
-import org.three.minutes.detail.viewmodel.DetailViewModelFactory
-import org.three.minutes.home.data.FeedData
+import org.three.minutes.detail.viewmodel.DetailOtherViewModel
 import org.three.minutes.home.data.ResponseFameData
 
 class DetailActivity : AppCompatActivity() {
     private val mBinding : ActivityDetailBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_detail)
     }
-    private lateinit var mViewModel : DetailViewModel
-    private lateinit var mData : ResponseFameData
+    private val mViewModel : DetailOtherViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding.apply {
@@ -32,17 +27,36 @@ class DetailActivity : AppCompatActivity() {
 
         setToolbarIcon()
 
+        mViewModel.getToken.observe(this,{
+            mViewModel.token = it
+        })
         getIntentData()
+        mViewModel.callOtherDetailData()
 
         // 팩토리 패턴을 이용해서 파라미터 값 생성
-        mViewModel = ViewModelProvider(this, DetailViewModelFactory(mData))
-            .get(DetailViewModel::class.java)
         mBinding.viewmodel = mViewModel
+
+        setTextSizeButton()
 
     }
 
+    private fun setTextSizeButton() {
+        mBinding.detailFontSizeGroup.setOnCheckedChangeListener { _, checkedId ->
+            when(checkedId){
+                R.id.size_from_minus_to_plus -> {
+                    mBinding.detailContentsTxt.textSize = 18f
+                }
+                R.id.size_from_plus_to_minus -> {
+                    mBinding.detailContentsTxt.textSize = 16f
+                }
+            }
+        }
+    }
+
     private fun getIntentData() {
-        mData = intent.getSerializableExtra("feedData") as ResponseFameData
+
+        val postIdx = intent.getIntExtra("postIdx",-1)
+        mViewModel.postIdx = postIdx
     }
 
     private fun setToolbarIcon() {

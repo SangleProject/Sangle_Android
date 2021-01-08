@@ -1,6 +1,8 @@
 package org.three.minutes.server
 
 import okhttp3.ResponseBody
+import org.three.minutes.detail.data.ResponseMyWritingData
+import org.three.minutes.detail.data.ResponseOtherWritingData
 import org.three.minutes.home.data.ResponseFameData
 import org.three.minutes.home.data.ResponseMainInfoData
 import org.three.minutes.home.data.ResponseTodayTopicData
@@ -100,4 +102,17 @@ interface SangleService {
         @Header("token") token : String
     ) : Call<List<ResponseFameData>>
 
+    //내가 쓴 게시글 자세히 보기
+    @GET("/posts/detail/{postIdx}")
+    fun getMyDetailWriting(
+        @Header("token") token: String,
+        @Path("postIdx") postIdx: Int
+    ) : Call<ResponseMyWritingData>
+
+    //남이 쓴 게시글 자세히 보기
+    @GET("/posts/detailDiff/{postIdx}")
+    fun getOtherDetailWriting(
+        @Header("token") token : String,
+        @Path("postIdx") postIdx: Int
+    ) : Call<ResponseOtherWritingData>
 }

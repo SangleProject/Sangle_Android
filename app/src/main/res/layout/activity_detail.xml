@@ -5,10 +5,11 @@
     tools:ignore="HardcodedText,ContentDescription">
 
     <data>
+        <import type="android.view.View"/>
 
         <variable
             name="viewmodel"
-            type="org.three.minutes.detail.viewmodel.DetailViewModel" />
+            type="org.three.minutes.detail.viewmodel.DetailOtherViewModel" />
 
     </data>
 
@@ -49,6 +50,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="40dp"
                 android:textColor="@color/main_blue"
+                android:text="@{viewmodel.detailData.topic}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="빨대" />
@@ -63,6 +65,7 @@
                 android:padding="6dp"
                 android:text="@string/modified"
                 android:textColor="@color/black_40"
+                android:visibility="@{viewmodel.detailData.modified ? View.VISIBLE : View.INVISIBLE}"
                 app:layout_constraintBottom_toBottomOf="@+id/detail_word_title"
                 app:layout_constraintStart_toEndOf="@+id/detail_word_title"
                 app:layout_constraintTop_toTopOf="@+id/detail_word_title" />
@@ -98,6 +101,7 @@
                 android:layout_marginVertical="12dp"
                 android:scrollbars="vertical"
                 android:textColor="@color/black_80"
+                android:text="@{viewmodel.detailData.postWrite}"
                 app:layout_constraintBottom_toTopOf="@id/detail_word_count_txt"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -109,7 +113,8 @@
                 android:layout_height="0dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="16dp"
-                android:src="@drawable/profile1"
+                app:setGlide="@{viewmodel.detailData.profileImg}"
+                tools:src="@drawable/profile1"
                 app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
                 app:layout_constraintDimensionRatio="1"
                 app:layout_constraintStart_toStartOf="parent"
@@ -122,6 +127,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:textColor="@color/black_60"
+                android:text="@{viewmodel.detailData.nickName}"
                 app:layout_constraintBottom_toBottomOf="@id/profile_img"
                 app:layout_constraintStart_toEndOf="@+id/profile_img"
                 app:layout_constraintTop_toTopOf="@id/profile_img"
@@ -134,6 +140,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
                 android:textColor="@color/black_60"
+                android:text="@{Integer.toString(viewmodel.postLength)}"
                 app:layout_constraintBottom_toBottomOf="@+id/textView15"
                 app:layout_constraintEnd_toStartOf="@+id/textView15"
                 app:layout_constraintTop_toTopOf="@+id/textView15"
@@ -162,6 +169,7 @@
                 android:drawablePadding="4dp"
                 android:padding="8dp"
                 android:textColor="@color/black_60"
+                android:text="@{viewmodel.likeCount}"
                 app:layout_constraintBottom_toBottomOf="@+id/profile_id"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:text="1,224" />
