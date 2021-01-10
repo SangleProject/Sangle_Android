@@ -158,13 +158,14 @@
                 app:layout_constraintBottom_toTopOf="@id/detail_like_txt"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-            <CheckedTextView
+            <CheckBox
                 android:id="@+id/detail_like_txt"
                 style="@style/P3_14pt_Regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/favorite_state_box"
+                android:button="@null"
                 android:drawableStart="@drawable/favorite_state_icon"
                 android:drawablePadding="4dp"
                 android:padding="8dp"

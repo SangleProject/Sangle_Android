@@ -1,6 +1,7 @@
 package org.three.minutes.detail.viewmodel
 
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,6 +15,7 @@ import org.three.minutes.detail.data.ResponseOtherWritingData
 import org.three.minutes.server.SangleServiceImpl
 import org.three.minutes.util.customEnqueue
 import org.three.minutes.util.formatCount
+import org.three.minutes.util.showToast
 
 class DetailOtherViewModel : ViewModel() {
     private val job = Job()
@@ -27,6 +29,7 @@ class DetailOtherViewModel : ViewModel() {
     var detailData = MutableLiveData<ResponseOtherWritingData>()
     var postLength = MutableLiveData(0)
     var likeCount = MutableLiveData("")
+    var likeCountInteger = 0
 
     // 날짜 붙여서 표시
     var date = MutableLiveData("")
@@ -37,12 +40,45 @@ class DetailOtherViewModel : ViewModel() {
                 .customEnqueue(
                     onSuccess = {
                         detailData.value = it
+                        likeCountInteger = it.likes
                         date.value = "${it.date} (${it.day}) ${it.time}"
                         postLength.value = it.postWrite.length
-                        likeCount.value = it.likes.formatCount()
+                        likeCount.value = likeCountInteger.formatCount()
                     },
                     onError = {
                         Log.e("DetailActivity", "callOtherDetailData() error : ${it.code()}")
+                    }
+                )
+        }
+    }
+
+    fun callLike(context : Context) {
+        viewModelScope.launch {
+            SangleServiceImpl.service.postLike(token, postIdx)
+                .customEnqueue(
+                    onSuccess = {
+                        likeCountInteger += 1
+                        likeCount.value = likeCountInteger.formatCount()
+                        context.showToast("좋은 글을 스크랩했어요!")
+                    },
+                    onError = {
+                        Log.e("DetailActivity", "callLike() error : ${it.code()}")
+                    }
+                )
+        }
+    }
+
+    fun callUnLike(context: Context){
+        viewModelScope.launch {
+            SangleServiceImpl.service.deleteUnlike(token = token, postIdx = postIdx)
+                .customEnqueue(
+                    onSuccess = {
+                        likeCountInteger -= 1
+                        likeCount.value = likeCountInteger.formatCount()
+                        context.showToast("스크랩을 취소했어요!")
+                    },
+                    onError = {
+                        Log.e("DetailActivity", "callLike() error : ${it.code()}")
                     }
                 )
         }

@@ -37,7 +37,19 @@ class DetailActivity : AppCompatActivity() {
         mBinding.viewmodel = mViewModel
 
         setTextSizeButton()
+        setLikeListener()
 
+    }
+
+    private fun setLikeListener() {
+        mBinding.detailLikeTxt.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked){
+                mViewModel.callLike(this)
+            }
+            else{
+                mViewModel.callUnLike(this)
+            }
+        }
     }
 
     private fun setTextSizeButton() {
