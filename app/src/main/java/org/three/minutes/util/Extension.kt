@@ -7,13 +7,10 @@ import android.text.TextWatcher
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
-import android.view.ViewGroup
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.ViewPager
-import okhttp3.ResponseBody
-import org.json.JSONObject
 import org.three.minutes.R
 import retrofit2.Call
 import retrofit2.Callback
@@ -135,4 +132,12 @@ fun Date.formatDate() : String {
 fun Int.formatCount() : String{
     val fm = DecimalFormat("###,###")
     return fm.format(this)
+}
+
+// 돈 단위 -> 형식화
+
+@Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+fun String.formatReturn() : Int{
+    val fm = DecimalFormat("###,###")
+    return fm.parse(this).toInt()
 }
