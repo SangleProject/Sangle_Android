@@ -17,7 +17,7 @@ import org.three.minutes.mypage.data.MyWritingData
 import org.three.minutes.word.adapter.PastWritingRcvAdapter
 import org.three.minutes.word.adapter.SearchWritingAdapter
 import org.three.minutes.word.adapter.TodayWordRcvAdapter
-import org.three.minutes.word.data.PastWritingData
+import org.three.minutes.word.data.ResponseLastTopicData
 import org.three.minutes.word.data.SearchWritingData
 
 @BindingAdapter("app:addTodayItem")
@@ -32,13 +32,13 @@ fun RecyclerView.setTodayWordData(data : MutableLiveData<List<ResponseTodayTopic
 }
 
 @BindingAdapter("app:addPastItem")
-fun RecyclerView.setPastWritingData(data : MutableList<PastWritingData>){
+fun RecyclerView.setPastWritingData(data : MutableLiveData<List<ResponseLastTopicData>>){
     val adapter = PastWritingRcvAdapter(this.context)
-    adapter.data = data
+    adapter.data = data.value!!
     this.adapter = adapter
     this.layoutManager =
         LinearLayoutManager(this.context)
-    this.addItemDecoration(WordRcvItemDeco(this.context,false,6))
+    this.addItemDecoration(WordRcvItemDeco(this.context,false,3))
     adapter.notifyDataSetChanged()
 }
 

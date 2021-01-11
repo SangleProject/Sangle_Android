@@ -183,7 +183,7 @@
                 android:layout_marginTop="10dp"
                 android:clipToPadding="false"
                 android:overScrollMode="never"
-                app:addPastItem="@{viewModel.pastWritingList}"
+                app:addPastItem="@{viewModel.lastTopicList}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/past_writing_filter"

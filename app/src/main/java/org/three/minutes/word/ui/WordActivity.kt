@@ -18,8 +18,6 @@ import kotlinx.coroutines.Job
 import org.three.minutes.R
 import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.ActivityWordBinding
-import org.three.minutes.word.ui.SearchResultFragment
-import org.three.minutes.word.ui.WordFragment
 import org.three.minutes.word.viewmodel.WordViewModel
 import kotlin.coroutines.CoroutineContext
 
@@ -70,8 +68,8 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
             downKeyBoard(true)
         }
 
-        // 상단 오늘의 글감 가져오기 api
-        mViewModel.callTodayTopic()
+        // 상단 하단 글감 가져오기 api
+        mViewModel.callTopic()
 
     }
 

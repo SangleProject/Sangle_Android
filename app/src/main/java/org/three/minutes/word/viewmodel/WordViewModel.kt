@@ -13,7 +13,7 @@ import org.three.minutes.ThreeApplication
 import org.three.minutes.home.data.ResponseTodayTopicData
 import org.three.minutes.server.SangleServiceImpl
 import org.three.minutes.util.customEnqueue
-import org.three.minutes.word.data.PastWritingData
+import org.three.minutes.word.data.ResponseLastTopicData
 import org.three.minutes.word.data.SearchWritingData
 
 class WordViewModel() : ViewModel() {
@@ -24,9 +24,8 @@ class WordViewModel() : ViewModel() {
     var getToken = ThreeApplication.getInstance().getDataStore().token.asLiveData()
     var token = ""
 
-//    var todayWordList = mutableListOf<TodayWordData>()
     var todayTopicList = MutableLiveData<List<ResponseTodayTopicData>>(listOf())
-    var pastWritingList = mutableListOf<PastWritingData>()
+    var lastTopicList = MutableLiveData<List<ResponseLastTopicData>>(listOf())
 
     // 라디오 버튼 체크
     var allCheck = MutableLiveData(true)
@@ -39,15 +38,25 @@ class WordViewModel() : ViewModel() {
     var searchList = listOf<SearchWritingData>()
     var searchCount = MutableLiveData<Int>(126)
 
-    fun  callTodayTopic(){
+    fun callTopic() {
         viewModelScope.launch {
             SangleServiceImpl.service.getTodayTopic(token = token)
                 .customEnqueue(
                     onSuccess = {
-                                todayTopicList.value = it
+                        todayTopicList.value = it
                     },
                     onError = {
                         Log.e("WordActivity", "callTodayTopic() error : ${it.code()}")
+                    }
+                )
+
+            SangleServiceImpl.service.getLastTopic(token = token)
+                .customEnqueue(
+                    onSuccess = {
+                        lastTopicList.value = it
+                    },
+                    onError = {
+                        Log.e("WordActivity", "callTodayTopic() LastTopic error : ${it.code()}")
                     }
                 )
         }

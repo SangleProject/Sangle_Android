@@ -10,7 +10,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import org.three.minutes.R
 import org.three.minutes.databinding.FragmentWordBinding
-import org.three.minutes.word.data.PastWritingData
 import org.three.minutes.word.viewmodel.WordViewModel
 
 
@@ -27,15 +26,6 @@ class WordFragment : Fragment() {
         mBinding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_word, container,false)
         mBinding.viewModel = mViewModel
         mBinding.lifecycleOwner = viewLifecycleOwner
-
-        mViewModel.pastWritingList = mutableListOf(
-            PastWritingData(date = "6.20", title = "하늘", isHot = true, count = 126),
-            PastWritingData(date = "6.20", title = "바다", isHot = false, count = 126),
-            PastWritingData(date = "6.20", title = "땅", isHot = false, count = 126),
-            PastWritingData(date = "6.20", title = "별", isHot = false, count = 126),
-            PastWritingData(date = "6.20", title = "태양", isHot = false, count = 126),
-            PastWritingData(date = "6.20", title = "생글", isHot = false, count = 126)
-            )
 
         // 카테고리 변경 시 글씨체 변경
         return mBinding.root
