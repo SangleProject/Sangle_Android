@@ -25,7 +25,7 @@ import org.three.minutes.home.viewmodel.HomeViewModelFactory
 import org.three.minutes.mypage.ui.MyPageActivity
 import org.three.minutes.profile.ui.ProfileChangeActivity
 import org.three.minutes.util.customChangeListener
-import org.three.minutes.word.WordActivity
+import org.three.minutes.word.ui.WordActivity
 import kotlin.coroutines.CoroutineContext
 
 class HomeActivity : AppCompatActivity(), CoroutineScope {

@@ -8,11 +8,12 @@
         <import type="android.view.View"/>
         <variable
             name="data"
-            type="org.three.minutes.word.data.PastWritingData" />
+            type="org.three.minutes.word.data.ResponseLastTopicData" />
     </data>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/past_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/past_writing_list_item_box"
@@ -39,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:textColor="@color/black_80"
-            android:text="@{data.title}"
+            android:text="@{data.topic}"
             app:layout_constraintBottom_toBottomOf="@+id/past_writing_date_txt"
             app:layout_constraintStart_toEndOf="@+id/past_writing_date_txt"
             app:layout_constraintTop_toTopOf="@+id/past_writing_date_txt"
@@ -55,7 +56,7 @@
             android:padding="4dp"
             android:text="HOT"
             android:textColor="@color/red"
-            android:visibility="@{data.hot ? View.VISIBLE : View.INVISIBLE}"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/past_writing_title_txt"
             app:layout_constraintStart_toEndOf="@+id/past_writing_title_txt"
             app:layout_constraintTop_toTopOf="@+id/past_writing_title_txt" />

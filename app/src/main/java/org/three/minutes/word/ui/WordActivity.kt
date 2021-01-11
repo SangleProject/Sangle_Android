@@ -1,4 +1,4 @@
-package org.three.minutes.word
+package org.three.minutes.word.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,7 +7,6 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -19,9 +18,6 @@ import kotlinx.coroutines.Job
 import org.three.minutes.R
 import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.ActivityWordBinding
-import org.three.minutes.word.ui.SearchEmptyFragment
-import org.three.minutes.word.ui.SearchResultFragment
-import org.three.minutes.word.ui.WordFragment
 import org.three.minutes.word.viewmodel.WordViewModel
 import kotlin.coroutines.CoroutineContext
 
@@ -50,6 +46,10 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         job = Job()
+        mViewModel.getToken.observe(this,{
+            mViewModel.token = it
+        })
+
         mBinding.apply {
             lifecycleOwner = this@WordActivity
             viewModel = mViewModel

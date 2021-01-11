@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.three.minutes.databinding.PastWritingItemListBinding
-import org.three.minutes.word.data.PastWritingData
+import org.three.minutes.word.data.ResponseLastTopicData
 import org.three.minutes.word.viewholder.PastWritingViewHolder
 
 class PastWritingRcvAdapter (val context : Context) : RecyclerView.Adapter<PastWritingViewHolder>(){
 
-    var data = mutableListOf<PastWritingData>()
+    var data = listOf<ResponseLastTopicData>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PastWritingViewHolder {
 

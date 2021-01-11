@@ -12,6 +12,7 @@ import org.three.minutes.login.data.ResponseGoogleLoginData
 import org.three.minutes.signup.data.*
 import org.three.minutes.login.data.ResponseLoginData
 import org.three.minutes.signup.data.RequestGoogleSignUpData
+import org.three.minutes.word.data.ResponseLastTopicData
 import org.three.minutes.writing.data.BadgeData
 import org.three.minutes.writing.data.RequestWritingData
 import org.three.minutes.writing.data.ResponseWritingData
@@ -131,4 +132,10 @@ interface SangleService {
         @Header("token") token : String,
         @Path("postIdx") postIdx: Int
     ) : Call<ResponseBody>
+
+    // 지난 글감 (10일치) 가져오기
+    @GET("/topic/lastTopic")
+    fun getLastTopic(
+        @Header("token") token : String
+    ) : Call<List<ResponseLastTopicData>>
 }
