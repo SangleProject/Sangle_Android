@@ -2,7 +2,6 @@ package org.three.minutes.util
 
 import android.util.Log
 import android.view.View
-import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData

@@ -17,7 +17,7 @@ class SearchEmptyFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         mBinding = DataBindingUtil.inflate(
             layoutInflater, R.layout.fragment_search_empty_search,
             container, false

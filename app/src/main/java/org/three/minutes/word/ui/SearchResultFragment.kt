@@ -12,7 +12,6 @@ import kotlinx.android.synthetic.main.modal_bottom_sheet.*
 import org.three.minutes.R
 import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.FragmentSearchResultBinding
-import org.three.minutes.mypage.data.MyWritingData
 import org.three.minutes.word.data.SearchWritingData
 import org.three.minutes.word.viewmodel.WordViewModel
 
@@ -28,7 +27,7 @@ class SearchResultFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         mBinding = DataBindingUtil.inflate(
             layoutInflater, R.layout.fragment_search_result,

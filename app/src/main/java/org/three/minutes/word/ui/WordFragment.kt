@@ -21,7 +21,7 @@ class WordFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         mBinding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_word, container,false)
         // 상단 하단 글감 가져오기 api
