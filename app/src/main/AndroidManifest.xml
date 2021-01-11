@@ -36,7 +36,7 @@
             android:name=".mypage.ui.MyPageActivity"
             android:exported="true" />
         <activity
-            android:name=".word.WordActivity"
+            android:name=".word.ui.WordActivity"
             android:exported="true" />
         <activity
             android:name=".profile.ui.ProfileChangeActivity"

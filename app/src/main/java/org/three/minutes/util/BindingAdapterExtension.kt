@@ -4,12 +4,14 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import org.three.minutes.R
 import org.three.minutes.badge.adapter.BadgeListAdapter
 import org.three.minutes.badge.data.BadgeListData
+import org.three.minutes.home.data.ResponseTodayTopicData
 import org.three.minutes.mypage.adapter.MyWritingAdapter
 import org.three.minutes.mypage.data.MyWritingData
 import org.three.minutes.word.adapter.PastWritingRcvAdapter
@@ -17,12 +19,11 @@ import org.three.minutes.word.adapter.SearchWritingAdapter
 import org.three.minutes.word.adapter.TodayWordRcvAdapter
 import org.three.minutes.word.data.PastWritingData
 import org.three.minutes.word.data.SearchWritingData
-import org.three.minutes.word.data.TodayWordData
 
 @BindingAdapter("app:addTodayItem")
-fun RecyclerView.setTodayWordData(data : MutableList<TodayWordData>){
+fun RecyclerView.setTodayWordData(data : MutableLiveData<List<ResponseTodayTopicData>>){
     val adapter = TodayWordRcvAdapter(this.context)
-    adapter.data = data
+    adapter.data = data.value!!
     this.adapter = adapter
     this.layoutManager =
         LinearLayoutManager(this.context,LinearLayoutManager.HORIZONTAL,false)

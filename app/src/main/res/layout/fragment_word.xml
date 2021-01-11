@@ -55,7 +55,7 @@
                 android:orientation="horizontal"
                 android:overScrollMode="never"
                 android:paddingStart="12dp"
-                app:addTodayItem="@{viewModel.todayWordList}"
+                app:addTodayItem="@{viewModel.todayTopicList}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
