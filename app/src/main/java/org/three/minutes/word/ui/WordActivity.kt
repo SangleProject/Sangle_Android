@@ -68,9 +68,6 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
             downKeyBoard(true)
         }
 
-        // 상단 하단 글감 가져오기 api
-        mViewModel.callTopic()
-
     }
 
     private fun settingFragment() {
