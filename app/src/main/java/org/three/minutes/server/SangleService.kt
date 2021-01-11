@@ -131,4 +131,10 @@ interface SangleService {
         @Header("token") token : String,
         @Path("postIdx") postIdx: Int
     ) : Call<ResponseBody>
+
+    // 지난 글감 (10일치) 가져오기
+    @GET("/topic/lastTopic")
+    fun getLastTopic(
+        @Header("token") token : String
+    )
 }
