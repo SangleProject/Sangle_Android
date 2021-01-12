@@ -18,6 +18,7 @@ import org.three.minutes.word.adapter.PastWritingRcvAdapter
 import org.three.minutes.word.adapter.SearchWritingAdapter
 import org.three.minutes.word.adapter.TodayWordRcvAdapter
 import org.three.minutes.word.data.ResponseLastTopicData
+import org.three.minutes.word.data.ResponseSearchData
 import org.three.minutes.word.data.SearchWritingData
 
 @BindingAdapter("app:addTodayItem")
@@ -54,7 +55,7 @@ fun RecyclerView.setMyWritingData(data : MutableList<MyWritingData>){
 }
 
 @BindingAdapter("app:searchWritingItem")
-fun RecyclerView.setSearchResult(data : List<SearchWritingData>){
+fun RecyclerView.setSearchResult(data : MutableList<ResponseSearchData>){
     val adapter = SearchWritingAdapter(this.context)
     this.adapter = adapter
     this.layoutManager =

@@ -39,7 +39,6 @@ class SearchResultFragment : Fragment() {
         }
 
         setBottomSheet()
-        setSearchList()
 
         return mBinding.root
     }
@@ -103,39 +102,39 @@ class SearchResultFragment : Fragment() {
     }
 
 
-    private fun setSearchList() {
-        mViewModel.searchList = listOf(
-            SearchWritingData(
-                title = "빨대", date = getString(R.string.date_sample),
-                contents = getString(R.string.contents_sample), favoriteCount = 1224,
-                userName = "창의적인 똑똑이"
-            ),
-            SearchWritingData(
-                title = "빨대", date = getString(R.string.date_sample),
-                contents = getString(R.string.contents_sample), favoriteCount = 1224,
-                userName = "창의적인 똑똑이"
-            ),
-            SearchWritingData(
-                title = "빨대", date = getString(R.string.date_sample),
-                contents = getString(R.string.contents_sample), favoriteCount = 1224,
-                userName = "창의적인 똑똑이"
-            ),
-            SearchWritingData(
-                title = "빨대", date = getString(R.string.date_sample),
-                contents = getString(R.string.contents_sample), favoriteCount = 1224,
-                userName = "창의적인 똑똑이"
-            ),
-            SearchWritingData(
-                title = "빨대", date = getString(R.string.date_sample),
-                contents = getString(R.string.contents_sample), favoriteCount = 1224,
-                userName = "창의적인 똑똑이"
-            ),
-            SearchWritingData(
-                title = "빨대", date = getString(R.string.date_sample),
-                contents = getString(R.string.contents_sample), favoriteCount = 1224,
-                userName = "창의적인 똑똑이"
-            )
-        )
-    }
+//    private fun setSearchList() {
+//        mViewModel.searchList = listOf(
+//            SearchWritingData(
+//                title = "빨대", date = getString(R.string.date_sample),
+//                contents = getString(R.string.contents_sample), favoriteCount = 1224,
+//                userName = "창의적인 똑똑이"
+//            ),
+//            SearchWritingData(
+//                title = "빨대", date = getString(R.string.date_sample),
+//                contents = getString(R.string.contents_sample), favoriteCount = 1224,
+//                userName = "창의적인 똑똑이"
+//            ),
+//            SearchWritingData(
+//                title = "빨대", date = getString(R.string.date_sample),
+//                contents = getString(R.string.contents_sample), favoriteCount = 1224,
+//                userName = "창의적인 똑똑이"
+//            ),
+//            SearchWritingData(
+//                title = "빨대", date = getString(R.string.date_sample),
+//                contents = getString(R.string.contents_sample), favoriteCount = 1224,
+//                userName = "창의적인 똑똑이"
+//            ),
+//            SearchWritingData(
+//                title = "빨대", date = getString(R.string.date_sample),
+//                contents = getString(R.string.contents_sample), favoriteCount = 1224,
+//                userName = "창의적인 똑똑이"
+//            ),
+//            SearchWritingData(
+//                title = "빨대", date = getString(R.string.date_sample),
+//                contents = getString(R.string.contents_sample), favoriteCount = 1224,
+//                userName = "창의적인 똑똑이"
+//            )
+//        )
+//    }
 
 }

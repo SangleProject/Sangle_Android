@@ -14,6 +14,7 @@ import org.three.minutes.home.data.ResponseTodayTopicData
 import org.three.minutes.server.SangleServiceImpl
 import org.three.minutes.util.customEnqueue
 import org.three.minutes.word.data.ResponseLastTopicData
+import org.three.minutes.word.data.ResponseSearchData
 import org.three.minutes.word.data.SearchWritingData
 
 class WordViewModel() : ViewModel() {
@@ -35,8 +36,8 @@ class WordViewModel() : ViewModel() {
     // 검색 관련 데이터 모음
     var searchWord = MutableLiveData("")
     var filter = MutableLiveData("최신순")
-    var searchList = listOf<SearchWritingData>()
-    var searchCount = MutableLiveData<Int>(126)
+    var searchResultList = MutableLiveData<List<ResponseSearchData>>(listOf())
+    var searchCount = MutableLiveData(126)
 
     fun callTopic() {
         viewModelScope.launch {
@@ -62,6 +63,20 @@ class WordViewModel() : ViewModel() {
         }
     }
 
+    fun callSearchRecent(){
+        viewModelScope.launch {
+            SangleServiceImpl.service.getTopicSearchRecent(token = token, topic = searchWord.value!!)
+                .customEnqueue(
+                    onSuccess = {
+                        searchResultList.value = it
+                        searchCount.value = it.size
+                    },
+                    onError = {
+                        Log.e("WordActivity", "callSearchRecent() error : ${it.code()}")
+                    }
+                )
+        }
+    }
     override fun onCleared() {
         super.onCleared()
         job.cancel()

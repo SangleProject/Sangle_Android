@@ -108,7 +108,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_writing_filter_txt"
-            app:searchWritingItem="@{viewModel.searchList}" />
+            app:searchWritingItem="@{viewModel.searchResultList}" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

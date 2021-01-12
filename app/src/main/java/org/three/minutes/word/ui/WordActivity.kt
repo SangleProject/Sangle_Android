@@ -133,6 +133,7 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
             val searchResult = mBinding.searchBoxEdt.text.toString()
             if(searchResult.isNotBlank()){
                 mViewModel.searchWord.value = searchResult
+                mViewModel.callSearchRecent()
                 if(supportFragmentManager.findFragmentByTag(TAG_SEARCH) != SearchResultFragment())
                     replaceSearchFragment(searchResultFragment,TAG_SEARCH)
             }
