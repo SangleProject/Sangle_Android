@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import gun0912.tedkeyboardobserver.TedKeyboardObserver
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -90,8 +91,11 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
         // 처음 글감 화면 진입 시 기본 화면이 보여져야 해서 하나의 observe를 사용하는게 힘듦
         mViewModel.isSearchEmpty.observe(this, {
             if (it) {
-                if (supportFragmentManager.findFragmentByTag(TAG_EMPTY) != SearchEmptyFragment())
+                if (supportFragmentManager.findFragmentByTag(TAG_EMPTY) != SearchEmptyFragment()){
                     replaceSearchFragment(searchEmptyFragment, TAG_EMPTY)
+                    mViewModel.searchResultList.value = listOf()
+                }
+
             }
         })
     }
@@ -121,10 +125,13 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
                 requestFocus()
                 mImm.showSoftInput(this, 0)
             }
-            if (mViewModel.searchWord.value.isNullOrBlank())
+            if (mViewModel.searchWord.value.isNullOrBlank() || mViewModel.searchResultList.value!!.isNullOrEmpty()){
                 replaceSearchFragment(searchEmptyFragment, TAG_EMPTY)
-            else
+            }
+            else{
                 replaceSearchFragment(searchResultFragment, TAG_SEARCH)
+            }
+
         }
     }
 
@@ -140,10 +147,15 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
         }
         else{
             if (!isSearch){
-                onBackPressed()
+                replaceWordFragment()
+                mBinding.searchBoxEdt.visibility = View.GONE
             }
         }
 
+    }
+
+    private fun replaceWordFragment() {
+        supportFragmentManager.popBackStackImmediate(null,FragmentManager.POP_BACK_STACK_INCLUSIVE)
     }
 
     private fun replaceSearchFragment(fragment: Fragment, tag: String) {
@@ -174,10 +186,10 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
     }
 
     override fun onBackPressed() {
-        if (mBinding.searchBoxEdt.visibility == View.VISIBLE) {
-            mBinding.searchBoxEdt.visibility = View.GONE
-        }
         super.onBackPressed()
+        if (mBinding.searchBoxEdt.visibility == View.VISIBLE) {
+            downKeyBoard(false)
+        }
     }
 
 }
