@@ -63,11 +63,13 @@ class SearchResultFragment : Fragment() {
         bottomSheet.recent_box.setOnClickListener {
             checkRecent()
             mViewModel.filter.value = "최신순"
+            mViewModel.callSearchRecent()
             bottomSheet.dismiss()
         }
         bottomSheet.popular_box.setOnClickListener {
             checkPopular()
             mViewModel.filter.value = "인기순"
+            mViewModel.callSearchPopular()
             bottomSheet.dismiss()
         }
         bottomSheet.close_bottom_sheet_btn.setOnClickListener {
@@ -100,41 +102,5 @@ class SearchResultFragment : Fragment() {
             hideImage = bottomSheet.recent_check_img
         )
     }
-
-
-//    private fun setSearchList() {
-//        mViewModel.searchList = listOf(
-//            SearchWritingData(
-//                title = "빨대", date = getString(R.string.date_sample),
-//                contents = getString(R.string.contents_sample), favoriteCount = 1224,
-//                userName = "창의적인 똑똑이"
-//            ),
-//            SearchWritingData(
-//                title = "빨대", date = getString(R.string.date_sample),
-//                contents = getString(R.string.contents_sample), favoriteCount = 1224,
-//                userName = "창의적인 똑똑이"
-//            ),
-//            SearchWritingData(
-//                title = "빨대", date = getString(R.string.date_sample),
-//                contents = getString(R.string.contents_sample), favoriteCount = 1224,
-//                userName = "창의적인 똑똑이"
-//            ),
-//            SearchWritingData(
-//                title = "빨대", date = getString(R.string.date_sample),
-//                contents = getString(R.string.contents_sample), favoriteCount = 1224,
-//                userName = "창의적인 똑똑이"
-//            ),
-//            SearchWritingData(
-//                title = "빨대", date = getString(R.string.date_sample),
-//                contents = getString(R.string.contents_sample), favoriteCount = 1224,
-//                userName = "창의적인 똑똑이"
-//            ),
-//            SearchWritingData(
-//                title = "빨대", date = getString(R.string.date_sample),
-//                contents = getString(R.string.contents_sample), favoriteCount = 1224,
-//                userName = "창의적인 똑똑이"
-//            )
-//        )
-//    }
 
 }

@@ -65,26 +65,51 @@ class WordViewModel() : ViewModel() {
         }
     }
 
-    fun callSearchRecent(){
+    fun callSearchRecent() {
         viewModelScope.launch {
-            SangleServiceImpl.service.getTopicSearchRecent(token = token, topic = searchWord.value!!)
-                .customEnqueue(
-                    onSuccess = {
-                        if (it.isNotEmpty()){
-                            searchResultList.value = it
-                            searchCount.value = it.size
-                            isSearchEmpty.value = false
-                        }
-                        else{
-                            isSearchEmpty.value = true
-                        }
-                    },
-                    onError = {
-                        Log.e("WordActivity", "callSearchRecent() error : ${it.code()}")
+            SangleServiceImpl.service.getTopicSearchRecent(
+                token = token,
+                topic = searchWord.value!!
+            ).customEnqueue(
+                onSuccess = {
+                    if (it.isNotEmpty()) {
+                        searchResultList.value = it
+                        searchCount.value = it.size
+                        isSearchEmpty.value = false
+                        filter.value = "최신순"
+                    } else {
+                        isSearchEmpty.value = true
                     }
-                )
+                },
+                onError = {
+                    Log.e("WordActivity", "callSearchRecent() error : ${it.code()}")
+                }
+            )
         }
     }
+
+    fun callSearchPopular(){
+        viewModelScope.launch {
+            SangleServiceImpl.service.getTopicSearchPopular(
+                token = token,
+                topic = searchWord.value!!
+            ).customEnqueue(
+                onSuccess = {
+                    if (it.isNotEmpty()) {
+                        searchResultList.value = it
+                        searchCount.value = it.size
+                        isSearchEmpty.value = false
+                    } else {
+                        isSearchEmpty.value = true
+                    }
+                },
+                onError = {
+                    Log.e("WordActivity", "callSearchPopular() error : ${it.code()}")
+                }
+            )
+        }
+    }
+
     override fun onCleared() {
         super.onCleared()
         job.cancel()
