@@ -24,6 +24,7 @@ class WordViewModel() : ViewModel() {
 
     var getToken = ThreeApplication.getInstance().getDataStore().token.asLiveData()
     var token = ""
+    var isKeyboardShow = false
 
     var todayTopicList = MutableLiveData<List<ResponseTodayTopicData>>(listOf())
     var lastTopicList = MutableLiveData<List<ResponseLastTopicData>>(listOf())
@@ -38,6 +39,7 @@ class WordViewModel() : ViewModel() {
     var filter = MutableLiveData("최신순")
     var searchResultList = MutableLiveData<List<ResponseSearchData>>(listOf())
     var searchCount = MutableLiveData(126)
+    var isSearchEmpty = MutableLiveData(false)
 
     fun callTopic() {
         viewModelScope.launch {
@@ -68,8 +70,14 @@ class WordViewModel() : ViewModel() {
             SangleServiceImpl.service.getTopicSearchRecent(token = token, topic = searchWord.value!!)
                 .customEnqueue(
                     onSuccess = {
-                        searchResultList.value = it
-                        searchCount.value = it.size
+                        if (it.isNotEmpty()){
+                            searchResultList.value = it
+                            searchCount.value = it.size
+                            isSearchEmpty.value = false
+                        }
+                        else{
+                            isSearchEmpty.value = true
+                        }
                     },
                     onError = {
                         Log.e("WordActivity", "callSearchRecent() error : ${it.code()}")
