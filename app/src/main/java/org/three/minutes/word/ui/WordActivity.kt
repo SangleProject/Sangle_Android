@@ -1,5 +1,6 @@
 package org.three.minutes.word.ui
 
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
@@ -15,6 +16,7 @@ import gun0912.tedkeyboardobserver.TedKeyboardObserver
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import org.three.minutes.R
 import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.ActivityWordBinding
@@ -46,7 +48,7 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         job = Job()
-        mViewModel.getToken.observe(this,{
+        mViewModel.getToken.observe(this, {
             mViewModel.token = it
         })
 
@@ -57,17 +59,45 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
         mImm = ThreeApplication.getInstance().getInputMethodManager()
         settingToolbar()
         settingFragment()
+        setObserve()
 
-        TedKeyboardObserver(this).listen {isShow ->
-            if(!isShow && mBinding.searchBoxEdt.visibility == View.VISIBLE){
-                mBinding.searchBoxEdt.clearFocus()
+        TedKeyboardObserver(this).listen { isShow ->
+            if (isShow){
+                mViewModel.isKeyboardShow = true
+            }
+            else{
+                mViewModel.isKeyboardShow = false
+                if (mBinding.searchBoxEdt.visibility == View.VISIBLE){
+                    mBinding.searchBoxEdt.clearFocus()
+                }
             }
         }
 
         mBinding.containerLayout.setOnClickListener {
             downKeyBoard(true)
         }
+    }
 
+    private fun setObserve() {
+        // 검색 결과가 존재할 경우 결과 프래그먼트 출력
+        mViewModel.searchResultList.observe(this, {
+            if (it.isNotEmpty()) {
+                if (supportFragmentManager.findFragmentByTag(TAG_SEARCH) != SearchResultFragment())
+                    replaceSearchFragment(searchResultFragment, TAG_SEARCH)
+            }
+        })
+
+        // 검색 결과가 존재하지 않을 경유 비어있는 프래그먼트 출력
+        // 처음 글감 화면 진입 시 기본 화면이 보여져야 해서 하나의 observe를 사용하는게 힘듦
+        mViewModel.isSearchEmpty.observe(this, {
+            if (it) {
+                if (supportFragmentManager.findFragmentByTag(TAG_EMPTY) != SearchEmptyFragment()){
+                    replaceSearchFragment(searchEmptyFragment, TAG_EMPTY)
+                    mViewModel.searchResultList.value = listOf()
+                }
+
+            }
+        })
     }
 
     private fun settingFragment() {
@@ -95,31 +125,40 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
                 requestFocus()
                 mImm.showSoftInput(this, 0)
             }
-            if (mViewModel.searchWord.value.isNullOrBlank())
-                replaceSearchFragment(searchEmptyFragment,TAG_EMPTY)
-            else
-                replaceSearchFragment(searchResultFragment,TAG_SEARCH)
+            if (mViewModel.searchWord.value.isNullOrBlank() || mViewModel.searchResultList.value!!.isNullOrEmpty()){
+                replaceSearchFragment(searchEmptyFragment, TAG_EMPTY)
+            }
+            else{
+                replaceSearchFragment(searchResultFragment, TAG_SEARCH)
+            }
+
         }
     }
 
-    private fun downKeyBoard(isSearch : Boolean) {
-        if (mImm.isAcceptingText) {
-            mImm.hideSoftInputFromWindow(this.currentFocus?.windowToken, 0)
+    private fun downKeyBoard(isSearch: Boolean) {
+        if (mViewModel.isKeyboardShow){
+            mImm.hideSoftInputFromWindow(
+                this.currentFocus?.windowToken,
+                InputMethodManager.HIDE_NOT_ALWAYS
+            )
             mBinding.searchBoxEdt.apply {
                 clearFocus()
             }
         }
-        if(!isSearch){
-            replaceWordFragment()
-            mBinding.searchBoxEdt.visibility = View.GONE
+        else{
+            if (!isSearch){
+                replaceWordFragment()
+                mBinding.searchBoxEdt.visibility = View.GONE
+            }
         }
+
     }
 
     private fun replaceWordFragment() {
         supportFragmentManager.popBackStackImmediate(null,FragmentManager.POP_BACK_STACK_INCLUSIVE)
     }
 
-    private fun replaceSearchFragment(fragment : Fragment, tag : String){
+    private fun replaceSearchFragment(fragment: Fragment, tag: String) {
         supportFragmentManager
             .beginTransaction()
             .replace(mBinding.containerLayout.id, fragment, tag)
@@ -131,15 +170,9 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
         if (EditorInfo.IME_ACTION_SEARCH == actionId) {
             downKeyBoard(true)
             val searchResult = mBinding.searchBoxEdt.text.toString()
-            if(searchResult.isNotBlank()){
+            if (searchResult.isNotBlank()) {
                 mViewModel.searchWord.value = searchResult
-                if(supportFragmentManager.findFragmentByTag(TAG_SEARCH) != SearchResultFragment())
-                    replaceSearchFragment(searchResultFragment,TAG_SEARCH)
-            }
-            else{
-                mViewModel.searchWord.value = ""
-                if(supportFragmentManager.findFragmentByTag(TAG_EMPTY) != SearchEmptyFragment())
-                    replaceSearchFragment(searchEmptyFragment,TAG_EMPTY)
+                mViewModel.callSearchRecent()
             }
         } else {
             return false

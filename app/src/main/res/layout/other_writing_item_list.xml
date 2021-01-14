@@ -2,13 +2,14 @@
     <data>
         <variable
             name="data"
-            type="org.three.minutes.word.data.SearchWritingData" />
+            type="org.three.minutes.word.data.ResponseSearchData" />
     </data>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/item_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -35,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:text="@{data.title}"
+                    android:text="@{data.topic}"
                     android:textColor="@color/main_blue"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -46,7 +47,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
-                    android:text="@{data.date}"
                     app:layout_constraintBottom_toBottomOf="@+id/item_title_txt"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/item_title_txt"
@@ -70,7 +70,8 @@
                     android:layout_marginTop="12dp"
                     android:ellipsize="end"
                     android:textColor="@color/black_80"
-                    android:text="@{data.contents}"
+                    android:text="@{data.postWrite}"
+                    android:lines="5"
                     app:layout_constraintEnd_toEndOf="@+id/blue_line"
                     app:layout_constraintStart_toStartOf="@+id/blue_line"
                     app:layout_constraintTop_toBottomOf="@id/blue_line"
@@ -84,7 +85,6 @@
                     android:background="@drawable/favorite_selected_box"
                     android:drawablePadding="4dp"
                     android:padding="8dp"
-                    android:text="@{Integer.toString(data.favoriteCount)}"
                     app:drawableStartCompat="@drawable/ic_favorite_selected"
                     app:layout_constraintBottom_toBottomOf="@+id/item_user_img"
                     app:layout_constraintEnd_toEndOf="@+id/item_contents"
@@ -98,7 +98,8 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginBottom="16dp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/profile1"
+                    tools:src="@drawable/profile1"
+                    app:setGlide="@{data.profileImg}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintDimensionRatio="1"
                     app:layout_constraintStart_toStartOf="parent"
@@ -111,7 +112,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:textColor="@color/black_60"
-                    android:text="@{data.userName}"
+                    android:text="@{data.myNickName}"
                     app:layout_constraintBottom_toBottomOf="@+id/item_user_img"
                     app:layout_constraintStart_toEndOf="@+id/item_user_img"
                     tools:text="창의적인 똑똑이씨" />
