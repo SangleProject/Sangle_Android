@@ -72,15 +72,14 @@
             app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
         <ImageView
-            android:id="@+id/ready_cancle_btn"
+            android:id="@+id/ready_cancel_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleType="fitXY"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_cancle_white"
-            android:padding="24dp"
-            android:onClick="@{()->activity.finishActivity()"/>
+            android:padding="24dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
