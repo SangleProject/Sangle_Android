@@ -8,14 +8,21 @@ import org.three.minutes.R
 import org.three.minutes.databinding.ActivityMyPageBinding
 import org.three.minutes.mypage.adapter.MyViewPagerAdapter
 import org.three.minutes.mypage.viewmodel.MyPageViewModel
+import org.three.minutes.word.ui.SearchEmptyFragment
 
 class MyPageActivity : AppCompatActivity() {
 
+    private val TAG_EMPTY = "empty"
+    private val TAG_SEARCH = "search"
+    
     private val mBinding : ActivityMyPageBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_my_page)
     }
 
     private val mViewModel : MyPageViewModel by viewModels()
+
+    private val searchEmptyFragment = supportFragmentManager.findFragmentByTag(TAG_EMPTY)
+        ?: SearchEmptyFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
