@@ -27,6 +27,8 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
     private val TAG_WORD = "word"
     private val TAG_EMPTY = "empty"
     private val TAG_SEARCH = "search"
+    private val TAG_POST_DETAIL = "postDetail"
+
     private lateinit var job: Job
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
@@ -42,6 +44,9 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
 
     private val searchResultFragment = supportFragmentManager.findFragmentByTag(TAG_SEARCH)
         ?: SearchResultFragment()
+
+    private val postDetailFragment = supportFragmentManager.findFragmentByTag(TAG_POST_DETAIL)
+        ?: PostDetailFragment()
 
     private val mViewModel: WordViewModel by viewModels()
 
