@@ -27,6 +27,8 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
     private val TAG_WORD = "word"
     private val TAG_EMPTY = "empty"
     private val TAG_SEARCH = "search"
+    private val TAG_LAST_DETAIL = "lastDetail"
+
     private lateinit var job: Job
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
@@ -42,6 +44,9 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
 
     private val searchResultFragment = supportFragmentManager.findFragmentByTag(TAG_SEARCH)
         ?: SearchResultFragment()
+
+    private val lastDetailFragment = supportFragmentManager.findFragmentByTag(TAG_LAST_DETAIL)
+        ?: PostDetailFragment()
 
     private val mViewModel: WordViewModel by viewModels()
 
@@ -163,6 +168,14 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
             .beginTransaction()
             .replace(mBinding.containerLayout.id, fragment, tag)
             .addToBackStack(tag)
+            .commit()
+    }
+
+    fun replaceDetailFragment(){
+        supportFragmentManager
+            .beginTransaction()
+            .replace(mBinding.containerLayout.id,lastDetailFragment,TAG_LAST_DETAIL)
+            .addToBackStack(TAG_LAST_DETAIL)
             .commit()
     }
 

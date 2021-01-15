@@ -15,7 +15,6 @@ import org.three.minutes.server.SangleServiceImpl
 import org.three.minutes.util.customEnqueue
 import org.three.minutes.word.data.ResponseLastTopicData
 import org.three.minutes.word.data.ResponseSearchData
-import org.three.minutes.word.data.SearchWritingData
 
 class WordViewModel() : ViewModel() {
 
@@ -33,6 +32,12 @@ class WordViewModel() : ViewModel() {
     var allCheck = MutableLiveData(true)
     var doneCheck = MutableLiveData(false)
     var notCheck = MutableLiveData(false)
+
+    // 지난 글감 리스트 데이터 모음
+    var lastDetailTopic = MutableLiveData("")
+    var lastTopicDetailList = MutableLiveData<List<ResponseSearchData>>(listOf())
+    var lastTopicDetailCount = MutableLiveData(0)
+    var lastTopicOk = MutableLiveData(false)
 
     // 검색 관련 데이터 모음
     var searchWord = MutableLiveData("")
@@ -57,11 +62,48 @@ class WordViewModel() : ViewModel() {
                 .customEnqueue(
                     onSuccess = {
                         lastTopicList.value = it
+                        lastTopicOk.value = true
                     },
                     onError = {
                         Log.e("WordActivity", "callTodayTopic() LastTopic error : ${it.code()}")
                     }
                 )
+        }
+    }
+
+    fun callPastDetailRecent(pastTopic: String) {
+        viewModelScope.launch {
+            SangleServiceImpl.service.getTopicSearchRecent(
+                token = token,
+                topic = pastTopic
+            ).customEnqueue(
+                onSuccess = {
+                    lastDetailTopic.value = pastTopic
+                    lastTopicDetailList.value = it
+                    lastTopicDetailCount.value = it.size
+                },
+                onError = {
+                    Log.e("WordActivity", "callPastDetailRecent() error : ${it.code()}")
+                }
+            )
+        }
+    }
+
+    fun callPastDetailPopular(pastTopic: String) {
+        viewModelScope.launch {
+            SangleServiceImpl.service.getTopicSearchPopular(
+                token = token,
+                topic = pastTopic
+            ).customEnqueue(
+                onSuccess = {
+                    lastDetailTopic.value = pastTopic
+                    lastTopicDetailList.value = it
+                    lastTopicDetailCount.value = it.size
+                },
+                onError = {
+                    Log.e("WordActivity", "callPastDetailPopular() error : ${it.code()}")
+                }
+            )
         }
     }
 
@@ -88,7 +130,7 @@ class WordViewModel() : ViewModel() {
         }
     }
 
-    fun callSearchPopular(){
+    fun callSearchPopular() {
         viewModelScope.launch {
             SangleServiceImpl.service.getTopicSearchPopular(
                 token = token,
