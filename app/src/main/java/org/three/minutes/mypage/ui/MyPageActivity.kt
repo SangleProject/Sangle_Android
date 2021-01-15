@@ -31,8 +31,8 @@ class MyPageActivity : AppCompatActivity() {
     private fun setMyTabLayout() {
         mBinding.myWritingTabLayout.setupWithViewPager(mBinding.myWritingViewpager)
         mBinding.myWritingTabLayout.apply {
-            getTabAt(0)?.text = "첫번째"
-            getTabAt(1)?.text = "두번째"
+            getTabAt(0)?.text = "내가 쓴 글"
+            getTabAt(1)?.text = "담은 글"
         }
     }
 
