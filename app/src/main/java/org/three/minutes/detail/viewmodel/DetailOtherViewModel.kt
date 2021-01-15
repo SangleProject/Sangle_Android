@@ -84,6 +84,34 @@ class DetailOtherViewModel : ViewModel() {
         }
     }
 
+    fun callScrap(context: Context){
+        viewModelScope.launch {
+            SangleServiceImpl.service.postScrap(token = token, postIdx = postIdx)
+                .customEnqueue(
+                    onSuccess = {
+
+                    },
+                    onError = {
+
+                    }
+                )
+        }
+    }
+
+    fun callUnScrap(context: Context){
+        viewModelScope.launch {
+            SangleServiceImpl.service.deleteUnScrap(token = token, postIdx = postIdx)
+                .customEnqueue(
+                    onSuccess = {
+
+                    },
+                    onError = {
+                        
+                    }
+                )
+        }
+    }
+
     override fun onCleared() {
         super.onCleared()
         job.cancel()
