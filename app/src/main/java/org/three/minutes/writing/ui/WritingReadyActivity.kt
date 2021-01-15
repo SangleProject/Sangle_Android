@@ -24,6 +24,10 @@ class WritingReadyActivity : AppCompatActivity(), CoroutineScope {
             activity = this@WritingReadyActivity
         }
         job = Job()
+
+        mBinding.readyCancelBtn.setOnClickListener {
+            finishActivity()
+        }
         
         launch {
             val topic = intent.getStringExtra("topic")
@@ -35,7 +39,7 @@ class WritingReadyActivity : AppCompatActivity(), CoroutineScope {
             intent.putExtra("topic",topic)
             startActivity(intent)
 
-            finish()
+            finishActivity()
         }
     }
 
@@ -45,7 +49,7 @@ class WritingReadyActivity : AppCompatActivity(), CoroutineScope {
         job.cancel()
     }
 
-    fun finishActivity(){
+    private fun finishActivity(){
         finish()
     }
 }
