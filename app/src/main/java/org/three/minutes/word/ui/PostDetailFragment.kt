@@ -12,12 +12,14 @@ import kotlinx.android.synthetic.main.modal_bottom_sheet.*
 import org.three.minutes.R
 import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.FragmentPostDetailBinding
+import org.three.minutes.word.adapter.PastWritingRcvAdapter
 import org.three.minutes.word.viewmodel.WordViewModel
 
 
 class PostDetailFragment : Fragment() {
 
     private lateinit var mBinding: FragmentPostDetailBinding
+    private lateinit var rcvAdapter : PastWritingRcvAdapter
     private val mViewModel : WordViewModel by activityViewModels()
     private val bottomSheet: BottomSheetDialog by lazy {
         BottomSheetDialog(mBinding.root.context)
@@ -26,7 +28,7 @@ class PostDetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         mBinding = DataBindingUtil.inflate(
             layoutInflater, R.layout.fragment_post_detail,
@@ -36,10 +38,17 @@ class PostDetailFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
             viewModel = mViewModel
         }
-
         setBottomSheet()
 
         return mBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        mBinding.wordWritingFilterTxt.setOnClickListener {
+            bottomSheet.show()
+        }
     }
 
     private fun setBottomSheet() {

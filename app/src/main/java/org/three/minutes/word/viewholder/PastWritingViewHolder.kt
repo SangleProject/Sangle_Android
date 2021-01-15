@@ -10,12 +10,12 @@ import org.three.minutes.word.data.ResponseLastTopicData
 class PastWritingViewHolder(val binding: PastWritingItemListBinding)
     : RecyclerView.ViewHolder(binding.root) {
 
-    fun onBind(data : ResponseLastTopicData, listner : PastWritingRcvAdapter.OnItemClickListener?){
+    fun onBind(data : ResponseLastTopicData, listener : PastWritingRcvAdapter.OnItemClickListener?){
         binding.pastContainer.animation = AnimationUtils.loadAnimation(itemView.context, R.anim.item_scale_animation)
         binding.data = data
 
         itemView.setOnClickListener {
-            listner?.onItemClick(itemView,data)
+            listener?.onItemClick(itemView,data)
         }
     }
 }
