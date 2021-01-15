@@ -20,6 +20,9 @@ import org.three.minutes.word.adapter.TodayWordRcvAdapter
 import org.three.minutes.word.data.ResponseLastTopicData
 import org.three.minutes.word.data.ResponseSearchData
 import org.three.minutes.word.data.SearchWritingData
+import org.three.minutes.word.ui.PostDetailFragment
+import org.three.minutes.word.ui.SearchEmptyFragment
+import org.three.minutes.word.ui.WordActivity
 
 @BindingAdapter("app:addTodayItem")
 fun RecyclerView.setTodayWordData(data : MutableLiveData<List<ResponseTodayTopicData>>){
@@ -32,16 +35,16 @@ fun RecyclerView.setTodayWordData(data : MutableLiveData<List<ResponseTodayTopic
     adapter.notifyDataSetChanged()
 }
 
-@BindingAdapter("app:addPastItem")
-fun RecyclerView.setPastWritingData(data : MutableLiveData<List<ResponseLastTopicData>>){
-    val adapter = PastWritingRcvAdapter(this.context)
-    adapter.data = data.value!!
-    this.adapter = adapter
-    this.layoutManager =
-        LinearLayoutManager(this.context)
-    this.addItemDecoration(WordRcvItemDeco(this.context,false,3))
-    adapter.notifyDataSetChanged()
-}
+//@BindingAdapter("app:addPastItem","app:addActivity")
+//fun RecyclerView.setPastWritingData(data : MutableLiveData<List<ResponseLastTopicData>>){
+//    val adapter = PastWritingRcvAdapter(this.context)
+//    adapter.data = data.value!!
+//    this.adapter = adapter
+//    this.layoutManager =
+//        LinearLayoutManager(this.context)
+//    this.addItemDecoration(WordRcvItemDeco(this.context,false,3))
+//    adapter.notifyDataSetChanged()
+//}
 
 @BindingAdapter("app:myWritingItem")
 fun RecyclerView.setMyWritingData(data : MutableList<MyWritingData>){
@@ -64,6 +67,18 @@ fun RecyclerView.setSearchResult(data : MutableList<ResponseSearchData>){
     adapter.data = data
     adapter.notifyDataSetChanged()
 }
+
+@BindingAdapter("app:pastDetailItem")
+fun RecyclerView.setPastDetailItem(data : MutableList<ResponseSearchData>){
+    val adapter = SearchWritingAdapter(this.context)
+    this.adapter = adapter
+    this.layoutManager =
+        LinearLayoutManager(this.context)
+
+    adapter.data = data
+    adapter.notifyDataSetChanged()
+}
+
 // 뱃지 리스트를 표현하는 바인딩 어댑터 Extension
 @BindingAdapter("app:setBadgeList")
 fun RecyclerView.setBadgeList(listData : MutableList<BadgeListData>){

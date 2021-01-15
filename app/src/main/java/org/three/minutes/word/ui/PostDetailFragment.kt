@@ -64,13 +64,13 @@ class PostDetailFragment : Fragment() {
         bottomSheet.recent_box.setOnClickListener {
             checkRecent()
             mViewModel.filter.value = "최신순"
-            mViewModel.callSearchRecent()
+            mViewModel.callPastDetailRecent(mViewModel.lastDetailTopic.value!!)
             bottomSheet.dismiss()
         }
         bottomSheet.popular_box.setOnClickListener {
             checkPopular()
             mViewModel.filter.value = "인기순"
-            mViewModel.callSearchPopular()
+            mViewModel.callPastDetailPopular(mViewModel.lastDetailTopic.value!!)
             bottomSheet.dismiss()
         }
         bottomSheet.close_bottom_sheet_btn.setOnClickListener {

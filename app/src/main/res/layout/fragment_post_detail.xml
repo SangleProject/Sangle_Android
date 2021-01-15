@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="20dp"
                 android:layout_marginStart="12dp"
-                android:text="@{viewModel.searchWord}"
+                android:text="@{viewModel.lastDetailTopic}"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:text="@{Integer.toString(viewModel.searchCount)}"
+                android:text="@{Integer.toString(viewModel.lastTopicDetailCount)}"
                 app:layout_constraintBottom_toBottomOf="@+id/textView13"
                 app:layout_constraintEnd_toStartOf="@+id/textView13"
                 app:layout_constraintTop_toTopOf="@+id/textView13"
@@ -73,9 +73,9 @@
                 android:layout_marginEnd="1dp"
                 android:text="총"
                 android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="@+id/search_count"
-                app:layout_constraintEnd_toStartOf="@+id/search_count"
-                app:layout_constraintTop_toTopOf="@+id/search_count" />
+                app:layout_constraintBottom_toBottomOf="@+id/word_count"
+                app:layout_constraintEnd_toStartOf="@+id/word_count"
+                app:layout_constraintTop_toTopOf="@+id/word_count" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -104,11 +104,11 @@
             android:layout_height="0dp"
             android:overScrollMode="never"
             android:paddingTop="6dp"
+            app:pastDetailItem="@{viewModel.lastTopicDetailList}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/word_writing_filter_txt"
-            app:searchWritingItem="@{viewModel.searchResultList}" />
+            app:layout_constraintTop_toBottomOf="@+id/word_writing_filter_txt"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
