@@ -113,8 +113,7 @@ class WordViewModel : ViewModel() {
             SangleServiceImpl.service.getSearchResultTopic(
                 token = token,
                 topic = searchWord.value!!
-            )
-                .customEnqueue(
+            ).customEnqueue(
                     onSuccess = {
                         if (it.isNotEmpty()) {
                             searchResultTopicList.value = it
