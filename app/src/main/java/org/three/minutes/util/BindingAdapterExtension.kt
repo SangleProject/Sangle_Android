@@ -17,6 +17,7 @@ import org.three.minutes.mypage.data.MyWritingData
 import org.three.minutes.word.adapter.SearchWritingAdapter
 import org.three.minutes.word.adapter.TodayWordRcvAdapter
 import org.three.minutes.word.data.ResponseSearchData
+import org.three.minutes.word.data.ResponseSearchTopicData
 
 @BindingAdapter("app:addTodayItem")
 fun RecyclerView.setTodayWordData(data : MutableLiveData<List<ResponseTodayTopicData>>){
@@ -40,16 +41,16 @@ fun RecyclerView.setMyWritingData(data : MutableList<MyWritingData>){
     adapter.notifyDataSetChanged()
 }
 
-//@BindingAdapter("app:searchWritingItem")
-//fun RecyclerView.setSearchResult(data : MutableList<ResponseSearchData>){
-//    val adapter = SearchWritingAdapter(this.context)
-//    this.adapter = adapter
-//    this.layoutManager =
-//        LinearLayoutManager(this.context)
-//
-//    adapter.data = data
-//    adapter.notifyDataSetChanged()
-//}
+@BindingAdapter("app:searchWritingItem")
+fun RecyclerView.setSearchResult(data : MutableList<ResponseSearchTopicData>){
+    val adapter = SearchWritingAdapter(this.context,false)
+    this.adapter = adapter
+    this.layoutManager =
+        LinearLayoutManager(this.context)
+
+    adapter.resultData = data
+    adapter.notifyDataSetChanged()
+}
 
 @BindingAdapter("app:pastDetailItem")
 fun RecyclerView.setPastDetailItem(data : MutableList<ResponseSearchData>){
@@ -58,7 +59,7 @@ fun RecyclerView.setPastDetailItem(data : MutableList<ResponseSearchData>){
     this.layoutManager =
         LinearLayoutManager(this.context)
 
-    adapter.data = data
+    adapter.pastData = data
     adapter.notifyDataSetChanged()
 }
 

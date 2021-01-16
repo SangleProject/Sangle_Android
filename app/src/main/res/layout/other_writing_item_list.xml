@@ -1,8 +1,5 @@
 <layout>
     <data>
-        <variable
-            name="data"
-            type="org.three.minutes.word.data.ResponseSearchData" />
     </data>
 
 
@@ -36,7 +33,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:text="@{data.topic}"
                     android:textColor="@color/main_blue"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -70,7 +66,6 @@
                     android:layout_marginTop="12dp"
                     android:ellipsize="end"
                     android:textColor="@color/black_80"
-                    android:text="@{data.postWrite}"
                     android:lines="3"
                     app:layout_constraintEnd_toEndOf="@+id/blue_line"
                     app:layout_constraintStart_toStartOf="@+id/blue_line"
@@ -99,7 +94,6 @@
                     android:layout_marginBottom="16dp"
                     android:scaleType="fitXY"
                     tools:src="@drawable/profile1"
-                    app:setGlide="@{data.profileImg}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintDimensionRatio="1"
                     app:layout_constraintStart_toStartOf="parent"
@@ -108,11 +102,11 @@
 
                 <TextView
                     style="@style/P3_14pt_Regular"
+                    android:id="@+id/item_nickname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:textColor="@color/black_60"
-                    android:text="@{data.myNickName}"
                     app:layout_constraintBottom_toBottomOf="@+id/item_user_img"
                     app:layout_constraintStart_toEndOf="@+id/item_user_img"
                     tools:text="창의적인 똑똑이씨" />

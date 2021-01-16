@@ -41,12 +41,6 @@ class WordViewModel() : ViewModel() {
     var lastTopicOk = MutableLiveData(false)
     var filter = MutableLiveData("최신순")
 
-    // 검색 관련 데이터 모음 ( 위에 완료되면 지울 것)
-
-    var searchResultList = MutableLiveData<List<ResponseSearchData>>(listOf())
-    var searchCount = MutableLiveData(126)
-
-
     // 검색 다시 만드는 데이터
     var isSearchEmpty = MutableLiveData(false)
     var searchWord = MutableLiveData("")
@@ -109,29 +103,6 @@ class WordViewModel() : ViewModel() {
                 },
                 onError = {
                     Log.e("WordActivity", "callPastDetailPopular() error : ${it.code()}")
-                }
-            )
-        }
-    }
-
-    fun callSearchRecent() {
-        viewModelScope.launch {
-            SangleServiceImpl.service.getTopicSearchRecent(
-                token = token,
-                topic = searchWord.value!!
-            ).customEnqueue(
-                onSuccess = {
-                    if (it.isNotEmpty()) {
-                        searchResultList.value = it
-                        searchCount.value = it.size
-                        isSearchEmpty.value = false
-                        filter.value = "최신순"
-                    } else {
-                        isSearchEmpty.value = true
-                    }
-                },
-                onError = {
-                    Log.e("WordActivity", "callSearchRecent() error : ${it.code()}")
                 }
             )
         }
