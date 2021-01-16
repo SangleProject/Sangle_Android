@@ -14,10 +14,10 @@ import org.three.minutes.home.data.ResponseTodayTopicData
 import org.three.minutes.server.SangleServiceImpl
 import org.three.minutes.util.customEnqueue
 import org.three.minutes.word.data.ResponseLastTopicData
-import org.three.minutes.word.data.ResponseSearchData
+import org.three.minutes.word.data.ResponsePastSearchData
 import org.three.minutes.word.data.ResponseSearchTopicData
 
-class WordViewModel() : ViewModel() {
+class WordViewModel : ViewModel() {
 
     private val job = Job()
     private val viewModelScope = CoroutineScope(Dispatchers.Main + job)
@@ -36,7 +36,7 @@ class WordViewModel() : ViewModel() {
 
     // 지난 글감 리스트 데이터 모음
     var lastDetailTopic = MutableLiveData("")
-    var lastTopicDetailList = MutableLiveData<List<ResponseSearchData>>(listOf())
+    var lastTopicDetailList = MutableLiveData<List<ResponsePastSearchData>>(listOf())
     var lastTopicDetailCount = MutableLiveData(0)
     var lastTopicOk = MutableLiveData(false)
     var filter = MutableLiveData("최신순")

@@ -5,10 +5,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.three.minutes.databinding.OtherWritingItemListBinding
-import org.three.minutes.word.data.ResponseSearchData
+import org.three.minutes.word.data.ResponsePastSearchData
 import org.three.minutes.word.data.ResponseSearchTopicData
+import org.three.minutes.word.viewholder.SearchPastWritingViewHolder
 import org.three.minutes.word.viewholder.SearchResultViewHolder
-import org.three.minutes.word.viewholder.SearchWritingViewHolder
 
 class SearchWritingAdapter(val context: Context, private val isPastView: Boolean = true) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -16,16 +16,15 @@ class SearchWritingAdapter(val context: Context, private val isPastView: Boolean
     private val TAG_PAST = 0
     private val TAG_SEARCH = 1
 
-    var pastData = listOf<ResponseSearchData>()
+    var pastData = listOf<ResponsePastSearchData>()
     var resultData = listOf<ResponseSearchTopicData>()
 
     override fun getItemViewType(position: Int): Int {
 //        return super.getItemViewType(position)
-        if (isPastView){
-            return TAG_PAST
-        }
-        else{
-            return TAG_SEARCH
+        return if (isPastView){
+            TAG_PAST
+        } else{
+            TAG_SEARCH
         }
     }
 
@@ -36,7 +35,7 @@ class SearchWritingAdapter(val context: Context, private val isPastView: Boolean
                 parent, false
             )
 
-            return SearchWritingViewHolder(binding)
+            return SearchPastWritingViewHolder(binding)
         }
         else{
             val binding = OtherWritingItemListBinding.inflate(
@@ -58,7 +57,7 @@ class SearchWritingAdapter(val context: Context, private val isPastView: Boolean
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(holder){
-            is SearchWritingViewHolder ->{
+            is SearchPastWritingViewHolder ->{
                 holder.onBind(pastData[position])
             }
             is SearchResultViewHolder -> {
