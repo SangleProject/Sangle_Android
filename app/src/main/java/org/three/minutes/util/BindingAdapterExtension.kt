@@ -14,15 +14,9 @@ import org.three.minutes.badge.data.BadgeListData
 import org.three.minutes.home.data.ResponseTodayTopicData
 import org.three.minutes.mypage.adapter.MyWritingAdapter
 import org.three.minutes.mypage.data.MyWritingData
-import org.three.minutes.word.adapter.PastWritingRcvAdapter
 import org.three.minutes.word.adapter.SearchWritingAdapter
 import org.three.minutes.word.adapter.TodayWordRcvAdapter
-import org.three.minutes.word.data.ResponseLastTopicData
 import org.three.minutes.word.data.ResponseSearchData
-import org.three.minutes.word.data.SearchWritingData
-import org.three.minutes.word.ui.PostDetailFragment
-import org.three.minutes.word.ui.SearchEmptyFragment
-import org.three.minutes.word.ui.WordActivity
 
 @BindingAdapter("app:addTodayItem")
 fun RecyclerView.setTodayWordData(data : MutableLiveData<List<ResponseTodayTopicData>>){

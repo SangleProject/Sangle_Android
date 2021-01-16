@@ -14,6 +14,7 @@ import org.three.minutes.login.data.ResponseLoginData
 import org.three.minutes.signup.data.RequestGoogleSignUpData
 import org.three.minutes.word.data.ResponseLastTopicData
 import org.three.minutes.word.data.ResponseSearchData
+import org.three.minutes.word.data.ResponseSearchTopicData
 import org.three.minutes.writing.data.BadgeData
 import org.three.minutes.writing.data.RequestWritingData
 import org.three.minutes.writing.data.ResponseWritingData
@@ -140,18 +141,25 @@ interface SangleService {
         @Header("token") token : String
     ) : Call<List<ResponseLastTopicData>>
 
-    // 글감 검색 api ( 최신순 = default )
+    // 지난 top 10 글감  상세 검색 api ( 최신순 = default )
     @GET("/posts/all")
     fun getTopicSearchRecent(
         @Header("token") token : String,
         @Query("topic") topic : String
     ) : Call<List<ResponseSearchData>>
 
-    // 글감 검색 api ( 인기순 )
+    // 지난 top 10 글감  상세 글감 검색 api ( 인기순 )
     @GET("/posts/all")
     fun getTopicSearchPopular(
         @Header("token") token : String,
         @Query("topic") topic : String,
         @Query("filter") filter : String = "popular"
     ) : Call<List<ResponseSearchData>>
+
+    // 검색 글감 api
+    @GET("/main/searchTopic")
+    fun getSearchResultTopic(
+        @Header("token") token: String,
+        @Query("topic") topic : String
+    ) : Call<List<ResponseSearchTopicData>>
 }

@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.three.minutes.databinding.OtherWritingItemListBinding
 import org.three.minutes.word.data.ResponseSearchData
-import org.three.minutes.word.data.SearchWritingData
 import org.three.minutes.word.viewholder.SearchWritingViewHolder
 
 class SearchWritingAdapter (val context : Context) : RecyclerView.Adapter<SearchWritingViewHolder>(){
