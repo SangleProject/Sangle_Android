@@ -130,28 +130,6 @@ class WordViewModel() : ViewModel() {
         }
     }
 
-    fun callSearchPopular() {
-        viewModelScope.launch {
-            SangleServiceImpl.service.getTopicSearchPopular(
-                token = token,
-                topic = searchWord.value!!
-            ).customEnqueue(
-                onSuccess = {
-                    if (it.isNotEmpty()) {
-                        searchResultList.value = it
-                        searchCount.value = it.size
-                        isSearchEmpty.value = false
-                    } else {
-                        isSearchEmpty.value = true
-                    }
-                },
-                onError = {
-                    Log.e("WordActivity", "callSearchPopular() error : ${it.code()}")
-                }
-            )
-        }
-    }
-
     override fun onCleared() {
         super.onCleared()
         job.cancel()

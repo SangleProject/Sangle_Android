@@ -35,17 +35,6 @@ fun RecyclerView.setTodayWordData(data : MutableLiveData<List<ResponseTodayTopic
     adapter.notifyDataSetChanged()
 }
 
-//@BindingAdapter("app:addPastItem","app:addActivity")
-//fun RecyclerView.setPastWritingData(data : MutableLiveData<List<ResponseLastTopicData>>){
-//    val adapter = PastWritingRcvAdapter(this.context)
-//    adapter.data = data.value!!
-//    this.adapter = adapter
-//    this.layoutManager =
-//        LinearLayoutManager(this.context)
-//    this.addItemDecoration(WordRcvItemDeco(this.context,false,3))
-//    adapter.notifyDataSetChanged()
-//}
-
 @BindingAdapter("app:myWritingItem")
 fun RecyclerView.setMyWritingData(data : MutableList<MyWritingData>){
     val adapter = MyWritingAdapter(this.context)
