@@ -20,6 +20,7 @@ class SearchWritingViewHolder (val binding : OtherWritingItemListBinding)
         binding.data = data
         binding.itemDateTxt.text = "${data.date} (${data.day}) ${data.time}"
         binding.itemFavorite.text = data.likes.formatCount()
+        binding.itemContents.setLines(10)
 
         itemView.setOnClickListener {
             val intent : Intent = if (data.myNickName == data.nickName){

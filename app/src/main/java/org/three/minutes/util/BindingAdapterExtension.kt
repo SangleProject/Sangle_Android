@@ -40,16 +40,16 @@ fun RecyclerView.setMyWritingData(data : MutableList<MyWritingData>){
     adapter.notifyDataSetChanged()
 }
 
-@BindingAdapter("app:searchWritingItem")
-fun RecyclerView.setSearchResult(data : MutableList<ResponseSearchData>){
-    val adapter = SearchWritingAdapter(this.context)
-    this.adapter = adapter
-    this.layoutManager =
-        LinearLayoutManager(this.context)
-
-    adapter.data = data
-    adapter.notifyDataSetChanged()
-}
+//@BindingAdapter("app:searchWritingItem")
+//fun RecyclerView.setSearchResult(data : MutableList<ResponseSearchData>){
+//    val adapter = SearchWritingAdapter(this.context)
+//    this.adapter = adapter
+//    this.layoutManager =
+//        LinearLayoutManager(this.context)
+//
+//    adapter.data = data
+//    adapter.notifyDataSetChanged()
+//}
 
 @BindingAdapter("app:pastDetailItem")
 fun RecyclerView.setPastDetailItem(data : MutableList<ResponseSearchData>){

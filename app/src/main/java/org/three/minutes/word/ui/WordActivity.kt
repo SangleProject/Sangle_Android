@@ -185,7 +185,7 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
             val searchResult = mBinding.searchBoxEdt.text.toString()
             if (searchResult.isNotBlank()) {
                 mViewModel.searchWord.value = searchResult
-                mViewModel.callSearchRecent()
+                mViewModel.callSearchTopic()
             }
         } else {
             return false
