@@ -41,7 +41,10 @@ class WordViewModel : ViewModel() {
     var lastTopicOk = MutableLiveData(false)
     var filter = MutableLiveData("최신순")
 
-    // 검색 다시 만드는 데이터
+    // 검색 데이터
+    var isFilterTopic = MutableLiveData(false)
+    var isFilterContents = MutableLiveData(false)
+    var isFilterUser = MutableLiveData(false)
     var searchWord = MutableLiveData("")
     var searchResultTopicList = MutableLiveData<List<ResponseSearchTopicData>>(listOf())
 

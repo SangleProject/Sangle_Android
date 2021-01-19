@@ -1,5 +1,6 @@
 package org.three.minutes.word.ui
 
+import android.graphics.Typeface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,7 +16,7 @@ import org.three.minutes.word.viewmodel.WordViewModel
 class SearchResultFragment : Fragment() {
 
     private lateinit var mBinding: FragmentSearchResultBinding
-    private val mViewModel : WordViewModel by activityViewModels()
+    private val mViewModel: WordViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,31 +31,71 @@ class SearchResultFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
             viewModel = mViewModel
         }
-
         setFilterView()
+        setObserve()
         return mBinding.root
     }
 
-    private fun setFilterView() {
-        // 상단 filter 부분 클릭 리스너 설정
-        mBinding.searchResultFilter.setOnCheckedChangeListener { _, checkedId ->
-            when(checkedId){
-                R.id.search_result_topic -> {
-                    // change topic filter
-                }
-                R.id.search_result_contents -> {
-                    // change topic contents
-                }
-                R.id.search_result_user -> {
-                    // change topic users
-                }
+    private fun setObserve() {
+        mViewModel.isFilterTopic.observe(viewLifecycleOwner, {check ->
+            if (check) {
+                mBinding.searchResultTopic.typeface = Typeface.DEFAULT_BOLD
+                mViewModel.isFilterContents.value = false
+                mViewModel.isFilterUser.value = false
+                mViewModel.callSearchTopic()
             }
-        }
+            else{
+                mBinding.searchResultTopic.typeface = Typeface.DEFAULT
+            }
+        })
+
+        mViewModel.isFilterContents.observe(viewLifecycleOwner, {check ->
+            if (check) {
+                mBinding.searchResultContents.typeface = Typeface.DEFAULT_BOLD
+                mViewModel.isFilterTopic.value = false
+                mViewModel.isFilterUser.value = false
+                mViewModel.callSearchContents()
+            }
+            else{
+                mBinding.searchResultContents.typeface = Typeface.DEFAULT
+            }
+        })
+
+        mViewModel.isFilterUser.observe(viewLifecycleOwner, {check ->
+            if (check) {
+                mBinding.searchResultUser.typeface = Typeface.DEFAULT_BOLD
+                mViewModel.isFilterContents.value = false
+                mViewModel.isFilterTopic.value = false
+            }
+            else{
+                mBinding.searchResultUser.typeface = Typeface.DEFAULT
+            }
+        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
 
+    }
+
+    private fun setFilterView() {
+        // 상단 filter 부분 클릭 리스너 설정
+        mBinding.searchResultFilter.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.search_result_topic -> {
+                    // change topic filter
+                    mViewModel.isFilterTopic.value = true
+                }
+                R.id.search_result_contents -> {
+                    // change topic contents
+                    mViewModel.isFilterContents.value = true
+                }
+                R.id.search_result_user -> {
+                    // change topic users
+                    mViewModel.isFilterUser.value = true
+                }
+            }
+        }
     }
 }

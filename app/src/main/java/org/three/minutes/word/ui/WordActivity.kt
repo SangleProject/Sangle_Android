@@ -172,7 +172,13 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
             val searchResult = mBinding.searchBoxEdt.text.toString()
             if (searchResult.isNotBlank()) {
                 mViewModel.searchWord.value = searchResult
+                mViewModel.isFilterTopic.value = true
                 mViewModel.callSearchTopic()
+            }
+            else{
+                supportFragmentManager.beginTransaction()
+                    .replace(mBinding.containerLayout.id , searchEmptyFragment, TAG_EMPTY)
+                    .commit()
             }
         } else {
             return false
