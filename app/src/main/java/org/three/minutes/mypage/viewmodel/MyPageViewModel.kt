@@ -23,12 +23,14 @@ class MyPageViewModel : ViewModel(){
     var token = ""
 
     var filter = MutableLiveData("최신순")
+    var scrapFilter = MutableLiveData("최신순")
     var myId = MutableLiveData("머리가말랑말랑")
     var myIntro = MutableLiveData("소소한 일상을 나답게 살아가고자 글을 씁니다!")
-    var myWritingList = mutableListOf<MyWritingData>()
 
     // My 서랍 페이지 내가 쓴 글 데이터, 담은 글 데이터
     var myPostList = MutableLiveData<List<ResponseMyWritingData>>(listOf())
+    var myScrapList = MutableLiveData<List<ResponseOtherWritingData>>(listOf())
+
     var myPostListRecent = MutableLiveData<List<ResponseMyWritingData>>(listOf())
     var myPostListPopular = MutableLiveData<List<ResponseMyWritingData>>(listOf())
     var myScrapListRecent = MutableLiveData<List<ResponseOtherWritingData>>(listOf())
@@ -66,6 +68,9 @@ class MyPageViewModel : ViewModel(){
                 .customEnqueue(
                     onSuccess = {
                         myScrapListRecent.value = it
+                        if (scrapFilter.value == "최신순"){
+                            setMyScrapRecent()
+                        }
                     },
                     onError = {
                         Log.e("HomeActivity", "fun myScrapRecent() error : ${it.code()}")
@@ -76,6 +81,9 @@ class MyPageViewModel : ViewModel(){
                 .customEnqueue(
                     onSuccess = {
                         myScrapListPopular.value = it
+                        if (scrapFilter.value == "인기순"){
+                            setMyScrapPopular()
+                        }
                     },
                     onError = {
                         Log.e("HomeActivity", "fun myScrapRecent() error : ${it.code()}")
@@ -90,6 +98,14 @@ class MyPageViewModel : ViewModel(){
 
     fun setMyPostPopular(){
         myPostList.value = myPostListPopular.value
+    }
+
+    fun setMyScrapRecent(){
+        myScrapList.value = myScrapListRecent.value
+    }
+
+    fun setMyScrapPopular(){
+        myScrapList.value = myScrapListPopular.value
     }
 
     override fun onCleared() {

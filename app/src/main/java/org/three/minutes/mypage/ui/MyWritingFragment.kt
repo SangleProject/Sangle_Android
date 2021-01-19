@@ -50,8 +50,6 @@ class MyWritingFragment : Fragment() {
         })
     }
 
-
-
     private fun setBottomSheet() {
         bottomSheet.setContentView(R.layout.modal_bottom_sheet)
         when(mViewModel.filter.value){
