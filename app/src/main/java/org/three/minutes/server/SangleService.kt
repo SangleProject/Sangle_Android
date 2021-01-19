@@ -184,4 +184,30 @@ interface SangleService {
         @Header("token") token : String,
         @Query("topic") topic: String
     ) : Call<List<ResponseSearchTopicData>>
+
+    // My 서랍 작성한 글 목록 ( 최신순 )
+    @GET("/posts/myPost")
+    fun getMyPostRecent(
+        @Header("token") token : String
+    ) : Call<List<ResponseMyWritingData>>
+
+    // My 서랍 작성한 글 목록 ( 인기순 )
+    @GET("/posts/myPost")
+    fun getMyPostPopular(
+        @Header("token") token : String,
+        @Query("filter") filter : String = "popular"
+    ) : Call<List<ResponseMyWritingData>>
+
+    // My 서랍 담은 글 목록 ( 최신순 )
+    @GET("/posts/scrap")
+    fun getMyScrapRecent(
+        @Header("token") token : String
+    ) : Call<List<ResponseOtherWritingData>>
+
+    // My 서랍 담은 글 목록 ( 인기순 )
+    @GET("/posts/scrap")
+    fun getMyScrapPopular(
+        @Header("token") token : String,
+        @Query("filter") filter : String = "popular"
+    ) : Call<List<ResponseOtherWritingData>>
 }
