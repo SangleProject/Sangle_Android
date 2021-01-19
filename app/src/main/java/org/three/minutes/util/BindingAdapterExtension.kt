@@ -14,12 +14,10 @@ import org.three.minutes.badge.data.BadgeListData
 import org.three.minutes.home.data.ResponseTodayTopicData
 import org.three.minutes.mypage.adapter.MyWritingAdapter
 import org.three.minutes.mypage.data.MyWritingData
-import org.three.minutes.word.adapter.PastWritingRcvAdapter
 import org.three.minutes.word.adapter.SearchWritingAdapter
 import org.three.minutes.word.adapter.TodayWordRcvAdapter
-import org.three.minutes.word.data.ResponseLastTopicData
-import org.three.minutes.word.data.ResponseSearchData
-import org.three.minutes.word.data.SearchWritingData
+import org.three.minutes.word.data.ResponsePastSearchData
+import org.three.minutes.word.data.ResponseSearchTopicData
 
 @BindingAdapter("app:addTodayItem")
 fun RecyclerView.setTodayWordData(data : MutableLiveData<List<ResponseTodayTopicData>>){
@@ -29,17 +27,6 @@ fun RecyclerView.setTodayWordData(data : MutableLiveData<List<ResponseTodayTopic
     this.layoutManager =
         LinearLayoutManager(this.context,LinearLayoutManager.HORIZONTAL,false)
     this.addItemDecoration(WordRcvItemDeco(this.context,true,4))
-    adapter.notifyDataSetChanged()
-}
-
-@BindingAdapter("app:addPastItem")
-fun RecyclerView.setPastWritingData(data : MutableLiveData<List<ResponseLastTopicData>>){
-    val adapter = PastWritingRcvAdapter(this.context)
-    adapter.data = data.value!!
-    this.adapter = adapter
-    this.layoutManager =
-        LinearLayoutManager(this.context)
-    this.addItemDecoration(WordRcvItemDeco(this.context,false,3))
     adapter.notifyDataSetChanged()
 }
 
@@ -55,15 +42,27 @@ fun RecyclerView.setMyWritingData(data : MutableList<MyWritingData>){
 }
 
 @BindingAdapter("app:searchWritingItem")
-fun RecyclerView.setSearchResult(data : MutableList<ResponseSearchData>){
+fun RecyclerView.setSearchResult(data : MutableList<ResponseSearchTopicData>){
+    val adapter = SearchWritingAdapter(this.context,false)
+    this.adapter = adapter
+    this.layoutManager =
+        LinearLayoutManager(this.context)
+
+    adapter.resultData = data
+    adapter.notifyDataSetChanged()
+}
+
+@BindingAdapter("app:pastDetailItem")
+fun RecyclerView.setPastDetailItem(data : MutableList<ResponsePastSearchData>){
     val adapter = SearchWritingAdapter(this.context)
     this.adapter = adapter
     this.layoutManager =
         LinearLayoutManager(this.context)
 
-    adapter.data = data
+    adapter.pastData = data
     adapter.notifyDataSetChanged()
 }
+
 // 뱃지 리스트를 표현하는 바인딩 어댑터 Extension
 @BindingAdapter("app:setBadgeList")
 fun RecyclerView.setBadgeList(listData : MutableList<BadgeListData>){

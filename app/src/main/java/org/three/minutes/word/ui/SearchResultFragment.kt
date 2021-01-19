@@ -1,5 +1,6 @@
 package org.three.minutes.word.ui
 
+import android.graphics.Typeface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,22 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import kotlinx.android.synthetic.main.modal_bottom_sheet.*
 import org.three.minutes.R
-import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.FragmentSearchResultBinding
-import org.three.minutes.word.data.SearchWritingData
 import org.three.minutes.word.viewmodel.WordViewModel
 
 
 class SearchResultFragment : Fragment() {
 
     private lateinit var mBinding: FragmentSearchResultBinding
-    private val mViewModel : WordViewModel by activityViewModels()
-    private val bottomSheet: BottomSheetDialog by lazy {
-        BottomSheetDialog(mBinding.root.context)
-    }
+    private val mViewModel: WordViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,70 +31,71 @@ class SearchResultFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
             viewModel = mViewModel
         }
-
-        setBottomSheet()
-
+        setFilterView()
+        setObserve()
         return mBinding.root
+    }
+
+    private fun setObserve() {
+        mViewModel.isFilterTopic.observe(viewLifecycleOwner, {check ->
+            if (check) {
+                mBinding.searchResultTopic.typeface = Typeface.DEFAULT_BOLD
+                mViewModel.isFilterContents.value = false
+                mViewModel.isFilterUser.value = false
+                mViewModel.callSearchTopic()
+            }
+            else{
+                mBinding.searchResultTopic.typeface = Typeface.DEFAULT
+            }
+        })
+
+        mViewModel.isFilterContents.observe(viewLifecycleOwner, {check ->
+            if (check) {
+                mBinding.searchResultContents.typeface = Typeface.DEFAULT_BOLD
+                mViewModel.isFilterTopic.value = false
+                mViewModel.isFilterUser.value = false
+                mViewModel.callSearchContents()
+            }
+            else{
+                mBinding.searchResultContents.typeface = Typeface.DEFAULT
+            }
+        })
+
+        mViewModel.isFilterUser.observe(viewLifecycleOwner, {check ->
+            if (check) {
+                mBinding.searchResultUser.typeface = Typeface.DEFAULT_BOLD
+                mViewModel.isFilterContents.value = false
+                mViewModel.isFilterTopic.value = false
+            }
+            else{
+                mBinding.searchResultUser.typeface = Typeface.DEFAULT
+            }
+        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mBinding.searchWritingFilterTxt.setOnClickListener {
-            bottomSheet.show()
-        }
+
+
     }
 
-    private fun setBottomSheet() {
-        bottomSheet.setContentView(R.layout.modal_bottom_sheet)
-        when(mViewModel.filter.value){
-            "최신순" -> {
-                checkRecent()
+    private fun setFilterView() {
+        // 상단 filter 부분 클릭 리스너 설정
+        mBinding.searchResultFilter.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.search_result_topic -> {
+                    // change topic filter
+                    mViewModel.isFilterTopic.value = true
+                }
+                R.id.search_result_contents -> {
+                    // change topic contents
+                    mViewModel.isFilterContents.value = true
+                }
+                R.id.search_result_user -> {
+                    // change topic users
+                    mViewModel.isFilterUser.value = true
+                }
             }
-            "인기순" -> {
-                checkPopular()
-            }
-        }
-        bottomSheet.recent_box.setOnClickListener {
-            checkRecent()
-            mViewModel.filter.value = "최신순"
-            mViewModel.callSearchRecent()
-            bottomSheet.dismiss()
-        }
-        bottomSheet.popular_box.setOnClickListener {
-            checkPopular()
-            mViewModel.filter.value = "인기순"
-            mViewModel.callSearchPopular()
-            bottomSheet.dismiss()
-        }
-        bottomSheet.close_bottom_sheet_btn.setOnClickListener {
-            bottomSheet.dismiss()
         }
     }
-
-    private fun checkRecent(){
-        ThreeApplication.getInstance()
-            .changeTextColor(
-                blueText = bottomSheet.recent_txt,
-                blackText = bottomSheet.popular_txt
-            )
-
-        ThreeApplication.getInstance().changeVisibleImage(
-            showImage = bottomSheet.recent_check_img,
-            hideImage = bottomSheet.popular_check_img
-        )
-    }
-
-    private fun checkPopular(){
-        ThreeApplication.getInstance()
-            .changeTextColor(
-                blueText = bottomSheet.popular_txt,
-                blackText = bottomSheet.recent_txt
-            )
-
-        ThreeApplication.getInstance().changeVisibleImage(
-            showImage = bottomSheet.popular_check_img,
-            hideImage = bottomSheet.recent_check_img
-        )
-    }
-
 }

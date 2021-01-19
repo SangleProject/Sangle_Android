@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="HardcodedText">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="org.three.minutes.word.viewmodel.WordViewModel" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/light_light_gray">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/result_count_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/sub_blue_box"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/word_txt"
+                style="@style/H3_18pt_Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="20dp"
+                android:layout_marginStart="12dp"
+                android:text="@{viewModel.lastDetailTopic}"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="하늘" />
+
+            <TextView
+                android:id="@+id/textView13"
+                style="@style/P2_16pt_Light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:text="@string/word_search_count_string"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/word_count"
+                style="@style/H3_18pt_Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="@{Integer.toString(viewModel.lastTopicDetailCount)}"
+                app:layout_constraintBottom_toBottomOf="@+id/textView13"
+                app:layout_constraintEnd_toStartOf="@+id/textView13"
+                app:layout_constraintTop_toTopOf="@+id/textView13"
+                tools:text="126" />
+
+            <TextView
+                style="@style/P2_16pt_Light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="1dp"
+                android:text="총"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/word_count"
+                app:layout_constraintEnd_toStartOf="@+id/word_count"
+                app:layout_constraintTop_toTopOf="@+id/word_count" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/word_writing_filter_txt"
+            style="@style/P6_12pt_Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/gray_filter"
+            android:drawablePadding="8dp"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="8dp"
+            android:text="@{viewModel.filter}"
+            android:textColor="@color/black_80"
+            app:drawableStartCompat="@drawable/ic_align"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/result_count_container"
+            tools:text="최신순" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/word_writing_rcv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:overScrollMode="never"
+            android:paddingTop="6dp"
+            app:pastDetailItem="@{viewModel.lastTopicDetailList}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/word_writing_filter_txt"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

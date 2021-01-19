@@ -9,11 +9,9 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import org.three.minutes.R
 import org.three.minutes.databinding.ActivityDetailMyBinding
 import org.three.minutes.detail.viewmodel.DetailViewModel
-import org.three.minutes.home.data.ResponseFameData
 import org.three.minutes.util.showToast
 import org.three.minutes.writing.ui.WritingEditActivity
 

@@ -14,101 +14,86 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/light_light_gray">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/result_count_container"
+        <RadioGroup
+            android:id="@+id/search_result_filter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/sub_blue_box"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/past_writing_group_box"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/word_txt"
-                style="@style/H3_18pt_Regular"
+            <RadioButton
+                style="@style/P6_12pt_Regular"
+                android:id="@+id/search_result_topic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="20dp"
-                android:layout_marginStart="12dp"
-                android:text="@{viewModel.searchWord}"
-                android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="하늘" />
+                android:layout_weight="1"
+                android:background="@drawable/past_writing_category"
+                android:button="@null"
+                android:checked="true"
+                android:elevation="4dp"
+                android:gravity="center"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="8dp"
+                android:text="글감"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginVertical="4dp"
+                android:textColor="@color/past_writing_category_color" />
 
-            <TextView
-                android:id="@+id/textView13"
-                style="@style/P2_16pt_Light"
+            <RadioButton
+                style="@style/P6_12pt_Regular"
+                android:id="@+id/search_result_contents"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
-                android:text="@string/word_search_count_string"
-                android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_weight="1"
+                android:background="@drawable/past_writing_category"
+                android:button="@null"
+                android:elevation="4dp"
+                android:gravity="center"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="8dp"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginVertical="4dp"
+                android:text="글 내용"
+                android:textColor="@color/past_writing_category_color" />
 
-            <TextView
-                android:id="@+id/search_count"
-                style="@style/H3_18pt_Regular"
+            <RadioButton
+                style="@style/P6_12pt_Regular"
+                android:id="@+id/search_result_user"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:text="@{Integer.toString(viewModel.searchCount)}"
-                app:layout_constraintBottom_toBottomOf="@+id/textView13"
-                app:layout_constraintEnd_toStartOf="@+id/textView13"
-                app:layout_constraintTop_toTopOf="@+id/textView13"
-                tools:text="126" />
+                android:layout_weight="1"
+                android:background="@drawable/past_writing_category"
+                android:button="@null"
+                android:elevation="4dp"
+                android:gravity="center"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="8dp"
+                android:text="유저"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginVertical="4dp"
+                android:textColor="@color/past_writing_category_color" />
 
-            <TextView
-                style="@style/P2_16pt_Light"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="1dp"
-                android:text="총"
-                android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="@+id/search_count"
-                app:layout_constraintEnd_toStartOf="@+id/search_count"
-                app:layout_constraintTop_toTopOf="@+id/search_count" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <TextView
-            android:id="@+id/search_writing_filter_txt"
-            style="@style/P6_12pt_Regular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="14dp"
-            android:background="@drawable/gray_filter"
-            android:drawablePadding="8dp"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="8dp"
-            android:text="@{viewModel.filter}"
-            android:textColor="@color/black_80"
-            app:drawableStartCompat="@drawable/ic_align"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/result_count_container"
-            tools:text="최신순" />
+        </RadioGroup>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/search_writing_rcv"
+            android:id="@+id/search_result_rcv"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:overScrollMode="never"
-            android:paddingTop="6dp"
+            android:paddingTop="16dp"
+            android:clipToPadding="false"
+            app:searchWritingItem="@{viewModel.searchResultTopicList}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/search_writing_filter_txt"
-            app:searchWritingItem="@{viewModel.searchResultList}" />
+            app:layout_constraintTop_toBottomOf="@+id/search_result_filter" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
