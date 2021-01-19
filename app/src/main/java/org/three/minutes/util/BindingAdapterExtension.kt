@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import org.three.minutes.R
 import org.three.minutes.badge.adapter.BadgeListAdapter
 import org.three.minutes.badge.data.BadgeListData
+import org.three.minutes.detail.data.ResponseMyWritingData
 import org.three.minutes.home.data.ResponseTodayTopicData
 import org.three.minutes.mypage.adapter.MyWritingAdapter
 import org.three.minutes.mypage.data.MyWritingData
@@ -27,17 +28,6 @@ fun RecyclerView.setTodayWordData(data : MutableLiveData<List<ResponseTodayTopic
     this.layoutManager =
         LinearLayoutManager(this.context,LinearLayoutManager.HORIZONTAL,false)
     this.addItemDecoration(WordRcvItemDeco(this.context,true,4))
-    adapter.notifyDataSetChanged()
-}
-
-@BindingAdapter("app:myWritingItem")
-fun RecyclerView.setMyWritingData(data : MutableList<MyWritingData>){
-    val adapter = MyWritingAdapter(this.context)
-    this.adapter = adapter
-    this.layoutManager =
-        LinearLayoutManager(this.context)
-
-    adapter.data = data
     adapter.notifyDataSetChanged()
 }
 
@@ -110,4 +100,16 @@ fun ImageView.setGlide(img : String?){
         .placeholder(R.drawable.profile1)
         .error(R.drawable.profile1)
         .into(this)
+}
+
+// My 서랍 내가 쓴 글 rcv
+@BindingAdapter("app:setMyPost")
+fun RecyclerView.setMyPost(data : MutableList<ResponseMyWritingData>){
+    val rcvAdapter = MyWritingAdapter(this.context)
+    this.apply {
+        adapter = rcvAdapter
+        layoutManager = LinearLayoutManager(this.context)
+    }
+    rcvAdapter.data = data
+    rcvAdapter.notifyDataSetChanged()
 }

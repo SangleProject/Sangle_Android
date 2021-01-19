@@ -8,15 +8,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import kotlinx.android.synthetic.main.activity_signup.*
 import kotlinx.android.synthetic.main.modal_bottom_sheet.*
 import org.three.minutes.R
 import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.FragmentMyWritingBinding
-import org.three.minutes.mypage.data.MyWritingData
 import org.three.minutes.mypage.viewmodel.MyPageViewModel
-import org.three.minutes.util.changeBlackColor
-import org.three.minutes.util.changeBlueColor
 
 
 class MyWritingFragment : Fragment() {
@@ -30,28 +26,42 @@ class MyWritingFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         mBinding =
             DataBindingUtil.inflate(layoutInflater, R.layout.fragment_my_writing, container, false)
         mBinding.apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = mViewModel
         }
+        setObserve()
         setBottomSheet()
-
-        setMyWritingData()
 
         return mBinding.root
     }
+
+    private fun setObserve() {
+        mViewModel.filter.observe(viewLifecycleOwner,{
+            if (it == "최신순"){
+                mViewModel.setMyPostRecent()
+            }
+            else{
+                mViewModel.setMyPostPopular()
+            }
+        })
+    }
+
+
 
     private fun setBottomSheet() {
         bottomSheet.setContentView(R.layout.modal_bottom_sheet)
         when(mViewModel.filter.value){
             "최신순" -> {
                 checkRecent()
+                mViewModel.setMyPostRecent()
             }
             "인기순" -> {
                 checkPopular()
+                mViewModel.setMyPostPopular()
             }
         }
         bottomSheet.recent_box.setOnClickListener {
@@ -71,38 +81,10 @@ class MyWritingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         mBinding.myWritingFilterTxt.setOnClickListener {
             bottomSheet.show()
         }
-    }
-
-    private fun setMyWritingData() {
-        mViewModel.myWritingList = mutableListOf(
-            MyWritingData(
-                title = "빨대", date = getString(R.string.date_sample),
-                contents = getString(R.string.contents_sample), favoriteCount = 1224
-            ),
-            MyWritingData(
-                title = "빨대", date = getString(R.string.date_sample),
-                contents = getString(R.string.contents_sample), favoriteCount = 1224
-            ),
-            MyWritingData(
-                title = "빨대", date = getString(R.string.date_sample),
-                contents = getString(R.string.contents_sample), favoriteCount = 1224
-            ),
-            MyWritingData(
-                title = "빨대", date = getString(R.string.date_sample),
-                contents = getString(R.string.contents_sample), favoriteCount = 1224
-            ),
-            MyWritingData(
-                title = "빨대", date = getString(R.string.date_sample),
-                contents = getString(R.string.contents_sample), favoriteCount = 1224
-            ),
-            MyWritingData(
-                title = "빨대", date = getString(R.string.date_sample),
-                contents = getString(R.string.contents_sample), favoriteCount = 1224
-            )
-        )
     }
 
     private fun checkRecent(){

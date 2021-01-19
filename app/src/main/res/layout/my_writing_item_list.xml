@@ -6,9 +6,6 @@
 
     <data>
 
-        <variable
-            name="data"
-            type="org.three.minutes.mypage.data.MyWritingData" />
 
     </data>
 
@@ -18,6 +15,7 @@
         android:layout_height="wrap_content">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -40,7 +38,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:text="@{data.title}"
                     android:textColor="@color/main_blue"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -51,7 +48,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
-                    android:text="@{data.date}"
                     app:layout_constraintBottom_toBottomOf="@+id/item_title_txt"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/item_title_txt"
@@ -76,7 +72,6 @@
                     android:ellipsize="end"
                     android:lines="3"
                     android:textColor="@color/black_80"
-                    android:text="@{data.contents}"
                     app:layout_constraintEnd_toEndOf="@+id/blue_line"
                     app:layout_constraintStart_toStartOf="@+id/blue_line"
                     app:layout_constraintTop_toBottomOf="@id/blue_line"
@@ -91,7 +86,6 @@
                     android:background="@drawable/favorite_selected_box"
                     android:drawablePadding="4dp"
                     android:padding="8dp"
-                    android:text="@{Integer.toString(data.favoriteCount)}"
                     app:drawableStartCompat="@drawable/ic_favorite_selected"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/item_contents"

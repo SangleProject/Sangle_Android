@@ -59,12 +59,6 @@ class HomeViewModel(application: Application, private val useCase: HomeUseCase) 
     var isFameComplete = MutableLiveData(false)
     var fameDataList = MutableLiveData<List<ResponseFameData>>(listOf())
 
-    // My 서랍 페이지 내가 쓴 글 데이터, 담은 글 데이터
-    var myPostListRecent = MutableLiveData<List<ResponseMyWritingData>>(listOf())
-    var myPostListPopular = MutableLiveData<List<ResponseMyWritingData>>(listOf())
-    var myScrapListRecent = MutableLiveData<List<ResponseOtherWritingData>>(listOf())
-    var myScrapListPopular = MutableLiveData<List<ResponseOtherWritingData>>(listOf())
-
     fun settingDate() {
         viewModelScope.launch {
             addDayData()
@@ -131,49 +125,7 @@ class HomeViewModel(application: Application, private val useCase: HomeUseCase) 
         }
     }
 
-    // My 서랍에서 보여질 데이터 통신
-    fun callMyData() {
-        viewModelScope.launch {
-            SangleServiceImpl.service.getMyPostRecent(token)
-                .customEnqueue(
-                    onSuccess = {
-                        myPostListRecent.value = it
-                    },
-                    onError = {
-                        Log.e("HomeActivity", "fun myPostRecent() error : ${it.code()}")
-                    }
-                )
-            SangleServiceImpl.service.getMyPostPopular(token)
-                .customEnqueue(
-                    onSuccess = {
-                        myPostListPopular.value = it
-                    },
-                    onError = {
-                        Log.e("HomeActivity", "fun myPostPopular() error : ${it.code()}")
-                    }
-                )
 
-            SangleServiceImpl.service.getMyScrapRecent(token)
-                .customEnqueue(
-                    onSuccess = {
-                        myScrapListRecent.value = it
-                    },
-                    onError = {
-                        Log.e("HomeActivity", "fun myScrapRecent() error : ${it.code()}")
-                    }
-                )
-
-            SangleServiceImpl.service.getMyScrapPopular(token)
-                .customEnqueue(
-                    onSuccess = {
-                        myScrapListPopular.value = it
-                    },
-                    onError = {
-                        Log.e("HomeActivity", "fun myScrapRecent() error : ${it.code()}")
-                    }
-                )
-        }
-    }
 
     override fun onCleared() {
         super.onCleared()
