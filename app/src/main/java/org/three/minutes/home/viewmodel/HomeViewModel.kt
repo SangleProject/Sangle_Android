@@ -22,6 +22,7 @@ class HomeViewModel(application: Application, private val useCase: HomeUseCase) 
     private val context = getApplication<Application>().applicationContext
 
     //캘린더 날짜 정보가 들어있는 데이터 클래스 리스트
+    private lateinit var calendar : GregorianCalendar
     var arrayCalendar = arrayListOf<CalendarData>()
     var year = MutableLiveData(0)
     val month = MutableLiveData(0)
@@ -59,29 +60,31 @@ class HomeViewModel(application: Application, private val useCase: HomeUseCase) 
     var isFameComplete = MutableLiveData(false)
     var fameDataList = MutableLiveData<List<ResponseFameData>>(listOf())
 
-    fun settingDate() {
+    // calendar data 설정
+    fun settingDate(addMonth : Int) {
         viewModelScope.launch {
-            addDayData()
+            calendar = GregorianCalendar()
+            addDayData(addMonth)
         }
     }
 
-    private suspend fun addDayData() {
-        val today = GregorianCalendar()
-        val emptyDay = today.get(Calendar.DAY_OF_WEEK) - 1 // 비어 있는 요일
-        val max = today.getActualMaximum(Calendar.DAY_OF_MONTH) //마지막 날짜
+    private suspend fun addDayData(addMonth: Int) {
+        calendar.add(Calendar.MONTH,addMonth)
+        val emptyDay = calendar.get(Calendar.DAY_OF_WEEK) - 1 // 비어 있는 요일
+        val max = calendar.getActualMaximum(Calendar.DAY_OF_MONTH) //마지막 날짜
 
         for (i in 0..emptyDay) {
-            arrayCalendar.add(CalendarData(0, 0, 0, true))
+            arrayCalendar.add(CalendarData(0, 0, 0, empty = true))
         }
 
-        val y = today.get(Calendar.YEAR)
-        val m = today.get(Calendar.MONTH) + 1 // 월 표시는 0 ~ 11
+        val y = calendar.get(Calendar.YEAR)
+        val m = calendar.get(Calendar.MONTH) + 1 // 월 표시는 0 ~ 11
 
         year.value = y
         month.value = m
 
         for (i in 1..max) {
-            arrayCalendar.add(CalendarData(y, m, i, false))
+            arrayCalendar.add(CalendarData(y, m, i, empty = false))
         }
         isCalendarComplete.postValue(true)
     }
