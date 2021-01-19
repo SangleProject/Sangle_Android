@@ -90,18 +90,6 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
                     replaceSearchFragment(searchResultFragment, TAG_SEARCH)
             }
         })
-
-        // 검색 결과가 존재하지 않을 경우 비어있는 프래그먼트 출력
-        // 처음 글감 화면 진입 시 기본 화면이 보여져야 해서 하나의 observe를 사용하는게 힘듦
-        mViewModel.isSearchEmpty.observe(this, {
-            if (it) {
-                if (supportFragmentManager.findFragmentByTag(TAG_EMPTY) != SearchEmptyFragment()){
-                    replaceSearchFragment(searchEmptyFragment, TAG_EMPTY)
-                    mViewModel.searchResultTopicList.value = listOf()
-                }
-
-            }
-        })
     }
 
     private fun settingFragment() {
@@ -129,7 +117,7 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
                 requestFocus()
                 mImm.showSoftInput(this, 0)
             }
-            if (mViewModel.searchWord.value.isNullOrBlank() || mViewModel.searchResultTopicList.value!!.isNullOrEmpty()){
+            if (mViewModel.searchWord.value.isNullOrBlank()){
                 replaceSearchFragment(searchEmptyFragment, TAG_EMPTY)
             }
             else{

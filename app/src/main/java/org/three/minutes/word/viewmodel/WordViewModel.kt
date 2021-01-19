@@ -42,7 +42,6 @@ class WordViewModel : ViewModel() {
     var filter = MutableLiveData("최신순")
 
     // 검색 다시 만드는 데이터
-    var isSearchEmpty = MutableLiveData(false)
     var searchWord = MutableLiveData("")
     var searchResultTopicList = MutableLiveData<List<ResponseSearchTopicData>>(listOf())
 
@@ -115,17 +114,29 @@ class WordViewModel : ViewModel() {
                 topic = searchWord.value!!
             ).customEnqueue(
                     onSuccess = {
-                        if (it.isNotEmpty()) {
                             searchResultTopicList.value = it
-                            isSearchEmpty.value = false
-                        } else {
-                            isSearchEmpty.value = true
-                        }
                     },
                     onError = {
                         Log.e("WordActivity", "callSearchTopic() error : ${it.code()}")
                     }
                 )
+        }
+    }
+
+    // 글 내용 검색
+    fun callSearchContents(){
+        viewModelScope.launch {
+            SangleServiceImpl.service.getSearchResultContents(
+                token = token,
+                topic = searchWord.value!!
+            ).customEnqueue(
+                onSuccess = {
+                    searchResultTopicList.value = it
+                },
+                onError = {
+                    Log.e("WordActivity", "callSearchContents() error : ${it.code()}")
+                }
+            )
         }
     }
 
