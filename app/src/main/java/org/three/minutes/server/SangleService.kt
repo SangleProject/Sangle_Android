@@ -162,4 +162,11 @@ interface SangleService {
         @Header("token") token: String,
         @Query("topic") topic : String
     ) : Call<List<ResponseSearchTopicData>>
+
+    // 검색 글 내용 api
+    @GET("/main/searchPost")
+    fun getSearchResultContents(
+        @Header("token") token : String,
+        @Query("topic") topic: String
+    ) : Call<List<ResponseSearchTopicData>>
 }
