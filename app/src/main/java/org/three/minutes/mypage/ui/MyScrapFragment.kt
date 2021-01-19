@@ -11,13 +11,14 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.modal_bottom_sheet.*
 import org.three.minutes.R
 import org.three.minutes.ThreeApplication
+import org.three.minutes.databinding.FragmentMyScrapBinding
 import org.three.minutes.databinding.FragmentMyWritingBinding
 import org.three.minutes.mypage.viewmodel.MyPageViewModel
 
 
-class MyWritingFragment : Fragment() {
+class MyScrapFragment : Fragment() {
 
-    private lateinit var mBinding: FragmentMyWritingBinding
+    private lateinit var mBinding: FragmentMyScrapBinding
     private val mViewModel: MyPageViewModel by activityViewModels()
     private val bottomSheet: BottomSheetDialog by lazy {
         BottomSheetDialog(mBinding.root.context)
@@ -27,25 +28,32 @@ class MyWritingFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        mBinding =
-            DataBindingUtil.inflate(layoutInflater, R.layout.fragment_my_writing, container, false)
+        // Inflate the layout for this fragment
+        mBinding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_my_scrap, container, false)
+
         mBinding.apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = mViewModel
         }
         setObserve()
         setBottomSheet()
-
         return mBinding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        mBinding.myScrapFilterTxt.setOnClickListener {
+            bottomSheet.show()
+        }
+    }
+
     private fun setObserve() {
-        mViewModel.filter.observe(viewLifecycleOwner,{
+        mViewModel.scrapFilter.observe(viewLifecycleOwner,{
             if (it == "최신순"){
-                mViewModel.setMyPostRecent()
+                mViewModel.setMyScrapRecent()
             }
             else{
-                mViewModel.setMyPostPopular()
+                mViewModel.setMyScrapPopular()
             }
         })
     }
@@ -55,33 +63,25 @@ class MyWritingFragment : Fragment() {
         when(mViewModel.filter.value){
             "최신순" -> {
                 checkRecent()
-                mViewModel.setMyPostRecent()
+                mViewModel.setMyScrapRecent()
             }
             "인기순" -> {
                 checkPopular()
-                mViewModel.setMyPostPopular()
+                mViewModel.setMyScrapPopular()
             }
         }
         bottomSheet.recent_box.setOnClickListener {
             checkRecent()
-            mViewModel.filter.value = "최신순"
+            mViewModel.scrapFilter.value = "최신순"
             bottomSheet.dismiss()
         }
         bottomSheet.popular_box.setOnClickListener {
             checkPopular()
-            mViewModel.filter.value = "인기순"
+            mViewModel.scrapFilter.value = "인기순"
             bottomSheet.dismiss()
         }
         bottomSheet.close_bottom_sheet_btn.setOnClickListener {
             bottomSheet.dismiss()
-        }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        mBinding.myWritingFilterTxt.setOnClickListener {
-            bottomSheet.show()
         }
     }
 

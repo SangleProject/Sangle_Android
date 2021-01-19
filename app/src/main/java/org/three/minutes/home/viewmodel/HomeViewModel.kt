@@ -5,14 +5,16 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.*
+import org.three.minutes.detail.data.ResponseMyWritingData
+import org.three.minutes.detail.data.ResponseOtherWritingData
 import org.three.minutes.home.data.CalendarData
 import org.three.minutes.home.data.ResponseFameData
 import org.three.minutes.server.SangleServiceImpl
 import org.three.minutes.util.customEnqueue
 import java.util.*
 
-class HomeViewModel(application : Application , private val useCase : HomeUseCase)
-    : AndroidViewModel(application) {
+class HomeViewModel(application: Application, private val useCase: HomeUseCase) :
+    AndroidViewModel(application) {
 
     private val job = Job()
     private val viewModelScope = CoroutineScope(Dispatchers.Main + job)
@@ -26,7 +28,8 @@ class HomeViewModel(application : Application , private val useCase : HomeUseCas
     var isCalendarComplete = MutableLiveData(false)
 
     //token값
-    var token : String = ""
+    var token: String = ""
+
     // 글 쓸 topic
     var topic = MutableLiveData<String>()
 
@@ -55,7 +58,6 @@ class HomeViewModel(application : Application , private val useCase : HomeUseCas
     // 명예의 전당 데이터
     var isFameComplete = MutableLiveData(false)
     var fameDataList = MutableLiveData<List<ResponseFameData>>(listOf())
-
 
     fun settingDate() {
         viewModelScope.launch {
@@ -104,11 +106,11 @@ class HomeViewModel(application : Application , private val useCase : HomeUseCas
         }
     }
 
-    fun callTopic(){
+    fun callTopic() {
         useCase.goToWriting(token, topic)
     }
 
-    fun callFameData(){
+    fun callFameData() {
         viewModelScope.launch {
             SangleServiceImpl.service.getFameData(token)
                 .customEnqueue(
@@ -122,6 +124,8 @@ class HomeViewModel(application : Application , private val useCase : HomeUseCas
                 )
         }
     }
+
+
 
     override fun onCleared() {
         super.onCleared()

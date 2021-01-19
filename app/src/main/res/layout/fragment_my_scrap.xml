@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="org.three.minutes.mypage.viewmodel.MyPageViewModel" />
@@ -18,7 +17,7 @@
         android:background="@color/light_light_gray">
 
         <TextView
-            android:id="@+id/my_writing_filter_txt"
+            android:id="@+id/my_scrap_filter_txt"
             style="@style/P6_12pt_Regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,7 +27,7 @@
             android:drawablePadding="8dp"
             android:paddingHorizontal="10dp"
             android:paddingVertical="8dp"
-            android:text="@{viewModel.filter}"
+            android:text="@{viewModel.scrapFilter}"
             android:textColor="@color/black_80"
             app:drawableStartCompat="@drawable/ic_align"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,16 +35,16 @@
             tools:text="최신순" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/my_writing_rcv"
+            android:id="@+id/my_scrap_rcv"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:overScrollMode="never"
-            app:setMyPost="@{viewModel.myPostList}"
             android:paddingTop="6dp"
+            app:setMyScrap = "@{viewModel.myScrapList}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/my_writing_filter_txt" />
+            app:layout_constraintTop_toBottomOf="@+id/my_scrap_filter_txt" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

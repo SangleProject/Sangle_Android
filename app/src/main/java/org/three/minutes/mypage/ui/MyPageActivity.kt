@@ -8,6 +8,7 @@ import org.three.minutes.R
 import org.three.minutes.databinding.ActivityMyPageBinding
 import org.three.minutes.mypage.adapter.MyViewPagerAdapter
 import org.three.minutes.mypage.viewmodel.MyPageViewModel
+import org.three.minutes.word.ui.SearchEmptyFragment
 
 class MyPageActivity : AppCompatActivity() {
 
@@ -17,22 +18,38 @@ class MyPageActivity : AppCompatActivity() {
 
     private val mViewModel : MyPageViewModel by viewModels()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        mViewModel.getToken.observe(this,{
+            mViewModel.token = it
+        })
+
         mBinding.apply {
             lifecycleOwner = this@MyPageActivity
             viewModel = mViewModel
         }
+        setToolBar()
 
+        // 데이터 통신
+        mViewModel.callMyData()
+        mViewModel.callMyInfo()
         setMyViewPager()
         setMyTabLayout()
+    }
+
+    private fun setToolBar() {
+        mBinding.drawToolbar.setNavigationOnClickListener {
+            finish()
+        }
     }
 
     private fun setMyTabLayout() {
         mBinding.myWritingTabLayout.setupWithViewPager(mBinding.myWritingViewpager)
         mBinding.myWritingTabLayout.apply {
-            getTabAt(0)?.text = "첫번째"
-            getTabAt(1)?.text = "두번째"
+            getTabAt(0)?.text = "내가 쓴 글"
+            getTabAt(1)?.text = "담은 글"
         }
     }
 

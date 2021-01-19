@@ -11,6 +11,7 @@ import org.three.minutes.login.data.RequestLoginData
 import org.three.minutes.login.data.ResponseGoogleLoginData
 import org.three.minutes.signup.data.*
 import org.three.minutes.login.data.ResponseLoginData
+import org.three.minutes.mypage.data.ResponseMyInfoData
 import org.three.minutes.signup.data.RequestGoogleSignUpData
 import org.three.minutes.word.data.ResponseLastTopicData
 import org.three.minutes.word.data.ResponsePastSearchData
@@ -184,4 +185,36 @@ interface SangleService {
         @Header("token") token : String,
         @Query("topic") topic: String
     ) : Call<List<ResponseSearchTopicData>>
+
+    // My 서랍 작성한 글 목록 ( 최신순 )
+    @GET("/posts/myPost")
+    fun getMyPostRecent(
+        @Header("token") token : String
+    ) : Call<List<ResponseMyWritingData>>
+
+    // My 서랍 작성한 글 목록 ( 인기순 )
+    @GET("/posts/myPost")
+    fun getMyPostPopular(
+        @Header("token") token : String,
+        @Query("filter") filter : String = "popular"
+    ) : Call<List<ResponseMyWritingData>>
+
+    // My 서랍 담은 글 목록 ( 최신순 )
+    @GET("/posts/scrap")
+    fun getMyScrapRecent(
+        @Header("token") token : String
+    ) : Call<List<ResponseOtherWritingData>>
+
+    // My 서랍 담은 글 목록 ( 인기순 )
+    @GET("/posts/scrap")
+    fun getMyScrapPopular(
+        @Header("token") token : String,
+        @Query("filter") filter : String = "popular"
+    ) : Call<List<ResponseOtherWritingData>>
+
+    // My 서랍 및 프로필 변경에서 사용 될 api
+    @GET("/users/profile")
+    fun getProfile(
+        @Header("token") token: String
+    ) : Call<ResponseMyInfoData>
 }
