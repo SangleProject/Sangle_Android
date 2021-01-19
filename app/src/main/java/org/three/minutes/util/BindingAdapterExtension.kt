@@ -14,15 +14,10 @@ import org.three.minutes.badge.data.BadgeListData
 import org.three.minutes.home.data.ResponseTodayTopicData
 import org.three.minutes.mypage.adapter.MyWritingAdapter
 import org.three.minutes.mypage.data.MyWritingData
-import org.three.minutes.word.adapter.PastWritingRcvAdapter
 import org.three.minutes.word.adapter.SearchWritingAdapter
 import org.three.minutes.word.adapter.TodayWordRcvAdapter
-import org.three.minutes.word.data.ResponseLastTopicData
-import org.three.minutes.word.data.ResponseSearchData
-import org.three.minutes.word.data.SearchWritingData
-import org.three.minutes.word.ui.PostDetailFragment
-import org.three.minutes.word.ui.SearchEmptyFragment
-import org.three.minutes.word.ui.WordActivity
+import org.three.minutes.word.data.ResponsePastSearchData
+import org.three.minutes.word.data.ResponseSearchTopicData
 
 @BindingAdapter("app:addTodayItem")
 fun RecyclerView.setTodayWordData(data : MutableLiveData<List<ResponseTodayTopicData>>){
@@ -34,17 +29,6 @@ fun RecyclerView.setTodayWordData(data : MutableLiveData<List<ResponseTodayTopic
     this.addItemDecoration(WordRcvItemDeco(this.context,true,4))
     adapter.notifyDataSetChanged()
 }
-
-//@BindingAdapter("app:addPastItem","app:addActivity")
-//fun RecyclerView.setPastWritingData(data : MutableLiveData<List<ResponseLastTopicData>>){
-//    val adapter = PastWritingRcvAdapter(this.context)
-//    adapter.data = data.value!!
-//    this.adapter = adapter
-//    this.layoutManager =
-//        LinearLayoutManager(this.context)
-//    this.addItemDecoration(WordRcvItemDeco(this.context,false,3))
-//    adapter.notifyDataSetChanged()
-//}
 
 @BindingAdapter("app:myWritingItem")
 fun RecyclerView.setMyWritingData(data : MutableList<MyWritingData>){
@@ -58,24 +42,24 @@ fun RecyclerView.setMyWritingData(data : MutableList<MyWritingData>){
 }
 
 @BindingAdapter("app:searchWritingItem")
-fun RecyclerView.setSearchResult(data : MutableList<ResponseSearchData>){
-    val adapter = SearchWritingAdapter(this.context)
+fun RecyclerView.setSearchResult(data : MutableList<ResponseSearchTopicData>){
+    val adapter = SearchWritingAdapter(this.context,false)
     this.adapter = adapter
     this.layoutManager =
         LinearLayoutManager(this.context)
 
-    adapter.data = data
+    adapter.resultData = data
     adapter.notifyDataSetChanged()
 }
 
 @BindingAdapter("app:pastDetailItem")
-fun RecyclerView.setPastDetailItem(data : MutableList<ResponseSearchData>){
+fun RecyclerView.setPastDetailItem(data : MutableList<ResponsePastSearchData>){
     val adapter = SearchWritingAdapter(this.context)
     this.adapter = adapter
     this.layoutManager =
         LinearLayoutManager(this.context)
 
-    adapter.data = data
+    adapter.pastData = data
     adapter.notifyDataSetChanged()
 }
 

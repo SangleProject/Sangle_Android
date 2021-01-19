@@ -1,6 +1,6 @@
 package org.three.minutes.word.data
 
-data class ResponseSearchData(
+data class ResponsePastSearchData(
     val date: String,
     val day: String,
     val likes: Int,

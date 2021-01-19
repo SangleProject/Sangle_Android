@@ -10,7 +10,6 @@ import androidx.databinding.DataBindingUtil
 import org.three.minutes.R
 import org.three.minutes.databinding.ActivityDetailBinding
 import org.three.minutes.detail.viewmodel.DetailOtherViewModel
-import org.three.minutes.home.data.ResponseFameData
 
 class DetailActivity : AppCompatActivity() {
     private val mBinding : ActivityDetailBinding by lazy {
