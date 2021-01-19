@@ -30,12 +30,19 @@ class MyPageActivity : AppCompatActivity() {
             lifecycleOwner = this@MyPageActivity
             viewModel = mViewModel
         }
+        setToolBar()
 
         // 데이터 통신
         mViewModel.callMyData()
-
+        mViewModel.callMyInfo()
         setMyViewPager()
         setMyTabLayout()
+    }
+
+    private fun setToolBar() {
+        mBinding.drawToolbar.setNavigationOnClickListener {
+            finish()
+        }
     }
 
     private fun setMyTabLayout() {

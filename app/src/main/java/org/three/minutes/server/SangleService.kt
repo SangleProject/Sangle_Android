@@ -11,6 +11,7 @@ import org.three.minutes.login.data.RequestLoginData
 import org.three.minutes.login.data.ResponseGoogleLoginData
 import org.three.minutes.signup.data.*
 import org.three.minutes.login.data.ResponseLoginData
+import org.three.minutes.mypage.data.ResponseMyInfoData
 import org.three.minutes.signup.data.RequestGoogleSignUpData
 import org.three.minutes.word.data.ResponseLastTopicData
 import org.three.minutes.word.data.ResponsePastSearchData
@@ -210,4 +211,10 @@ interface SangleService {
         @Header("token") token : String,
         @Query("filter") filter : String = "popular"
     ) : Call<List<ResponseOtherWritingData>>
+
+    // My 서랍 및 프로필 변경에서 사용 될 api
+    @GET("/users/profile")
+    fun getProfile(
+        @Header("token") token: String
+    ) : Call<ResponseMyInfoData>
 }

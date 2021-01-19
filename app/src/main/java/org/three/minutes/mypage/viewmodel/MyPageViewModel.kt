@@ -11,11 +11,10 @@ import kotlinx.coroutines.launch
 import org.three.minutes.ThreeApplication
 import org.three.minutes.detail.data.ResponseMyWritingData
 import org.three.minutes.detail.data.ResponseOtherWritingData
-import org.three.minutes.mypage.data.MyWritingData
 import org.three.minutes.server.SangleServiceImpl
 import org.three.minutes.util.customEnqueue
 
-class MyPageViewModel : ViewModel(){
+class MyPageViewModel : ViewModel() {
     private val job = Job()
     private val viewModelScope = CoroutineScope(Dispatchers.Main + job)
 
@@ -24,8 +23,9 @@ class MyPageViewModel : ViewModel(){
 
     var filter = MutableLiveData("최신순")
     var scrapFilter = MutableLiveData("최신순")
-    var myId = MutableLiveData("머리가말랑말랑")
-    var myIntro = MutableLiveData("소소한 일상을 나답게 살아가고자 글을 씁니다!")
+    var myId = MutableLiveData("")
+    var myIntro = MutableLiveData("")
+    var myImg = MutableLiveData("")
 
     // My 서랍 페이지 내가 쓴 글 데이터, 담은 글 데이터
     var myPostList = MutableLiveData<List<ResponseMyWritingData>>(listOf())
@@ -43,7 +43,7 @@ class MyPageViewModel : ViewModel(){
                 .customEnqueue(
                     onSuccess = {
                         myPostListRecent.value = it
-                        if (filter.value == "최신순"){
+                        if (filter.value == "최신순") {
                             setMyPostRecent()
                         }
                     },
@@ -55,7 +55,7 @@ class MyPageViewModel : ViewModel(){
                 .customEnqueue(
                     onSuccess = {
                         myPostListPopular.value = it
-                        if (filter.value == "인기순"){
+                        if (filter.value == "인기순") {
                             setMyPostPopular()
                         }
                     },
@@ -68,7 +68,7 @@ class MyPageViewModel : ViewModel(){
                 .customEnqueue(
                     onSuccess = {
                         myScrapListRecent.value = it
-                        if (scrapFilter.value == "최신순"){
+                        if (scrapFilter.value == "최신순") {
                             setMyScrapRecent()
                         }
                     },
@@ -81,7 +81,7 @@ class MyPageViewModel : ViewModel(){
                 .customEnqueue(
                     onSuccess = {
                         myScrapListPopular.value = it
-                        if (scrapFilter.value == "인기순"){
+                        if (scrapFilter.value == "인기순") {
                             setMyScrapPopular()
                         }
                     },
@@ -92,19 +92,36 @@ class MyPageViewModel : ViewModel(){
         }
     }
 
-    fun setMyPostRecent(){
+    fun callMyInfo() {
+        viewModelScope.launch {
+            SangleServiceImpl.service.getProfile(
+                token
+            ).customEnqueue(
+                onSuccess = {
+                    myId.value = it.nickName
+                    myIntro.value = it.info
+                    myImg.value = it.profileImg
+                },
+                onError = {
+                    Log.e("HomeActivity", "fun callMyInfo() error : ${it.code()}")
+                }
+            )
+        }
+    }
+
+    fun setMyPostRecent() {
         myPostList.value = myPostListRecent.value
     }
 
-    fun setMyPostPopular(){
+    fun setMyPostPopular() {
         myPostList.value = myPostListPopular.value
     }
 
-    fun setMyScrapRecent(){
+    fun setMyScrapRecent() {
         myScrapList.value = myScrapListRecent.value
     }
 
-    fun setMyScrapPopular(){
+    fun setMyScrapPopular() {
         myScrapList.value = myScrapListPopular.value
     }
 

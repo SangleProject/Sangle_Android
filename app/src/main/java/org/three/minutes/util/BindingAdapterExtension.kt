@@ -16,7 +16,6 @@ import org.three.minutes.detail.data.ResponseOtherWritingData
 import org.three.minutes.home.data.ResponseTodayTopicData
 import org.three.minutes.mypage.adapter.MyScrapAdapter
 import org.three.minutes.mypage.adapter.MyWritingAdapter
-import org.three.minutes.mypage.data.MyWritingData
 import org.three.minutes.word.adapter.SearchWritingAdapter
 import org.three.minutes.word.adapter.TodayWordRcvAdapter
 import org.three.minutes.word.data.ResponsePastSearchData
