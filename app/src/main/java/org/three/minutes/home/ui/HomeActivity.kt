@@ -69,6 +69,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
         mViewModel.setInfo()
         mViewModel.callFameData()
         mViewModel.settingDate()
+        mViewModel.callMyData()
 
         setSupportActionBar(home_toolbar)
         supportActionBar?.apply {

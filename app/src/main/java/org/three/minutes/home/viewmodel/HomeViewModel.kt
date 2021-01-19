@@ -5,14 +5,16 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.*
+import org.three.minutes.detail.data.ResponseMyWritingData
+import org.three.minutes.detail.data.ResponseOtherWritingData
 import org.three.minutes.home.data.CalendarData
 import org.three.minutes.home.data.ResponseFameData
 import org.three.minutes.server.SangleServiceImpl
 import org.three.minutes.util.customEnqueue
 import java.util.*
 
-class HomeViewModel(application : Application , private val useCase : HomeUseCase)
-    : AndroidViewModel(application) {
+class HomeViewModel(application: Application, private val useCase: HomeUseCase) :
+    AndroidViewModel(application) {
 
     private val job = Job()
     private val viewModelScope = CoroutineScope(Dispatchers.Main + job)
@@ -26,7 +28,8 @@ class HomeViewModel(application : Application , private val useCase : HomeUseCas
     var isCalendarComplete = MutableLiveData(false)
 
     //token값
-    var token : String = ""
+    var token: String = ""
+
     // 글 쓸 topic
     var topic = MutableLiveData<String>()
 
@@ -56,6 +59,11 @@ class HomeViewModel(application : Application , private val useCase : HomeUseCas
     var isFameComplete = MutableLiveData(false)
     var fameDataList = MutableLiveData<List<ResponseFameData>>(listOf())
 
+    // My 서랍 페이지 내가 쓴 글 데이터, 담은 글 데이터
+    var myPostListRecent = MutableLiveData<List<ResponseMyWritingData>>(listOf())
+    var myPostListPopular = MutableLiveData<List<ResponseMyWritingData>>(listOf())
+    var myScrapListRecent = MutableLiveData<List<ResponseOtherWritingData>>(listOf())
+    var myScrapListPopular = MutableLiveData<List<ResponseOtherWritingData>>(listOf())
 
     fun settingDate() {
         viewModelScope.launch {
@@ -104,11 +112,11 @@ class HomeViewModel(application : Application , private val useCase : HomeUseCas
         }
     }
 
-    fun callTopic(){
+    fun callTopic() {
         useCase.goToWriting(token, topic)
     }
 
-    fun callFameData(){
+    fun callFameData() {
         viewModelScope.launch {
             SangleServiceImpl.service.getFameData(token)
                 .customEnqueue(
@@ -118,6 +126,50 @@ class HomeViewModel(application : Application , private val useCase : HomeUseCas
                     },
                     onError = {
                         Log.e("HomeActivity", "fun callFameData() error : ${it.code()}")
+                    }
+                )
+        }
+    }
+
+    // My 서랍에서 보여질 데이터 통신
+    fun callMyData() {
+        viewModelScope.launch {
+            SangleServiceImpl.service.getMyPostRecent(token)
+                .customEnqueue(
+                    onSuccess = {
+                        myPostListRecent.value = it
+                    },
+                    onError = {
+                        Log.e("HomeActivity", "fun myPostRecent() error : ${it.code()}")
+                    }
+                )
+            SangleServiceImpl.service.getMyPostPopular(token)
+                .customEnqueue(
+                    onSuccess = {
+                        myPostListPopular.value = it
+                    },
+                    onError = {
+                        Log.e("HomeActivity", "fun myPostPopular() error : ${it.code()}")
+                    }
+                )
+
+            SangleServiceImpl.service.getMyScrapRecent(token)
+                .customEnqueue(
+                    onSuccess = {
+                        myScrapListRecent.value = it
+                    },
+                    onError = {
+                        Log.e("HomeActivity", "fun myScrapRecent() error : ${it.code()}")
+                    }
+                )
+
+            SangleServiceImpl.service.getMyScrapPopular(token)
+                .customEnqueue(
+                    onSuccess = {
+                        myScrapListPopular.value = it
+                    },
+                    onError = {
+                        Log.e("HomeActivity", "fun myScrapRecent() error : ${it.code()}")
                     }
                 )
         }
