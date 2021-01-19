@@ -3,6 +3,7 @@ package org.three.minutes.server
 import okhttp3.ResponseBody
 import org.three.minutes.detail.data.ResponseMyWritingData
 import org.three.minutes.detail.data.ResponseOtherWritingData
+import org.three.minutes.home.data.ResponseCalendarData
 import org.three.minutes.home.data.ResponseFameData
 import org.three.minutes.home.data.ResponseMainInfoData
 import org.three.minutes.home.data.ResponseTodayTopicData
@@ -217,4 +218,11 @@ interface SangleService {
     fun getProfile(
         @Header("token") token: String
     ) : Call<ResponseMyInfoData>
+
+    // 캘린더 정보 가져오기 api
+    @GET("/cal/day/{date}")
+    fun getCalendar(
+        @Header("token") token : String,
+        @Path("date") date : String
+    ) : Call<List<ResponseCalendarData>>
 }
