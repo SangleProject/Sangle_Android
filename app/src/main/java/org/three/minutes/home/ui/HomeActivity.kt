@@ -68,7 +68,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
         //Home_Info Api
         mViewModel.setInfo()
         mViewModel.callFameData()
-        mViewModel.settingDate(0)
+        mViewModel.setInitialCalendarData(0)
 
         setSupportActionBar(home_toolbar)
         supportActionBar?.apply {

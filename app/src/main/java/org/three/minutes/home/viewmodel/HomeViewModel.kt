@@ -8,10 +8,15 @@ import kotlinx.coroutines.*
 import org.three.minutes.detail.data.ResponseMyWritingData
 import org.three.minutes.detail.data.ResponseOtherWritingData
 import org.three.minutes.home.data.CalendarData
+import org.three.minutes.home.data.ResponseCalendarData
 import org.three.minutes.home.data.ResponseFameData
+import org.three.minutes.home.ui.HomeActivity
 import org.three.minutes.server.SangleServiceImpl
+import org.three.minutes.util.compareSame
 import org.three.minutes.util.customEnqueue
+import org.three.minutes.util.formatCalendarPath
 import java.util.*
+import kotlin.collections.ArrayList
 
 class HomeViewModel(application: Application, private val useCase: HomeUseCase) :
     AndroidViewModel(application) {
@@ -22,7 +27,9 @@ class HomeViewModel(application: Application, private val useCase: HomeUseCase) 
     private val context = getApplication<Application>().applicationContext
 
     //캘린더 날짜 정보가 들어있는 데이터 클래스 리스트
-    private lateinit var calendar : GregorianCalendar
+    private var calendar = GregorianCalendar()
+    var calendarPath = ""
+    var responseCalendarData = arrayListOf<ResponseCalendarData>()
     var arrayCalendar = arrayListOf<CalendarData>()
     var year = MutableLiveData(0)
     val month = MutableLiveData(0)
@@ -60,33 +67,66 @@ class HomeViewModel(application: Application, private val useCase: HomeUseCase) 
     var isFameComplete = MutableLiveData(false)
     var fameDataList = MutableLiveData<List<ResponseFameData>>(listOf())
 
+    fun setInitialCalendarData(addMonth: Int) {
+        if (arrayCalendar.isNotEmpty()) {
+            arrayCalendar.clear()
+        }
+        calendar.add(Calendar.MONTH, addMonth)
+        calendarPath = calendar.formatCalendarPath()
+        settingDate()
+    }
+
     // calendar data 설정
-    fun settingDate(addMonth : Int) {
+    private fun settingDate() {
         viewModelScope.launch {
-            calendar = GregorianCalendar()
-            addDayData(addMonth)
+            SangleServiceImpl.service.getCalendar(token = token, date = calendarPath)
+                .customEnqueue(
+                    onSuccess = {
+                        responseCalendarData = it as ArrayList<ResponseCalendarData>
+                        Log.e("HomeActivity","CalendarData = $responseCalendarData")
+                        addDayData()
+                    },
+                    onError = {
+                        Log.e("HomeActivity", "fun callCalendar() : ${it.code()}")
+                    }
+                )
         }
     }
 
-    private suspend fun addDayData(addMonth: Int) {
-        calendar.add(Calendar.MONTH,addMonth)
-        val emptyDay = calendar.get(Calendar.DAY_OF_WEEK) - 1 // 비어 있는 요일
-        val max = calendar.getActualMaximum(Calendar.DAY_OF_MONTH) //마지막 날짜
 
-        for (i in 0..emptyDay) {
-            arrayCalendar.add(CalendarData(0, 0, 0, empty = true))
+    private fun addDayData() {
+        viewModelScope.launch {
+            val emptyDay = calendar.get(Calendar.DAY_OF_WEEK) - 1 // 비어 있는 요일
+            val max = calendar.getActualMaximum(Calendar.DAY_OF_MONTH) //마지막 날짜
+
+            for (i in 0..emptyDay) {
+                arrayCalendar.add(CalendarData(0, 0, 0, empty = true))
+            }
+
+            val y = calendar.get(Calendar.YEAR)
+            val m = calendar.get(Calendar.MONTH) + 1 // 월 표시는 0 ~ 11
+
+            year.value = y
+            month.value = m
+
+            for (i in 1..max) {
+                // 해당 날짜에 값이 존재한다면
+                if (responseCalendarData.isNotEmpty()) {
+                    if (GregorianCalendar(y, m-1, i).compareSame(responseCalendarData[0].date)) {
+                        arrayCalendar.add(
+                            CalendarData(y, m, i, responseCalendarData[0].count, false)
+                        )
+                        responseCalendarData.removeAt(0)
+                    } else {
+                        arrayCalendar.add(CalendarData(y, m, i, 0, false))
+                    }
+                } else {
+                    arrayCalendar.add(CalendarData(y, m, i, -1, false))
+
+                }
+            }
+            isCalendarComplete.postValue(true)
         }
-
-        val y = calendar.get(Calendar.YEAR)
-        val m = calendar.get(Calendar.MONTH) + 1 // 월 표시는 0 ~ 11
-
-        year.value = y
-        month.value = m
-
-        for (i in 1..max) {
-            arrayCalendar.add(CalendarData(y, m, i, empty = false))
-        }
-        isCalendarComplete.postValue(true)
     }
 
     fun setInfo() {
@@ -127,7 +167,6 @@ class HomeViewModel(application: Application, private val useCase: HomeUseCase) 
                 )
         }
     }
-
 
 
     override fun onCleared() {
