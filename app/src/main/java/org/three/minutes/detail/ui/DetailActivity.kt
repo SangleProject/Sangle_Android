@@ -37,7 +37,20 @@ class DetailActivity : AppCompatActivity() {
 
         setTextSizeButton()
         setLikeListener()
+        setScrapListener()
 
+    }
+
+    private fun setScrapListener() {
+        mBinding.detailPutBtn.setOnClickListener {
+            // 이미 스크랩이 되어 있는 상태
+            if (mViewModel.isScrap){
+                mViewModel.callUnScrap(this)
+            }
+            else{ // 스크랩이 안되어 있는 상태
+                mViewModel.callScrap(this)
+            }
+        }
     }
 
     private fun setLikeListener() {

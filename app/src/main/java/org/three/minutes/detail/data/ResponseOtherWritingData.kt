@@ -11,5 +11,6 @@ data class ResponseOtherWritingData(
     val time : String,
     val day : String,
     val likes : Int,
-    val modified : Boolean
+    val modified : Boolean,
+    val scrap : Boolean
 )

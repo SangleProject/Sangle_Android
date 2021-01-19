@@ -135,6 +135,21 @@ interface SangleService {
         @Path("postIdx") postIdx: Int
     ) : Call<ResponseBody>
 
+    // 스크랩 하기
+    @POST("/posts/scrap/{postIdx}")
+    fun postScrap(
+        @Header("token") token: String,
+        @Path("postIdx") postIdx: Int
+    ) : Call<List<BadgeData>>
+
+    //스크랩 취소
+    @Headers("Content-Type:application/json")
+    @DELETE("/posts/unscrap/{postIdx}")
+    fun deleteUnScrap(
+        @Header("token") token : String,
+        @Path("postIdx") postIdx: Int
+    ) : Call<ResponseBody>
+
     // 지난 글감 (10일치) 가져오기
     @GET("/topic/lastTopic")
     fun getLastTopic(
