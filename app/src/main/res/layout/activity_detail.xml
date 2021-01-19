@@ -77,6 +77,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:textColor="@color/black_60"
+                android:text="@{viewmodel.dateFormat}"
                 app:layout_constraintBottom_toBottomOf="@+id/detail_word_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/detail_word_title"

@@ -10,7 +10,6 @@ import androidx.databinding.DataBindingUtil
 import org.three.minutes.R
 import org.three.minutes.databinding.ActivityDetailBinding
 import org.three.minutes.detail.viewmodel.DetailOtherViewModel
-import org.three.minutes.home.data.ResponseFameData
 
 class DetailActivity : AppCompatActivity() {
     private val mBinding : ActivityDetailBinding by lazy {
@@ -38,7 +37,20 @@ class DetailActivity : AppCompatActivity() {
 
         setTextSizeButton()
         setLikeListener()
+        setScrapListener()
 
+    }
+
+    private fun setScrapListener() {
+        mBinding.detailPutBtn.setOnClickListener {
+            // 이미 스크랩이 되어 있는 상태
+            if (mViewModel.isScrap){
+                mViewModel.callUnScrap(this)
+            }
+            else{ // 스크랩이 안되어 있는 상태
+                mViewModel.callScrap(this)
+            }
+        }
     }
 
     private fun setLikeListener() {

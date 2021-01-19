@@ -16,7 +16,6 @@ import gun0912.tedkeyboardobserver.TedKeyboardObserver
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 import org.three.minutes.R
 import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.ActivityWordBinding
@@ -27,6 +26,8 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
     private val TAG_WORD = "word"
     private val TAG_EMPTY = "empty"
     private val TAG_SEARCH = "search"
+    private val TAG_LAST_DETAIL = "lastDetail"
+
     private lateinit var job: Job
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
@@ -43,6 +44,9 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
     private val searchResultFragment = supportFragmentManager.findFragmentByTag(TAG_SEARCH)
         ?: SearchResultFragment()
 
+    private val lastDetailFragment = supportFragmentManager.findFragmentByTag(TAG_LAST_DETAIL)
+        ?: PostDetailFragment()
+
     private val mViewModel: WordViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,7 +55,7 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
         mViewModel.getToken.observe(this, {
             mViewModel.token = it
         })
-
+        mViewModel.callTopic()
         mBinding.apply {
             lifecycleOwner = this@WordActivity
             viewModel = mViewModel
@@ -80,22 +84,10 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
 
     private fun setObserve() {
         // 검색 결과가 존재할 경우 결과 프래그먼트 출력
-        mViewModel.searchResultList.observe(this, {
+        mViewModel.searchResultTopicList.observe(this, {
             if (it.isNotEmpty()) {
                 if (supportFragmentManager.findFragmentByTag(TAG_SEARCH) != SearchResultFragment())
                     replaceSearchFragment(searchResultFragment, TAG_SEARCH)
-            }
-        })
-
-        // 검색 결과가 존재하지 않을 경유 비어있는 프래그먼트 출력
-        // 처음 글감 화면 진입 시 기본 화면이 보여져야 해서 하나의 observe를 사용하는게 힘듦
-        mViewModel.isSearchEmpty.observe(this, {
-            if (it) {
-                if (supportFragmentManager.findFragmentByTag(TAG_EMPTY) != SearchEmptyFragment()){
-                    replaceSearchFragment(searchEmptyFragment, TAG_EMPTY)
-                    mViewModel.searchResultList.value = listOf()
-                }
-
             }
         })
     }
@@ -125,7 +117,7 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
                 requestFocus()
                 mImm.showSoftInput(this, 0)
             }
-            if (mViewModel.searchWord.value.isNullOrBlank() || mViewModel.searchResultList.value!!.isNullOrEmpty()){
+            if (mViewModel.searchWord.value.isNullOrBlank()){
                 replaceSearchFragment(searchEmptyFragment, TAG_EMPTY)
             }
             else{
@@ -166,13 +158,27 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
             .commit()
     }
 
+    fun replaceDetailFragment(){
+        supportFragmentManager
+            .beginTransaction()
+            .replace(mBinding.containerLayout.id,lastDetailFragment,TAG_LAST_DETAIL)
+            .addToBackStack(TAG_LAST_DETAIL)
+            .commit()
+    }
+
     override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
         if (EditorInfo.IME_ACTION_SEARCH == actionId) {
             downKeyBoard(true)
             val searchResult = mBinding.searchBoxEdt.text.toString()
             if (searchResult.isNotBlank()) {
                 mViewModel.searchWord.value = searchResult
-                mViewModel.callSearchRecent()
+                mViewModel.isFilterTopic.value = true
+                mViewModel.callSearchTopic()
+            }
+            else{
+                supportFragmentManager.beginTransaction()
+                    .replace(mBinding.containerLayout.id , searchEmptyFragment, TAG_EMPTY)
+                    .commit()
             }
         } else {
             return false

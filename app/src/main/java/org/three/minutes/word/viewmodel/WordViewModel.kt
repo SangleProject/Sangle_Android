@@ -14,10 +14,10 @@ import org.three.minutes.home.data.ResponseTodayTopicData
 import org.three.minutes.server.SangleServiceImpl
 import org.three.minutes.util.customEnqueue
 import org.three.minutes.word.data.ResponseLastTopicData
-import org.three.minutes.word.data.ResponseSearchData
-import org.three.minutes.word.data.SearchWritingData
+import org.three.minutes.word.data.ResponsePastSearchData
+import org.three.minutes.word.data.ResponseSearchTopicData
 
-class WordViewModel() : ViewModel() {
+class WordViewModel : ViewModel() {
 
     private val job = Job()
     private val viewModelScope = CoroutineScope(Dispatchers.Main + job)
@@ -34,12 +34,20 @@ class WordViewModel() : ViewModel() {
     var doneCheck = MutableLiveData(false)
     var notCheck = MutableLiveData(false)
 
-    // 검색 관련 데이터 모음
-    var searchWord = MutableLiveData("")
+    // 지난 글감 리스트 데이터 모음
+    var lastDetailTopic = MutableLiveData("")
+    var lastTopicDetailList = MutableLiveData<List<ResponsePastSearchData>>(listOf())
+    var lastTopicDetailCount = MutableLiveData(0)
+    var lastTopicOk = MutableLiveData(false)
     var filter = MutableLiveData("최신순")
-    var searchResultList = MutableLiveData<List<ResponseSearchData>>(listOf())
-    var searchCount = MutableLiveData(126)
-    var isSearchEmpty = MutableLiveData(false)
+
+    // 검색 데이터
+    var isFilterTopic = MutableLiveData(false)
+    var isFilterContents = MutableLiveData(false)
+    var isFilterUser = MutableLiveData(false)
+    var searchWord = MutableLiveData("")
+    var searchResultTopicList = MutableLiveData<List<ResponseSearchTopicData>>(listOf())
+
 
     fun callTopic() {
         viewModelScope.launch {
@@ -57,6 +65,7 @@ class WordViewModel() : ViewModel() {
                 .customEnqueue(
                     onSuccess = {
                         lastTopicList.value = it
+                        lastTopicOk.value = true
                     },
                     onError = {
                         Log.e("WordActivity", "callTodayTopic() LastTopic error : ${it.code()}")
@@ -65,46 +74,70 @@ class WordViewModel() : ViewModel() {
         }
     }
 
-    fun callSearchRecent() {
+    fun callPastDetailRecent(pastTopic: String) {
         viewModelScope.launch {
             SangleServiceImpl.service.getTopicSearchRecent(
                 token = token,
-                topic = searchWord.value!!
+                topic = pastTopic
             ).customEnqueue(
                 onSuccess = {
-                    if (it.isNotEmpty()) {
-                        searchResultList.value = it
-                        searchCount.value = it.size
-                        isSearchEmpty.value = false
-                        filter.value = "최신순"
-                    } else {
-                        isSearchEmpty.value = true
-                    }
+                    lastDetailTopic.value = pastTopic
+                    lastTopicDetailList.value = it
+                    lastTopicDetailCount.value = it.size
                 },
                 onError = {
-                    Log.e("WordActivity", "callSearchRecent() error : ${it.code()}")
+                    Log.e("WordActivity", "callPastDetailRecent() error : ${it.code()}")
                 }
             )
         }
     }
 
-    fun callSearchPopular(){
+    fun callPastDetailPopular(pastTopic: String) {
         viewModelScope.launch {
             SangleServiceImpl.service.getTopicSearchPopular(
+                token = token,
+                topic = pastTopic
+            ).customEnqueue(
+                onSuccess = {
+                    lastDetailTopic.value = pastTopic
+                    lastTopicDetailList.value = it
+                    lastTopicDetailCount.value = it.size
+                },
+                onError = {
+                    Log.e("WordActivity", "callPastDetailPopular() error : ${it.code()}")
+                }
+            )
+        }
+    }
+
+    fun callSearchTopic() {
+        viewModelScope.launch {
+            SangleServiceImpl.service.getSearchResultTopic(
+                token = token,
+                topic = searchWord.value!!
+            ).customEnqueue(
+                    onSuccess = {
+                            searchResultTopicList.value = it
+                    },
+                    onError = {
+                        Log.e("WordActivity", "callSearchTopic() error : ${it.code()}")
+                    }
+                )
+        }
+    }
+
+    // 글 내용 검색
+    fun callSearchContents(){
+        viewModelScope.launch {
+            SangleServiceImpl.service.getSearchResultContents(
                 token = token,
                 topic = searchWord.value!!
             ).customEnqueue(
                 onSuccess = {
-                    if (it.isNotEmpty()) {
-                        searchResultList.value = it
-                        searchCount.value = it.size
-                        isSearchEmpty.value = false
-                    } else {
-                        isSearchEmpty.value = true
-                    }
+                    searchResultTopicList.value = it
                 },
                 onError = {
-                    Log.e("WordActivity", "callSearchPopular() error : ${it.code()}")
+                    Log.e("WordActivity", "callSearchContents() error : ${it.code()}")
                 }
             )
         }

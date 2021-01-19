@@ -27,9 +27,11 @@ class DetailOtherViewModel : ViewModel() {
     var postIdx = -1
 
     var detailData = MutableLiveData<ResponseOtherWritingData>()
+    var dateFormat = MutableLiveData("")
     var postLength = MutableLiveData(0)
     var likeCount = MutableLiveData("")
     var likeCountInteger = 0
+    var isScrap = false
 
     // 날짜 붙여서 표시
     var date = MutableLiveData("")
@@ -44,12 +46,19 @@ class DetailOtherViewModel : ViewModel() {
                         date.value = "${it.date} (${it.day}) ${it.time}"
                         postLength.value = it.postWrite.length
                         likeCount.value = likeCountInteger.formatCount()
+                        isScrap = it.scrap
+                        setDate(it)
                     },
                     onError = {
                         Log.e("DetailActivity", "callOtherDetailData() error : ${it.code()}")
                     }
                 )
         }
+    }
+
+    private fun setDate(data : ResponseOtherWritingData) {
+        val formatDate = "${data.date} (${data.day}) ${data.time}"
+        dateFormat.value = formatDate
     }
 
     fun callLike(context : Context) {
@@ -59,7 +68,7 @@ class DetailOtherViewModel : ViewModel() {
                     onSuccess = {
                         likeCountInteger += 1
                         likeCount.value = likeCountInteger.formatCount()
-                        context.showToast("좋은 글을 스크랩했어요!")
+                        context.showToast("좋은 글에 좋아요를 눌렀어요!")
                     },
                     onError = {
                         Log.e("DetailActivity", "callLike() error : ${it.code()}")
@@ -75,10 +84,40 @@ class DetailOtherViewModel : ViewModel() {
                     onSuccess = {
                         likeCountInteger -= 1
                         likeCount.value = likeCountInteger.formatCount()
-                        context.showToast("스크랩을 취소했어요!")
+                        context.showToast("좋아요를 취소했어요.")
                     },
                     onError = {
                         Log.e("DetailActivity", "callLike() error : ${it.code()}")
+                    }
+                )
+        }
+    }
+
+    fun callScrap(context: Context){
+        viewModelScope.launch {
+            SangleServiceImpl.service.postScrap(token = token, postIdx = postIdx)
+                .customEnqueue(
+                    onSuccess = {
+                        context.showToast("좋은 글을 스크랩 했어요!")
+                        isScrap = true
+                    },
+                    onError = {
+
+                    }
+                )
+        }
+    }
+
+    fun callUnScrap(context: Context){
+        viewModelScope.launch {
+            SangleServiceImpl.service.deleteUnScrap(token = token, postIdx = postIdx)
+                .customEnqueue(
+                    onSuccess = {
+                        context.showToast("스크랩을 취소 했어요.")
+                        isScrap = false
+                    },
+                    onError = {
+                        
                     }
                 )
         }
