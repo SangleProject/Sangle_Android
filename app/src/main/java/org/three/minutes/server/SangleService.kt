@@ -3,10 +3,7 @@ package org.three.minutes.server
 import okhttp3.ResponseBody
 import org.three.minutes.detail.data.ResponseMyWritingData
 import org.three.minutes.detail.data.ResponseOtherWritingData
-import org.three.minutes.home.data.ResponseCalendarData
-import org.three.minutes.home.data.ResponseFameData
-import org.three.minutes.home.data.ResponseMainInfoData
-import org.three.minutes.home.data.ResponseTodayTopicData
+import org.three.minutes.home.data.*
 import org.three.minutes.login.data.RequestGoogleLoginData
 import org.three.minutes.login.data.RequestLoginData
 import org.three.minutes.login.data.ResponseGoogleLoginData
@@ -225,4 +222,10 @@ interface SangleService {
         @Header("token") token : String,
         @Path("date") date : String
     ) : Call<List<ResponseCalendarData>>
+
+    // 주별 달성률 가져오기 api
+    @GET("/cal/week")
+    fun getWeekComplete(
+        @Header("token") token : String
+    ) : Call<ResponseWeekCompleteData>
 }
