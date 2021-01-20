@@ -17,5 +17,7 @@
     <color name="red">#FF3D3D</color>
     <color name="light_red">#FFF1F1</color>
     <color name="light_light_gray">#fbfbfb</color>
-    <color name="light_mint">#e7fffb</color>
+    <color name="light_mint">#d0fffc</color>
+    <color name="deep_sky">#57d7ff</color>
+    <color name="sky_blue">#98f3ff</color>
 </resources>

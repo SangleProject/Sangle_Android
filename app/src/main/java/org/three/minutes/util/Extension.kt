@@ -141,3 +141,18 @@ fun String.formatReturn() : Int{
     val fm = DecimalFormat("###,###")
     return fm.parse(this).toInt()
 }
+
+//Calendar의 값과 String형식의 비교
+@SuppressLint("SimpleDateFormat")
+fun Calendar.compareSame(date : String) : Boolean{
+    val format = SimpleDateFormat("yyyy-MM-dd")
+    val compareDate = format.format(this.time)
+    Log.e("Extension", "$compareDate / $date")
+    return date == compareDate
+}
+
+@SuppressLint("SimpleDateFormat")
+fun Calendar.formatCalendarPath() : String{
+    val format = SimpleDateFormat("yyyy-MM")
+    return format.format(this.time)
+}
