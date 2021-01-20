@@ -10,14 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.coroutines.*
-import kotlinx.coroutines.Dispatchers.Default
 import org.three.minutes.R
 import org.three.minutes.databinding.FragmentCalenderBinding
 import org.three.minutes.home.adapter.CalendarAdapter
 import org.three.minutes.home.viewmodel.HomeViewModel
-import java.util.*
 import kotlin.coroutines.CoroutineContext
 
 
@@ -27,11 +24,11 @@ class CalenderFragment : Fragment(), CoroutineScope {
         get() = Dispatchers.Main + job
 
     private lateinit var mBinding: FragmentCalenderBinding
-    private val mViewModel : HomeViewModel by activityViewModels()
+    private val mViewModel: HomeViewModel by activityViewModels()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Log.e("Home","Calendar onAttach()")
+        Log.e("Home", "Calendar onAttach()")
 
     }
 
@@ -40,9 +37,9 @@ class CalenderFragment : Fragment(), CoroutineScope {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        Log.e("Home","Calendar onCreatedView()")
+        Log.e("Home", "Calendar onCreatedView()")
 
 
         mBinding =
@@ -55,23 +52,30 @@ class CalenderFragment : Fragment(), CoroutineScope {
             mViewModel
         )
 
-        mViewModel.isCalendarComplete.observe(viewLifecycleOwner,{
-            if (it){
+        mViewModel.isCalendarComplete.observe(viewLifecycleOwner, {
+            if (it) {
                 mBinding.rcvCalendar.adapter = calendarAdp
                 calendarAdp.notifyDataSetChanged()
             }
         })
 
+        mViewModel.weekProgress.observe(viewLifecycleOwner, {
+            mBinding.calendarProgress.setProgressCompat(it, true)
+        })
 
         return mBinding.root
     }
 
-    @SuppressLint("SimpleDateFormat")
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
+    override fun onResume() {
+        super.onResume()
+        mViewModel.callWeekComplete()
+    }
 
-}
+    override fun onPause() {
+        super.onPause()
+        mViewModel.weekProgress.value = 0
+    }
 
 
     override fun onDestroy() {

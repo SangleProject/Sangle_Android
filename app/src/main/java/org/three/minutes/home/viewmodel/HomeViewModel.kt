@@ -5,12 +5,9 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.*
-import org.three.minutes.detail.data.ResponseMyWritingData
-import org.three.minutes.detail.data.ResponseOtherWritingData
 import org.three.minutes.home.data.CalendarData
 import org.three.minutes.home.data.ResponseCalendarData
 import org.three.minutes.home.data.ResponseFameData
-import org.three.minutes.home.ui.HomeActivity
 import org.three.minutes.server.SangleServiceImpl
 import org.three.minutes.util.compareSame
 import org.three.minutes.util.customEnqueue
@@ -24,16 +21,20 @@ class HomeViewModel(application: Application, private val useCase: HomeUseCase) 
     private val job = Job()
     private val viewModelScope = CoroutineScope(Dispatchers.Main + job)
 
-    private val context = getApplication<Application>().applicationContext
+//    private val context = getApplication<Application>().applicationContext
 
     //캘린더 날짜 정보가 들어있는 데이터 클래스 리스트
     private var calendar = GregorianCalendar()
-    var calendarPath = ""
-    var responseCalendarData = arrayListOf<ResponseCalendarData>()
+    private var calendarPath = ""
+    private var responseCalendarData = arrayListOf<ResponseCalendarData>()
     var arrayCalendar = arrayListOf<CalendarData>()
     var year = MutableLiveData(0)
     val month = MutableLiveData(0)
     var isCalendarComplete = MutableLiveData(false)
+
+    // 주별 달성률 관련 데이터
+    var weekProgress = MutableLiveData(0)
+    var percentProgress = MutableLiveData(0) // 퍼센트 숫자 증가 효과를 위한 변수
 
     //token값
     var token: String = ""
@@ -121,10 +122,35 @@ class HomeViewModel(application: Application, private val useCase: HomeUseCase) 
                         arrayCalendar.add(CalendarData(y, m, i, 0, false))
                     }
                 } else { // 날짜에 데이터가 없는 이후부터
-                    arrayCalendar.add(CalendarData(y, m, i, -1, false))
+                    arrayCalendar.add(CalendarData(y, m, i, 0, false))
                 }
             }
             isCalendarComplete.postValue(true)
+        }
+    }
+
+    fun callWeekComplete(){
+        viewModelScope.launch {
+            SangleServiceImpl.service.getWeekComplete(token)
+                .customEnqueue(
+                    onSuccess = {
+                        weekProgress.value = it.percentage
+                        startPercentageIncrease()
+                    },
+                    onError = {
+                        Log.e("HomeActivity", "fun callWeekComplete() error : ${it.code()}")
+                    }
+                )
+        }
+    }
+
+    // 주별 달성률 퍼센트 표시 증가 애니메이션
+    private fun startPercentageIncrease(){
+        viewModelScope.launch {
+            for (i in 0..weekProgress.value!!){
+                percentProgress.value = i
+                delay(50)
+            }
         }
     }
 

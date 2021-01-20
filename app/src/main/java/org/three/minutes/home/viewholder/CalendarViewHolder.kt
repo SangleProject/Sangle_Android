@@ -10,9 +10,6 @@ class CalendarViewHolder (val binding : CalendarDayItemBinding) : RecyclerView.V
 
         binding.calendarData = data
         when(data.count){
-            0 -> {
-                binding.calendarDay.setBackgroundResource(R.drawable.circle_gray)
-            }
             1->{
                 binding.calendarDay.setBackgroundResource(R.drawable.circle_light_mint)
             }
