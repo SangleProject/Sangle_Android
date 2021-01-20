@@ -120,9 +120,8 @@ class HomeViewModel(application: Application, private val useCase: HomeUseCase) 
                     } else {
                         arrayCalendar.add(CalendarData(y, m, i, 0, false))
                     }
-                } else {
+                } else { // 날짜에 데이터가 없는 이후부터
                     arrayCalendar.add(CalendarData(y, m, i, -1, false))
-
                 }
             }
             isCalendarComplete.postValue(true)
