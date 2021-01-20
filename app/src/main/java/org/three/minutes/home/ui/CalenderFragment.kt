@@ -66,6 +66,16 @@ class CalenderFragment : Fragment(), CoroutineScope {
         return mBinding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        mBinding.calenderLeftBtn.setOnClickListener {
+            mViewModel.setInitialCalendarData(-1)
+        }
+        mBinding.calenderRightBtn.setOnClickListener {
+            mViewModel.setInitialCalendarData(1)
+        }
+    }
+
 
     override fun onResume() {
         super.onResume()
