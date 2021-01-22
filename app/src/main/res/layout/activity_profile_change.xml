@@ -88,6 +88,7 @@
             android:inputType="text"
             android:lines="1"
             android:maxLength="10"
+            android:text="@={viewModel.profileName}"
             android:paddingBottom="26dp"
             android:textColor="@color/black_60"
             app:layout_constraintEnd_toEndOf="parent"
@@ -134,6 +135,7 @@
             android:layout_height="wrap_content"
             android:text="@{Integer.toString(viewModel.introduceCount)}"
             android:textColor="@color/black_40"
+            tools:text="10"
             app:layout_constraintBottom_toBottomOf="@+id/num"
             app:layout_constraintEnd_toStartOf="@+id/num"
             app:layout_constraintTop_toTopOf="@+id/num" />

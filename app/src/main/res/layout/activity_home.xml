@@ -61,7 +61,8 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <include
-            layout="@layout/home_navigation"/>
+            layout="@layout/home_navigation"
+            app:viewModel = "@{viewModel}"/>
 
 
     </androidx.drawerlayout.widget.DrawerLayout>
