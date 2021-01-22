@@ -26,6 +26,7 @@ class BadgeActivity : AppCompatActivity() {
             lifecycleOwner = this@BadgeActivity
             viewModel = mViewModel
         }
+        mViewModel.callBadgeList()
 
         StatusObject.setStatusBar(this)
 

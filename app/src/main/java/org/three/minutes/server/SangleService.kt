@@ -1,6 +1,7 @@
 package org.three.minutes.server
 
 import okhttp3.ResponseBody
+import org.three.minutes.badge.data.ResponseBadgeData
 import org.three.minutes.detail.data.ResponseMyWritingData
 import org.three.minutes.detail.data.ResponseOtherWritingData
 import org.three.minutes.home.data.*
@@ -233,5 +234,5 @@ interface SangleService {
     @GET("/badgeList")
     fun getBadgeList(
         @Header("token") token : String
-    )
+    ) : Call<List<ResponseBadgeData>>
 }
