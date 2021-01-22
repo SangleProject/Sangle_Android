@@ -6,7 +6,7 @@
     <data>
         <variable
             name="badgeData"
-            type="org.three.minutes.badge.data.BadgeListData" />
+            type="org.three.minutes.badge.data.ResponseBadgeData" />
 
     </data>
 
@@ -23,8 +23,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/ic_badge01_none"
-            android:scaleType="centerCrop"
+            tools:src="@drawable/ic_badge01_none"
+            app:setGlideBadge="@{badgeData.badgeImg}"
+            android:scaleType="fitXY"
             tools:ignore="ContentDescription" />
 
         <TextView
@@ -36,7 +37,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/badge_img"
-            android:text="@{badgeData.title}"
+            android:text="@{badgeData.badgeName}"
             tools:text="시작이 반이다" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
