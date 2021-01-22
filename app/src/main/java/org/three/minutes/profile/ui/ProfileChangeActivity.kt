@@ -100,7 +100,9 @@ class ProfileChangeActivity : AppCompatActivity() {
         })
         // 소개글 글자 수 카운팅 observer
         mViewModel.introduce.observe(this, { introduce ->
-            mViewModel.introduceCount.value = introduce.length
+            if (introduce != null){
+                mViewModel.introduceCount.value = introduce.length
+            }
         })
     }
 

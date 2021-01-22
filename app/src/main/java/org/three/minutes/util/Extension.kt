@@ -147,7 +147,6 @@ fun String.formatReturn() : Int{
 fun Calendar.compareSame(date : String) : Boolean{
     val format = SimpleDateFormat("yyyy-MM-dd")
     val compareDate = format.format(this.time)
-    Log.e("Extension", "$compareDate / $date")
     return date == compareDate
 }
 
