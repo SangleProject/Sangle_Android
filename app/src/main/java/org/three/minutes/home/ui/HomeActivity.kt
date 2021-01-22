@@ -169,9 +169,8 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PROFILE_CODE) {
             if (resultCode == RESULT_OK) {
-                Toast.makeText(this, "Profile Change Success", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "Profile Change Cancel", Toast.LENGTH_SHORT).show()
+                mViewModel.setInfo()
+                Toast.makeText(this, "프로필을 저장했어요!", Toast.LENGTH_SHORT).show()
             }
         }
     }

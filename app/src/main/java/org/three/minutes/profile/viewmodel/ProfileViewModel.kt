@@ -49,8 +49,8 @@ class ProfileViewModel : ViewModel() {
                     onSuccess = {
                         profileName.value = it.nickName
                         introduce.value = it.info
-                        imgIndex.value = it.imgIndex
-                        Log.e("ProfileActivity","index : ${it.imgIndex}")
+                        imgIndex.value = (it.imgIndex) -1
+//                        Log.e("ProfileActivity","index : ${it.imgIndex}")
                         isCalledProfile.value = true
                     },
                     onError = {

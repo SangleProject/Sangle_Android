@@ -93,7 +93,7 @@ class ProfileChangeActivity : AppCompatActivity() {
         mViewModel.isCalledProfile.observe(this, {
             if (it) {
                 mBinding.profileSelectRcv.adapter = rcvAdpater
-                rcvAdpater.checkedPosition = mViewModel.imgIndex.value!! + 1
+                rcvAdpater.checkedPosition = mViewModel.imgIndex.value!!
                 rcvAdpater.profileList = mViewModel.profileImgList
                 rcvAdpater.notifyDataSetChanged()
             }
