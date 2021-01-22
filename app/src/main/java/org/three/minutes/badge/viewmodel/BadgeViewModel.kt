@@ -22,8 +22,8 @@ class BadgeViewModel : ViewModel() {
     val getToken = ThreeApplication.getInstance().getDataStore().token.asLiveData()
     var token = ""
     //뱃지 리스트를 담아놓은 리스트
-    var badgeList = mutableListOf<BadgeListData>()
     var responseBadgeList = MutableLiveData<List<ResponseBadgeData>>(listOf())
+    var badgeCount = MutableLiveData(0)
 
     fun callBadgeList(){
         viewModelScope.launch {
@@ -31,6 +31,7 @@ class BadgeViewModel : ViewModel() {
                 .customEnqueue(
                     onSuccess = {
                         responseBadgeList.value = it
+                        badgeCount.value = it.size
                     },
                     onError = {
                         Log.e("BadgeActivity","fun callBadgeList() ERROR : ${it.code()}")
