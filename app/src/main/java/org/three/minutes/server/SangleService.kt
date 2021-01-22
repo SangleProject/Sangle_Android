@@ -10,6 +10,7 @@ import org.three.minutes.login.data.ResponseGoogleLoginData
 import org.three.minutes.signup.data.*
 import org.three.minutes.login.data.ResponseLoginData
 import org.three.minutes.mypage.data.ResponseMyInfoData
+import org.three.minutes.profile.data.RequestProfileData
 import org.three.minutes.signup.data.RequestGoogleSignUpData
 import org.three.minutes.word.data.ResponseLastTopicData
 import org.three.minutes.word.data.ResponsePastSearchData
@@ -232,6 +233,7 @@ interface SangleService {
     // 프로필 수정 api
     @PUT("/users/update")
     fun putProfileChange(
-        @Header("token") token : String
+        @Header("token") token : String,
+        @Body body : RequestProfileData
     ) : Call<List<ResponseMainInfoData.Badge>>
 }

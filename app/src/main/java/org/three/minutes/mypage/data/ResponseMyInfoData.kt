@@ -4,5 +4,5 @@ data class ResponseMyInfoData(
     val profileImg : String,
     val nickName : String,
     val info : String,
-    val imgIndex : String
+    val imgIndex : Int
 )

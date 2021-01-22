@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
@@ -13,21 +12,28 @@ import org.three.minutes.R
 import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.ActivityProfileChangeBinding
 import org.three.minutes.profile.adapter.ProfileChangeAdapter
-import org.three.minutes.profile.data.ProfileData
+import org.three.minutes.profile.data.RequestProfileData
 import org.three.minutes.profile.viewmodel.ProfileViewModel
-import org.three.minutes.util.RcvItemDeco
+import org.three.minutes.server.SangleServiceImpl
+import org.three.minutes.util.customEnqueue
+import org.three.minutes.util.showToast
 
 class ProfileChangeActivity : AppCompatActivity() {
-    private val mBinding : ActivityProfileChangeBinding by lazy {
-        DataBindingUtil.setContentView(this,R.layout.activity_profile_change)
+    private val mBinding: ActivityProfileChangeBinding by lazy {
+        DataBindingUtil.setContentView(this, R.layout.activity_profile_change)
     }
-    private val mViewModel : ProfileViewModel by viewModels()
-    private lateinit var mImm : InputMethodManager
+    private val mViewModel: ProfileViewModel by viewModels()
+    private lateinit var mImm: InputMethodManager
+    private lateinit var rcvAdpater: ProfileChangeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_profile_change)
+        mViewModel.getToken.observe(this, {
+            mViewModel.token = it
+        })
         mImm = ThreeApplication.getInstance().getInputMethodManager()
+        mViewModel.callMyInfo()
+        setObserve()
 
         mBinding.apply {
             lifecycleOwner = this@ProfileChangeActivity
@@ -41,23 +47,36 @@ class ProfileChangeActivity : AppCompatActivity() {
 
         TedKeyboardObserver(this)
             .listen { isShow ->
-                if (!isShow){
+                if (!isShow) {
                     clearFocus()
                 }
             }
 
         // 우측 상단 저장 버튼 클릭 이벤트
         mBinding.profileChangedTxt.setOnClickListener {
-            val intent = Intent()
-            setResult(RESULT_OK,intent)
-            finish()
+            if (mViewModel.isOk) {
+                SangleServiceImpl.service.putProfileChange(
+                    mViewModel.token,
+                    RequestProfileData(
+                        nickName = mViewModel.profileName.value!!,
+                        info = mViewModel.introduce.value!!,
+                        profileImg = (rcvAdpater.checkedPosition + 1).toString()
+                    )
+                )
+                    .customEnqueue(
+                        onSuccess = {
+                            val intent = Intent()
+                            setResult(RESULT_OK, intent)
+                            finish()
+                        },
+                        onError = {
+                            Log.e("ProfileChangeActivity", "putProfileChange ERROR : ${it.code()}")
+                        }
+                    )
+            } else {
+                showToast("닉네임을 입력해주세요.")
+            }
         }
-
-        // 소개글 글자 수 카운팅 observer
-        mViewModel.introduce.observe(this,{introduce ->
-            mViewModel.introduceCount.value = introduce.length
-            Log.d("IntroduceCount", "${introduce.length}")
-        })
 
         // 프로필 선택 Single Selection Rcv
         setRcv()
@@ -65,16 +84,33 @@ class ProfileChangeActivity : AppCompatActivity() {
 
     }
 
+    private fun setObserve() {
+
+        // 닉네임을 채워야지만 저장 가능
+        mViewModel.profileName.observe(this, {
+            mViewModel.isOk = it.isNotEmpty()
+        })
+        mViewModel.isCalledProfile.observe(this, {
+            if (it) {
+                mBinding.profileSelectRcv.adapter = rcvAdpater
+                rcvAdpater.checkedPosition = mViewModel.imgIndex.value!! + 1
+                rcvAdpater.profileList = mViewModel.profileImgList
+                rcvAdpater.notifyDataSetChanged()
+            }
+        })
+        // 소개글 글자 수 카운팅 observer
+        mViewModel.introduce.observe(this, { introduce ->
+            mViewModel.introduceCount.value = introduce.length
+        })
+    }
+
     private fun setRcv() {
-        val profileAdapter = ProfileChangeAdapter(this)
-        mBinding.profileSelectRcv.adapter = profileAdapter
-        profileAdapter.profileList = mViewModel.profileImgList
-        profileAdapter.notifyDataSetChanged()
+        rcvAdpater = ProfileChangeAdapter(this)
     }
 
 
-    private fun clearFocus(){
-        if(mImm.isAcceptingText){
+    private fun clearFocus() {
+        if (mImm.isAcceptingText) {
             mImm.hideSoftInputFromWindow(this.currentFocus?.windowToken, 0)
         }
         mBinding.apply {
