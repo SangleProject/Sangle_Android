@@ -32,7 +32,7 @@ class ClosedBadgePopup(context : Context, private val data : BadgeData) : Dialog
 
         Glide.with(context).load(data.badgeImg).into(close_badge_img)
         close_badge_title.text = data.badgeName
-        close_badge_how_to_txt.text = data.badgeInfo
+        close_badge_challenge.text = data.badgeInfo
 
         close_badge_cancel.setOnClickListener {
             dismiss()

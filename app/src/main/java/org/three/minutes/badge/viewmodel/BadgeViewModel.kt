@@ -31,7 +31,7 @@ class BadgeViewModel : ViewModel() {
                 .customEnqueue(
                     onSuccess = {
                         responseBadgeList.value = it
-                        badgeCount.value = it.size
+                        badgeCount.value = it.filter { data -> data.status }.size
                     },
                     onError = {
                         Log.e("BadgeActivity","fun callBadgeList() ERROR : ${it.code()}")

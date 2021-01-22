@@ -110,6 +110,15 @@ fun ImageView.setGlide(img: String?) {
         .into(this)
 }
 
+@BindingAdapter("app:setGlideBadge")
+fun ImageView.setGlideBadge(img: String?) {
+    Glide.with(this.context)
+        .load(img)
+        .placeholder(R.drawable.ic_badge01_none)
+        .error(R.drawable.ic_badge01_none)
+        .into(this)
+}
+
 // My 서랍 내가 쓴 글 rcv
 @BindingAdapter("app:setMyPost")
 fun RecyclerView.setMyPost(data: MutableList<ResponseMyWritingData>) {
