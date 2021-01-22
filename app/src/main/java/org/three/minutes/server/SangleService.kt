@@ -228,4 +228,10 @@ interface SangleService {
     fun getWeekComplete(
         @Header("token") token : String
     ) : Call<ResponseWeekCompleteData>
+
+    // 뱃지 리스트 가져오기 api
+    @GET("/badgeList")
+    fun getBadgeList(
+        @Header("token") token : String
+    )
 }
