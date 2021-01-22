@@ -228,4 +228,10 @@ interface SangleService {
     fun getWeekComplete(
         @Header("token") token : String
     ) : Call<ResponseWeekCompleteData>
+
+    // 프로필 수정 api
+    @PUT("/users/update")
+    fun putProfileChange(
+        @Header("token") token : String
+    ) : Call<List<ResponseMainInfoData.Badge>>
 }

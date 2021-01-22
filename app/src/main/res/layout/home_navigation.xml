@@ -5,7 +5,9 @@
     tools:ignore="HardcodedText,ContentDescription,RtlSymmetry">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="org.three.minutes.home.viewmodel.HomeViewModel" />
     </data>
 
 
@@ -50,7 +52,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:text="아이디"
+                android:text="@{viewModel.nickName}"
+                tools:text="아이디"
                 android:textColor="@color/black_100"
                 app:layout_constraintBottom_toBottomOf="@+id/navi_profile_img"
                 app:layout_constraintStart_toEndOf="@+id/navi_profile_img"
@@ -63,7 +66,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="12dp"
-                android:src="@drawable/profile1"
+                app:setGlide="@{viewModel.profileImg}"
+                tools:src="@drawable/profile1"
                 app:layout_constraintBottom_toTopOf="@+id/guideline2"
                 app:layout_constraintDimensionRatio="H,1:1"
                 app:layout_constraintEnd_toStartOf="@+id/navi_nick_txt"
