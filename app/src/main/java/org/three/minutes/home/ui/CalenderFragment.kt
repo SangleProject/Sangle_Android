@@ -26,12 +26,6 @@ class CalenderFragment : Fragment(), CoroutineScope {
     private lateinit var mBinding: FragmentCalenderBinding
     private val mViewModel: HomeViewModel by activityViewModels()
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        Log.e("Home", "Calendar onAttach()")
-
-    }
-
 
     @SuppressLint("SimpleDateFormat")
     override fun onCreateView(
@@ -39,8 +33,6 @@ class CalenderFragment : Fragment(), CoroutineScope {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        Log.e("Home", "Calendar onCreatedView()")
-
 
         mBinding =
             DataBindingUtil.inflate(layoutInflater, R.layout.fragment_calender, container, false)

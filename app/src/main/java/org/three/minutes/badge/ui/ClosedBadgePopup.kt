@@ -6,10 +6,12 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.WindowManager
-import kotlinx.android.synthetic.main.badge_opened_popup.*
+import com.bumptech.glide.Glide
+import kotlinx.android.synthetic.main.badge_closed_popup.*
 import org.three.minutes.R
+import org.three.minutes.writing.data.BadgeData
 
-class ClosedBadgePopup(context : Context) : Dialog(context) {
+class ClosedBadgePopup(context : Context, private val data : BadgeData) : Dialog(context) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +30,11 @@ class ClosedBadgePopup(context : Context) : Dialog(context) {
 
         window?.attributes = lp
 
-        badge_cancle.setOnClickListener {
+        Glide.with(context).load(data.badgeImg).into(close_badge_img)
+        close_badge_title.text = data.badgeName
+        close_badge_challenge.text = data.badgeInfo
+
+        close_badge_cancel.setOnClickListener {
             dismiss()
         }
     }

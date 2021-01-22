@@ -6,16 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.three.minutes.badge.data.BadgeListData
+import org.three.minutes.badge.data.ResponseBadgeData
 import org.three.minutes.badge.viewholder.BadgeListViewHolder
 import org.three.minutes.databinding.BadgeItemListBinding
 
 class BadgeListAdapter(val context : Context) : RecyclerView.Adapter<BadgeListViewHolder>() {
 
     interface OnItemClickListener{
-        fun onItemClick(v : View, data : BadgeListData)
+        fun onItemClick(v : View, data : ResponseBadgeData)
     }
 
-    var data = mutableListOf<BadgeListData>()
+    var data = mutableListOf<ResponseBadgeData>()
     private lateinit var listener : OnItemClickListener
 
     fun setOnItemClickListener(listener : OnItemClickListener){

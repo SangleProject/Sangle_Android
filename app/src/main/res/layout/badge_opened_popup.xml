@@ -16,7 +16,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/badge_popup_frame"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginTop="46dp"
             android:background="@drawable/calender_frame"
             app:layout_constraintEnd_toEndOf="parent"
@@ -31,7 +31,7 @@
                 app:layout_constraintGuide_percent="0.39" />
 
             <TextView
-                android:id="@+id/badge_title"
+                android:id="@+id/open_badge_title"
                 style="@style/H3_18pt_SemiBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
                 app:layout_constraintTop_toTopOf="@+id/horizontal_guideline" />
 
             <TextView
-                android:id="@+id/badge_info"
+                android:id="@+id/open_badge_info"
                 style="@style/P6_12pt_Regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -54,19 +54,20 @@
                 android:text="@string/badge_popup_info_sample"
                 android:textAlignment="center"
                 android:textColor="@color/black_60"
+                android:minLines="3"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/badge_title" />
+                app:layout_constraintTop_toBottomOf="@+id/open_badge_title" />
 
             <ImageView
-                android:id="@+id/badge_cancle"
+                android:id="@+id/open_badge_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="12dp"
                 android:padding="12dp"
-                android:src="@drawable/ic_cancle"
+                android:src="@drawable/ic_cancel"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ContentDescription" />
@@ -74,7 +75,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
-            android:id="@+id/badge_img"
+            android:id="@+id/open_badge_img"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:src="@drawable/ic_badge11_xl"

@@ -84,7 +84,6 @@ class HomeViewModel(application: Application, private val useCase: HomeUseCase) 
                 .customEnqueue(
                     onSuccess = {
                         responseCalendarData = it as ArrayList<ResponseCalendarData>
-                        Log.e("HomeActivity","CalendarData = $responseCalendarData")
                         addDayData()
                     },
                     onError = {
