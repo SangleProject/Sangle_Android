@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".writing.ui.WritingEditActivity"></activity>
+        <activity android:name=".profile.ui.OtherProfileActivity"></activity>
+        <activity android:name=".writing.ui.WritingEditActivity" />
 
         <service
             android:name=".server.SangleMessageService"
