@@ -258,7 +258,7 @@ interface SangleService {
         @Header("token") token : String,
         @Path("nickName") nickName : String
     ) : Call<List<ResponseOtherWritingData>>
-    
+
     // 다른 유저 피드 인기순
     @GET("/main/diffFeed/{nickName}")
     fun getDiffFeedPopular(
