@@ -15,7 +15,7 @@ import org.three.minutes.util.formatCount
 class OtherProfileRcvAdapter
     : RecyclerView.Adapter<OtherProfileRcvAdapter.OtherProfileViewHolder>() {
 
-    val data = listOf<ResponseOtherWritingData>()
+    var data = listOf<ResponseOtherWritingData>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OtherProfileViewHolder {

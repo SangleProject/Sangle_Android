@@ -18,6 +18,7 @@ import org.three.minutes.detail.data.ResponseOtherWritingData
 import org.three.minutes.home.data.ResponseTodayTopicData
 import org.three.minutes.mypage.adapter.MyScrapAdapter
 import org.three.minutes.mypage.adapter.MyWritingAdapter
+import org.three.minutes.profile.adapter.OtherProfileRcvAdapter
 import org.three.minutes.word.adapter.SearchWritingAdapter
 import org.three.minutes.word.adapter.TodayWordRcvAdapter
 import org.three.minutes.word.data.ResponsePastSearchData
@@ -136,6 +137,18 @@ fun RecyclerView.setMyPost(data: MutableList<ResponseMyWritingData>) {
 fun RecyclerView.setMyScrap(data: MutableList<ResponseOtherWritingData>) {
     val rcvAdapter = MyScrapAdapter(this.context)
     this.apply {
+        adapter = rcvAdapter
+        layoutManager = LinearLayoutManager(this.context)
+    }
+    rcvAdapter.data = data
+    rcvAdapter.notifyDataSetChanged()
+}
+
+// 남의 프로필 리스트 rcv
+@BindingAdapter("app:setOtherProfileList")
+fun RecyclerView.setOtherProfileList(data : List<ResponseOtherWritingData>){
+    val rcvAdapter = OtherProfileRcvAdapter()
+    this.apply{
         adapter = rcvAdapter
         layoutManager = LinearLayoutManager(this.context)
     }
