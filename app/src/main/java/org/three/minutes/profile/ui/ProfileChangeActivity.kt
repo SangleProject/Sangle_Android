@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.WindowInsets
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
@@ -31,6 +33,8 @@ class ProfileChangeActivity : AppCompatActivity() {
         mViewModel.getToken.observe(this, {
             mViewModel.token = it
         })
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+
         mImm = ThreeApplication.getInstance().getInputMethodManager()
         mViewModel.callMyInfo()
         setObserve()
@@ -100,7 +104,9 @@ class ProfileChangeActivity : AppCompatActivity() {
         })
         // 소개글 글자 수 카운팅 observer
         mViewModel.introduce.observe(this, { introduce ->
-            mViewModel.introduceCount.value = introduce.length
+            if (introduce != null){
+                mViewModel.introduceCount.value = introduce.length
+            }
         })
     }
 

@@ -50,7 +50,8 @@ class ProfileViewModel : ViewModel() {
                         profileName.value = it.nickName
                         introduce.value = it.info
                         imgIndex.value = (it.imgIndex) -1
-//                        Log.e("ProfileActivity","index : ${it.imgIndex}")
+                        Log.e("ProfileActivity","index : ${it.imgIndex}")
+                        Log.e("ProfileActivity","img : ${it.profileImg}")
                         isCalledProfile.value = true
                     },
                     onError = {

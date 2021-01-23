@@ -99,7 +99,7 @@ class HomeViewModel(application: Application, private val useCase: HomeUseCase) 
             val emptyDay = calendar.get(Calendar.DAY_OF_WEEK) - 1 // 비어 있는 요일
             val max = calendar.getActualMaximum(Calendar.DAY_OF_MONTH) //마지막 날짜
 
-            for (i in 0..emptyDay) {
+            for (i in 0 until emptyDay) {
                 arrayCalendar.add(CalendarData(0, 0, 0, empty = true))
             }
 

@@ -144,14 +144,12 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
     }
 
     override fun onBackPressed() {
-//        if (mBinding.homeDrawer.isDrawerOpen(GravityCompat.START)) {
-//            mBinding.homeDrawer.closeDrawer(GravityCompat.START)
-//        } else {
-//            super.onBackPressed()
-//        }
-        super.onBackPressed()
-        ActivityCompat.finishAffinity(this)
-//        exitProcess(0)
+        if (mBinding.homeDrawer.isDrawerOpen(GravityCompat.START)) {
+            mBinding.homeDrawer.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+            ActivityCompat.finishAffinity(this)
+        }
     }
 
     override fun finish() {
