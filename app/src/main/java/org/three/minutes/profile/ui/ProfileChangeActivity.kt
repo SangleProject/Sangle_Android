@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.WindowInsets
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
@@ -31,6 +33,8 @@ class ProfileChangeActivity : AppCompatActivity() {
         mViewModel.getToken.observe(this, {
             mViewModel.token = it
         })
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+
         mImm = ThreeApplication.getInstance().getInputMethodManager()
         mViewModel.callMyInfo()
         setObserve()
