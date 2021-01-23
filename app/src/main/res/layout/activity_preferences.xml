@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="HardcodedText">
+
+    <data>
+
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black_40"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:elevation="2dp">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/draw_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:navigationIcon="@drawable/ic__back_black">
+
+                <TextView
+                    style="@style/H3_18pt_Regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="설정"
+                    android:textColor="@color/black_100" />
+
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <TextView
+            android:id="@+id/configuration_notify_title"
+            style="@style/P3_14pt_Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp"
+            android:text="알림 설정"
+            android:textColor="@color/black_60" />
+
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/notification_all_switch"
+            style="@style/P2_16pt_Light"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:checked="true"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp"
+            android:text="전체 알림 받기"
+            android:textColor="@color/black_100"
+            android:theme="@style/MaterialTheme" />
+
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/notification_notice_switch"
+            style="@style/P2_16pt_Light"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:checked="true"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp"
+            android:text="공지 알림"
+            android:textColor="@color/black_100"
+            android:theme="@style/MaterialTheme" />
+
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/notification_motive_switch"
+            style="@style/P2_16pt_Light"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:checked="true"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp"
+            android:text="동기부여 Push 알림"
+            android:textColor="@color/black_100"
+            android:theme="@style/MaterialTheme" />
+
+
+    </LinearLayout>
+
+</layout>

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
@@ -8,8 +8,25 @@
         <item name="android:windowBackground">@color/white</item>
         <item name="bottomSheetDialogTheme">@style/customBottomSheet</item>
         <item name="actionOverflowButtonStyle">@style/OverFlow</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="colorSecondary">@color/main_blue</item>
 <!--        <item name="android:windowAnimationStyle"></item>-->
     </style>
+
+    <style name="MaterialTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/main_blue</item>
+        <item name="colorPrimaryVariant">@color/white</item>
+        <item name="colorOnPrimary">@color/main_blue</item>
+
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/black_60</item>
+
+        <item name="colorSecondary">@color/main_blue</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+    </style>
+
+
     <style name="OverFlow" parent="Widget.AppCompat.ActionButton.Overflow">
         <item name="android:tint">@color/white</item>
     </style>
