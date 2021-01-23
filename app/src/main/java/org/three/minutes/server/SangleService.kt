@@ -12,6 +12,7 @@ import org.three.minutes.signup.data.*
 import org.three.minutes.login.data.ResponseLoginData
 import org.three.minutes.mypage.data.ResponseMyInfoData
 import org.three.minutes.profile.data.RequestProfileData
+import org.three.minutes.profile.data.ResponseDiffProfileData
 import org.three.minutes.signup.data.RequestGoogleSignUpData
 import org.three.minutes.word.data.ResponseLastTopicData
 import org.three.minutes.word.data.ResponsePastSearchData
@@ -244,4 +245,25 @@ interface SangleService {
         @Header("token") token : String
     ) : Call<List<ResponseBadgeData>>
 
+    // 다른 유저 프로필 가져오기 api
+    @GET("/main/diffProfile/{nickName}")
+    fun getDiffProfileInfo(
+        @Header("token") token : String,
+        @Path("nickName") nickName : String
+    ) : Call<ResponseDiffProfileData>
+
+    // 다른 유저 피드 최신순 ( default )
+    @GET("/main/diffFeed/{nickName}")
+    fun getDiffFeedRecent(
+        @Header("token") token : String,
+        @Path("nickName") nickName : String
+    ) : Call<List<ResponseOtherWritingData>>
+
+    // 다른 유저 피드 인기순
+    @GET("/main/diffFeed/{nickName}")
+    fun getDiffFeedPopular(
+        @Header("token") token : String,
+        @Path("nickName") nickName : String,
+        @Query("filter") filter : String = "popular"
+    ) : Call<List<ResponseOtherWritingData>>
 }

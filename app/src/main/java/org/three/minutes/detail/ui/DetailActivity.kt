@@ -1,5 +1,6 @@
 package org.three.minutes.detail.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -10,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import org.three.minutes.R
 import org.three.minutes.databinding.ActivityDetailBinding
 import org.three.minutes.detail.viewmodel.DetailOtherViewModel
+import org.three.minutes.profile.ui.OtherProfileActivity
 
 class DetailActivity : AppCompatActivity() {
     private val mBinding : ActivityDetailBinding by lazy {
@@ -32,12 +34,18 @@ class DetailActivity : AppCompatActivity() {
         getIntentData()
         mViewModel.callOtherDetailData()
 
-        // 팩토리 패턴을 이용해서 파라미터 값 생성
+
         mBinding.viewmodel = mViewModel
 
         setTextSizeButton()
         setLikeListener()
         setScrapListener()
+
+        mBinding.profileId.setOnClickListener {
+            val intent = Intent(this,OtherProfileActivity::class.java)
+            intent.putExtra("nickName",mViewModel.detailData.value?.nickName ?: "")
+            startActivity(intent)
+        }
 
     }
 
