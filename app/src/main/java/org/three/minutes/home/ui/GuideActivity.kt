@@ -16,6 +16,9 @@ class GuideActivity : AppCompatActivity() {
             lifecycleOwner = this@GuideActivity
         }
 
+        mBinding.drawToolbar.setNavigationOnClickListener {
+            finish()
+        }
 
     }
 }
