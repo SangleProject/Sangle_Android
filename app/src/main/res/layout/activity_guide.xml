@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="HardcodedText">
-
-
-
+    tools:ignore="HardcodedText,ContentDescription">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -66,19 +62,188 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:id="@+id/textView17"
                     style="@style/P4_14pt_Light"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
                     android:text="생글과 함께 말랑하게 머리 굴리기"
                     android:textColor="@color/black_60"
-                    android:layout_marginTop="4dp"
                     app:layout_constraintStart_toStartOf="@+id/textView16"
                     app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
+                <ImageView
+                    android:id="@+id/num1_img"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="30dp"
+                    app:layout_constraintWidth_percent="0.05"
+                    app:layout_constraintDimensionRatio="1"
+                    android:src="@drawable/ic_number1"
+                    app:layout_constraintStart_toStartOf="@+id/textView17"
+                    app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
                 <TextView
+                    android:id="@+id/guide1_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:drawableStartCompat="@drawable/ic_number1" />
+                    android:layout_marginStart="4dp"
+                    android:text="@string/guide_one"
+                    app:layout_constraintStart_toEndOf="@+id/num1_img"
+                    app:layout_constraintTop_toTopOf="@+id/num1_img" />
+
+                <ImageView
+                    android:id="@+id/guide1_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:adjustViewBounds="true"
+                    android:paddingHorizontal="16dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/guide_img01"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/guide1_txt" />
+
+                <ImageView
+                    android:id="@+id/num2_img"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="32dp"
+                    app:layout_constraintWidth_percent="0.05"
+                    app:layout_constraintDimensionRatio="1"
+                    android:src="@drawable/ic_number2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/guide1_img" />
+
+                <TextView
+                    android:id="@+id/guide2_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="@string/guide_two"
+                    app:layout_constraintStart_toEndOf="@+id/num2_img"
+                    app:layout_constraintTop_toTopOf="@+id/num2_img" />
+
+                <ImageView
+                    android:id="@+id/guide2_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:adjustViewBounds="true"
+                    android:paddingHorizontal="16dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/guide_img02"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/guide2_txt" />
+
+                <ImageView
+                    android:id="@+id/num3_img"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="32dp"
+                    android:src="@drawable/ic_number3"
+                    app:layout_constraintWidth_percent="0.05"
+                    app:layout_constraintDimensionRatio="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/guide2_img" />
+
+                <TextView
+                    android:id="@+id/guide3_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="@string/guide_three"
+                    app:layout_constraintStart_toEndOf="@+id/num3_img"
+                    app:layout_constraintTop_toTopOf="@+id/num3_img" />
+
+                <ImageView
+                    android:id="@+id/guide3_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:adjustViewBounds="true"
+                    android:paddingHorizontal="16dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/guide_img03"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/guide3_txt" />
+
+                <ImageView
+                    android:id="@+id/num4_img"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="32dp"
+                    android:src="@drawable/ic_number4"
+                    app:layout_constraintWidth_percent="0.05"
+                    app:layout_constraintDimensionRatio="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/guide3_img" />
+
+                <TextView
+                    android:id="@+id/guide4_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="@string/guide_four"
+                    android:layout_marginEnd="19dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/num4_img"
+                    app:layout_constraintTop_toTopOf="@+id/num4_img" />
+
+                <ImageView
+                    android:id="@+id/guide4_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:adjustViewBounds="true"
+                    android:paddingHorizontal="16dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/guide_img04"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/guide4_txt" />
+
+                <ImageView
+                    android:id="@+id/num5_img"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="32dp"
+                    android:src="@drawable/ic_number5"
+                    app:layout_constraintWidth_percent="0.05"
+                    app:layout_constraintDimensionRatio="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/guide4_img" />
+
+                <TextView
+                    android:id="@+id/guide5_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="@string/guide_five"
+                    android:layout_marginEnd="15dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/num5_img"
+                    app:layout_constraintTop_toTopOf="@+id/num5_img" />
+
+                <ImageView
+                    android:id="@+id/guide5_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:adjustViewBounds="true"
+                    android:paddingHorizontal="16dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/guide_img05"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/guide5_txt" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
