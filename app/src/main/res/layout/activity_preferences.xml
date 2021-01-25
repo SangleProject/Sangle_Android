@@ -13,7 +13,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black_40"
+        android:background="@color/light_light_gray"
         android:orientation="vertical">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -93,6 +93,77 @@
             android:textColor="@color/black_100"
             android:theme="@style/MaterialTheme" />
 
+        <TextView
+            android:id="@+id/configuration_etc_title"
+            style="@style/P3_14pt_Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="기타"
+            android:textColor="@color/black_60" />
+
+        <TextView
+            android:id="@+id/configuration_my_like_txt"
+            style="@style/P2_16pt_Light"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:background="@color/white"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp"
+            android:text="내가 좋아요 한 글"
+            android:textColor="@color/black_100"
+            app:drawableEndCompat="@drawable/ic_right"
+            app:drawableTint="@color/black_40" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp">
+
+            <TextView
+                android:id="@+id/configuration_version_txt"
+                style="@style/P2_16pt_Light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/version_info"
+                android:textColor="@color/black_100" />
+
+            <TextView
+                android:id="@+id/configuration_version_recent_txt"
+                style="@style/P6_12pt_Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="@string/version_recent"
+                android:textColor="@color/black_40" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/configuration_logout_txt"
+            style="@style/P2_16pt_Light"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp"
+            android:text="로그아웃"
+            android:background="@color/white"
+            android:textColor="@color/red"
+            android:layout_marginTop="16dp"/>
+
+        <TextView
+            android:id="@+id/configuration_withdrawal_txt"
+            style="@style/P6_12pt_Regular"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/black_60"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            android:text="@string/withdrawal"/>
 
     </LinearLayout>
 

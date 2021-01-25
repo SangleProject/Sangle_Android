@@ -32,4 +32,7 @@
     <string name="how_to_get">획득방법</string>
     <string name="badge_hot_to_get">내가 쓴 글에 하트를 3개 받아요.</string>
     <string name="FCM_Channel_title">Sangle</string>
+    <string name="version_info">버전 정보 V 1.0.0</string>
+    <string name="version_recent">현재 최신 버전 사용 중입니다.</string>
+    <string name="withdrawal"><u>생글 회원탈퇴</u></string>
 </resources>
