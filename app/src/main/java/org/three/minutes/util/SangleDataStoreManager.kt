@@ -1,6 +1,7 @@
 package org.three.minutes.util
 
 import android.content.Context
+import android.util.Log
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.preferencesKey
@@ -101,43 +102,15 @@ class SangleDataStoreManager(val context: Context) {
         }
     }
 
-    suspend fun setEnableAllPush() {
+    suspend fun setNotificationPush(check : Boolean) {
         dataStore.edit { preferences ->
-            preferences[isNotificationKey] = true
-            preferences[isMotiveKey] = true
+            preferences[isNotificationKey] = check
         }
     }
 
-    suspend fun setEnableNotificationPush() {
+    suspend fun setMotivePush(check : Boolean) {
         dataStore.edit { preferences ->
-            preferences[isNotificationKey] = true
-        }
-    }
-
-    suspend fun setEnableMotivePush() {
-        dataStore.edit { preferences ->
-            preferences[isMotiveKey] = true
-
-        }
-    }
-
-    suspend fun setDisableAllPush() {
-        dataStore.edit { preferences ->
-            preferences[isNotificationKey] = false
-            preferences[isMotiveKey] = false
-        }
-    }
-
-    suspend fun setDisableNotificationPush() {
-        dataStore.edit { preferences ->
-            preferences[isNotificationKey] = false
-        }
-    }
-
-    suspend fun setDisableMotivePush() {
-        dataStore.edit { preferences ->
-            preferences[isMotiveKey] = false
-
+            preferences[isMotiveKey] = check
         }
     }
 
