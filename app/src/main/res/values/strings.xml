@@ -35,4 +35,10 @@
     <string name="version_info">버전 정보 V 1.0.0</string>
     <string name="version_recent">현재 최신 버전 사용 중입니다.</string>
     <string name="withdrawal"><u>생글 회원탈퇴</u></string>
+    <string name="what_is_sangle">생글이란?&#x1270D;</string>
+    <string name="guide_one">생글은 생글의 큐레이터가 던져주는 글감에 대해\n3분 동안 자유롭게 글을 쓸 수 있어요.</string>
+    <string name="guide_two">내가 즉흥적으로 쓴 글, 어때요?\n어딘가 부족하다면 글을 쓴 후에 수정할 수도 있어요.</string>
+    <string name="guide_three">이 글감에 대해 다른 사람들은 어떻게 생각할까요?\n다양한 생각을 보고, 좋은 글은 두고두고 봐요.</string>
+    <string name="guide_four">하루에 새로운 글감은 3개만 제공되어서 너무 아쉽죠?\n이전 글감들을 찾고 써 볼 수 있어요.</string>
+    <string name="guide_five">열심히 글을 쓰다보면 어느새 귀여운 배지들이 한가득!\n배지도 하나씩 모아볼까요?</string>
 </resources>

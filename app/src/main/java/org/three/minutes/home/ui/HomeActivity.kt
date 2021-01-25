@@ -123,6 +123,12 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
             val intent = Intent(this, PreferencesActivity::class.java)
             startActivity(intent)
         }
+
+        // 이용 안내 클릭 시 이용 안내 화면으로 이동동
+       mBinding.homeDrawer.navi_info_txt.setOnClickListener {
+            val intent = Intent(this, GuideActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun initViewPager() {
