@@ -23,6 +23,7 @@ import org.three.minutes.home.viewmodel.HomeUseCase
 import org.three.minutes.home.viewmodel.HomeViewModel
 import org.three.minutes.home.viewmodel.HomeViewModelFactory
 import org.three.minutes.mypage.ui.MyPageActivity
+import org.three.minutes.preferences.ui.PreferencesActivity
 import org.three.minutes.profile.ui.ProfileChangeActivity
 import org.three.minutes.util.customChangeListener
 import org.three.minutes.word.ui.WordActivity
@@ -114,6 +115,12 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
         // 뱃지 탭 클릭 시 뱃지 화면으로 이동
         mBinding.homeDrawer.navi_badge.setOnClickListener {
             val intent = Intent(this, BadgeActivity::class.java)
+            startActivity(intent)
+        }
+
+        // 설정 아이콘 클릭 시 설정 화면으로 이동
+        mBinding.homeDrawer.ic_setting.setOnClickListener {
+            val intent = Intent(this, PreferencesActivity::class.java)
             startActivity(intent)
         }
     }

@@ -22,7 +22,14 @@ class PreferencesActivity : AppCompatActivity() {
             lifecycleOwner = this@PreferencesActivity
         }
 
-        mBinding.notificationAllSwitch.isEnabled = false
+        setToolbar()
 
+    }
+
+    private fun setToolbar() {
+        // 뒤로가기 키 누르면 뒤로가기
+        mBinding.drawToolbar.setNavigationOnClickListener {
+            finish()
+        }
     }
 }
