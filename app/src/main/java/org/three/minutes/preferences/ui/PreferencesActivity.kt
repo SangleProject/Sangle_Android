@@ -7,7 +7,6 @@ import androidx.databinding.DataBindingUtil
 import org.three.minutes.R
 import org.three.minutes.databinding.ActivityPreferencesBinding
 import org.three.minutes.singleton.StatusObject
-import javax.net.ssl.SSLEngineResult
 
 class PreferencesActivity : AppCompatActivity() {
     private val mBinding : ActivityPreferencesBinding by lazy{

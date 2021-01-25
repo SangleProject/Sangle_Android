@@ -17,6 +17,8 @@ class SangleDataStoreManager(val context: Context) {
         val deviceTokenKey = preferencesKey<String>("deviceToken")
         val tokenKey = preferencesKey<String>("token")
         val refreshTokenKey = preferencesKey<String>("refreshToken")
+        val isNotificationKey = preferencesKey<Boolean>("notification")
+        val isMotiveKey = preferencesKey<Boolean>("motive")
     }
 
     val deviceToken: Flow<String> = dataStore.data
@@ -32,24 +34,46 @@ class SangleDataStoreManager(val context: Context) {
 
     val token: Flow<String> = dataStore.data
         .catch { exception ->
-        if (exception is IOException) {
-            emit(emptyPreferences())
-        } else {
-            throw exception
+            if (exception is IOException) {
+                emit(emptyPreferences())
+            } else {
+                throw exception
+            }
+        }.map {
+            it[tokenKey] ?: ""
         }
-    }.map {
-        it[tokenKey] ?: ""
-    }
 
     val refreshToken: Flow<String> = dataStore.data
-        .catch {exception ->
-            if(exception is IOException){
+        .catch { exception ->
+            if (exception is IOException) {
                 emit(emptyPreferences())
-            } else{
+            } else {
                 throw exception
             }
         }.map {
             it[refreshTokenKey] ?: ""
+        }
+
+    val isNotification: Flow<Boolean> = dataStore.data
+        .catch { exception ->
+            if (exception is IOException) {
+                emit(emptyPreferences())
+            } else {
+                throw exception
+            }
+        }.map {
+            it[isNotificationKey] ?: true
+        }
+
+    val isMotive: Flow<Boolean> = dataStore.data
+        .catch { exception ->
+            if (exception is IOException) {
+                emit(emptyPreferences())
+            } else {
+                throw exception
+            }
+        }.map {
+            it[isMotiveKey] ?: true
         }
 
     suspend fun setDeviceToken(deviceToken: String) {
@@ -70,11 +94,50 @@ class SangleDataStoreManager(val context: Context) {
         }
     }
 
-    suspend fun setReTokens(token : String, refresh : String) {
-        dataStore.edit {
-            preferences ->
+    suspend fun setReTokens(token: String, refresh: String) {
+        dataStore.edit { preferences ->
             preferences[tokenKey] = token
             preferences[refreshTokenKey] = refresh
+        }
+    }
+
+    suspend fun setEnableAllPush() {
+        dataStore.edit { preferences ->
+            preferences[isNotificationKey] = true
+            preferences[isMotiveKey] = true
+        }
+    }
+
+    suspend fun setEnableNotificationPush() {
+        dataStore.edit { preferences ->
+            preferences[isNotificationKey] = true
+        }
+    }
+
+    suspend fun setEnableMotivePush() {
+        dataStore.edit { preferences ->
+            preferences[isMotiveKey] = true
+
+        }
+    }
+
+    suspend fun setDisableAllPush() {
+        dataStore.edit { preferences ->
+            preferences[isNotificationKey] = false
+            preferences[isMotiveKey] = false
+        }
+    }
+
+    suspend fun setDisableNotificationPush() {
+        dataStore.edit { preferences ->
+            preferences[isNotificationKey] = false
+        }
+    }
+
+    suspend fun setDisableMotivePush() {
+        dataStore.edit { preferences ->
+            preferences[isMotiveKey] = false
+
         }
     }
 
