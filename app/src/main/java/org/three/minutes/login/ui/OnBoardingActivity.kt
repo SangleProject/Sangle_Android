@@ -15,6 +15,7 @@ import org.three.minutes.R
 import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.ActivityOnBoardingBinding
 import org.three.minutes.login.adapter.OnBoardingViewPagerAdapter
+import org.three.minutes.singleton.StatusObject
 
 class OnBoardingActivity : AppCompatActivity() {
     private val mBinding: ActivityOnBoardingBinding by lazy {
@@ -24,10 +25,20 @@ class OnBoardingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        StatusObject.setStatusBar(this)
+
         initViewPager()
         mBinding.onBoardingSkip.setOnClickListener {
             setDataStoreOnBoarding()
         }
+
+        mBinding.onBoardingSkip
+            .setTextColor(
+                ContextCompat.getColor(
+                    this@OnBoardingActivity,
+                    R.color.white
+                )
+            )
 
     }
 
@@ -35,19 +46,19 @@ class OnBoardingActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.Main).launch {
             launch {
                 ThreeApplication.getInstance().getDataStore().setOnBoarding(false)
-                Log.e("OnBoardingActivity","Ok")
+                Log.e("OnBoardingActivity", "Ok")
             }.join()
             callMainActivity()
         }
     }
 
-    private fun callMainActivity(){
-        val intent = Intent(this,MainActivity::class.java)
+    private fun callMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
     }
 
-    private fun initViewPager(){
+    private fun initViewPager() {
         mBinding.onBoardingViewpager.apply {
             adapter = OnBoardingViewPagerAdapter(supportFragmentManager)
             offscreenPageLimit = 2
@@ -57,7 +68,8 @@ class OnBoardingActivity : AppCompatActivity() {
                     position: Int,
                     positionOffset: Float,
                     positionOffsetPixels: Int
-                ) {}
+                ) {
+                }
 
                 override fun onPageSelected(position: Int) {
                     // 현재 인덱스에 따라 skip 색상 변경
@@ -70,7 +82,7 @@ class OnBoardingActivity : AppCompatActivity() {
                                         R.color.white
                                     )
                                 )
-                            if (mBinding.onBoardingSkip.visibility != View.VISIBLE){
+                            if (mBinding.onBoardingSkip.visibility != View.VISIBLE) {
                                 mBinding.onBoardingSkip.visibility = View.VISIBLE
                             }
                         }
@@ -85,7 +97,7 @@ class OnBoardingActivity : AppCompatActivity() {
                                         R.color.main_blue
                                     )
                                 )
-                            if (mBinding.onBoardingSkip.visibility != View.VISIBLE){
+                            if (mBinding.onBoardingSkip.visibility != View.VISIBLE) {
                                 mBinding.onBoardingSkip.visibility = View.VISIBLE
                             }
                         }
