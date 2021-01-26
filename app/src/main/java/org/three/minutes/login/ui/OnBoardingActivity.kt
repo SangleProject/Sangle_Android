@@ -17,6 +17,7 @@ import org.three.minutes.databinding.ActivityOnBoardingBinding
 import org.three.minutes.login.adapter.OnBoardingViewPagerAdapter
 import org.three.minutes.singleton.StatusObject
 
+
 class OnBoardingActivity : AppCompatActivity() {
     private val mBinding: ActivityOnBoardingBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_on_boarding)
@@ -42,7 +43,7 @@ class OnBoardingActivity : AppCompatActivity() {
 
     }
 
-    private fun setDataStoreOnBoarding() {
+    fun setDataStoreOnBoarding() {
         CoroutineScope(Dispatchers.Main).launch {
             launch {
                 ThreeApplication.getInstance().getDataStore().setOnBoarding(false)

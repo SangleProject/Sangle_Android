@@ -24,6 +24,10 @@ class OnBoardingFragment6 : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.onBoardingStartBtn.setOnClickListener {
+            val activity = activity as OnBoardingActivity
+            activity.setDataStoreOnBoarding()
+        }
     }
 
 }

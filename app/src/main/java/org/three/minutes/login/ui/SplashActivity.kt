@@ -22,14 +22,14 @@ import org.three.minutes.util.showToast
 
 class SplashActivity : AppCompatActivity() {
 
+    private var token = ""
+    private var refresh = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
         StatusObject.setStatusBar(this)
-
-        var token = ""
-        var refresh = ""
 
 //         fcm을 위한 현재 기기 토큰 받기
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
@@ -44,13 +44,6 @@ class SplashActivity : AppCompatActivity() {
             }
 
         })
-
-//        CoroutineScope(Main).launch {
-//            ThreeApplication.getInstance().getDataStore().token.collect {
-//                token = it
-//                Log.e("AutoLogin", "token : $it")
-//            }
-//        }
 
         ThreeApplication.getInstance().getDataStore().token.asLiveData().observe(this@SplashActivity,{
             token = it
@@ -67,37 +60,48 @@ class SplashActivity : AppCompatActivity() {
                 delay(2000)
             }.join()
 
-
-            if (token.isNotEmpty()) {
-                // do something
-                SangleServiceImpl.service.getToken(refresh)
-                    .customEnqueue(
-                        onSuccess = {
-                            CoroutineScope(IO).launch {
-                                ThreeApplication.getInstance().getDataStore()
-                                    .setReTokens(it.token, it.refresh)
-                            }
-
-                            val intent = Intent(this@SplashActivity, HomeActivity::class.java)
-                            startActivity(intent)
-                            finish()
-                        },
-                        onError = {
-                            showToast("자동 로그인에 실패하였습니다. : ${it.code()}")
-                            val intent = Intent(this@SplashActivity, MainActivity::class.java)
-                            startActivity(intent)
-                        }
-                    )
-            } else {
-                Log.e("SplashActivity","Auto Login Fail : Empty Token")
-                Log.e("SplashActivity","Auto Login Fail : Token - $token")
-                val intent = Intent(this@SplashActivity, MainActivity::class.java)
-                startActivity(intent)
-            }
-
+            ThreeApplication.getInstance().getDataStore().isOnBoarding.asLiveData().observe(this@SplashActivity,{
+                if (it){
+                    val intent = Intent(this@SplashActivity,OnBoardingActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+                else{
+                    checkAutoLogin()
+                }
+            })
         }
 
 
 
+    }
+
+    private fun checkAutoLogin() {
+        if (token.isNotEmpty()) {
+            // do something
+            SangleServiceImpl.service.getToken(refresh)
+                .customEnqueue(
+                    onSuccess = {
+                        CoroutineScope(IO).launch {
+                            ThreeApplication.getInstance().getDataStore()
+                                .setReTokens(it.token, it.refresh)
+                        }
+
+                        val intent = Intent(this@SplashActivity, HomeActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    },
+                    onError = {
+                        showToast("자동 로그인에 실패하였습니다. : ${it.code()}")
+                        val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+                )
+        } else {
+            val intent = Intent(this@SplashActivity, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 }
