@@ -13,7 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".home.ui.GuideActivity" android:exported="true"/>
+        <activity android:name=".login.ui.OnBoardingActivity" android:exported="true"/>
+        <activity
+            android:name=".home.ui.GuideActivity"
+            android:exported="true" />
         <activity
             android:name=".preferences.ui.PreferencesActivity"
             android:exported="true" />

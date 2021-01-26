@@ -20,6 +20,7 @@ class SangleDataStoreManager(val context: Context) {
         val refreshTokenKey = preferencesKey<String>("refreshToken")
         val isNotificationKey = preferencesKey<Boolean>("notification")
         val isMotiveKey = preferencesKey<Boolean>("motive")
+        val isOnBoardingKey = preferencesKey<Boolean>("onBoarding")
     }
 
     val deviceToken: Flow<String> = dataStore.data
@@ -77,6 +78,17 @@ class SangleDataStoreManager(val context: Context) {
             it[isMotiveKey] ?: true
         }
 
+    val isOnBoarding: Flow<Boolean> = dataStore.data
+        .catch { exception ->
+            if (exception is IOException) {
+                emit(emptyPreferences())
+            } else {
+                throw exception
+            }
+        }.map {
+            it[isOnBoardingKey] ?: true
+        }
+
     suspend fun setDeviceToken(deviceToken: String) {
         dataStore.edit { preferences ->
             preferences[deviceTokenKey] = deviceToken
@@ -111,6 +123,12 @@ class SangleDataStoreManager(val context: Context) {
     suspend fun setMotivePush(check : Boolean) {
         dataStore.edit { preferences ->
             preferences[isMotiveKey] = check
+        }
+    }
+
+    suspend fun setOnBoarding(check : Boolean) {
+        dataStore.edit { preferences ->
+            preferences[isOnBoardingKey] = check
         }
     }
 
