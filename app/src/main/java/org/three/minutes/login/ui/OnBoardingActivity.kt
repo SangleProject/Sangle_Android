@@ -3,11 +3,16 @@ package org.three.minutes.login.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.viewpager.widget.ViewPager
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.three.minutes.R
+import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.ActivityOnBoardingBinding
 import org.three.minutes.login.adapter.OnBoardingViewPagerAdapter
 
@@ -21,16 +26,25 @@ class OnBoardingActivity : AppCompatActivity() {
 
         initViewPager()
         mBinding.onBoardingSkip.setOnClickListener {
-            val intent = Intent(this,MainActivity::class.java)
-            startActivity(intent)
-            finish()
             setDataStoreOnBoarding()
         }
 
     }
 
     private fun setDataStoreOnBoarding() {
-        TODO("Not yet implemented")
+        CoroutineScope(Dispatchers.Main).launch {
+            launch {
+                ThreeApplication.getInstance().getDataStore().setOnBoarding(false)
+                Log.e("OnBoardingActivity","Ok")
+            }.join()
+            callMainActivity()
+        }
+    }
+
+    private fun callMainActivity(){
+        val intent = Intent(this,MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     private fun initViewPager(){
