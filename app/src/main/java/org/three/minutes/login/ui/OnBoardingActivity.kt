@@ -22,6 +22,7 @@ import org.three.minutes.login.adapter.OnBoardingViewPagerAdapter
 import org.three.minutes.singleton.StatusObject
 
 
+@Suppress("DEPRECATION")
 class OnBoardingActivity : AppCompatActivity() {
     private val mBinding: ActivityOnBoardingBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_on_boarding)
@@ -41,9 +42,12 @@ class OnBoardingActivity : AppCompatActivity() {
                         WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
                 }
             } else {
+                // systemUiVisibility의 deprecated 이슈로 인해서 insetsController를 사용하려 했지만
+                // Android 11 부터 적용가능하기 때문에 여의치 않게 DEPRECATIONS 어노테이션 사용
+                // 추후 내용을 찾게 된다면 변경 필요
                 decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
-                            View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+                        View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             }
         }
 
