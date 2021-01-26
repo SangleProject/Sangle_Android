@@ -3,7 +3,10 @@ package org.three.minutes.singleton
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.graphics.Color
+import android.os.Build
 import android.view.View
+import androidx.core.content.ContextCompat
+import org.three.minutes.R
 
 object StatusObject {
   @SuppressLint("InlinedApi")
