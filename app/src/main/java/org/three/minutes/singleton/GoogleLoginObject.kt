@@ -17,17 +17,4 @@ object GoogleLoginObject {
         auth = FirebaseAuth.getInstance()
         googleClient = GoogleSignIn.getClient(activity, gso)
     }
-
-    // 디바이스 토큰을 받는 함수
-    fun getDeviceToken() : String{
-        var token = ""
-        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-            if(!task.isSuccessful){
-                return@OnCompleteListener
-            }
-            token = task.result!!
-        })
-
-        return token
-    }
 }

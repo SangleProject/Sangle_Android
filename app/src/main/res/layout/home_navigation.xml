@@ -168,7 +168,7 @@
             <TextView
                 style="@style/P3_14pt_Regular"
                 android:textColor="@color/red"
-                android:id="@+id/textView7"
+                android:id="@+id/navi_log_out"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -186,10 +186,10 @@
                 android:layout_marginEnd="12dp"
                 android:scaleType="center"
                 android:src="@drawable/ic_setting"
-                app:layout_constraintBottom_toBottomOf="@+id/textView7"
+                app:layout_constraintBottom_toBottomOf="@+id/navi_log_out"
                 app:layout_constraintDimensionRatio="H,1:1"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView7" />
+                app:layout_constraintTop_toTopOf="@+id/navi_log_out" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
