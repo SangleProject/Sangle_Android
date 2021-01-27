@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.activity_splash.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.flow.collect
 import org.three.minutes.R
 import org.three.minutes.ThreeApplication
 import org.three.minutes.home.ui.HomeActivity
@@ -24,6 +25,7 @@ class SplashActivity : AppCompatActivity() {
 
     private var token = ""
     private var refresh = ""
+    private var onBoarding = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,33 +47,36 @@ class SplashActivity : AppCompatActivity() {
 
         })
 
-        ThreeApplication.getInstance().getDataStore().token.asLiveData().observe(this@SplashActivity,{
-            token = it
-        })
-        ThreeApplication.getInstance().getDataStore().refreshToken.asLiveData().observe(this@SplashActivity,{
-            refresh = it
-        })
+        ThreeApplication.getInstance().getDataStore().token.asLiveData()
+            .observe(this@SplashActivity, {
+                token = it
+            })
+        ThreeApplication.getInstance().getDataStore().refreshToken.asLiveData()
+            .observe(this@SplashActivity, {
+                refresh = it
+            })
+        CoroutineScope(IO).launch{
+            ThreeApplication.getInstance().getDataStore().isOnBoarding.collect {
+                onBoarding = it
+            }
+        }
 
         CoroutineScope(Main).launch {
 
-            launch{
+            launch {
                 splash_img.setAnimation("splash.json")
                 splash_img.repeatCount = LottieDrawable.INFINITE
                 delay(2000)
             }.join()
 
-            ThreeApplication.getInstance().getDataStore().isOnBoarding.asLiveData().observe(this@SplashActivity,{
-                if (it){
-                    val intent = Intent(this@SplashActivity,OnBoardingActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }
-                else{
-                    checkAutoLogin()
-                }
-            })
+            if (onBoarding) {
+                val intent = Intent(this@SplashActivity, OnBoardingActivity::class.java)
+                startActivity(intent)
+                finish()
+            } else {
+                checkAutoLogin()
+            }
         }
-
 
 
     }

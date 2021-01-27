@@ -10,6 +10,11 @@ import com.google.firebase.messaging.FirebaseMessaging
 
 object GoogleLoginObject {
 
+    enum class GoogleLogInCode(val code : Int){
+        LOG_OUT_CODE(-100),
+        NOT_GOOGLE_LOGIN_CODE(-200)
+    }
+
     lateinit var auth : FirebaseAuth
     lateinit var googleClient : GoogleSignInClient
 
