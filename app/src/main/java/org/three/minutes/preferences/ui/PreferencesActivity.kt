@@ -1,19 +1,20 @@
 package org.three.minutes.preferences.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.three.minutes.R
 import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.ActivityPreferencesBinding
+import org.three.minutes.login.ui.MainActivity
 import org.three.minutes.preferences.viewmodel.PreferencesViewModel
+import org.three.minutes.singleton.GoogleLoginObject
 import org.three.minutes.singleton.StatusObject
 import kotlin.coroutines.CoroutineContext
 
@@ -58,6 +59,13 @@ class PreferencesActivity : AppCompatActivity(), CoroutineScope {
             launch {
                 ThreeApplication.getInstance().getDataStore().setMotivePush(isChecked)
             }
+        }
+
+        mBinding.configurationLogoutTxt.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("LogOut", GoogleLoginObject.GoogleLogInCode.LOG_OUT_CODE.code)
+            startActivity(intent)
+            finishAndRemoveTask()
         }
 
         setToolbar()

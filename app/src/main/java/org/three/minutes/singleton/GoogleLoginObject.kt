@@ -10,24 +10,16 @@ import com.google.firebase.messaging.FirebaseMessaging
 
 object GoogleLoginObject {
 
+    enum class GoogleLogInCode(val code : Int){
+        LOG_OUT_CODE(-100),
+        NOT_GOOGLE_LOGIN_CODE(-200)
+    }
+
     lateinit var auth : FirebaseAuth
     lateinit var googleClient : GoogleSignInClient
 
     fun settingGoogle(activity : Activity, gso : GoogleSignInOptions){
         auth = FirebaseAuth.getInstance()
         googleClient = GoogleSignIn.getClient(activity, gso)
-    }
-
-    // 디바이스 토큰을 받는 함수
-    fun getDeviceToken() : String{
-        var token = ""
-        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-            if(!task.isSuccessful){
-                return@OnCompleteListener
-            }
-            token = task.result!!
-        })
-
-        return token
     }
 }

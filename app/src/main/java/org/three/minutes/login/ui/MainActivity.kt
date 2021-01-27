@@ -16,7 +16,6 @@ import androidx.databinding.DataBindingUtil
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import gun0912.tedkeyboardobserver.TedKeyboardObserver
 import kotlinx.android.synthetic.main.activity_main.*
@@ -80,11 +79,12 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         // 파이어베이스 인증객체 초기화 + 클라이언트 가져오기
         GoogleLoginObject.settingGoogle(this, gso)
 
-
         // 구글 로그인 버튼 클릭 시 구글 로그인 연동
         mBinding.signinGoogle.setOnClickListener {
             googleSignIn()
         }
+
+        getLogOutIntent()
 
         launch {
             mBinding.apply {
@@ -121,9 +121,11 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
 
     }
 
-    override fun onStart() {
-        super.onStart()
-        autoLogin(GoogleLoginObject.auth.currentUser)
+    private fun getLogOutIntent() {
+        val code = intent.getIntExtra("LogOut",GoogleLoginObject.GoogleLogInCode.NOT_GOOGLE_LOGIN_CODE.code)
+        if (code == GoogleLoginObject.GoogleLogInCode.LOG_OUT_CODE.code){
+            googleSignOut()
+        }
     }
 
 
@@ -132,13 +134,15 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         job.cancel()
     }
 
-//    구글 로그아웃
-//    private fun googleSignOut() {
-//        GoogleLoginObject.auth.signOut()
-//        GoogleLoginObject.googleClient.revokeAccess().addOnCompleteListener {
-//            Toast.makeText(this,"SignOutSuccess",Toast.LENGTH_SHORT).show()
-//        }
-//    }
+    // 구글 로그아웃
+    private fun googleSignOut() {
+        GoogleLoginObject.auth.signOut()
+        GoogleLoginObject.googleClient.revokeAccess()
+
+        launch {
+            ThreeApplication.getInstance().getDataStore().setReTokens("","")
+        }
+    }
 
     // 구글 로그인 intent 객체 생성 후 전달
     private fun googleSignIn() {
@@ -262,11 +266,11 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
     }
 
     // 구글아이디로 로그인했으면 자동 로그인
-    private fun autoLogin(user: FirebaseUser?) {
-        if (user != null) {
-//            Toast.makeText(this, "Auto Login : ${user.email}", Toast.LENGTH_SHORT).show()
-        } else {
-//            Toast.makeText(this, "Not yet Auto Login", Toast.LENGTH_SHORT).show()
-        }
-    }
+//    private fun autoLogin(user: FirebaseUser?) {
+//        if (user != null) {
+////            Toast.makeText(this, "Auto Login : ${user.email}", Toast.LENGTH_SHORT).show()
+//        } else {
+////            Toast.makeText(this, "Not yet Auto Login", Toast.LENGTH_SHORT).show()
+//        }
+//    }
 }

@@ -22,9 +22,11 @@ import org.three.minutes.home.adapter.HomePageAdapter
 import org.three.minutes.home.viewmodel.HomeUseCase
 import org.three.minutes.home.viewmodel.HomeViewModel
 import org.three.minutes.home.viewmodel.HomeViewModelFactory
+import org.three.minutes.login.ui.MainActivity
 import org.three.minutes.mypage.ui.MyPageActivity
 import org.three.minutes.preferences.ui.PreferencesActivity
 import org.three.minutes.profile.ui.ProfileChangeActivity
+import org.three.minutes.singleton.GoogleLoginObject
 import org.three.minutes.util.customChangeListener
 import org.three.minutes.word.ui.WordActivity
 import kotlin.coroutines.CoroutineContext
@@ -128,6 +130,14 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
        mBinding.homeDrawer.navi_info_txt.setOnClickListener {
             val intent = Intent(this, GuideActivity::class.java)
             startActivity(intent)
+        }
+
+        // 로그아웃 클릭 시 로그아웃하기
+        mBinding.homeDrawer.navi_log_out.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("LogOut",GoogleLoginObject.GoogleLogInCode.LOG_OUT_CODE.code)
+            startActivity(intent)
+            finishAndRemoveTask()
         }
     }
 
