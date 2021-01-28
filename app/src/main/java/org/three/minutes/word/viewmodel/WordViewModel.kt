@@ -16,6 +16,7 @@ import org.three.minutes.util.customEnqueue
 import org.three.minutes.word.data.ResponseLastTopicData
 import org.three.minutes.word.data.ResponsePastSearchData
 import org.three.minutes.word.data.ResponseSearchTopicData
+import org.three.minutes.word.data.ResponseUserListData
 
 class WordViewModel : ViewModel() {
 
@@ -42,11 +43,14 @@ class WordViewModel : ViewModel() {
     var filter = MutableLiveData("최신순")
 
     // 검색 데이터
-    var isFilterTopic = MutableLiveData(false)
+    var isFilterTopic = MutableLiveData(true)
     var isFilterContents = MutableLiveData(false)
     var isFilterUser = MutableLiveData(false)
     var searchWord = MutableLiveData("")
+    var searchResultList = MutableLiveData<List<ResponseSearchTopicData>>(listOf())
     var searchResultTopicList = MutableLiveData<List<ResponseSearchTopicData>>(listOf())
+    var searchResultContentList = MutableLiveData<List<ResponseSearchTopicData>>(listOf())
+    var searchUserList = MutableLiveData<List<ResponseUserListData>>(listOf())
 
 
     fun callTopic() {
@@ -116,28 +120,59 @@ class WordViewModel : ViewModel() {
                 token = token,
                 topic = searchWord.value!!
             ).customEnqueue(
-                    onSuccess = {
-                            searchResultTopicList.value = it
-                    },
-                    onError = {
-                        Log.e("WordActivity", "callSearchTopic() error : ${it.code()}")
+                onSuccess = {
+                    searchResultTopicList.value = it
+                    if (isFilterTopic.value!!){
+                        changeTopicList()
                     }
-                )
+                },
+                onError = {
+                    Log.e("WordActivity", "callSearchTopic() error : ${it.code()}")
+                }
+            )
         }
     }
 
+    fun changeTopicList(){
+        searchResultList.value = searchResultTopicList.value
+    }
+
+    fun changeContentsList(){
+        searchResultList.value = searchResultContentList.value
+    }
+
     // 글 내용 검색
-    fun callSearchContents(){
+    fun callSearchContents() {
         viewModelScope.launch {
             SangleServiceImpl.service.getSearchResultContents(
                 token = token,
                 topic = searchWord.value!!
             ).customEnqueue(
                 onSuccess = {
-                    searchResultTopicList.value = it
+                    searchResultContentList.value = it
+                    if (isFilterContents.value!!){
+                        changeContentsList()
+                    }
                 },
                 onError = {
                     Log.e("WordActivity", "callSearchContents() error : ${it.code()}")
+                }
+            )
+        }
+    }
+
+    // 유저 검색
+    fun callSearchUser() {
+        viewModelScope.launch {
+            SangleServiceImpl.service.getSearchUser(
+                token = token,
+                user = searchWord.value!!
+            ).customEnqueue(
+                onSuccess = {
+                    searchUserList.value = it
+                },
+                onError = {
+                    Log.e("WordActivity", "callSearchUser() error : ${it.code()}")
                 }
             )
         }

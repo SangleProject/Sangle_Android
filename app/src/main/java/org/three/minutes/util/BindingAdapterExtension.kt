@@ -19,10 +19,12 @@ import org.three.minutes.home.data.ResponseTodayTopicData
 import org.three.minutes.mypage.adapter.MyScrapAdapter
 import org.three.minutes.mypage.adapter.MyWritingAdapter
 import org.three.minutes.profile.adapter.OtherProfileRcvAdapter
+import org.three.minutes.word.adapter.SearchUserListAdapter
 import org.three.minutes.word.adapter.SearchWritingAdapter
 import org.three.minutes.word.adapter.TodayWordRcvAdapter
 import org.three.minutes.word.data.ResponsePastSearchData
 import org.three.minutes.word.data.ResponseSearchTopicData
+import org.three.minutes.word.data.ResponseUserListData
 import org.three.minutes.writing.data.BadgeData
 
 @BindingAdapter("app:addTodayItem")
@@ -36,15 +38,27 @@ fun RecyclerView.setTodayWordData(data: MutableLiveData<List<ResponseTodayTopicD
     adapter.notifyDataSetChanged()
 }
 
-@BindingAdapter("app:searchWritingItem")
-fun RecyclerView.setSearchResult(data: MutableList<ResponseSearchTopicData>) {
-    val adapter = SearchWritingAdapter(this.context, false)
-    this.adapter = adapter
+@BindingAdapter("app:searchTopicItem","app:searchUserItem","app:isUser")
+fun RecyclerView.setSearchResult(
+    topicData: MutableList<ResponseSearchTopicData>,
+    userData:MutableList<ResponseUserListData>,
+    isUser :Boolean) {
+
+    val topicAdapter = SearchWritingAdapter(this.context, false)
+    val userListAdapter = SearchUserListAdapter()
     this.layoutManager =
         LinearLayoutManager(this.context)
+    if (isUser){
+        this.adapter = userListAdapter
+        userListAdapter.resultData = userData
+        userListAdapter.notifyDataSetChanged()
+    }
+    else{
+        this.adapter = topicAdapter
+        topicAdapter.resultData = topicData
+        topicAdapter.notifyDataSetChanged()
+    }
 
-    adapter.resultData = data
-    adapter.notifyDataSetChanged()
 }
 
 @BindingAdapter("app:pastDetailItem")

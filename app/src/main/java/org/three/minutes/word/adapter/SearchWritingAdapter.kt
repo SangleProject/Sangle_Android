@@ -10,7 +10,10 @@ import org.three.minutes.word.data.ResponseSearchTopicData
 import org.three.minutes.word.viewholder.SearchPastWritingViewHolder
 import org.three.minutes.word.viewholder.SearchResultViewHolder
 
-class SearchWritingAdapter(val context: Context, private val isPastView: Boolean = true) :
+class SearchWritingAdapter(
+    val context: Context,
+    private val isPastView: Boolean = true,
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val TAG_PAST = 0
@@ -20,32 +23,32 @@ class SearchWritingAdapter(val context: Context, private val isPastView: Boolean
     var resultData = listOf<ResponseSearchTopicData>()
 
     override fun getItemViewType(position: Int): Int {
-//        return super.getItemViewType(position)
-        return if (isPastView){
+        return if (isPastView) {
             TAG_PAST
-        } else{
-            TAG_SEARCH
+        } else {
+                TAG_SEARCH
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        if(viewType == TAG_PAST){
-            val binding = OtherWritingItemListBinding.inflate(
-                LayoutInflater.from(context),
-                parent, false
-            )
+        when (viewType) {
+            TAG_PAST -> {
+                val binding = OtherWritingItemListBinding.inflate(
+                    LayoutInflater.from(context),
+                    parent, false
+                )
 
-            return SearchPastWritingViewHolder(binding)
+                return SearchPastWritingViewHolder(binding)
+            }
+            else -> {
+                val binding = OtherWritingItemListBinding.inflate(
+                    LayoutInflater.from(context),
+                    parent, false
+                )
+
+                return SearchResultViewHolder(binding)
+            }
         }
-        else{
-            val binding = OtherWritingItemListBinding.inflate(
-                LayoutInflater.from(context),
-                parent, false
-            )
-
-            return SearchResultViewHolder(binding)
-        }
-
     }
 
     override fun getItemCount(): Int =
@@ -56,8 +59,8 @@ class SearchWritingAdapter(val context: Context, private val isPastView: Boolean
         }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when(holder){
-            is SearchPastWritingViewHolder ->{
+        when (holder) {
+            is SearchPastWritingViewHolder -> {
                 holder.onBind(pastData[position])
             }
             is SearchResultViewHolder -> {

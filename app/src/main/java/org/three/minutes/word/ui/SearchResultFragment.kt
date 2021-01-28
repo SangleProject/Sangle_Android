@@ -1,5 +1,6 @@
 package org.three.minutes.word.ui
 
+
 import android.graphics.Typeface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -33,16 +34,18 @@ class SearchResultFragment : Fragment() {
         }
         setFilterView()
         setObserve()
+
         return mBinding.root
     }
 
     private fun setObserve() {
+
         mViewModel.isFilterTopic.observe(viewLifecycleOwner, {check ->
             if (check) {
                 mBinding.searchResultTopic.typeface = Typeface.DEFAULT_BOLD
                 mViewModel.isFilterContents.value = false
                 mViewModel.isFilterUser.value = false
-                mViewModel.callSearchTopic()
+                mViewModel.changeTopicList()
             }
             else{
                 mBinding.searchResultTopic.typeface = Typeface.DEFAULT
@@ -54,7 +57,7 @@ class SearchResultFragment : Fragment() {
                 mBinding.searchResultContents.typeface = Typeface.DEFAULT_BOLD
                 mViewModel.isFilterTopic.value = false
                 mViewModel.isFilterUser.value = false
-                mViewModel.callSearchContents()
+                mViewModel.changeContentsList()
             }
             else{
                 mBinding.searchResultContents.typeface = Typeface.DEFAULT
@@ -73,11 +76,6 @@ class SearchResultFragment : Fragment() {
         })
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-    }
 
     private fun setFilterView() {
         // 상단 filter 부분 클릭 리스너 설정
