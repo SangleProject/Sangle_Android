@@ -47,6 +47,7 @@ class DetailOtherViewModel : ViewModel() {
                         postLength.value = it.postWrite.length
                         likeCount.value = likeCountInteger.formatCount()
                         isScrap = it.scrap
+                        Log.e("Detail","${it.liked}")
                         setDate(it)
                     },
                     onError = {
