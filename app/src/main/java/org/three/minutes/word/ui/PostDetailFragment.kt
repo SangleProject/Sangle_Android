@@ -19,7 +19,6 @@ import org.three.minutes.word.viewmodel.WordViewModel
 class PostDetailFragment : Fragment() {
 
     private lateinit var mBinding: FragmentPostDetailBinding
-    private lateinit var rcvAdapter : PastWritingRcvAdapter
     private val mViewModel : WordViewModel by activityViewModels()
     private val bottomSheet: BottomSheetDialog by lazy {
         BottomSheetDialog(mBinding.root.context)
