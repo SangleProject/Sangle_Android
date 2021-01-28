@@ -50,12 +50,12 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setScrapListener() {
-        mBinding.detailPutBtn.setOnClickListener {
-            // 이미 스크랩이 되어 있는 상태
-            if (mViewModel.isScrap){
+        mBinding.detailPutBtn.setOnCheckedChangeListener { _, isChecked ->
+            //이미 스크랩이 되어 있는 상태
+            if (isChecked){
                 mViewModel.callUnScrap(this)
             }
-            else{ // 스크랩이 안되어 있는 상태
+            else{// 스크랩이 안 되어 있는 상태
                 mViewModel.callScrap(this)
             }
         }
