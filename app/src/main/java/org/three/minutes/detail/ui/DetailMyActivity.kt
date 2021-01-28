@@ -45,11 +45,28 @@ class DetailMyActivity : AppCompatActivity() {
         mViewModel.callMyDetailData()
         mBinding.viewmodel = mViewModel
 
+        setLikeListener()
         setTextSizeButton()
         mBinding.myWordOpenSwitch.setOnCheckedChangeListener { _, isChecked ->
             mViewModel.detailData.value?.open = isChecked
         }
 
+    }
+
+    private fun setLikeListener() {
+        mBinding.myLikeTxt.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked){
+                if (mViewModel.likeFirst){
+                    mViewModel.likeFirst = false
+                }
+                else{
+                    mViewModel.callLike(this)
+                }
+            }
+            else{
+                mViewModel.callUnLike(this)
+            }
+        }
     }
 
     private fun setTextSizeButton() {

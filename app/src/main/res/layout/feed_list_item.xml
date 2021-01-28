@@ -111,18 +111,19 @@
             app:layout_constraintStart_toEndOf="@+id/profile_img"
             app:layout_constraintTop_toTopOf="@+id/profile_img" />
 
-        <TextView
+        <CheckedTextView
             android:id="@+id/feed_like_count"
             style="@style/P3_14pt_Regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/favorite_selected_box"
+            android:background="@drawable/favorite_state_box"
+            android:drawableStart="@drawable/favorite_state_icon"
             android:drawablePadding="4dp"
             android:padding="8dp"
             tools:text="1224"
+            android:checked="@{data.liked}"
             android:textColor="@color/black_60"
             android:layout_marginEnd="16dp"
-            app:drawableStartCompat="@drawable/ic_favorite_selected"
             app:layout_constraintBottom_toBottomOf="@+id/profile_name"
             app:layout_constraintEnd_toEndOf="parent" />
 

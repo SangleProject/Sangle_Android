@@ -3,9 +3,6 @@ package org.three.minutes.detail.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import org.three.minutes.R
@@ -18,13 +15,14 @@ class DetailActivity : AppCompatActivity() {
         DataBindingUtil.setContentView(this, R.layout.activity_detail)
     }
     private val mViewModel : DetailOtherViewModel by viewModels()
+    // 맨 처음 액티비티 진입시 통신 값이 true면 체크 박스 값이 바뀌면서 통신이 한 번 더 일어남
+    // 그러한 작업을 방지하기 위해 변수를 만들어 놓고 사용
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding.apply {
             lifecycleOwner = this@DetailActivity
         }
-        setSupportActionBar(mBinding.detailToolbar)
 
         setToolbarIcon()
 
@@ -50,13 +48,18 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setScrapListener() {
-        mBinding.detailPutBtn.setOnClickListener {
-            // 이미 스크랩이 되어 있는 상태
-            if (mViewModel.isScrap){
-                mViewModel.callUnScrap(this)
+        mBinding.detailPutBtn.setOnCheckedChangeListener { _, isChecked ->
+            // 스크랩 하기
+            if (isChecked){
+                if (mViewModel.scrapFirst){
+                    mViewModel.scrapFirst = false
+                }
+                else{
+                    mViewModel.callScrap(this)
+                }
             }
-            else{ // 스크랩이 안되어 있는 상태
-                mViewModel.callScrap(this)
+            else{// 스크랩 해제
+                mViewModel.callUnScrap(this)
             }
         }
     }
@@ -64,7 +67,12 @@ class DetailActivity : AppCompatActivity() {
     private fun setLikeListener() {
         mBinding.detailLikeTxt.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked){
-                mViewModel.callLike(this)
+                if (mViewModel.likeFirst){
+                    mViewModel.likeFirst = false
+                }
+                else{
+                    mViewModel.callLike(this)
+                }
             }
             else{
                 mViewModel.callUnLike(this)
@@ -92,30 +100,9 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setToolbarIcon() {
-        supportActionBar?.apply {
-            setDisplayShowTitleEnabled(false)
-            setDisplayHomeAsUpEnabled(true)
-            setHomeAsUpIndicator(R.drawable.ic_back)
+        mBinding.detailToolbar.setNavigationOnClickListener {
+            finish()
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.toolbar_detail_menu,menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            // go back
-            android.R.id.home -> {
-                finish()
-            }
-            // click share
-            R.id.action_share -> {
-                Toast.makeText(this, "Share",Toast.LENGTH_LONG).show()
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 
 }

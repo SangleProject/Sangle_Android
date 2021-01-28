@@ -18,6 +18,7 @@ class MyPostViewHolder(val binding : OtherWritingItemListBinding) : RecyclerView
         Glide.with(itemView).load(data.profileImg).into(binding.itemUserImg)
         binding.itemNickname.text = data.nickName
         binding.itemFavorite.text = data.likes.formatCount()
+        binding.itemFavorite.isChecked = data.liked
 
         itemView.setOnClickListener {
             val intent = Intent(itemView.context, DetailActivity::class.java)

@@ -10,6 +10,7 @@ data class ResponseMyWritingData(
     val time : String,
     val day : String,
     val likes : Int,
+    val liked : Boolean,
     val modified : Boolean,
     var open : Boolean
 )
