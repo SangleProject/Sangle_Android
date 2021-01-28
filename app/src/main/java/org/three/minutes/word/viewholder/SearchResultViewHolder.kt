@@ -20,6 +20,7 @@ class SearchResultViewHolder(val binding : OtherWritingItemListBinding) : Recycl
         binding.itemContents.text = data.postWrite
         binding.itemNickname.text = data.nickName
         binding.itemFavorite.text = data.likes.formatCount()
+        binding.itemFavorite.isChecked = data.liked
         binding.itemDateTxt.text = "${data.date} (${data.day}) ${data.time}"
         Glide.with(itemView).load(data.profileImg).into(binding.itemUserImg)
         binding.itemContents.setLines(3)
