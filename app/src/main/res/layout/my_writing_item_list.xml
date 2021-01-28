@@ -77,16 +77,16 @@
                     app:layout_constraintTop_toBottomOf="@id/blue_line"
                     tools:text="@string/contents_sample" />
 
-                <TextView
+                <CheckedTextView
                     android:id="@+id/item_favorite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:layout_marginBottom="16dp"
-                    android:background="@drawable/favorite_selected_box"
+                    android:background="@drawable/favorite_state_box"
                     android:drawablePadding="4dp"
                     android:padding="8dp"
-                    app:drawableStartCompat="@drawable/ic_favorite_selected"
+                    app:drawableStartCompat="@drawable/favorite_state_icon"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/item_contents"
                     app:layout_constraintTop_toBottomOf="@+id/item_contents"

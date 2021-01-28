@@ -39,9 +39,10 @@ class OtherProfileRcvAdapter
             binding.container.animation = AnimationUtils.loadAnimation(itemView.context, R.anim.item_scale_animation)
 
             binding.itemTitleTxt.text = data.topic
-            binding.itemDateTxt.text = "${data.date} (${data.day} ${data.time})"
+            binding.itemDateTxt.text = "${data.date} (${data.day}) ${data.time}"
             binding.itemContents.text = data.postWrite
             binding.itemFavorite.text = data.likes.formatCount()
+            binding.itemFavorite.isChecked = data.liked
 
             itemView.setOnClickListener {
                 val intent = Intent(itemView.context, DetailActivity::class.java)

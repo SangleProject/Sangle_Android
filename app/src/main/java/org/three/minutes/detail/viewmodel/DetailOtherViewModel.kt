@@ -31,7 +31,11 @@ class DetailOtherViewModel : ViewModel() {
     var postLength = MutableLiveData(0)
     var likeCount = MutableLiveData("")
     var likeCountInteger = 0
-    var isScrap = false
+
+    // 맨 처음 액티비티 진입시 통신 값이 true면 체크 박스 값이 바뀌면서 통신이 한 번 더 일어남
+    // 그러한 작업을 방지하기 위해 변수를 만들어 놓고 사용
+    var likeFirst = true
+    var scrapFirst = true
 
     // 날짜 붙여서 표시
     var date = MutableLiveData("")
@@ -46,14 +50,23 @@ class DetailOtherViewModel : ViewModel() {
                         date.value = "${it.date} (${it.day}) ${it.time}"
                         postLength.value = it.postWrite.length
                         likeCount.value = likeCountInteger.formatCount()
-                        isScrap = it.scrap
-                        Log.e("Detail","${it.liked}")
                         setDate(it)
+                        checkChangeCheckBox()
                     },
                     onError = {
                         Log.e("DetailActivity", "callOtherDetailData() error : ${it.code()}")
                     }
                 )
+        }
+    }
+
+    private fun checkChangeCheckBox(){
+        if (!detailData.value!!.liked){
+            likeFirst = false
+        }
+
+        if (!detailData.value!!.scrap){
+            scrapFirst = false
         }
     }
 
@@ -100,10 +113,9 @@ class DetailOtherViewModel : ViewModel() {
                 .customEnqueue(
                     onSuccess = {
                         context.showToast("좋은 글을 스크랩 했어요!")
-                        isScrap = true
                     },
                     onError = {
-
+                        Log.e("DetailActivity", "callScrap() error : ${it.code()}")
                     }
                 )
         }
@@ -115,10 +127,9 @@ class DetailOtherViewModel : ViewModel() {
                 .customEnqueue(
                     onSuccess = {
                         context.showToast("스크랩을 취소 했어요.")
-                        isScrap = false
                     },
                     onError = {
-                        
+                        Log.e("DetailActivity", "callUnScrap() error : ${it.code()}")
                     }
                 )
         }

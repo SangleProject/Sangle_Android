@@ -149,11 +149,10 @@
                 app:layout_constraintStart_toStartOf="parent"
                 tools:ignore="UseSwitchCompatOrMaterialXml" />
 
-            <CheckedTextView
+            <CheckBox
                 android:id="@+id/my_like_txt"
                 style="@style/P3_14pt_Regular"
-                android:checked="true"
-                android:enabled="false"
+                android:checked="@{viewmodel.detailData.liked}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
@@ -162,6 +161,7 @@
                 android:drawableStart="@drawable/favorite_state_icon"
                 android:drawablePadding="4dp"
                 android:padding="8dp"
+                android:button="@null"
                 android:textColor="@color/black_60"
                 android:text="@{viewmodel.likeCount}"
                 app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"

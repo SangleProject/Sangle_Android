@@ -1,7 +1,7 @@
 package org.three.minutes.detail.viewmodel
 
+import android.content.Context
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -11,11 +11,10 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import org.three.minutes.ThreeApplication
 import org.three.minutes.detail.data.ResponseMyWritingData
-import org.three.minutes.home.data.FeedData
-import org.three.minutes.home.data.ResponseFameData
 import org.three.minutes.server.SangleServiceImpl
 import org.three.minutes.util.customEnqueue
 import org.three.minutes.util.formatCount
+import org.three.minutes.util.showToast
 
 class DetailViewModel : ViewModel() {
 
@@ -30,6 +29,11 @@ class DetailViewModel : ViewModel() {
     var postLength = MutableLiveData(0)
     var detailData = MutableLiveData<ResponseMyWritingData>()
     var likeCount = MutableLiveData("")
+    var likeCountInteger = 0
+
+    // 맨 처음 액티비티 진입시 통신 값이 true면 체크 박스 값이 바뀌면서 통신이 한 번 더 일어남
+    // 그러한 작업을 방지하기 위해 변수를 만들어 놓고 사용
+    var likeFirst = true
 
     // 날짜 붙여서 표시
     var date = MutableLiveData("")
@@ -42,10 +46,51 @@ class DetailViewModel : ViewModel() {
                         detailData.value = it
                         date.value = "${it.date} (${it.day}) ${it.time}"
                         postLength.value = it.postWrite.length
-                        likeCount.value = it.likes.formatCount()
+                        likeCountInteger = it.likes
+                        likeCount.value = likeCountInteger.formatCount()
+
+                        setLiked()
                     },
                     onError = {
                         Log.e("DetailMyActivity", "calMyDetailData() error : ${it.code()}")
+                    }
+                )
+        }
+    }
+
+    private fun setLiked() {
+        if (!detailData.value!!.liked){
+            likeFirst = false
+        }
+    }
+
+    fun callLike(context : Context) {
+        viewModelScope.launch {
+            SangleServiceImpl.service.postLike(token, postIdx)
+                .customEnqueue(
+                    onSuccess = {
+                        likeCountInteger += 1
+                        likeCount.value = likeCountInteger.formatCount()
+                        context.showToast("좋은 글에 좋아요를 눌렀어요!")
+                    },
+                    onError = {
+                        Log.e("DetailMyActivity", "callLike() error : ${it.code()}")
+                    }
+                )
+        }
+    }
+
+    fun callUnLike(context: Context){
+        viewModelScope.launch {
+            SangleServiceImpl.service.deleteUnlike(token = token, postIdx = postIdx)
+                .customEnqueue(
+                    onSuccess = {
+                        likeCountInteger -= 1
+                        likeCount.value = likeCountInteger.formatCount()
+                        context.showToast("좋아요를 취소했어요.")
+                    },
+                    onError = {
+                        Log.e("DetailMyActivity", "callLike() error : ${it.code()}")
                     }
                 )
         }
