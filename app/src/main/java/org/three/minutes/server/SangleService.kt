@@ -17,6 +17,7 @@ import org.three.minutes.signup.data.RequestGoogleSignUpData
 import org.three.minutes.word.data.ResponseLastTopicData
 import org.three.minutes.word.data.ResponsePastSearchData
 import org.three.minutes.word.data.ResponseSearchTopicData
+import org.three.minutes.word.data.ResponseUserListData
 import org.three.minutes.writing.data.BadgeData
 import org.three.minutes.writing.data.RequestWritingData
 import org.three.minutes.writing.data.ResponseWritingData
@@ -192,7 +193,7 @@ interface SangleService {
     fun getSearchUser(
         @Header("token") token : String,
         @Query("user") user : String
-    ) : Call<List<ResponseSearchTopicData>>
+    ) : Call<List<ResponseUserListData>>
 
     // My 서랍 작성한 글 목록 ( 최신순 )
     @GET("/posts/myPost")

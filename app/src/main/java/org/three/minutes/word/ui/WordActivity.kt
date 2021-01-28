@@ -63,7 +63,7 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
         mImm = ThreeApplication.getInstance().getInputMethodManager()
         settingToolbar()
         settingFragment()
-        setObserve()
+
 
         TedKeyboardObserver(this).listen { isShow ->
             if (isShow){
@@ -80,16 +80,6 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
         mBinding.containerLayout.setOnClickListener {
             downKeyBoard(true)
         }
-    }
-
-    private fun setObserve() {
-        // 검색 결과가 존재할 경우 결과 프래그먼트 출력
-        mViewModel.searchResultTopicList.observe(this, {
-            if (it.isNotEmpty()) {
-                if (supportFragmentManager.findFragmentByTag(TAG_SEARCH) != SearchResultFragment())
-                    replaceSearchFragment(searchResultFragment, TAG_SEARCH)
-            }
-        })
     }
 
     private fun settingFragment() {
@@ -174,6 +164,11 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
                 mViewModel.searchWord.value = searchResult
                 mViewModel.isFilterTopic.value = true
                 mViewModel.callSearchTopic()
+                mViewModel.callSearchContents()
+                mViewModel.callSearchUser()
+                if (supportFragmentManager.findFragmentByTag(TAG_SEARCH) != SearchResultFragment()){
+                    replaceSearchFragment(searchResultFragment, TAG_SEARCH)
+                }
             }
             else{
                 supportFragmentManager.beginTransaction()

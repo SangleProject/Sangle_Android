@@ -5,7 +5,6 @@
     tools:ignore="HardcodedText">
 
     <data>
-
         <variable
             name="viewModel"
             type="org.three.minutes.word.viewmodel.WordViewModel" />
@@ -36,12 +35,12 @@
                 android:layout_weight="1"
                 android:background="@drawable/past_writing_category"
                 android:button="@null"
-                android:checked="true"
                 android:elevation="4dp"
                 android:gravity="center"
                 android:paddingHorizontal="30dp"
                 android:paddingVertical="8dp"
                 android:text="글감"
+                android:checked="@{viewModel.isFilterTopic}"
                 android:layout_marginHorizontal="8dp"
                 android:layout_marginVertical="4dp"
                 android:textColor="@color/past_writing_category_color" />
@@ -88,7 +87,9 @@
             android:layout_height="0dp"
             android:paddingTop="16dp"
             android:clipToPadding="false"
-            app:searchWritingItem="@{viewModel.searchResultTopicList}"
+            app:searchTopicItem="@{viewModel.searchResultList}"
+            app:searchUserItem="@{viewModel.searchUserList}"
+            app:isUser="@{viewModel.isFilterUser()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -7,7 +7,7 @@
     <data>
         <variable
             name="data"
-            type="org.three.minutes.word.data.ResponseSearchTopicData" />
+            type="org.three.minutes.word.data.ResponseUserListData" />
     </data>
 
 
