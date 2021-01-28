@@ -187,6 +187,13 @@ interface SangleService {
         @Query("topic") topic: String
     ) : Call<List<ResponseSearchTopicData>>
 
+    // 검색 유저 api
+    @GET("/main/searchUser")
+    fun getSearchUser(
+        @Header("token") token : String,
+        @Query("user") user : String
+    ) : Call<List<ResponseSearchTopicData>>
+
     // My 서랍 작성한 글 목록 ( 최신순 )
     @GET("/posts/myPost")
     fun getMyPostRecent(

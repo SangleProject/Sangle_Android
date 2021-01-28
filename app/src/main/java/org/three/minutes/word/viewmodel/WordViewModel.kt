@@ -142,6 +142,23 @@ class WordViewModel : ViewModel() {
             )
         }
     }
+    
+    // 유저 검색
+    fun callSearchUser(){
+        viewModelScope.launch {
+            SangleServiceImpl.service.getSearchUser(
+                token = token,
+                user = searchWord.value!!
+            ).customEnqueue(
+                onSuccess = {
+                    searchResultTopicList.value = it
+                },
+                onError = {
+                    Log.e("WordActivity", "callSearchUser() error : ${it.code()}")
+                }
+            )
+        }
+    }
 
     override fun onCleared() {
         super.onCleared()
