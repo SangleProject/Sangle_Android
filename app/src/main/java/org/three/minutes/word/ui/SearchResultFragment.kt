@@ -1,5 +1,6 @@
 package org.three.minutes.word.ui
 
+
 import android.graphics.Typeface
 import android.os.Bundle
 import androidx.fragment.app.Fragment

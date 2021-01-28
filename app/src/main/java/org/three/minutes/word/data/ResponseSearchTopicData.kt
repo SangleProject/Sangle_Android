@@ -9,5 +9,6 @@ data class ResponseSearchTopicData(
     val date : String,
     val time : String,
     val day : String,
-    val likes : Int
+    val likes : Int,
+    val info : String
 )
