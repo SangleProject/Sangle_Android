@@ -11,6 +11,7 @@ import org.three.minutes.server.SangleServiceImpl
 import org.three.minutes.util.customEnqueue
 import org.three.minutes.util.formatDate
 import org.three.minutes.writing.data.BadgeData
+import org.three.minutes.writing.data.RequestOpenData
 import org.three.minutes.writing.data.RequestWritingData
 import java.util.*
 
@@ -28,6 +29,7 @@ class WritingResultViewModel : ViewModel() {
     var badgeList = MutableLiveData<MutableList<BadgeData>>()
 
     var isDelete = MutableLiveData(false)
+    var isDone = MutableLiveData(false)
 
     // 글 쓰기 완료 시 기점으로 현재 시간 가져오기
     fun getCurrentTime() {
@@ -67,6 +69,23 @@ class WritingResultViewModel : ViewModel() {
                     Log.e("WritingResultActivity", "Delete Error ${it.code()}")
                 }
             )
+    }
+
+    fun putOpenWriting(isOpen : Int){
+        viewModelScope.launch {
+            SangleServiceImpl.service.putOpenWriting(
+                token = token,
+                postIdx = postIdx,
+                body = RequestOpenData(open = isOpen)
+            ).customEnqueue(
+                onSuccess = {
+                    isDone.value = true
+                },
+                onError = {
+                    Log.e("WritingResultActivity", "Switch OnClick Error : ${it.code()}")
+                }
+            )
+        }
     }
 
     override fun onCleared() {
