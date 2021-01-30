@@ -101,7 +101,7 @@ interface SangleService {
     ):Call<ResponseBody>
 
     // 글 공개 여부 api ( 0 = 비공개, 1 = 공개 )
-    @PUT("/posts/update/{postIdx}")
+    @PUT("/posts/open/{postIdx}")
     fun putOpenWriting(
         @Header("token") token : String,
         @Path("postIdx") postIdx: Int,

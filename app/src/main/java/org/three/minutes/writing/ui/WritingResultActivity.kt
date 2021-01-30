@@ -1,21 +1,16 @@
 package org.three.minutes.writing.ui
 
-import android.app.Dialog
+
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.asLiveData
 import kotlinx.android.synthetic.main.activity_writing_result.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import org.three.minutes.R
 import org.three.minutes.ThreeApplication
-import org.three.minutes.badge.ui.OpenedBadgePopup
 import org.three.minutes.databinding.ActivityWritingResultBinding
 import org.three.minutes.home.ui.HomeActivity
 import org.three.minutes.writing.viewmodel.WritingResultViewModel
@@ -61,7 +56,14 @@ class WritingResultActivity : AppCompatActivity() {
 
         // 좌측 상단 완료 버튼
         mBinding.resultDone.setOnClickListener {
-            startHomeActivity()
+            // 1이면 공개 0이면 비공개
+            val isOpen = if (mBinding.resultOpenSwitch.isChecked) {
+                1
+            } else {
+                0
+            }
+            mViewModel.putOpenWriting(isOpen)
+
         }
         // 삭제하기 버튼
         mBinding.resultDeleteTxt.setOnClickListener {
@@ -85,7 +87,7 @@ class WritingResultActivity : AppCompatActivity() {
         val intent = Intent(this, WritingEditActivity::class.java)
         intent.putExtra("topic", mViewModel.topic.value)
         intent.putExtra("contents", mViewModel.contents.value)
-        intent.putExtra("postIdx",mViewModel.postIdx)
+        intent.putExtra("postIdx", mViewModel.postIdx)
         startActivityForResult(intent, EDIT_CODE)
     }
 
@@ -115,6 +117,12 @@ class WritingResultActivity : AppCompatActivity() {
 
         mViewModel.isDelete.observe(this, {
             if (it) {
+                startHomeActivity()
+            }
+        })
+
+        mViewModel.isDone.observe(this,{
+            if (it){
                 startHomeActivity()
             }
         })
