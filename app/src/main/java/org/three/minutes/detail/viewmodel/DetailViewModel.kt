@@ -15,6 +15,7 @@ import org.three.minutes.server.SangleServiceImpl
 import org.three.minutes.util.customEnqueue
 import org.three.minutes.util.formatCount
 import org.three.minutes.util.showToast
+import org.three.minutes.writing.data.RequestOpenData
 
 class DetailViewModel : ViewModel() {
 
@@ -59,12 +60,12 @@ class DetailViewModel : ViewModel() {
     }
 
     private fun setLiked() {
-        if (!detailData.value!!.liked){
+        if (!detailData.value!!.liked) {
             likeFirst = false
         }
     }
 
-    fun callLike(context : Context) {
+    fun callLike(context: Context) {
         viewModelScope.launch {
             SangleServiceImpl.service.postLike(token, postIdx)
                 .customEnqueue(
@@ -80,7 +81,25 @@ class DetailViewModel : ViewModel() {
         }
     }
 
-    fun callUnLike(context: Context){
+    fun callWritingOpen(isOpen: Int) {
+        viewModelScope.launch {
+
+            SangleServiceImpl.service.putOpenWriting(
+                token = token,
+                postIdx = postIdx,
+                body = RequestOpenData(open = isOpen)
+            ).customEnqueue(
+                onSuccess = {
+                },
+                onError = {
+                    Log.e("DetailMyActivity", "Switch OnClick Error : ${it.code()}")
+                }
+            )
+
+        }
+    }
+
+    fun callUnLike(context: Context) {
         viewModelScope.launch {
             SangleServiceImpl.service.deleteUnlike(token = token, postIdx = postIdx)
                 .customEnqueue(
@@ -96,10 +115,11 @@ class DetailViewModel : ViewModel() {
         }
     }
 
-    fun callDeleteData(){
+    fun callDeleteData() {
         viewModelScope.launch {
             SangleServiceImpl.service.deleteWriting(
-                token = token, postIdx = postIdx)
+                token = token, postIdx = postIdx
+            )
                 .customEnqueue(
                     onSuccess = {
                         isDelete.value = true

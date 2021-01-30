@@ -72,7 +72,6 @@ class WritingResultViewModel : ViewModel() {
     }
 
     fun putOpenWriting(isOpen : Int){
-        Log.e("WritingResultActivity","post Idx : $postIdx , token : $token")
         viewModelScope.launch {
             SangleServiceImpl.service.putOpenWriting(
                 token = token,

@@ -47,23 +47,31 @@ class DetailMyActivity : AppCompatActivity() {
 
         setLikeListener()
         setTextSizeButton()
-        mBinding.myWordOpenSwitch.setOnCheckedChangeListener { _, isChecked ->
-            mViewModel.detailData.value?.open = isChecked
-        }
+        setOpenListener()
 
+    }
+
+    private fun setOpenListener() {
+        mBinding.myWordOpenSwitch.setOnClickListener {
+            val open =
+                if (mBinding.myWordOpenSwitch.isChecked) {
+                    1
+                } else {
+                    0
+                }
+            mViewModel.callWritingOpen(open)
+        }
     }
 
     private fun setLikeListener() {
         mBinding.myLikeTxt.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked){
-                if (mViewModel.likeFirst){
+            if (isChecked) {
+                if (mViewModel.likeFirst) {
                     mViewModel.likeFirst = false
-                }
-                else{
+                } else {
                     mViewModel.callLike(this)
                 }
-            }
-            else{
+            } else {
                 mViewModel.callUnLike(this)
             }
         }
