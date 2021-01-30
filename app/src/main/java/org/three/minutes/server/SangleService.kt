@@ -18,10 +18,7 @@ import org.three.minutes.word.data.ResponseLastTopicData
 import org.three.minutes.word.data.ResponsePastSearchData
 import org.three.minutes.word.data.ResponseSearchTopicData
 import org.three.minutes.word.data.ResponseUserListData
-import org.three.minutes.writing.data.BadgeData
-import org.three.minutes.writing.data.RequestWritingData
-import org.three.minutes.writing.data.ResponseWritingData
-import org.three.minutes.writing.data.ResponseWritingEditData
+import org.three.minutes.writing.data.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -102,6 +99,14 @@ interface SangleService {
         @Header("token") token : String,
         @Path("postIdx") postIdx: Int
     ):Call<ResponseBody>
+
+    // 글 공개 여부 api ( 0 = 비공개, 1 = 공개 )
+    @PUT("/posts/update/{postIdx}")
+    fun putOpenWriting(
+        @Header("token") token : String,
+        @Path("postIdx") postIdx: Int,
+        @Body body : RequestOpenData
+    ) : Call<ResponseBody>
 
     //명예의 전당 데이터 가져오기
     @GET("/posts/popularity")
