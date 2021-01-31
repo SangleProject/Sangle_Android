@@ -55,6 +55,13 @@
     <string name="on_boarding_info_4">오늘의 글감, 지난 글감도 검색으로 한번에!</string>
     <string name="on_boarding_info_5">해당 글감 피드를 통해 다른 사람들의 생각을 한눈에!</string>
     <string name="on_boarding_info_6">생글에 오신 걸 환영합니다.</string>
-
+    <string name="notice_contents">
+        뜨거운 폭염에 , 장마에.. 밖에 나가기가 너무 귀찮고 힘든 지금!\n실내에서 휴대폰만으로도 생산적으로 하루를 보낼 수 있는
+        방법은..?\n바로 생글과 함께 글쓰는 것이에요!\n
+        \n
+        여름맞이 글감을 만나러 얼른 GOGO~\n
+        \n
+        - 여름철 장마처럼 시~원하게\n
+        여러분의 복잡한 머리를 씻겨줄 Team 말랑</string>
 
 </resources>
