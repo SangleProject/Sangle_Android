@@ -23,6 +23,7 @@ class NoticeActivity : AppCompatActivity() {
             mViewModel.token = it
         })
 
+
         mBinding.apply {
             lifecycleOwner = this@NoticeActivity
             viewModel = mViewModel
@@ -33,11 +34,7 @@ class NoticeActivity : AppCompatActivity() {
     }
 
     private fun setNoticeListItem() {
-        mViewModel.noticeList.value = listOf(
-            ResponseNoticeData("2020-01-01", "공지 제목", getString(R.string.notice_contents)),
-            ResponseNoticeData("2020-01-01", "공지 제목", getString(R.string.notice_contents)),
-            ResponseNoticeData("2020-01-01", "공지 제목", getString(R.string.notice_contents))
-        )
+        mViewModel.callGetNotice()
     }
 
     private fun setToolBarListener() {
