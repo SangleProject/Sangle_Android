@@ -1,5 +1,6 @@
 package org.three.minutes.notice.adapter
 
+import android.animation.ValueAnimator
 import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
@@ -69,9 +70,9 @@ class NoticeListAdapter : RecyclerView.Adapter<NoticeListAdapter.NoticeListViewH
 //            val height = (dpValue*d).toInt()
 //
 //            val va = if (isExpanded) {
-//                ValueAnimator.ofInt(0, dpValue)
+//                ValueAnimator.ofInt(0, 960)
 //            } else {
-//                ValueAnimator.ofInt(dpValue, 0)
+//                ValueAnimator.ofInt(960, 0)
 //            }
 //
 //            va.duration = 600
@@ -82,10 +83,16 @@ class NoticeListAdapter : RecyclerView.Adapter<NoticeListAdapter.NoticeListViewH
 //
 //
 //            }
-//
-//            va.start()
 
             // 접기 펼치기 부분이 사라지는 곳
+//            binding.noticeItemContents.visibility = if (isExpanded) {
+//                View.VISIBLE
+//            } else {
+//                View.GONE
+//            }
+
+//            va.start()
+
             binding.noticeItemContents.visibility = if (isExpanded) {
                 View.VISIBLE
             } else {
@@ -93,5 +100,6 @@ class NoticeListAdapter : RecyclerView.Adapter<NoticeListAdapter.NoticeListViewH
             }
 
         }
+
     }
 }
