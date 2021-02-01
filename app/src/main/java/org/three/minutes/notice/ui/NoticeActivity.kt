@@ -2,7 +2,9 @@ package org.three.minutes.notice.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.ViewTreeObserver
 import androidx.activity.viewModels
+import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
 import org.three.minutes.R
 import org.three.minutes.databinding.ActivityNoticeBinding

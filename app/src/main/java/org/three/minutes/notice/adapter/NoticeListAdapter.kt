@@ -1,6 +1,5 @@
 package org.three.minutes.notice.adapter
 
-import android.animation.ValueAnimator
 import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
@@ -61,30 +60,38 @@ class NoticeListAdapter : RecyclerView.Adapter<NoticeListAdapter.NoticeListViewH
 
         private fun changeVisibility(isExpanded : Boolean){
             // ValueAnimator.of int(int... values) -> View가 변할 값을 지정, int형 배열 파라미터
-            val va = if(isExpanded) {
-                ValueAnimator.ofInt(0, binding.noticeItemContents.layoutParams.height)
-            }
-            else {
-                ValueAnimator.ofInt(binding.noticeItemContents.height, 0)
+//            binding.noticeItemContents
+//                .measure(View.MeasureSpec.UNSPECIFIED , View.MeasureSpec.UNSPECIFIED)
+//
+//            val dpValue = binding.noticeItemContents.measuredHeight
+//            val d = itemView.context.resources.displayMetrics.density
+//
+//            val height = (dpValue*d).toInt()
+//
+//            val va = if (isExpanded) {
+//                ValueAnimator.ofInt(0, dpValue)
+//            } else {
+//                ValueAnimator.ofInt(dpValue, 0)
+//            }
+//
+//            va.duration = 600
+//            va.addUpdateListener { animator ->
+//                val value = animator.animatedValue as Int
+//                binding.noticeItemContents.layoutParams.height = value
+//                binding.noticeItemContents.requestLayout()
+//
+//
+//            }
+//
+//            va.start()
+
+            // 접기 펼치기 부분이 사라지는 곳
+            binding.noticeItemContents.visibility = if (isExpanded) {
+                View.VISIBLE
+            } else {
+                View.GONE
             }
 
-            va.duration = 600
-            va.addUpdateListener { animator ->
-                val value = animator.animatedValue as Int
-                binding.noticeItemContents.layoutParams.height = value
-                binding.noticeItemContents.requestLayout()
-
-                // 접기 펼치기 부분이 사라지는 곳
-                binding.noticeItemContents.visibility = if (isExpanded){
-                    View.VISIBLE
-                }
-                else{
-                    View.GONE
-                }
-            }
-
-            va.start()
         }
-
     }
 }
