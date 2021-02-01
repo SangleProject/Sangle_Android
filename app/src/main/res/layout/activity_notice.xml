@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="HardcodedText">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="org.three.minutes.notice.viewmodel.NoticeViewModel" />
     </data>
 
 
@@ -36,8 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="공지사항"
-                    android:textColor="@color/white"
-                     />
+                    android:textColor="@color/white" />
 
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
@@ -46,10 +46,14 @@
             android:id="@+id/notice_rcv"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/appbar_layout" />
+            app:setNoticeList="@{viewModel.noticeList}"
+            app:layout_constraintTop_toBottomOf="@id/appbar_layout"
+            tools:listitem="@layout/notice_list_item" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

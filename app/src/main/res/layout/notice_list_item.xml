@@ -4,6 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="ContentDescription">
 
+    <data>
+        <variable
+            name="data"
+            type="org.three.minutes.notice.data.ResponseNoticeData" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -18,10 +24,12 @@
             android:textColor="@color/black_40"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:text="@{data.date}"
             tools:text="2020.01.31" />
 
         <TextView
             android:id="@+id/notice_item_title"
+            android:text="@{data.title}"
             style="@style/P2_16pt_Light"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -61,7 +69,8 @@
             android:layout_height="wrap_content"
             android:background="@color/light_light_gray"
             android:padding="16dp"
-            android:text="@string/notice_contents"
+            android:text="@{data.contents}"
+            tools:text="@string/notice_contents"
             android:textColor="@color/black_60"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

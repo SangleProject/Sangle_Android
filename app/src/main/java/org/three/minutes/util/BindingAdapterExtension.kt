@@ -18,6 +18,8 @@ import org.three.minutes.detail.data.ResponseOtherWritingData
 import org.three.minutes.home.data.ResponseTodayTopicData
 import org.three.minutes.mypage.adapter.MyScrapAdapter
 import org.three.minutes.mypage.adapter.MyWritingAdapter
+import org.three.minutes.notice.adapter.NoticeListAdapter
+import org.three.minutes.notice.data.ResponseNoticeData
 import org.three.minutes.profile.adapter.OtherProfileRcvAdapter
 import org.three.minutes.word.adapter.SearchUserListAdapter
 import org.three.minutes.word.adapter.SearchWritingAdapter
@@ -168,4 +170,17 @@ fun RecyclerView.setOtherProfileList(data : List<ResponseOtherWritingData>){
     }
     rcvAdapter.data = data
     rcvAdapter.notifyDataSetChanged()
+}
+
+// 공지사항 프로필 리스트 rcv
+@BindingAdapter("app:setNoticeList")
+fun RecyclerView.setNoticeList(data : List<ResponseNoticeData>){
+    val listAdapter = NoticeListAdapter()
+
+    this.apply {
+        adapter = listAdapter
+    }
+
+    listAdapter.dataList = data
+    listAdapter.notifyDataSetChanged()
 }
