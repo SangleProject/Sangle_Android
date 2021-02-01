@@ -24,6 +24,7 @@ import org.three.minutes.home.viewmodel.HomeViewModel
 import org.three.minutes.home.viewmodel.HomeViewModelFactory
 import org.three.minutes.login.ui.MainActivity
 import org.three.minutes.mypage.ui.MyPageActivity
+import org.three.minutes.notice.ui.NoticeActivity
 import org.three.minutes.preferences.ui.PreferencesActivity
 import org.three.minutes.profile.ui.ProfileChangeActivity
 import org.three.minutes.singleton.GoogleLoginObject
@@ -126,7 +127,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
             startActivity(intent)
         }
 
-        // 이용 안내 클릭 시 이용 안내 화면으로 이동동
+        // 이용 안내 클릭 시 이용 안내 화면으로 이동
        mBinding.homeDrawer.navi_info_txt.setOnClickListener {
             val intent = Intent(this, GuideActivity::class.java)
             startActivity(intent)
@@ -138,6 +139,12 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
             intent.putExtra("LogOut",GoogleLoginObject.GoogleLogInCode.LOG_OUT_CODE.code)
             startActivity(intent)
             finishAndRemoveTask()
+        }
+
+        // 공지사항 클릭 시 공지사항 뷰로 이동
+        mBinding.homeDrawer.navi_notice_txt.setOnClickListener {
+            val intent = Intent(this,NoticeActivity::class.java)
+            startActivity(intent)
         }
     }
 

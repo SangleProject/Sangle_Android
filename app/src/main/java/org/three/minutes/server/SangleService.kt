@@ -11,6 +11,7 @@ import org.three.minutes.login.data.ResponseGoogleLoginData
 import org.three.minutes.signup.data.*
 import org.three.minutes.login.data.ResponseLoginData
 import org.three.minutes.mypage.data.ResponseMyInfoData
+import org.three.minutes.notice.data.ResponseNoticeData
 import org.three.minutes.profile.data.RequestProfileData
 import org.three.minutes.profile.data.ResponseDiffProfileData
 import org.three.minutes.signup.data.RequestGoogleSignUpData
@@ -279,4 +280,10 @@ interface SangleService {
         @Path("nickName") nickName : String,
         @Query("filter") filter : String = "popular"
     ) : Call<List<ResponseOtherWritingData>>
+
+    // 공지사항 api
+    @GET("/main/allNotice")
+    fun getNoticeApi(
+        @Header("token") token: String
+    ) : Call<List<ResponseNoticeData>>
 }
