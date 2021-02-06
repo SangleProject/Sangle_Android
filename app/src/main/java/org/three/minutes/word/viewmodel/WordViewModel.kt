@@ -87,6 +87,7 @@ class WordViewModel : ViewModel() {
                     lastDetailTopic.value = pastTopic
                     lastTopicDetailList.value = it
                     lastTopicDetailCount.value = it.size
+                    callWritten(pastTopic)
                 },
                 onError = {
                     Log.e("WordActivity", "callPastDetailRecent() error : ${it.code()}")
@@ -105,6 +106,7 @@ class WordViewModel : ViewModel() {
                     lastDetailTopic.value = pastTopic
                     lastTopicDetailList.value = it
                     lastTopicDetailCount.value = it.size
+                    callWritten(pastTopic)
                 },
                 onError = {
                     Log.e("WordActivity", "callPastDetailPopular() error : ${it.code()}")
@@ -121,6 +123,7 @@ class WordViewModel : ViewModel() {
             ).customEnqueue(
                 onSuccess = {
                     searchResultTopicList.value = it
+                    callWritten(searchWord.value!!)
                     if (isFilterTopic.value!!) {
                         changeTopicList()
                     }
@@ -133,14 +136,16 @@ class WordViewModel : ViewModel() {
     }
 
     // 내가 작성한 글인지 아닌지 판단하는 api 호출 함수
-    fun callWritten() {
+    private fun callWritten(topic : String) {
         viewModelScope.launch {
             SangleServiceImpl.service.postWritten(
                 token = token,
-                body = RequestWrittenData(topic = searchWord.value!!)
+                body = RequestWrittenData(topic = topic)
             ).customEnqueue(
                 onSuccess = {
                     isWritten.value = it.written
+//                    Log.e("WordActivity", "Server written : ${it.written}")
+//                    Log.e("WordActivity", "$topic isWritten : ${isWritten.value}")
                 },
                 onError = {
                     Log.e("WordActivity", "callWritten() error : ${it.code()}")
@@ -167,6 +172,7 @@ class WordViewModel : ViewModel() {
             ).customEnqueue(
                 onSuccess = {
                     searchResultContentList.value = it
+                    callWritten(searchWord.value!!)
                     if (isFilterContents.value!!) {
                         changeContentsList()
                     }

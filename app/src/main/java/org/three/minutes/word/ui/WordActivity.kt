@@ -164,7 +164,6 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
                 mViewModel.searchWord.value = searchResult
                 mViewModel.isFilterTopic.value = true
                 mViewModel.callSearchTopic()
-                mViewModel.callWritten()
                 mViewModel.callSearchContents()
                 mViewModel.callSearchUser()
                 if (supportFragmentManager.findFragmentByTag(TAG_SEARCH) != SearchResultFragment()){

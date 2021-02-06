@@ -10,13 +10,14 @@ import org.three.minutes.databinding.OtherWritingItemListBinding
 import org.three.minutes.detail.ui.DetailActivity
 import org.three.minutes.detail.ui.DetailMyActivity
 import org.three.minutes.util.formatCount
+import org.three.minutes.word.adapter.SearchWritingAdapter
 import org.three.minutes.word.data.ResponsePastSearchData
 
 class SearchPastWritingViewHolder (val binding : OtherWritingItemListBinding)
     : RecyclerView.ViewHolder(binding.root){
 
     @SuppressLint("SetTextI18n")
-    fun onBind(data : ResponsePastSearchData){
+    fun onBind(data : ResponsePastSearchData, listener : SearchWritingAdapter.OnItemClickListener?){
         binding.itemContainer.animation = AnimationUtils.loadAnimation(itemView.context, R.anim.item_scale_animation)
         binding.itemTitleTxt.text = data.topic
         binding.itemContents.text = data.postWrite
@@ -28,14 +29,16 @@ class SearchPastWritingViewHolder (val binding : OtherWritingItemListBinding)
         binding.itemFavorite.isChecked = data.liked
 
         itemView.setOnClickListener {
-            val intent : Intent = if (data.myNickName == data.nickName){
-                Intent(itemView.context, DetailMyActivity::class.java)
-            } else{
-                Intent(itemView.context, DetailActivity::class.java)
-            }
+            listener?.onPastSearchItemClick(itemView,data)
 
-            intent.putExtra("postIdx",data.postIdx)
-            itemView.context.startActivity(intent)
+//            val intent : Intent = if (data.myNickName == data.nickName){
+//                Intent(itemView.context, DetailMyActivity::class.java)
+//            } else{
+//                Intent(itemView.context, DetailActivity::class.java)
+//            }
+//
+//            intent.putExtra("postIdx",data.postIdx)
+//            itemView.context.startActivity(intent)
         }
     }
 }
