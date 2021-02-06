@@ -64,4 +64,8 @@
         - 여름철 장마처럼 시~원하게\n
         여러분의 복잡한 머리를 씻겨줄 Team 말랑</string>
 
+    <string name="is_written_pop_up_title">더 다양한 생각을 보고 싶다면?&#x1F914;</string>
+    <string name="is_written_pop_up_contents">해당 글감의 글쓰기를 완료했을 경우에만\n완전한 글감보기가 가능합니다.</string>
+    <string name="is_written_pop_up_button">바로 글 쓰러 갈게요!</string>
+
 </resources>
