@@ -9,8 +9,9 @@ import android.os.Bundle
 import android.view.WindowManager
 import org.three.minutes.databinding.CloseWrittenPopUpBinding
 import org.three.minutes.home.ui.HomeActivity
+import org.three.minutes.writing.ui.WritingReadyActivity
 
-class CloseTopicPopUp(context : Context, private val listener: CloseTopicPopUpListener) : Dialog(context) {
+class CloseTopicPopUp(context : Context, private val topic : String) : Dialog(context) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +36,9 @@ class CloseTopicPopUp(context : Context, private val listener: CloseTopicPopUpLi
         }
 
         binding.popupButton.setOnClickListener {
-            listener.clickGoToWritingButton()
+            val intent = Intent(context,WritingReadyActivity::class.java)
+            intent.putExtra("topic",topic)
+            context.startActivity(intent)
         }
     }
 }

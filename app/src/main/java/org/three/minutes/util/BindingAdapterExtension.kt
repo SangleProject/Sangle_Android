@@ -2,6 +2,7 @@ package org.three.minutes.util
 
 
 import android.content.Intent
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
@@ -9,6 +10,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import org.three.minutes.CloseTopicPopUp
 import org.three.minutes.R
 import org.three.minutes.badge.adapter.BadgeListAdapter
 import org.three.minutes.badge.data.ResponseBadgeData
@@ -30,6 +32,7 @@ import org.three.minutes.word.adapter.TodayWordRcvAdapter
 import org.three.minutes.word.data.ResponsePastSearchData
 import org.three.minutes.word.data.ResponseSearchTopicData
 import org.three.minutes.word.data.ResponseUserListData
+import org.three.minutes.word.ui.SearchResultFragment
 import org.three.minutes.writing.data.BadgeData
 
 @BindingAdapter("app:addTodayItem")
@@ -61,7 +64,7 @@ fun RecyclerView.setSearchResult(
                 intent.putExtra("postIdx", data.postIdx)
                 v.context.startActivity(intent)
             } else {
-                v.context.showToast("아직 글을 안써서 못 봐요!")
+                CloseTopicPopUp(v.context, data.topic).show()
             }
 
         }

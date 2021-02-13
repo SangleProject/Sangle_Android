@@ -31,22 +31,13 @@ import org.three.minutes.word.viewmodel.WordViewModel
 import org.three.minutes.writing.ui.WritingReadyActivity
 
 
-class WordFragment : Fragment(),CloseTopicPopUpListener {
+class WordFragment : Fragment() {
     private lateinit var rcvAdapter: PastWritingRcvAdapter
     private lateinit var mBinding: FragmentWordBinding
     private lateinit var wordActivity: WordActivity
-    private val writtenPopUP : CloseTopicPopUp by lazy {
-        CloseTopicPopUp(mBinding.root.context,this)
-    }
 
     private val mViewModel: WordViewModel by activityViewModels()
     private val progress by lazy { PopUpObject.setLoading(activity as WordActivity) }
-
-    override fun clickGoToWritingButton() {
-        val intent = Intent(mBinding.root.context,HomeActivity::class.java)
-        startActivity(intent)
-        activity?.finishAndRemoveTask()
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -77,12 +68,12 @@ class WordFragment : Fragment(),CloseTopicPopUpListener {
                             token = mViewModel.token,
                             body = RequestWrittenData(topic = data.topic)
                         ).customEnqueue(
-                            onSuccess = {
-                                if (it.written){
+                            onSuccess = { result ->
+                                if (result.written){
                                     wordActivity.replaceDetailFragment()
                                 }
                                 else{
-                                    writtenPopUP.show()
+                                    CloseTopicPopUp(v.context,data.topic).show()
                                 }
                             }
                         )

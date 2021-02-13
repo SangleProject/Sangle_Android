@@ -1,5 +1,5 @@
 package org.three.minutes
 
 interface CloseTopicPopUpListener {
-    fun clickGoToWritingButton()
+    fun clickGoToWritingButton(topic : String)
 }
