@@ -105,7 +105,6 @@
             android:overScrollMode="never"
             android:paddingTop="6dp"
             app:pastDetailItem="@{viewModel.lastTopicDetailList}"
-            app:isWritten="@{viewModel.isWritten()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

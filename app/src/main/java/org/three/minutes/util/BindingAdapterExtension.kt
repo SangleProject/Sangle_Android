@@ -82,26 +82,20 @@ fun RecyclerView.setSearchResult(
 
 }
 
-@BindingAdapter("app:pastDetailItem", "app:isWritten")
-fun RecyclerView.setPastDetailItem(data: MutableList<ResponsePastSearchData>, isWritten: Boolean) {
+@BindingAdapter("app:pastDetailItem")
+fun RecyclerView.setPastDetailItem(data: MutableList<ResponsePastSearchData>) {
     val adapter = SearchWritingAdapter(this.context)
     adapter.setItemClickLitener(object : SearchWritingAdapter.OnItemClickListener {
         override fun onPastSearchItemClick(v: View, data: ResponsePastSearchData) {
             super.onPastSearchItemClick(v, data)
-            if (isWritten) {
-
-                val intent: Intent = if (data.myNickName == data.nickName) {
-                    Intent(v.context, DetailMyActivity::class.java)
-                } else {
-                    Intent(v.context, DetailActivity::class.java)
-                }
-
-                intent.putExtra("postIdx", data.postIdx)
-                v.context.startActivity(intent)
+            val intent: Intent = if (data.myNickName == data.nickName) {
+                Intent(v.context, DetailMyActivity::class.java)
             } else {
-                v.context.showToast("아직 글을 안써서 못 봐요!")
-
+                Intent(v.context, DetailActivity::class.java)
             }
+
+            intent.putExtra("postIdx", data.postIdx)
+            v.context.startActivity(intent)
         }
     })
     this.adapter = adapter
