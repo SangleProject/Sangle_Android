@@ -3,6 +3,7 @@ package org.three.minutes.profile.adapter
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +18,15 @@ class OtherProfileRcvAdapter
 
     var data = listOf<ResponseOtherWritingData>()
 
+    interface OnItemClickListener{
+        fun onItemClick(v : View, data : ResponseOtherWritingData)
+    }
+
+    private lateinit var listener : OnItemClickListener
+
+    fun setOnClickListener(listener : OnItemClickListener){
+        this.listener = listener
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OtherProfileViewHolder {
         val binding = MyWritingItemListBinding
@@ -45,9 +55,7 @@ class OtherProfileRcvAdapter
             binding.itemFavorite.isChecked = data.liked
 
             itemView.setOnClickListener {
-                val intent = Intent(itemView.context, DetailActivity::class.java)
-                intent.putExtra("postIdx",data.postIdx)
-                itemView.context.startActivity(intent)
+                listener.onItemClick(itemView,data)
             }
         }
     }
