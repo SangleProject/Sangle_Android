@@ -1,6 +1,7 @@
 package org.three.minutes.word.ui
 
 
+import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,8 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
+import org.three.minutes.CloseTopicPopUpListener
 import org.three.minutes.R
 import org.three.minutes.databinding.FragmentSearchResultBinding
+import org.three.minutes.home.ui.HomeActivity
 import org.three.minutes.word.viewmodel.WordViewModel
 
 

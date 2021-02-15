@@ -13,10 +13,7 @@ import org.three.minutes.ThreeApplication
 import org.three.minutes.home.data.ResponseTodayTopicData
 import org.three.minutes.server.SangleServiceImpl
 import org.three.minutes.util.customEnqueue
-import org.three.minutes.word.data.ResponseLastTopicData
-import org.three.minutes.word.data.ResponsePastSearchData
-import org.three.minutes.word.data.ResponseSearchTopicData
-import org.three.minutes.word.data.ResponseUserListData
+import org.three.minutes.word.data.*
 
 class WordViewModel : ViewModel() {
 
@@ -52,6 +49,8 @@ class WordViewModel : ViewModel() {
     var searchResultContentList = MutableLiveData<List<ResponseSearchTopicData>>(listOf())
     var searchUserList = MutableLiveData<List<ResponseUserListData>>(listOf())
 
+    //내가 쓴 글인지 아닌지 여부 판단 데이터
+    var isWritten = MutableLiveData(false)
 
     fun callTopic() {
         viewModelScope.launch {
@@ -88,6 +87,7 @@ class WordViewModel : ViewModel() {
                     lastDetailTopic.value = pastTopic
                     lastTopicDetailList.value = it
                     lastTopicDetailCount.value = it.size
+                    callWritten(pastTopic)
                 },
                 onError = {
                     Log.e("WordActivity", "callPastDetailRecent() error : ${it.code()}")
@@ -106,6 +106,7 @@ class WordViewModel : ViewModel() {
                     lastDetailTopic.value = pastTopic
                     lastTopicDetailList.value = it
                     lastTopicDetailCount.value = it.size
+                    callWritten(pastTopic)
                 },
                 onError = {
                     Log.e("WordActivity", "callPastDetailPopular() error : ${it.code()}")
@@ -122,7 +123,8 @@ class WordViewModel : ViewModel() {
             ).customEnqueue(
                 onSuccess = {
                     searchResultTopicList.value = it
-                    if (isFilterTopic.value!!){
+                    callWritten(searchWord.value!!)
+                    if (isFilterTopic.value!!) {
                         changeTopicList()
                     }
                 },
@@ -133,11 +135,31 @@ class WordViewModel : ViewModel() {
         }
     }
 
-    fun changeTopicList(){
+    // 내가 작성한 글인지 아닌지 판단하는 api 호출 함수
+    private fun callWritten(topic : String) {
+        viewModelScope.launch {
+            SangleServiceImpl.service.postWritten(
+                token = token,
+                body = RequestWrittenData(topic = topic)
+            ).customEnqueue(
+                onSuccess = {
+                    isWritten.value = it.written
+//                    Log.e("WordActivity", "Server written : ${it.written}")
+//                    Log.e("WordActivity", "$topic isWritten : ${isWritten.value}")
+                },
+                onError = {
+                    Log.e("WordActivity", "callWritten() error : ${it.code()}")
+
+                }
+            )
+        }
+    }
+
+    fun changeTopicList() {
         searchResultList.value = searchResultTopicList.value
     }
 
-    fun changeContentsList(){
+    fun changeContentsList() {
         searchResultList.value = searchResultContentList.value
     }
 
@@ -150,7 +172,8 @@ class WordViewModel : ViewModel() {
             ).customEnqueue(
                 onSuccess = {
                     searchResultContentList.value = it
-                    if (isFilterContents.value!!){
+                    callWritten(searchWord.value!!)
+                    if (isFilterContents.value!!) {
                         changeContentsList()
                     }
                 },

@@ -14,12 +14,18 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.three.minutes.CloseTopicPopUp
+import org.three.minutes.CloseTopicPopUpListener
 import org.three.minutes.R
 import org.three.minutes.databinding.FragmentWordBinding
+import org.three.minutes.home.ui.HomeActivity
+import org.three.minutes.server.SangleServiceImpl
 import org.three.minutes.singleton.PopUpObject
 import org.three.minutes.util.WordRcvItemDeco
+import org.three.minutes.util.customEnqueue
 import org.three.minutes.util.showToast
 import org.three.minutes.word.adapter.PastWritingRcvAdapter
+import org.three.minutes.word.data.RequestWrittenData
 import org.three.minutes.word.data.ResponseLastTopicData
 import org.three.minutes.word.viewmodel.WordViewModel
 import org.three.minutes.writing.ui.WritingReadyActivity
@@ -58,7 +64,20 @@ class WordFragment : Fragment() {
                     override fun onItemClick(v: View, data: ResponseLastTopicData) {
                         mViewModel.callPastDetailPopular(data.topic)
                         mViewModel.filter.value = "최신순"
-                        wordActivity.replaceDetailFragment()
+                        SangleServiceImpl.service.postWritten(
+                            token = mViewModel.token,
+                            body = RequestWrittenData(topic = data.topic)
+                        ).customEnqueue(
+                            onSuccess = { result ->
+                                if (result.written){
+                                    wordActivity.replaceDetailFragment()
+                                }
+                                else{
+                                    CloseTopicPopUp(v.context,data.topic).show()
+                                }
+                            }
+                        )
+
                     }
                 })
                 mBinding.pastWritingRcv.apply {

@@ -8,6 +8,7 @@
         <variable
             name="viewModel"
             type="org.three.minutes.word.viewmodel.WordViewModel" />
+
     </data>
 
 
@@ -90,6 +91,7 @@
             app:searchTopicItem="@{viewModel.searchResultList}"
             app:searchUserItem="@{viewModel.searchUserList}"
             app:isUser="@{viewModel.isFilterUser()}"
+            app:isWritten="@{viewModel.isWritten()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

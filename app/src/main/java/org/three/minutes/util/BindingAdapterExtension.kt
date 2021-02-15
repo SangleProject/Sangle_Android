@@ -1,6 +1,8 @@
 package org.three.minutes.util
 
 
+import android.content.Intent
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
@@ -8,6 +10,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import org.three.minutes.CloseTopicPopUp
 import org.three.minutes.R
 import org.three.minutes.badge.adapter.BadgeListAdapter
 import org.three.minutes.badge.data.ResponseBadgeData
@@ -15,6 +18,8 @@ import org.three.minutes.badge.ui.ClosedBadgePopup
 import org.three.minutes.badge.ui.OpenedBadgePopup
 import org.three.minutes.detail.data.ResponseMyWritingData
 import org.three.minutes.detail.data.ResponseOtherWritingData
+import org.three.minutes.detail.ui.DetailActivity
+import org.three.minutes.detail.ui.DetailMyActivity
 import org.three.minutes.home.data.ResponseTodayTopicData
 import org.three.minutes.mypage.adapter.MyScrapAdapter
 import org.three.minutes.mypage.adapter.MyWritingAdapter
@@ -27,6 +32,7 @@ import org.three.minutes.word.adapter.TodayWordRcvAdapter
 import org.three.minutes.word.data.ResponsePastSearchData
 import org.three.minutes.word.data.ResponseSearchTopicData
 import org.three.minutes.word.data.ResponseUserListData
+import org.three.minutes.word.ui.SearchResultFragment
 import org.three.minutes.writing.data.BadgeData
 
 @BindingAdapter("app:addTodayItem")
@@ -40,22 +46,38 @@ fun RecyclerView.setTodayWordData(data: MutableLiveData<List<ResponseTodayTopicD
     adapter.notifyDataSetChanged()
 }
 
-@BindingAdapter("app:searchTopicItem","app:searchUserItem","app:isUser")
+@BindingAdapter("app:searchTopicItem", "app:searchUserItem", "app:isUser", "app:isWritten")
 fun RecyclerView.setSearchResult(
     topicData: MutableList<ResponseSearchTopicData>,
-    userData:MutableList<ResponseUserListData>,
-    isUser :Boolean) {
+    userData: MutableList<ResponseUserListData>,
+    isUser: Boolean,
+    isWritten: Boolean
+) {
 
     val topicAdapter = SearchWritingAdapter(this.context, false)
+
+    topicAdapter.setItemClickLitener(object : SearchWritingAdapter.OnItemClickListener {
+        override fun onSearchTopicItemClick(v: View, data: ResponseSearchTopicData) {
+            super.onSearchTopicItemClick(v, data)
+            if (isWritten) {
+                val intent = Intent(v.context, DetailActivity::class.java)
+                intent.putExtra("postIdx", data.postIdx)
+                v.context.startActivity(intent)
+            } else {
+                CloseTopicPopUp(v.context, data.topic).show()
+            }
+
+        }
+    })
+
     val userListAdapter = SearchUserListAdapter()
     this.layoutManager =
         LinearLayoutManager(this.context)
-    if (isUser){
+    if (isUser) {
         this.adapter = userListAdapter
         userListAdapter.resultData = userData
         userListAdapter.notifyDataSetChanged()
-    }
-    else{
+    } else {
         this.adapter = topicAdapter
         topicAdapter.resultData = topicData
         topicAdapter.notifyDataSetChanged()
@@ -66,6 +88,19 @@ fun RecyclerView.setSearchResult(
 @BindingAdapter("app:pastDetailItem")
 fun RecyclerView.setPastDetailItem(data: MutableList<ResponsePastSearchData>) {
     val adapter = SearchWritingAdapter(this.context)
+    adapter.setItemClickLitener(object : SearchWritingAdapter.OnItemClickListener {
+        override fun onPastSearchItemClick(v: View, data: ResponsePastSearchData) {
+            super.onPastSearchItemClick(v, data)
+            val intent: Intent = if (data.myNickName == data.nickName) {
+                Intent(v.context, DetailMyActivity::class.java)
+            } else {
+                Intent(v.context, DetailActivity::class.java)
+            }
+
+            intent.putExtra("postIdx", data.postIdx)
+            v.context.startActivity(intent)
+        }
+    })
     this.adapter = adapter
     this.layoutManager =
         LinearLayoutManager(this.context)
@@ -162,9 +197,9 @@ fun RecyclerView.setMyScrap(data: MutableList<ResponseOtherWritingData>) {
 
 // 남의 프로필 리스트 rcv
 @BindingAdapter("app:setOtherProfileList")
-fun RecyclerView.setOtherProfileList(data : List<ResponseOtherWritingData>){
+fun RecyclerView.setOtherProfileList(data: List<ResponseOtherWritingData>) {
     val rcvAdapter = OtherProfileRcvAdapter()
-    this.apply{
+    this.apply {
         adapter = rcvAdapter
         layoutManager = LinearLayoutManager(this.context)
     }
@@ -174,7 +209,7 @@ fun RecyclerView.setOtherProfileList(data : List<ResponseOtherWritingData>){
 
 // 공지사항 프로필 리스트 rcv
 @BindingAdapter("app:setNoticeList")
-fun RecyclerView.setNoticeList(data : List<ResponseNoticeData>){
+fun RecyclerView.setNoticeList(data: List<ResponseNoticeData>) {
     val listAdapter = NoticeListAdapter()
 
     this.apply {
