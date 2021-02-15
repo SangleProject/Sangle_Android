@@ -208,7 +208,8 @@
                         app:layout_constraintStart_toStartOf="parent"
                         tools:listitem="@layout/my_writing_item_list"
                         app:layout_constraintTop_toBottomOf="@id/profile_filter_txt"
-                        app:setOtherProfileList="@{viewModel.diffFeedList}" />
+                        app:setOtherProfileList="@{viewModel.diffFeedList}"
+                        app:setToken="@{viewModel.token}"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

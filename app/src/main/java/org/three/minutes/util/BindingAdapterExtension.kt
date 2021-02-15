@@ -2,7 +2,6 @@ package org.three.minutes.util
 
 
 import android.content.Intent
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
@@ -26,13 +25,14 @@ import org.three.minutes.mypage.adapter.MyWritingAdapter
 import org.three.minutes.notice.adapter.NoticeListAdapter
 import org.three.minutes.notice.data.ResponseNoticeData
 import org.three.minutes.profile.adapter.OtherProfileRcvAdapter
+import org.three.minutes.server.SangleServiceImpl
 import org.three.minutes.word.adapter.SearchUserListAdapter
 import org.three.minutes.word.adapter.SearchWritingAdapter
 import org.three.minutes.word.adapter.TodayWordRcvAdapter
+import org.three.minutes.word.data.RequestWrittenData
 import org.three.minutes.word.data.ResponsePastSearchData
 import org.three.minutes.word.data.ResponseSearchTopicData
 import org.three.minutes.word.data.ResponseUserListData
-import org.three.minutes.word.ui.SearchResultFragment
 import org.three.minutes.writing.data.BadgeData
 
 @BindingAdapter("app:addTodayItem")
@@ -196,13 +196,31 @@ fun RecyclerView.setMyScrap(data: MutableList<ResponseOtherWritingData>) {
 }
 
 // 남의 프로필 리스트 rcv
-@BindingAdapter("app:setOtherProfileList")
-fun RecyclerView.setOtherProfileList(data: List<ResponseOtherWritingData>) {
+@BindingAdapter("app:setOtherProfileList", "app:setToken")
+fun RecyclerView.setOtherProfileList(data: List<ResponseOtherWritingData>, token: String) {
     val rcvAdapter = OtherProfileRcvAdapter()
     this.apply {
         adapter = rcvAdapter
         layoutManager = LinearLayoutManager(this.context)
     }
+    rcvAdapter.setOnClickListener(object : OtherProfileRcvAdapter.OnItemClickListener {
+        override fun onItemClick(v: View, data: ResponseOtherWritingData) {
+            SangleServiceImpl.service.postWritten(
+                token = token,
+                body = RequestWrittenData(topic = data.topic)
+            ).customEnqueue(
+                onSuccess = {
+                    if (it.written) {
+                        val intent = Intent(v.context, DetailActivity::class.java)
+                        intent.putExtra("postIdx", data.postIdx)
+                        v.context.startActivity(intent)
+                    } else {
+                        CloseTopicPopUp(v.context, data.topic).show()
+                    }
+                }
+            )
+        }
+    })
     rcvAdapter.data = data
     rcvAdapter.notifyDataSetChanged()
 }
