@@ -290,4 +290,11 @@ interface SangleService {
         @Header("token") token: String,
         @Body body : RequestWrittenData
     ) : Call<ResponseWrittenData>
+
+    // 회원 탈퇴
+    @Headers("Content-Type:application/json")
+    @DELETE("/users/delete")
+    fun deleteMembership(
+        @Header("token") token : String
+    ) : Call<ResponseBody>
 }
