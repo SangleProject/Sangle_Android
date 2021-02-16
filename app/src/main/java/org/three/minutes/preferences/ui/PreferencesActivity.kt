@@ -38,8 +38,7 @@ class PreferencesActivity : AppCompatActivity(), CoroutineScope, MembershipWithd
 
     // 회원탈퇴 팝업 오케이 눌렀을 시 로직
     override fun callWithdrawal(dialog: Dialog) {
-        dialog.dismiss()
-        showToast("회원탈퇴 완료!")
+        mViewModel.callDeleteMembership()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,17 +74,37 @@ class PreferencesActivity : AppCompatActivity(), CoroutineScope, MembershipWithd
         }
 
         mBinding.configurationLogoutTxt.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("LogOut", GoogleLoginObject.GoogleLogInCode.LOG_OUT_CODE.code)
-            startActivity(intent)
-            finishAndRemoveTask()
+            startGoogleLogout()
         }
 
         mBinding.configurationWithdrawalTxt.setOnClickListener {
             withDrawalPopUp.show()
         }
 
+        setObserve()
         setToolbar()
+    }
+
+    private fun setObserve() {
+        mViewModel._token.observe(this,{
+            mViewModel.token = it
+        })
+
+        mViewModel.isDeleteMemberShip.observe(this,{
+            if (it){
+                startGoogleLogout()
+                if (withDrawalPopUp.isShowing){
+                    withDrawalPopUp.dismiss()
+                }
+            }
+        })
+    }
+
+    private fun startGoogleLogout(){
+        val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra("LogOut", GoogleLoginObject.GoogleLogInCode.LOG_OUT_CODE.code)
+        startActivity(intent)
+        finishAndRemoveTask()
     }
 
     private fun setToolbar() {

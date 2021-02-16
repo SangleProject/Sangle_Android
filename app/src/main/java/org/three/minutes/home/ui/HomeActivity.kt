@@ -136,7 +136,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
         // 로그아웃 클릭 시 로그아웃하기
         mBinding.homeDrawer.navi_log_out.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("LogOut",GoogleLoginObject.GoogleLogInCode.LOG_OUT_CODE.code)
+            intent.putExtra("LogOut", GoogleLoginObject.GoogleLogInCode.LOG_OUT_CODE.code)
             startActivity(intent)
             finishAndRemoveTask()
         }
