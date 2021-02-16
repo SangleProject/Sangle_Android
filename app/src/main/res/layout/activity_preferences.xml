@@ -91,19 +91,6 @@
             android:text="기타"
             android:textColor="@color/black_60" />
 
-        <TextView
-            android:id="@+id/configuration_my_like_txt"
-            style="@style/P2_16pt_Light"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:background="@color/white"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="12dp"
-            android:text="내가 좋아요 한 글"
-            android:textColor="@color/black_100"
-            app:drawableEndCompat="@drawable/ic_right"
-            app:drawableTint="@color/black_40" />
 
         <LinearLayout
             android:layout_width="match_parent"

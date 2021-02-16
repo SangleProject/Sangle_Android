@@ -1,23 +1,18 @@
-package org.three.minutes.word.ui
+package org.three.minutes
 
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.WindowManager
-import androidx.databinding.DataBindingUtil
-import org.three.minutes.R
-import org.three.minutes.databinding.CloseWrittenPopUpBinding
+import org.three.minutes.databinding.MembershipWithdrawalPopupBinding
 
-class IsNotWrittenPopUp(context : Context) : Dialog(context) {
-    private val mBinding : CloseWrittenPopUpBinding by lazy {
-        DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.close_written_pop_up,null,false)
-    }
+class MembershipWithdrawalPopUp(context : Context, private val listener : MembershipWithdrawalListener) : Dialog(context) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(mBinding.root)
+        val binding = MembershipWithdrawalPopupBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         setCanceledOnTouchOutside(false)
@@ -32,5 +27,12 @@ class IsNotWrittenPopUp(context : Context) : Dialog(context) {
 
         window?.attributes = lp
 
+        binding.popupButtonCancel.setOnClickListener {
+            dismiss()
+        }
+
+        binding.popupButtonOk.setOnClickListener {
+            listener.callWithdrawal(this)
+        }
     }
 }
