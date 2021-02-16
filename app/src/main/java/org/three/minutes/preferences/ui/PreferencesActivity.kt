@@ -1,5 +1,6 @@
 package org.three.minutes.preferences.ui
 
+import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,6 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import org.three.minutes.MembershipWithdrawalPopUp
 import org.three.minutes.R
 import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.ActivityPreferencesBinding
@@ -16,9 +18,11 @@ import org.three.minutes.login.ui.MainActivity
 import org.three.minutes.preferences.viewmodel.PreferencesViewModel
 import org.three.minutes.singleton.GoogleLoginObject
 import org.three.minutes.singleton.StatusObject
+import org.three.minutes.MembershipWithdrawalListener
+import org.three.minutes.util.showToast
 import kotlin.coroutines.CoroutineContext
 
-class PreferencesActivity : AppCompatActivity(), CoroutineScope {
+class PreferencesActivity : AppCompatActivity(), CoroutineScope, MembershipWithdrawalListener {
     private val mBinding: ActivityPreferencesBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_preferences)
     }
@@ -28,6 +32,14 @@ class PreferencesActivity : AppCompatActivity(), CoroutineScope {
         get() = Dispatchers.Main + job
 
     private val mViewModel: PreferencesViewModel by viewModels()
+    private val withDrawalPopUp by lazy {
+        MembershipWithdrawalPopUp(this,this)
+    }
+
+    // 회원탈퇴 팝업 오케이 눌렀을 시 로직
+    override fun callWithdrawal(dialog: Dialog) {
+        mViewModel.callDeleteMembership()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,13 +74,37 @@ class PreferencesActivity : AppCompatActivity(), CoroutineScope {
         }
 
         mBinding.configurationLogoutTxt.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("LogOut", GoogleLoginObject.GoogleLogInCode.LOG_OUT_CODE.code)
-            startActivity(intent)
-            finishAndRemoveTask()
+            startGoogleLogout()
         }
 
+        mBinding.configurationWithdrawalTxt.setOnClickListener {
+            withDrawalPopUp.show()
+        }
+
+        setObserve()
         setToolbar()
+    }
+
+    private fun setObserve() {
+        mViewModel._token.observe(this,{
+            mViewModel.token = it
+        })
+
+        mViewModel.isDeleteMemberShip.observe(this,{
+            if (it){
+                startGoogleLogout()
+                if (withDrawalPopUp.isShowing){
+                    withDrawalPopUp.dismiss()
+                }
+            }
+        })
+    }
+
+    private fun startGoogleLogout(){
+        val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra("LogOut", GoogleLoginObject.GoogleLogInCode.LOG_OUT_CODE.code)
+        startActivity(intent)
+        finishAndRemoveTask()
     }
 
     private fun setToolbar() {

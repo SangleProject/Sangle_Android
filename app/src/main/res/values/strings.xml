@@ -68,4 +68,10 @@
     <string name="is_written_pop_up_contents">해당 글감의 글쓰기를 완료했을 경우에만\n완전한 글감보기가 가능합니다.</string>
     <string name="is_written_pop_up_button">바로 글 쓰러 갈게요!</string>
 
+    <string name="membership_withdrawal_popup_title">정말 계정을 삭제하시겠어요?&#x1F62D;</string>
+    <string name="membership_withdrawal_popup_contents">그동안 내가 쓴 모든 글들과\n받은 배지들이 모두 사라지고 되돌릴 수 없어요.</string>
+    <string name="membership_withdrawal_popup_ok_btn">네, 삭제할게요.</string>
+    <string name="membership_withdrawal_popup_cancel_btn">계속 함께할래요!</string>
+
+
 </resources>
