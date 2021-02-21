@@ -120,5 +120,10 @@ class WordFragment : Fragment() {
             }
         }
 
+        mBinding.gotoAllTopicBtn.setOnClickListener {
+            val intent = Intent(view.context, WordAllTopicActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 }

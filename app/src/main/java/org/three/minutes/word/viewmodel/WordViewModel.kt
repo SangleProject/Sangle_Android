@@ -27,11 +27,6 @@ class WordViewModel : ViewModel() {
     var todayTopicList = MutableLiveData<List<ResponseTodayTopicData>>(listOf())
     var lastTopicList = MutableLiveData<List<ResponseLastTopicData>>(listOf())
 
-    // 라디오 버튼 체크
-    var allCheck = MutableLiveData(true)
-    var doneCheck = MutableLiveData(false)
-    var notCheck = MutableLiveData(false)
-
     // 지난 글감 리스트 데이터 모음
     var lastDetailTopic = MutableLiveData("")
     var lastTopicDetailList = MutableLiveData<List<ResponsePastSearchData>>(listOf())
