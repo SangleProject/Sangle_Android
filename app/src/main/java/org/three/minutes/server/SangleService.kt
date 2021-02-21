@@ -177,6 +177,12 @@ interface SangleService {
         @Query("filter") filter: String = "popular"
     ): Call<List<ResponsePastSearchData>>
 
+    // 지난 글감 전체 가져오기 api
+    @GET("/topic/lastAllTopic")
+    fun getAllTopic(
+        @Header("token") token : String
+    ): Call<List<ResponseLastTopicData>>
+
     // 검색 글감 api
     @GET("/main/searchTopic")
     fun getSearchResultTopic(
