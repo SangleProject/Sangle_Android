@@ -8,6 +8,7 @@
         <variable
             name="viewModel"
             type="org.three.minutes.word.viewmodel.WordViewModel" />
+
         <variable
             name="activity"
             type="org.three.minutes.word.ui.WordActivity" />
@@ -117,79 +118,37 @@
                 app:layout_constraintStart_toStartOf="@+id/txt_num6"
                 app:layout_constraintTop_toBottomOf="@+id/txt_num6" />
 
-            <RadioGroup
-                android:id="@+id/past_writing_filter"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/past_writing_group_box"
-                android:orientation="horizontal"
-                android:padding="2dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txt_num7">
-
-                <RadioButton
-                    style="@style/P6_12pt_Regular"
-                    android:id="@+id/past_writing_all"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/past_writing_category"
-                    android:button="@null"
-                    android:checked="true"
-                    android:elevation="1dp"
-                    android:gravity="center"
-                    android:paddingHorizontal="30dp"
-                    android:paddingVertical="8dp"
-                    android:text="전체 글감"
-                    android:textColor="@color/past_writing_category_color" />
-
-                <RadioButton
-                    style="@style/P6_12pt_Regular"
-                    android:id="@+id/past_writing_done"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/past_writing_category"
-                    android:button="@null"
-                    android:elevation="1dp"
-                    android:gravity="center"
-                    android:paddingHorizontal="30dp"
-                    android:paddingVertical="8dp"
-                    android:text="쓴 글감"
-                    android:textColor="@color/past_writing_category_color" />
-
-                <RadioButton
-                    style="@style/P6_12pt_Regular"
-                    android:id="@+id/past_writing_not"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/past_writing_category"
-                    android:button="@null"
-                    android:elevation="1dp"
-                    android:gravity="center"
-                    android:paddingHorizontal="30dp"
-                    android:paddingVertical="8dp"
-                    android:text="안 쓴 글감"
-                    android:textColor="@color/past_writing_category_color" />
-
-            </RadioGroup>
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/past_writing_rcv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="16dp"
                 android:clipToPadding="false"
                 android:overScrollMode="never"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/past_writing_filter"
+                app:layout_constraintTop_toBottomOf="@+id/txt_num7"
                 tools:listitem="@layout/past_writing_item_list" />
+
+            <TextView
+                android:id="@+id/goto_all_topic_btn"
+                style="@style/P1_16pt_Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="36dp"
+                android:background="@drawable/timer_blue"
+                android:gravity="center"
+                android:paddingHorizontal="28dp"
+                android:paddingVertical="6dp"
+                android:text="전체 글감 보러 가기"
+                android:textAlignment="center"
+                android:textColor="@color/main_blue"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/past_writing_rcv" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
