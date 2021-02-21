@@ -2,11 +2,13 @@ package org.three.minutes.word.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.three.minutes.R
 import org.three.minutes.databinding.ActivityWordAllTopicBinding
+import org.three.minutes.util.WordRcvItemDeco
 import org.three.minutes.word.adapter.PastWritingRcvAdapter
 import org.three.minutes.word.viewmodel.WordAllTopicViewModel
 
@@ -21,6 +23,7 @@ class WordAllTopicActivity : AppCompatActivity() {
     }
 
     private val mViewModel : WordAllTopicViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding.apply {
@@ -29,7 +32,6 @@ class WordAllTopicActivity : AppCompatActivity() {
 
         setObserve()
         setClickEvent()
-        mViewModel.getAllTopic()
 
     }
 
@@ -42,6 +44,7 @@ class WordAllTopicActivity : AppCompatActivity() {
     private fun setObserve() {
         mViewModel.getToken.observe(this,{
             mViewModel.token = it
+            mViewModel.getAllTopic()
         })
 
         mViewModel.lastTopicList.observe(this,{
@@ -49,6 +52,9 @@ class WordAllTopicActivity : AppCompatActivity() {
                 mAdapter.data = it
                 mBinding.allTopicList.adapter = mAdapter
                 mBinding.allTopicList.layoutManager = LinearLayoutManager(this)
+                mBinding.allTopicList.addItemDecoration(
+                    WordRcvItemDeco(this, false, 3)
+                )
                 mAdapter.notifyDataSetChanged()
             }
         })

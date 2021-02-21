@@ -19,6 +19,7 @@ class WordAllTopicViewModel :ViewModel() {
     var lastTopicList = MutableLiveData<List<ResponseLastTopicData>>(listOf())
 
     fun getAllTopic(){
+
         viewModelScope.launch {
             SangleServiceImpl.service.getAllTopic(token)
                 .customEnqueue(
