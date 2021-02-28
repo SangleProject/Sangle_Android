@@ -168,7 +168,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
             val intent = Intent(this, MainActivity::class.java)
             intent.putExtra("LogOut", GoogleLoginObject.GoogleLogInCode.LOG_OUT_CODE.code)
             startActivity(intent)
-            finishAndRemoveTask()
+            finish()
         }
 
         // 공지사항 클릭 시 공지사항 뷰로 이동
