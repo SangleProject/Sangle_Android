@@ -1,5 +1,6 @@
 package org.three.minutes.home.ui
 
+import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,6 +18,7 @@ import kotlinx.coroutines.*
 import org.three.minutes.R
 import org.three.minutes.ThreeApplication
 import org.three.minutes.badge.ui.BadgeActivity
+import org.three.minutes.badge.ui.OpenedBadgePopup
 import org.three.minutes.databinding.ActivityHomeBinding
 import org.three.minutes.home.adapter.HomePageAdapter
 import org.three.minutes.home.viewmodel.HomeUseCase
@@ -30,6 +32,7 @@ import org.three.minutes.profile.ui.ProfileChangeActivity
 import org.three.minutes.singleton.GoogleLoginObject
 import org.three.minutes.util.customChangeListener
 import org.three.minutes.word.ui.WordActivity
+import org.three.minutes.writing.data.BadgeData
 import kotlin.coroutines.CoroutineContext
 
 class HomeActivity : AppCompatActivity(), CoroutineScope {
@@ -63,6 +66,8 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
             viewModel = mViewModel
         }
 
+        setObserve()
+
         // 기기에 저장된 token값 가져오기
         ThreeApplication.getInstance().getDataStore().token.asLiveData()
             .observe(this@HomeActivity, {
@@ -94,6 +99,31 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
 
         initViewPager()
 
+    }
+
+    private fun setObserve() {
+        mViewModel.badgeList.observe(this,{
+            if (it.isNotEmpty()){
+                showPopUp(it)
+            }
+        })
+    }
+
+    private fun showPopUp(badge: MutableList<BadgeData>?) {
+        if (badge!!.isEmpty()){
+            return
+        }
+        else{
+            val popUp = OpenedBadgePopup(this,badge[0])
+            badge.removeAt(0)
+            popUp.setListener(object : OpenedBadgePopup.OnCloseListener{
+                override fun closePopUp(v: Dialog) {
+                    v.dismiss()
+                    showPopUp(badge)
+                }
+            })
+            popUp.show()
+        }
     }
 
     private fun settingDrawer() {

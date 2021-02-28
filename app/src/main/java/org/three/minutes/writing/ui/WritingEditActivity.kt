@@ -64,6 +64,9 @@ class WritingEditActivity : AppCompatActivity() {
             if (it){
                 val intent = Intent()
                 intent.putExtra("contents",mViewModel.contents.value)
+                if (mViewModel.badgeList.value!!.isNotEmpty()){
+                    intent.putExtra("badgeList", mViewModel.badgeList.value!!.toTypedArray())
+                }
                 setResult(RESULT_OK,intent)
                 finish()
             }

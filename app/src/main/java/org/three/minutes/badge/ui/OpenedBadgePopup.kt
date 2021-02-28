@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.View
 import android.view.WindowManager
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.badge_opened_popup.*
@@ -13,6 +14,11 @@ import org.three.minutes.writing.data.BadgeData
 
 class OpenedBadgePopup(context: Context, private val badgeData: BadgeData) : Dialog(context) {
 
+    interface OnCloseListener {
+        fun closePopUp(v: Dialog)
+    }
+
+    private var closeListener: OnCloseListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +42,16 @@ class OpenedBadgePopup(context: Context, private val badgeData: BadgeData) : Dia
         open_badge_info.text = badgeData.badgeInfo
 
         open_badge_cancel.setOnClickListener {
-            dismiss()
+            if (closeListener == null){
+                dismiss()
+            }
+            else{
+                closeListener?.closePopUp(this)
+            }
         }
+    }
+
+    fun setListener(listener: OnCloseListener) {
+        closeListener = listener
     }
 }
