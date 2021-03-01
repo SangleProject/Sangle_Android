@@ -254,7 +254,7 @@ interface SangleService {
     fun putProfileChange(
         @Header("token") token: String,
         @Body body: RequestProfileData
-    ): Call<List<ResponseMainInfoData.Badge>>
+    ): Call<List<BadgeData>>
 
     // 뱃지 리스트 가져오기 api
     @GET("/badgeList")

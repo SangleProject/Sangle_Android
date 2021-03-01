@@ -12,6 +12,7 @@ import org.three.minutes.server.SangleServiceImpl
 import org.three.minutes.util.compareSame
 import org.three.minutes.util.customEnqueue
 import org.three.minutes.util.formatCalendarPath
+import org.three.minutes.writing.data.BadgeData
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -67,6 +68,8 @@ class HomeViewModel(application: Application, private val useCase: HomeUseCase) 
     // 명예의 전당 데이터
     var isFameComplete = MutableLiveData(false)
     var fameDataList = MutableLiveData<List<ResponseFameData>>(listOf())
+
+    var badgeList = MutableLiveData<MutableList<BadgeData>>()
 
     fun setInitialCalendarData(addMonth: Int) {
         if (arrayCalendar.isNotEmpty()) {
@@ -165,6 +168,9 @@ class HomeViewModel(application: Application, private val useCase: HomeUseCase) 
                         compare.postValue(it.compare)
                         remaining.postValue(it.remaining)
                         percentage.postValue(it.percentage)
+                        if (it.badge.isNotEmpty()){
+                            badgeList.value = it.badge.toMutableList()
+                        }
                     },
                     onError = {
                         Log.e("ERROR in MainInfo API", "${it.code()}")

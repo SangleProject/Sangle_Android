@@ -2,6 +2,7 @@
 <layout>
 
     <data>
+
         <variable
             name="calendarData"
             type="org.three.minutes.home.data.CalendarData" />
@@ -13,26 +14,36 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/calendar_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="42dp"
+        android:layout_height="wrap_content"
+        android:padding="2dp">
+
+        <ImageView
+            android:id="@+id/calendar_circle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/circle_deep_sky" />
 
         <TextView
             android:id="@+id/calendar_day"
             style="@style/P4_14pt_Light"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black_80"
             android:gravity="center"
-            android:layout_margin="3dp"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="6dp"
             android:text="@{Integer.toString(calendarData.day)}"
             android:textAlignment="center"
+            android:textColor="@color/black_80"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="1" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

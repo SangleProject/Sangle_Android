@@ -37,10 +37,10 @@ class WritingEditViewModel : ViewModel() {
                 body = RequestWritingData(topic = topic.value!!, postWrite = contents.value!!)
             ).customEnqueue(
                 onSuccess = {
-                    isEdited.value = true
                     if (it.badge.isNotEmpty()) {
                         badgeList.value = it.badge.toMutableList()
                     }
+                    isEdited.value = true
                 },
                 onError = {
                     Log.e("WritingEditActivity", "${it.code()}")

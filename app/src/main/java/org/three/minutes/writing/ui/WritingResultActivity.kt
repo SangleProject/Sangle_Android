@@ -1,6 +1,7 @@
 package org.three.minutes.writing.ui
 
 
+import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,8 +12,10 @@ import androidx.lifecycle.asLiveData
 import kotlinx.android.synthetic.main.activity_writing_result.*
 import org.three.minutes.R
 import org.three.minutes.ThreeApplication
+import org.three.minutes.badge.ui.OpenedBadgePopup
 import org.three.minutes.databinding.ActivityWritingResultBinding
 import org.three.minutes.home.ui.HomeActivity
+import org.three.minutes.writing.data.BadgeData
 import org.three.minutes.writing.viewmodel.WritingResultViewModel
 
 class WritingResultActivity : AppCompatActivity() {
@@ -80,6 +83,15 @@ class WritingResultActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == EDIT_CODE && resultCode == RESULT_OK) {
             mViewModel.contents.value = data?.getStringExtra("contents")
+
+            val badgeList = data?.getSerializableExtra("badgeLIst") as ArrayList<*>
+
+
+            if (badgeList.isNotEmpty()){
+                @Suppress("UNCHECKED_CAST")
+                showPopUp(badgeList as MutableList<BadgeData>)
+            }
+
         }
     }
 
@@ -99,21 +111,11 @@ class WritingResultActivity : AppCompatActivity() {
     }
 
     private fun observeViewModel() {
-//         뱃지 처리 부분 문제 있음
-//        mViewModel.badgeList.observe(this, {
-//            if (it.isNotEmpty()) {
-//                val badgeData = it[0]
-//                val badgePopUp = OpenedBadgePopup(this)
-//                badgePopUp.setNewPopUp(badgeData)
-//                badgePopUp.setCancelClick(object : OpenedBadgePopup.SetOnClickListener {
-//                    override fun onCancelClick(dialog: Dialog) {
-//                        mViewModel.badgeList.value?.removeAt(0)
-//                        dialog.dismiss()
-//                    }
-//                })
-//                badgePopUp.show()
-//            }
-//        })
+        mViewModel.badgeList.observe(this, {
+            if (it.isNotEmpty()) {
+                showPopUp(it)
+            }
+        })
 
         mViewModel.isDelete.observe(this, {
             if (it) {
@@ -126,6 +128,23 @@ class WritingResultActivity : AppCompatActivity() {
                 startHomeActivity()
             }
         })
+    }
+
+    private fun showPopUp(badge: MutableList<BadgeData>?) {
+        if (badge!!.isEmpty()){
+            return
+        }
+        else{
+            val popUp = OpenedBadgePopup(this,badge[0])
+            badge.removeAt(0)
+            popUp.setListener(object : OpenedBadgePopup.OnCloseListener{
+                override fun closePopUp(v: Dialog) {
+                    v.dismiss()
+                    showPopUp(badge)
+                }
+            })
+            popUp.show()
+        }
     }
 
     override fun onBackPressed() {
