@@ -81,23 +81,54 @@
             android:textColor="@color/black_100"
             android:theme="@style/MaterialTheme" />
 
-        <TextView
-            android:id="@+id/configuration_etc_title"
-            style="@style/P3_14pt_Regular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="기타"
-            android:textColor="@color/black_60" />
 
+        <TextView
+            android:id="@+id/personal_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="개인정보 처리방침"
+            android:background="@color/white"
+            style="@style/P2_16pt_Light"
+            android:textColor="@color/black_100"
+            android:paddingVertical="16dp"
+            android:paddingHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            tools:ignore="RtlSymmetry"
+            app:drawableEndCompat="@drawable/ic_right" />
+
+        <TextView
+            android:id="@+id/service_term"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="서비스 이용약관"
+            android:background="@color/white"
+            style="@style/P2_16pt_Light"
+            android:textColor="@color/black_100"
+            android:paddingVertical="16dp"
+            android:paddingHorizontal="20dp"
+            tools:ignore="RtlSymmetry"
+            app:drawableEndCompat="@drawable/ic_right" />
+
+        <TextView
+            android:id="@+id/sangle_instagram"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="생글 인스타그램"
+            android:background="@color/white"
+            style="@style/P2_16pt_Light"
+            android:textColor="@color/black_100"
+            android:paddingVertical="16dp"
+            android:paddingHorizontal="20dp"
+            tools:ignore="RtlSymmetry"
+            app:drawableEndCompat="@drawable/ic_right" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:orientation="vertical"
-            android:paddingHorizontal="16dp"
+            android:layout_marginTop="20dp"
+            android:paddingHorizontal="20dp"
             android:paddingVertical="12dp">
 
             <TextView
