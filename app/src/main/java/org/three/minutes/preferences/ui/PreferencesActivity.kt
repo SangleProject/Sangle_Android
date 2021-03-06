@@ -19,6 +19,7 @@ import org.three.minutes.preferences.viewmodel.PreferencesViewModel
 import org.three.minutes.singleton.GoogleLoginObject
 import org.three.minutes.singleton.StatusObject
 import org.three.minutes.MembershipWithdrawalListener
+import org.three.minutes.signup.ui.TermsActivity
 import org.three.minutes.util.showToast
 import kotlin.coroutines.CoroutineContext
 
@@ -79,6 +80,18 @@ class PreferencesActivity : AppCompatActivity(), CoroutineScope, MembershipWithd
 
         mBinding.configurationWithdrawalTxt.setOnClickListener {
             withDrawalPopUp.show()
+        }
+
+        mBinding.personalInfo.setOnClickListener {
+            val intent = Intent(this,TermsActivity::class.java)
+            intent.putExtra("title","개인정보보호 정책")
+            startActivity(intent)
+        }
+
+        mBinding.serviceTerm.setOnClickListener {
+            val intent = Intent(this,TermsActivity::class.java)
+            intent.putExtra("title","서비스 이용약관")
+            startActivity(intent)
         }
 
         setObserve()
