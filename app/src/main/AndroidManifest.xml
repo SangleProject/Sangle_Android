@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".word.ui.WordAllTopicActivity"></activity>
+        <activity android:name=".signup.ui.TermsActivity"></activity>
+        <activity android:name=".word.ui.WordAllTopicActivity" />
         <activity
             android:name=".notice.ui.NoticeActivity"
             android:exported="true" />

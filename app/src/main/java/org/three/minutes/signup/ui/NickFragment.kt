@@ -75,7 +75,7 @@ class NickFragment : Fragment() {
 
     private fun makeIntentAndStart(title : String){
         val intent = Intent(mActivity,
-            ClausActivity::class.java)
+           TermsActivity::class.java)
         intent.putExtra("title",title)
         startActivity(intent)
     }
