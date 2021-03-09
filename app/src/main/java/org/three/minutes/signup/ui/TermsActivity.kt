@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.webkit.WebViewClient
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import kotlinx.android.synthetic.main.activity_claus.*
 import kotlinx.android.synthetic.main.fragment_calender.*
 import org.three.minutes.R
 import org.three.minutes.databinding.ActivityTermsBinding

@@ -105,6 +105,7 @@ fun<T> Call<T>.customEnqueue(
     this.enqueue(object : Callback<T>{
         override fun onFailure(call: Call<T>, t: Throwable) {
             Log.e("Server Fail", "Server Closed")
+            t.printStackTrace()
         }
 
         override fun onResponse(call: Call<T>, response: Response<T>) {

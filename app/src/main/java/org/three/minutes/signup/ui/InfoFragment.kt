@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import kotlinx.android.synthetic.main.activity_signup.*
 import kotlinx.android.synthetic.main.fragment_info.*
 import org.three.minutes.R
@@ -49,9 +50,10 @@ class InfoFragment : Fragment() {
 
         //다음 단계로 가기 위한 조건
         //나이 항목을 입력하고, 성별 체크까지 마쳤을 경우
-       mViewModel.age.observe(viewLifecycleOwner,  { age ->
-            mActivity.signup_next_txt.isEnabled = !age.isNullOrBlank() && mViewModel.gender.value!!.isNotEmpty()
-        })
+       mViewModel.age.observe(viewLifecycleOwner) { age ->
+           mActivity.signup_next_txt.isEnabled =
+               !age.isNullOrBlank() && mViewModel.gender.value!!.isNotEmpty()
+       }
 
         return mBinding.root
     }
