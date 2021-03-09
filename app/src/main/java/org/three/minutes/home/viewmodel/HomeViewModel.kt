@@ -25,7 +25,7 @@ class HomeViewModel(application: Application, private val useCase: HomeUseCase) 
 //    private val context = getApplication<Application>().applicationContext
 
     //캘린더 날짜 정보가 들어있는 데이터 클래스 리스트
-    private var calendar = GregorianCalendar()
+    private var calendar = Calendar.getInstance()
     private var calendarPath = ""
     private var responseCalendarData = arrayListOf<ResponseCalendarData>()
     var arrayCalendar = arrayListOf<CalendarData>()
@@ -99,15 +99,17 @@ class HomeViewModel(application: Application, private val useCase: HomeUseCase) 
 
     private fun addDayData() {
         viewModelScope.launch {
-            val emptyDay = calendar.get(Calendar.DAY_OF_WEEK) - 1 // 비어 있는 요일
+            val y = calendar.get(Calendar.YEAR)
+            val m = calendar.get(Calendar.MONTH) + 1 // 월 표시는 0 ~ 11
+
+            val sampleEmpty = GregorianCalendar(y,m-1,1,0,0,0)
+            val emptyDay = sampleEmpty.get(Calendar.DAY_OF_WEEK) - 1 // 비어 있는 요일
             val max = calendar.getActualMaximum(Calendar.DAY_OF_MONTH) //마지막 날짜
 
             for (i in 0 until emptyDay) {
                 arrayCalendar.add(CalendarData(0, 0, 0, empty = true))
             }
 
-            val y = calendar.get(Calendar.YEAR)
-            val m = calendar.get(Calendar.MONTH) + 1 // 월 표시는 0 ~ 11
 
             year.value = y
             month.value = m
