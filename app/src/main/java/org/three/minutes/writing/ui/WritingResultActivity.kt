@@ -6,6 +6,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.asLiveData
@@ -79,76 +80,73 @@ class WritingResultActivity : AppCompatActivity() {
 
     }
 
+    @Suppress("UNCHECKED_CAST")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == EDIT_CODE && resultCode == RESULT_OK) {
             mViewModel.contents.value = data?.getStringExtra("contents")
 
-            val badgeList = data?.getSerializableExtra("badgeLIst") as ArrayList<*>
-
-
-            if (badgeList.isNotEmpty()){
-                @Suppress("UNCHECKED_CAST")
-                showPopUp(badgeList as MutableList<BadgeData>)
+            val badgeList = data?.getSerializableExtra("badgeList") as? ArrayList<BadgeData>
+            if (badgeList != null) {
+                showPopUp(badgeList)
             }
-
         }
+
     }
 
-    private fun startEditActivity() {
-        val intent = Intent(this, WritingEditActivity::class.java)
-        intent.putExtra("topic", mViewModel.topic.value)
-        intent.putExtra("contents", mViewModel.contents.value)
-        intent.putExtra("postIdx", mViewModel.postIdx)
-        startActivityForResult(intent, EDIT_CODE)
-    }
+private fun startEditActivity() {
+    val intent = Intent(this, WritingEditActivity::class.java)
+    intent.putExtra("topic", mViewModel.topic.value)
+    intent.putExtra("contents", mViewModel.contents.value)
+    intent.putExtra("postIdx", mViewModel.postIdx)
+    startActivityForResult(intent, EDIT_CODE)
+}
 
-    // 완료 버튼, 삭제 버튼, 뒤로가기 버튼 클릭 시 호출
-    private fun startHomeActivity() {
-        val intent = Intent(this, HomeActivity::class.java)
-        startActivity(intent)
-        finishAndRemoveTask()
-    }
+// 완료 버튼, 삭제 버튼, 뒤로가기 버튼 클릭 시 호출
+private fun startHomeActivity() {
+    val intent = Intent(this, HomeActivity::class.java)
+    startActivity(intent)
+    finishAndRemoveTask()
+}
 
-    private fun observeViewModel() {
-        mViewModel.badgeList.observe(this, {
-            if (it.isNotEmpty()) {
-                showPopUp(it)
+private fun observeViewModel() {
+    mViewModel.badgeList.observe(this, {
+        if (it.isNotEmpty()) {
+            showPopUp(it as ArrayList)
+        }
+    })
+
+    mViewModel.isDelete.observe(this, {
+        if (it) {
+            startHomeActivity()
+        }
+    })
+
+    mViewModel.isDone.observe(this, {
+        if (it) {
+            startHomeActivity()
+        }
+    })
+}
+
+private fun showPopUp(badge: ArrayList<BadgeData>?) {
+    if (badge!!.isEmpty()) {
+        return
+    } else {
+        val popUp = OpenedBadgePopup(this, badge[0])
+        badge.removeAt(0)
+        popUp.setListener(object : OpenedBadgePopup.OnCloseListener {
+            override fun closePopUp(v: Dialog) {
+                v.dismiss()
+                showPopUp(badge)
             }
         })
-
-        mViewModel.isDelete.observe(this, {
-            if (it) {
-                startHomeActivity()
-            }
-        })
-
-        mViewModel.isDone.observe(this,{
-            if (it){
-                startHomeActivity()
-            }
-        })
+        popUp.show()
     }
+}
 
-    private fun showPopUp(badge: MutableList<BadgeData>?) {
-        if (badge!!.isEmpty()){
-            return
-        }
-        else{
-            val popUp = OpenedBadgePopup(this,badge[0])
-            badge.removeAt(0)
-            popUp.setListener(object : OpenedBadgePopup.OnCloseListener{
-                override fun closePopUp(v: Dialog) {
-                    v.dismiss()
-                    showPopUp(badge)
-                }
-            })
-            popUp.show()
-        }
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        startHomeActivity()
-    }
+override fun onBackPressed() {
+    super.onBackPressed()
+    startHomeActivity()
+}
 }
