@@ -42,9 +42,10 @@ fun EditText.textCheckListener(textCheck: (CharSequence?) -> Unit) {
     })
 }
 
-fun ViewPager.customChangeListener(pageSelect: (Int) -> Unit) {
+fun ViewPager.customChangeListener(pageSelect: (Int) -> Unit , pageScrollState : (Int) -> Unit = {}) {
     this.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
         override fun onPageScrollStateChanged(state: Int) {
+            pageScrollState(state)
         }
 
         override fun onPageScrolled(

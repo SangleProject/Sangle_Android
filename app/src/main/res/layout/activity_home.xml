@@ -12,19 +12,18 @@
 
     </data>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe"
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/home_drawer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:openDrawer="start">
 
-
-        <androidx.drawerlayout.widget.DrawerLayout
-            android:id="@+id/home_drawer"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            tools:openDrawer="start">
-
+            android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -66,14 +65,14 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <include
-                layout="@layout/home_navigation"
-                app:viewModel="@{viewModel}" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <include
+            layout="@layout/home_navigation"
+            app:viewModel="@{viewModel}" />
 
 
-        </androidx.drawerlayout.widget.DrawerLayout>
-
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </androidx.drawerlayout.widget.DrawerLayout>
 
 
 </layout>
