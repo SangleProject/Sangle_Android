@@ -15,6 +15,7 @@ import org.three.minutes.ThreeApplication
 import org.three.minutes.badge.ui.OpenedBadgePopup
 import org.three.minutes.databinding.ActivityWritingEditBinding
 import org.three.minutes.singleton.PopUpObject
+import org.three.minutes.writing.data.BadgeData
 import org.three.minutes.writing.viewmodel.WritingEditViewModel
 
 class WritingEditActivity : AppCompatActivity() {
@@ -64,8 +65,11 @@ class WritingEditActivity : AppCompatActivity() {
             if (it){
                 val intent = Intent()
                 intent.putExtra("contents",mViewModel.contents.value)
-                if (mViewModel.badgeList.value!!.isNotEmpty()){
-                    intent.putExtra("badgeList", mViewModel.badgeList.value!!.toTypedArray())
+                val badgeList = mViewModel.badgeList.value ?: mutableListOf()
+
+                if (badgeList.isNotEmpty()){
+                    val badgeData = badgeList as ArrayList
+                    intent.putExtra("badgeList", badgeData)
                 }
                 setResult(RESULT_OK,intent)
                 finish()

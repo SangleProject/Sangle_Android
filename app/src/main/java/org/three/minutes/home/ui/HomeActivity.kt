@@ -1,17 +1,21 @@
 package org.three.minutes.home.ui
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
+import androidx.viewpager.widget.ViewPager
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.home_navigation.view.*
 import kotlinx.coroutines.*
@@ -67,6 +71,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
         }
 
         setObserve()
+        setSwipeRefresh()
 
         // 기기에 저장된 token값 가져오기
         ThreeApplication.getInstance().getDataStore().token.asLiveData()
@@ -99,6 +104,18 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
 
         initViewPager()
 
+    }
+
+    private fun setSwipeRefresh() {
+        mBinding.swipe.setColorSchemeColors(ContextCompat.getColor(this,R.color.main_blue))
+        mBinding.swipe.setOnRefreshListener {
+            val intent = Intent(this,HomeActivity::class.java)
+            overridePendingTransition(0,0)
+            startActivity(intent)
+            finish()
+
+            mBinding.swipe.isRefreshing = false
+        }
     }
 
     private fun setObserve() {
@@ -178,6 +195,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
         }
     }
 
+
     private fun initViewPager() {
         mBinding.homePage.adapter = HomePageAdapter(supportFragmentManager)
         mBinding.homePage.offscreenPageLimit = 2
@@ -186,9 +204,18 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
         mBinding.homePage.currentItem = 1
 
         //뷰페이저 슬라이드 시 바텀네비 아이콘 상태 변경
-        mBinding.homePage.customChangeListener {
-            mBinding.homeBottomNavi.menu.getItem(it).isChecked = true
-        }
+        mBinding.homePage.customChangeListener(
+            pageSelect ={
+                mBinding.homeBottomNavi.menu.getItem(it).isChecked = true
+            },
+            pageScrollState ={
+                isEnableSwipeRefresh(it == ViewPager.SCROLL_STATE_IDLE)
+            }
+
+        )
+
+        // 스와이프 리프레시와 터치 이벤트 겹치는 현상 수정
+
 
         //아이콘 안보여서 속성 설정
         mBinding.homeBottomNavi.itemIconTintList = null
@@ -201,6 +228,10 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
             }
             true
         }
+    }
+
+    private fun isEnableSwipeRefresh(isEnable : Boolean){
+        mBinding.swipe.isEnabled = isEnable
     }
 
     override fun onBackPressed() {

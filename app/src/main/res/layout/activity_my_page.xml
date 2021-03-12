@@ -12,128 +12,133 @@
 
     </data>
 
-
-    <androidx.constraintlayout.motion.widget.MotionLayout
-        android:id="@+id/top_container"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/main_blue"
-        app:layoutDescription="@xml/activity_my_page_xml_top_container_scene">
+        android:layout_height="match_parent">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appbar_layout"
+
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/top_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:elevation="0dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent"
+            android:background="@color/main_blue"
+            app:layoutDescription="@xml/activity_my_page_xml_top_container_scene">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/draw_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:navigationIcon="@drawable/ic_back">
-
-                <TextView
-                    style="@style/H3_18pt_Regular"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="MY 서랍"
-                    android:textColor="@color/white" />
-
-            </androidx.appcompat.widget.Toolbar>
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <ImageView
-            android:id="@+id/my_profile_img"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="20dp"
-            app:setGlide="@{viewModel.myImg}"
-            tools:src="@drawable/profile1"
-            app:layout_constraintDimensionRatio="1"
-            app:layout_constraintEnd_toStartOf="@+id/guideline5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appbar_layout" />
-
-        <TextView
-            style="@style/H3_18pt_Regular"
-            android:id="@+id/my_id_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="30dp"
-            android:text="@{viewModel.myId}"
-            android:textColor="@color/white"
-            tools:text="머리가 말랑말랑"
-            app:layout_constraintStart_toEndOf="@+id/my_profile_img"
-            app:layout_constraintTop_toBottomOf="@+id/appbar_layout" />
-
-        <TextView
-            style="@style/P6_12pt_Regular"
-            android:id="@+id/my_intro_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:textColor="@color/white"
-            android:text="@{viewModel.myIntro}"
-            tools:text="@string/sample_intro"
-            app:layout_constraintStart_toStartOf="@+id/my_id_txt"
-            app:layout_constraintTop_toBottomOf="@+id/my_id_txt" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="80dp" />
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/my_contents_container"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="36dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/my_profile_img">
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/my_writing_tab_layout"
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appbar_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                app:elevation="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tabIndicatorColor="@color/main_blue">
+                app:layout_constraintTop_toTopOf="parent">
 
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="첫번째" />
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/draw_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:navigationIcon="@drawable/ic_back">
 
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="두번째" />
-            </com.google.android.material.tabs.TabLayout>
+                    <TextView
+                        style="@style/H3_18pt_Regular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="MY 서랍"
+                        android:textColor="@color/white" />
 
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/my_writing_viewpager"
+                </androidx.appcompat.widget.Toolbar>
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <ImageView
+                android:id="@+id/my_profile_img"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintDimensionRatio="1"
+                app:layout_constraintEnd_toStartOf="@+id/guideline5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/appbar_layout"
+                app:setGlide="@{viewModel.myImg}"
+                tools:src="@drawable/profile1" />
+
+            <TextView
+                android:id="@+id/my_id_txt"
+                style="@style/H3_18pt_Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="30dp"
+                android:text="@{viewModel.myId}"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toEndOf="@+id/my_profile_img"
+                app:layout_constraintTop_toBottomOf="@+id/appbar_layout"
+                tools:text="머리가 말랑말랑" />
+
+            <TextView
+                android:id="@+id/my_intro_txt"
+                style="@style/P6_12pt_Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="@{viewModel.myIntro}"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="@+id/my_id_txt"
+                app:layout_constraintTop_toBottomOf="@+id/my_id_txt"
+                tools:text="@string/sample_intro" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="80dp" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/my_contents_container"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginTop="36dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/my_writing_tab_layout" />
+                app:layout_constraintTop_toBottomOf="@id/my_profile_img">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/my_writing_tab_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tabIndicatorColor="@color/main_blue">
 
-    </androidx.constraintlayout.motion.widget.MotionLayout>
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="첫번째" />
 
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="두번째" />
+                </com.google.android.material.tabs.TabLayout>
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/my_writing_viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/my_writing_tab_layout" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.motion.widget.MotionLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>
