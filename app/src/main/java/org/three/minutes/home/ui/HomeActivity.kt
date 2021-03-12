@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
@@ -67,6 +68,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
         }
 
         setObserve()
+        setSwipeRefresh()
 
         // 기기에 저장된 token값 가져오기
         ThreeApplication.getInstance().getDataStore().token.asLiveData()
@@ -99,6 +101,18 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
 
         initViewPager()
 
+    }
+
+    private fun setSwipeRefresh() {
+        mBinding.swipe.setColorSchemeColors(ContextCompat.getColor(this,R.color.main_blue))
+        mBinding.swipe.setOnRefreshListener {
+            val intent = Intent(this,HomeActivity::class.java)
+            overridePendingTransition(0,0)
+            startActivity(intent)
+            finish()
+
+            mBinding.swipe.isRefreshing = false
+        }
     }
 
     private fun setObserve() {

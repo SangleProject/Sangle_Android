@@ -1,8 +1,10 @@
 package org.three.minutes.mypage.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import org.three.minutes.R
 import org.three.minutes.databinding.ActivityMyPageBinding
@@ -31,12 +33,25 @@ class MyPageActivity : AppCompatActivity() {
             viewModel = mViewModel
         }
         setToolBar()
+        setSwipeRefresh()
 
         // 데이터 통신
         mViewModel.callMyData()
         mViewModel.callMyInfo()
         setMyViewPager()
         setMyTabLayout()
+    }
+
+    private fun setSwipeRefresh() {
+        mBinding.swipe.setColorSchemeColors(ContextCompat.getColor(this,R.color.main_blue))
+        mBinding.swipe.setOnRefreshListener {
+            val intent = Intent(this,MyPageActivity::class.java)
+            overridePendingTransition(0,0)
+            startActivity(intent)
+            finish()
+
+            mBinding.swipe.isRefreshing = false
+        }
     }
 
     private fun setToolBar() {
