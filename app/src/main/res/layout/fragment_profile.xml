@@ -224,7 +224,7 @@
             android:layout_above="@id/writing_btn"
             android:layout_centerHorizontal="true"
             android:layout_marginVertical="24dp"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:layout_marginHorizontal="66dp"
             app:writingImg="@{viewModel.percentage}"
             />
