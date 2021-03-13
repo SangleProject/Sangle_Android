@@ -5,6 +5,7 @@ import android.content.Context
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
+import com.google.firebase.messaging.FirebaseMessaging
 import org.three.minutes.util.*
 
 class ThreeApplication : Application(){
@@ -21,6 +22,7 @@ class ThreeApplication : Application(){
         threeApplication = this
         mImm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         dataStore = SangleDataStoreManager(this)
+        FirebaseMessaging.getInstance().subscribeToTopic("test")
     }
 
     fun getInputMethodManager() : InputMethodManager = mImm
