@@ -113,9 +113,6 @@ class DetailMyActivity : AppCompatActivity() {
             android.R.id.home -> {
                 finish()
             }
-            R.id.action_share -> {
-                Toast.makeText(this, "click Share", Toast.LENGTH_SHORT).show()
-            }
             R.id.action_configu -> {
                 val intent = Intent(this, WritingEditActivity::class.java)
                 intent.putExtra("topic", mViewModel.detailData.value!!.topic)
