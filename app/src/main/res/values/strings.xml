@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ThreeMinutes</string>
+    <string name="app_name">생글</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
