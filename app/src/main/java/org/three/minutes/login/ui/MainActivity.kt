@@ -190,6 +190,9 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
                 else{
                     showToast("${it.code()}")
                 }
+            },
+            onFailure = {
+                showToast("서버 오류로 인해 잠시 후 다시 시도해주세요.")
             }
         )
 
@@ -264,6 +267,11 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
                         },
                         onError = {
                             showToast("${it.code()}")
+                            progress.dismiss()
+                        },
+                        onFailure = {
+                            showToast("서버 오류로 인해 잠시 후 다시 시도해주세요.")
+                            progress.dismiss()
                         }
                     )
                 } else {

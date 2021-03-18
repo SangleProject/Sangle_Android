@@ -101,12 +101,14 @@ fun ImageView.hideView(){
 // retrofit 통신 확장 함수
 fun<T> Call<T>.customEnqueue(
     onSuccess : (T) -> Unit,
-    onError : (Response<T>) -> Unit = {}
+    onError : (Response<T>) -> Unit = {},
+    onFailure  : () -> Unit = {}
 ){
     this.enqueue(object : Callback<T>{
         override fun onFailure(call: Call<T>, t: Throwable) {
             Log.e("Server Fail", "Server Closed")
             t.printStackTrace()
+            onFailure()
         }
 
         override fun onResponse(call: Call<T>, response: Response<T>) {

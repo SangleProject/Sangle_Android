@@ -17,9 +17,11 @@ import org.three.minutes.R
 import org.three.minutes.ThreeApplication
 import org.three.minutes.home.ui.HomeActivity
 import org.three.minutes.server.SangleServiceImpl
+import org.three.minutes.signup.data.ResponseSignUpData
 import org.three.minutes.singleton.StatusObject
 import org.three.minutes.util.customEnqueue
 import org.three.minutes.util.showToast
+import retrofit2.Call
 
 class SplashActivity : AppCompatActivity() {
 
@@ -101,6 +103,11 @@ class SplashActivity : AppCompatActivity() {
                         val intent = Intent(this@SplashActivity, MainActivity::class.java)
                         startActivity(intent)
                         finish()
+                    },
+                    onFailure = {
+                        showToast("서버 오류로 인해 잠시 후 다시 시도해주세요.")
+                        finishAndRemoveTask()
+                        android.os.Process.killProcess(android.os.Process.myPid())
                     }
                 )
         } else {
