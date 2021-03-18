@@ -5,6 +5,15 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.google-services'
 
 android {
+
+    signingConfigs {
+        config {
+            storeFile file('/Users/paytalab/Desktop/Personal/Sangle/Sangle_KeyStore')
+            storePassword 'rkdalsrn13!'
+            keyAlias 'Sangle'
+            keyPassword 'rkdalsrn13!'
+        }
+    }
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
@@ -22,6 +31,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
 
