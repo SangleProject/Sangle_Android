@@ -28,7 +28,7 @@ class ThreeApplication : Application(){
         mImm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         dataStore = SangleDataStoreManager(this)
 
-        FirebaseMessaging.getInstance().subscribeToTopic("test")
+//        FirebaseMessaging.getInstance().subscribeToTopic("test")
         CoroutineScope(Dispatchers.IO).launch {
 
             val notice = dataStore.isNotification.first()
