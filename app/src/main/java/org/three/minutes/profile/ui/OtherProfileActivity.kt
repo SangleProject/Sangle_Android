@@ -65,6 +65,11 @@ class OtherProfileActivity : AppCompatActivity() {
                 callApi()
             }
         })
+
+        mViewModel.diffInfo.observe(this,{
+            mBinding.profileNickname.text = it.nickName
+            mBinding.profileIntro.text = it.info
+        })
     }
 
     private fun callApi() {
