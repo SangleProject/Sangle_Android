@@ -16,6 +16,7 @@ import org.three.minutes.ThreeApplication
 import org.three.minutes.badge.ui.OpenedBadgePopup
 import org.three.minutes.databinding.ActivityWritingResultBinding
 import org.three.minutes.home.ui.HomeActivity
+import org.three.minutes.word.ui.WordActivity
 import org.three.minutes.writing.data.BadgeData
 import org.three.minutes.writing.viewmodel.WritingResultViewModel
 
@@ -78,6 +79,13 @@ class WritingResultActivity : AppCompatActivity() {
             startEditActivity()
         }
 
+        // 다른 사람 글 둘러보기 버튼
+        mBinding.resultGoWordBtn.setOnClickListener {
+            val intent = Intent(this,WordActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -94,59 +102,59 @@ class WritingResultActivity : AppCompatActivity() {
 
     }
 
-private fun startEditActivity() {
-    val intent = Intent(this, WritingEditActivity::class.java)
-    intent.putExtra("topic", mViewModel.topic.value)
-    intent.putExtra("contents", mViewModel.contents.value)
-    intent.putExtra("postIdx", mViewModel.postIdx)
-    startActivityForResult(intent, EDIT_CODE)
-}
+    private fun startEditActivity() {
+        val intent = Intent(this, WritingEditActivity::class.java)
+        intent.putExtra("topic", mViewModel.topic.value)
+        intent.putExtra("contents", mViewModel.contents.value)
+        intent.putExtra("postIdx", mViewModel.postIdx)
+        startActivityForResult(intent, EDIT_CODE)
+    }
 
-// 완료 버튼, 삭제 버튼, 뒤로가기 버튼 클릭 시 호출
-private fun startHomeActivity() {
-    val intent = Intent(this, HomeActivity::class.java)
-    startActivity(intent)
-    finishAndRemoveTask()
-}
+    // 완료 버튼, 삭제 버튼, 뒤로가기 버튼 클릭 시 호출
+    private fun startHomeActivity() {
+        val intent = Intent(this, HomeActivity::class.java)
+        startActivity(intent)
+        finishAndRemoveTask()
+    }
 
-private fun observeViewModel() {
-    mViewModel.badgeList.observe(this, {
-        if (it.isNotEmpty()) {
-            showPopUp(it as ArrayList)
-        }
-    })
-
-    mViewModel.isDelete.observe(this, {
-        if (it) {
-            startHomeActivity()
-        }
-    })
-
-    mViewModel.isDone.observe(this, {
-        if (it) {
-            startHomeActivity()
-        }
-    })
-}
-
-private fun showPopUp(badge: ArrayList<BadgeData>?) {
-    if (badge!!.isEmpty()) {
-        return
-    } else {
-        val popUp = OpenedBadgePopup(this, badge[0])
-        badge.removeAt(0)
-        popUp.setListener(object : OpenedBadgePopup.OnCloseListener {
-            override fun closePopUp(v: Dialog) {
-                v.dismiss()
-                showPopUp(badge)
+    private fun observeViewModel() {
+        mViewModel.badgeList.observe(this, {
+            if (it.isNotEmpty()) {
+                showPopUp(it as ArrayList)
             }
         })
-        popUp.show()
-    }
-}
 
-override fun onBackPressed() {
-    super.onBackPressed()
-    startHomeActivity()
-}
+        mViewModel.isDelete.observe(this, {
+            if (it) {
+                startHomeActivity()
+            }
+        })
+
+        mViewModel.isDone.observe(this, {
+            if (it) {
+                startHomeActivity()
+            }
+        })
+    }
+
+    private fun showPopUp(badge: ArrayList<BadgeData>?) {
+        if (badge!!.isEmpty()) {
+            return
+        } else {
+            val popUp = OpenedBadgePopup(this, badge[0])
+            badge.removeAt(0)
+            popUp.setListener(object : OpenedBadgePopup.OnCloseListener {
+                override fun closePopUp(v: Dialog) {
+                    v.dismiss()
+                    showPopUp(badge)
+                }
+            })
+            popUp.show()
+        }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        startHomeActivity()
+    }
 }

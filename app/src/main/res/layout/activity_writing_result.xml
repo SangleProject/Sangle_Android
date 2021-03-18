@@ -227,7 +227,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/result_go_word_btn"
             style="@style/P1_16pt_Medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
