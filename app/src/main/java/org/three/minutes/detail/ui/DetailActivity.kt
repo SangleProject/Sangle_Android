@@ -3,6 +3,7 @@ package org.three.minutes.detail.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import org.three.minutes.R
@@ -38,6 +39,8 @@ class DetailActivity : AppCompatActivity() {
         setTextSizeButton()
         setLikeListener()
         setScrapListener()
+
+        mBinding.detailContentsTxt.movementMethod = ScrollingMovementMethod()
 
         mBinding.profileId.setOnClickListener {
             val intent = Intent(this,OtherProfileActivity::class.java)
