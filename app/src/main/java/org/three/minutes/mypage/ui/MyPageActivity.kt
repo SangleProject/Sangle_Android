@@ -3,6 +3,7 @@ package org.three.minutes.mypage.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -36,10 +37,16 @@ class MyPageActivity : AppCompatActivity() {
         setSwipeRefresh()
 
         // 데이터 통신
-        mViewModel.callMyData()
+//        mViewModel.callMyData()
         mViewModel.callMyInfo()
         setMyViewPager()
         setMyTabLayout()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mViewModel.callMyData()
+
     }
 
     private fun setSwipeRefresh() {
