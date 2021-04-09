@@ -165,19 +165,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/navi_info_txt" />
 
-            <TextView
-                style="@style/P3_14pt_Regular"
-                android:textColor="@color/red"
-                android:id="@+id/navi_log_out"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginBottom="52dp"
-                android:text="로그아웃"
-                android:padding="14dp"
-                android:gravity="center"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
 
             <ImageView
                 android:id="@+id/ic_setting"
@@ -186,10 +173,11 @@
                 android:layout_marginEnd="12dp"
                 android:scaleType="center"
                 android:src="@drawable/ic_setting"
-                app:layout_constraintBottom_toBottomOf="@+id/navi_log_out"
+                android:layout_marginBottom="52dp"
+                app:layout_constraintHeight_percent="0.07"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="H,1:1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/navi_log_out" />
+                app:layout_constraintEnd_toEndOf="parent"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

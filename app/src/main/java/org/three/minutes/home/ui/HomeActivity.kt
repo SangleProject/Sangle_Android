@@ -19,6 +19,7 @@ import androidx.viewpager.widget.ViewPager
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.home_navigation.view.*
 import kotlinx.coroutines.*
+import org.three.minutes.LogOutPopUp
 import org.three.minutes.R
 import org.three.minutes.ThreeApplication
 import org.three.minutes.badge.ui.BadgeActivity
@@ -178,14 +179,6 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
        mBinding.homeDrawer.navi_info_txt.setOnClickListener {
             val intent = Intent(this, GuideActivity::class.java)
             startActivity(intent)
-        }
-
-        // 로그아웃 클릭 시 로그아웃하기
-        mBinding.homeDrawer.navi_log_out.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("LogOut", GoogleLoginObject.GoogleLogInCode.LOG_OUT_CODE.code)
-            startActivity(intent)
-            finish()
         }
 
         // 공지사항 클릭 시 공지사항 뷰로 이동
