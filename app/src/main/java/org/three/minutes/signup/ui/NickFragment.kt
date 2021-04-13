@@ -7,10 +7,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import gun0912.tedkeyboardobserver.TedKeyboardObserver
 import kotlinx.android.synthetic.main.activity_signup.*
 import kotlinx.android.synthetic.main.fragment_nick.*
 import org.three.minutes.R
@@ -40,16 +42,32 @@ class NickFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         mBinding = DataBindingUtil.inflate(layoutInflater,R.layout.fragment_nick,container,false)
         mBinding.apply {
             lifecycleOwner = this@NickFragment
             viewModel = mViewModel
         }
 
-        mViewModel.nickname.observe(viewLifecycleOwner, Observer<String> {nickname ->
-            mActivity.signup_next_txt.isEnabled = !nickname.isNullOrBlank() && nickname.length >=2
+        mViewModel.nickname.observe(viewLifecycleOwner, {
+            mActivity.signup_next_txt.isEnabled = false
+            mBinding.imgCheck.visibility = View.INVISIBLE
+            mBinding.txtSameNickNotice.visibility = View.INVISIBLE
         })
+
+        mViewModel.isNickNameSame.observe(viewLifecycleOwner, {
+            if (it != null) {
+                if (it) {
+                    mBinding.txtSameNickNotice.visibility = View.INVISIBLE
+                    mBinding.imgCheck.visibility = View.VISIBLE
+                } else {
+                    mBinding.txtSameNickNotice.visibility = View.VISIBLE
+                    mBinding.imgCheck.visibility = View.INVISIBLE
+                }
+                mActivity.signup_next_txt.isEnabled = it
+            }
+        })
+
 
         return mBinding.root
     }
@@ -70,6 +88,13 @@ class NickFragment : Fragment() {
         //이용약관 글씨 눌렀을 때
         service_txt.setOnClickListener {
             makeIntentAndStart("서비스 이용약관")
+        }
+        
+        mBinding.nickEdt.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE)
+                mViewModel.checkNickName()
+
+            false
         }
     }
 
