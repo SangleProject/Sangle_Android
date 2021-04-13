@@ -106,7 +106,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
             android:scaleType="fitXY"
-            android:src="@drawable/illust_popup02"
+            android:src="@drawable/ic_illust_membership_withdrawal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
