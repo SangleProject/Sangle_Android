@@ -35,16 +35,16 @@ import org.three.minutes.word.data.ResponseSearchTopicData
 import org.three.minutes.word.data.ResponseUserListData
 import org.three.minutes.writing.data.BadgeData
 
-@BindingAdapter("app:addTodayItem")
-fun RecyclerView.setTodayWordData(data: MutableLiveData<List<ResponseTodayTopicData>>) {
-    val adapter = TodayWordRcvAdapter(this.context)
-    adapter.data = data.value!!
-    this.adapter = adapter
-    this.layoutManager =
-        LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
-    this.addItemDecoration(WordRcvItemDeco(this.context, true, 4))
-    adapter.notifyDataSetChanged()
-}
+//@BindingAdapter("app:addTodayItem")
+//fun RecyclerView.setTodayWordData(data: MutableLiveData<List<ResponseTodayTopicData>>) {
+//    val adapter = TodayWordRcvAdapter(this.context)
+//    adapter.data = data.value!!
+//    this.adapter = adapter
+//    this.layoutManager =
+//        LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+//    this.addItemDecoration(WordRcvItemDeco(this.context, true, 4))
+//    adapter.notifyDataSetChanged()
+//}
 
 @BindingAdapter("app:searchTopicItem", "app:searchUserItem", "app:isUser", "app:isWritten")
 fun RecyclerView.setSearchResult(

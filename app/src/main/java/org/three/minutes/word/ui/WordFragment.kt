@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,16 +16,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.three.minutes.CloseTopicPopUp
-import org.three.minutes.CloseTopicPopUpListener
 import org.three.minutes.R
 import org.three.minutes.databinding.FragmentWordBinding
-import org.three.minutes.home.ui.HomeActivity
+import org.three.minutes.home.data.ResponseTodayTopicData
 import org.three.minutes.server.SangleServiceImpl
 import org.three.minutes.singleton.PopUpObject
 import org.three.minutes.util.WordRcvItemDeco
 import org.three.minutes.util.customEnqueue
 import org.three.minutes.util.showToast
 import org.three.minutes.word.adapter.PastWritingRcvAdapter
+import org.three.minutes.word.adapter.TodayWordRcvAdapter
 import org.three.minutes.word.data.RequestWrittenData
 import org.three.minutes.word.data.ResponseLastTopicData
 import org.three.minutes.word.viewmodel.WordViewModel
@@ -33,6 +34,7 @@ import org.three.minutes.writing.ui.WritingReadyActivity
 
 class WordFragment : Fragment() {
     private lateinit var rcvAdapter: PastWritingRcvAdapter
+    private lateinit var todayAdapter: TodayWordRcvAdapter
     private lateinit var mBinding: FragmentWordBinding
     private lateinit var wordActivity: WordActivity
 
@@ -89,6 +91,26 @@ class WordFragment : Fragment() {
             }
         })
 
+        mViewModel.todayTopicList.observe(viewLifecycleOwner, {
+                todayAdapter = TodayWordRcvAdapter(mBinding.root.context)
+                todayAdapter.data = it
+
+                todayAdapter.setTodayWordListener(object : TodayWordRcvAdapter.TodayWordListener {
+                    override fun onItemClick(v: View, data: ResponseTodayTopicData) {
+                        mViewModel.callPastDetailPopular(data.topic)
+                        mViewModel.filter.value = "최신순"
+                        wordActivity.replaceDetailFragment()
+                    }
+                })
+
+                mBinding.todayWordRcv.apply {
+                    adapter = todayAdapter
+                    layoutManager =
+                        LinearLayoutManager(mBinding.root.context, LinearLayoutManager.HORIZONTAL, false)
+                    addItemDecoration(WordRcvItemDeco(mBinding.root.context, true, 4))
+                }
+                todayAdapter.notifyDataSetChanged()
+        })
 
 
         // 카테고리 변경 시 글씨체 변경
