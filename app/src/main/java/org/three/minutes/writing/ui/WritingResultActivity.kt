@@ -82,6 +82,7 @@ class WritingResultActivity : AppCompatActivity() {
         // 다른 사람 글 둘러보기 버튼
         mBinding.resultGoWordBtn.setOnClickListener {
             val intent = Intent(this,WordActivity::class.java)
+            intent.putExtra("topic", mViewModel.topic.value!!)
             startActivity(intent)
             finish()
         }

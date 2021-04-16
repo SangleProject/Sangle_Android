@@ -80,6 +80,17 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
         mBinding.containerLayout.setOnClickListener {
             downKeyBoard(true)
         }
+
+        getIntentData()
+    }
+
+    private fun getIntentData() {
+        val topic = intent.getStringExtra("topic")
+        if (topic != null) {
+            mViewModel.callPastDetailPopular(topic)
+            mViewModel.filter.value = "최신순"
+            replaceDetailFragment()
+        }
     }
 
     private fun settingFragment() {
