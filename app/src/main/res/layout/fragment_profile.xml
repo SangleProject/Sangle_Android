@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -13,9 +15,7 @@
     </data>
 
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:id="@+id/layout_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -216,18 +216,31 @@
 
         </androidx.cardview.widget.CardView>
 
-        <ImageView
-            android:id="@+id/home_main_img"
-            android:layout_width="229dp"
-            android:layout_height="180dp"
-            android:layout_below="@id/state_card"
-            android:layout_centerHorizontal="true"
-            android:layout_marginVertical="24dp"
-            android:scaleType="fitXY"
-            tools:src="@drawable/ic_illust_membership_withdrawal"
-            android:layout_marginHorizontal="66dp"
-            app:writingImg="@{viewModel.percentage}"
-            />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_hom_main_img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/state_card">
+
+            <ImageView
+                android:id="@+id/home_main_img"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginHorizontal="66dp"
+                android:layout_marginVertical="24dp"
+                app:layout_constraintWidth_percent="0.63"
+                app:layout_constraintDimensionRatio="1:0.8"
+                android:scaleType="fitXY"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:writingImg="@{viewModel.percentage}"
+                tools:src="@drawable/ic_illust_membership_withdrawal" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
         <Button
@@ -235,7 +248,7 @@
             android:id="@+id/writing_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/home_main_img"
+            android:layout_below="@id/layout_hom_main_img"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="20dp"
             android:background="@drawable/writing_button"
