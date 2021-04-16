@@ -147,7 +147,8 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
     private fun settingDrawer() {
         // 드로어 레이아웃 슬라이드 잠금 여부 설정
         mBinding.homeDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-        mBinding.homeDrawer.ic_navi_right.setOnClickListener {
+        
+        mBinding.homeDrawer.layout_profile.setOnClickListener {
             val intent = Intent(this, ProfileChangeActivity::class.java)
             startActivityForResult(intent, PROFILE_CODE)
         }
