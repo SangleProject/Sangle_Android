@@ -67,7 +67,7 @@ class PasswordFragment : Fragment() {
         }
 
         //패스워드 조건 observe
-        mViewModel.password.observe(this, Observer<String> { password ->
+        mViewModel.password.observe(viewLifecycleOwner, Observer<String> { password ->
             val m = PatternObject.pPattern.matcher(password)
             if (!password.isNullOrBlank()) {
                 if (m.matches()) {
@@ -85,20 +85,24 @@ class PasswordFragment : Fragment() {
         })
 
         //패스워드 체크 조건 observe
-        mViewModel.passwordCheck.observe(this, Observer<String> { passwordCheck ->
+        mViewModel.passwordCheck.observe(viewLifecycleOwner, Observer<String> { passwordCheck ->
+            if (!passwordCheck.isNullOrBlank()) {
 
-            if(passwordCheck == mViewModel.password.value){
-                mActivity.signup_next_txt.isEnabled = true
-                password_check_error_txt.visibility = View.INVISIBLE
-                img_password_check.visibility = View.VISIBLE
+                if (passwordCheck == mViewModel.password.value) {
+                    mActivity.signup_next_txt.isEnabled = true
+                    password_check_error_txt.visibility = View.INVISIBLE
+                    img_password_check.visibility = View.VISIBLE
+                } else {
+                    mActivity.signup_next_txt.isEnabled = false
+                    password_check_error_txt.visibility = View.VISIBLE
+                    img_password_check.visibility = View.INVISIBLE
+                }
             }
-            else{
+            else {
                 mActivity.signup_next_txt.isEnabled = false
-                password_check_error_txt.visibility = View.VISIBLE
+                password_check_error_txt.visibility = View.INVISIBLE
                 img_password_check.visibility = View.INVISIBLE
             }
-
-
         })
 
     }
