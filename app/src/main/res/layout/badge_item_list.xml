@@ -24,6 +24,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/ic_badge01_none"
+            android:padding="8dp"
             app:setGlideBadge="@{badgeData.badgeImg}"
             android:scaleType="fitXY"
             tools:ignore="ContentDescription" />
