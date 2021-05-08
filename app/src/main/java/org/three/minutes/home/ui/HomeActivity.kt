@@ -36,6 +36,7 @@ import org.three.minutes.preferences.ui.PreferencesActivity
 import org.three.minutes.profile.ui.ProfileChangeActivity
 import org.three.minutes.singleton.GoogleLoginObject
 import org.three.minutes.util.customChangeListener
+import org.three.minutes.util.showToast
 import org.three.minutes.word.ui.WordActivity
 import org.three.minutes.writing.data.BadgeData
 import kotlin.coroutines.CoroutineContext
@@ -187,6 +188,19 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
             val intent = Intent(this,NoticeActivity::class.java)
             startActivity(intent)
         }
+
+        //이메일 문의하기 클릭 시 이메일 창 띄우기
+        mBinding.homeDrawer.navi_mail_txt.setOnClickListener {
+            val intent = Intent(Intent.ACTION_SEND)
+            intent.type = "plain/text"
+            val address = arrayOf("brain.malang@gmail.com")
+            intent.apply {
+                putExtra(Intent.EXTRA_EMAIL, address)
+                putExtra(Intent.EXTRA_SUBJECT, "생글 문의")
+                putExtra(Intent.EXTRA_TEXT, getString(R.string.mail_contents))
+            }
+            startActivityForResult(intent,3000)
+        }
     }
 
 
@@ -250,10 +264,16 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PROFILE_CODE) {
-            if (resultCode == RESULT_OK) {
-                mViewModel.setInfo()
-                Toast.makeText(this, "프로필을 저장했어요!", Toast.LENGTH_SHORT).show()
+        when(requestCode) {
+            PROFILE_CODE -> {
+                if (resultCode == RESULT_OK) {
+                    mViewModel.setInfo()
+                    Toast.makeText(this, "프로필을 저장했어요!", Toast.LENGTH_SHORT).show()
+                }
+
+            }
+            3000 -> {
+                showToast("여러분의 소중한 의견이 잘 전달되었어요 :)")
             }
         }
     }

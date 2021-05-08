@@ -72,6 +72,9 @@
     <string name="membership_withdrawal_popup_cancel_btn">계속 함께할래요!</string>
 
     <string name="no_feed_notice">오늘의 글감을 채우고\n명예의 전당에 도전해봐요~</string>
-
+    <string name="mail_contents">1. 문의 유형 ( 문의, 버그 제보, 기타) :\n
+2. 회원 닉네임 (필요시 기입) :\n
+3. 문의 내용 :\n
+문의하신 사항은 생글팀이 신속하게 처리하겠습니다. 감사합니다 :)</string>
 
 </resources>
