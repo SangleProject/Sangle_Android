@@ -48,10 +48,14 @@ class FeedFragment : Fragment(),CoroutineScope {
 
         setFeedRcv()
 
-        mViewModel.isFameComplete.observe(viewLifecycleOwner,{
-            if (it){
-                mAdapter.data = mViewModel.fameDataList.value!!
-                mAdapter.notifyDataSetChanged()
+        mViewModel.isFameComplete.observe(viewLifecycleOwner, {
+            if (it) {
+                if (mViewModel.fameDataList.value!!.isEmpty()) {
+                    mBinding.layoutEmptyFeed.visibility = View.VISIBLE
+                } else {
+                    mAdapter.data = mViewModel.fameDataList.value!!
+                    mAdapter.notifyDataSetChanged()
+                }
             }
         })
 

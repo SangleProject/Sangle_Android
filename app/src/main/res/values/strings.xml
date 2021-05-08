@@ -71,5 +71,7 @@
     <string name="membership_withdrawal_popup_ok_btn">네, 삭제할게요.</string>
     <string name="membership_withdrawal_popup_cancel_btn">계속 함께할래요!</string>
 
+    <string name="no_feed_notice">오늘의 글감을 채우고\n명예의 전당에 도전해봐요~</string>
+
 
 </resources>
