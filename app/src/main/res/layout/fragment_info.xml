@@ -88,6 +88,7 @@
             android:inputType="number"
             android:hint="나이(출생연도)"
             android:text="@={viewModel.age}"
+            android:maxLength="4"
             app:layout_constraintEnd_toEndOf="@+id/gender_rg"
             app:layout_constraintStart_toStartOf="@+id/gender_rg"
             app:layout_constraintTop_toBottomOf="@+id/gender_rg"

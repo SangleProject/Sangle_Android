@@ -91,17 +91,17 @@ class PasswordFragment : Fragment() {
                 if (passwordCheck == mViewModel.password.value) {
                     mActivity.signup_next_txt.isEnabled = true
                     password_check_error_txt.visibility = View.INVISIBLE
-                    img_password_check.visibility = View.VISIBLE
+                    img_again_password_check.visibility = View.VISIBLE
                 } else {
                     mActivity.signup_next_txt.isEnabled = false
                     password_check_error_txt.visibility = View.VISIBLE
-                    img_password_check.visibility = View.INVISIBLE
+                    img_again_password_check.visibility = View.INVISIBLE
                 }
             }
             else {
                 mActivity.signup_next_txt.isEnabled = false
                 password_check_error_txt.visibility = View.INVISIBLE
-                img_password_check.visibility = View.INVISIBLE
+                img_again_password_check.visibility = View.INVISIBLE
             }
         })
 
