@@ -50,9 +50,12 @@ class NickFragment : Fragment() {
         }
 
         mViewModel.nickname.observe(viewLifecycleOwner, {
-            mActivity.signup_next_txt.isEnabled = false
-            mBinding.imgCheck.visibility = View.INVISIBLE
-            mBinding.txtSameNickNotice.visibility = View.INVISIBLE
+            if (it.isNullOrBlank()) {
+                mActivity.signup_next_txt.isEnabled = false
+                mBinding.imgCheck.visibility = View.INVISIBLE
+                mBinding.txtSameNickNotice.visibility = View.INVISIBLE
+
+            }
         })
 
         mViewModel.isNickNameSame.observe(viewLifecycleOwner, {
@@ -65,9 +68,9 @@ class NickFragment : Fragment() {
                     mBinding.imgCheck.visibility = View.INVISIBLE
                 }
                 mActivity.signup_next_txt.isEnabled = it
+                mViewModel.isNickNameSame.value = null
             }
         })
-
 
         return mBinding.root
     }
@@ -90,12 +93,19 @@ class NickFragment : Fragment() {
             makeIntentAndStart("서비스 이용약관")
         }
         
-        mBinding.nickEdt.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE)
-                mViewModel.checkNickName()
+//        mBinding.nickEdt.setOnEditorActionListener { _, actionId, _ ->
+//            if (actionId == EditorInfo.IME_ACTION_DONE)
+//                mViewModel.checkNickName()
+//
+//            false
+//        }
 
-            false
-        }
+        TedKeyboardObserver(activity as SignupActivity)
+            .listen { isShow ->
+                if (!isShow)
+                    if (mViewModel.nickname.value!!.isNotBlank())
+                        mViewModel.checkNickName()
+            }
     }
 
     private fun makeIntentAndStart(title : String){
