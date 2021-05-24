@@ -104,7 +104,7 @@
             android:backgroundTint="@android:color/transparent"
             android:ems="10"
             android:gravity="top"
-            android:hint="오늘의 키워드를 보고 떠오르는 생각들을 자유롭게 써 보세요!(제한시간 3분)"
+            android:hint="오늘의 키워드를 보고 떠오르는 생각들을 자유롭게 써 보세요! (제한시간 3분)"
             android:importantForAutofill="no"
             android:inputType="textPersonName|textMultiLine"
             android:paddingHorizontal="16dp"
