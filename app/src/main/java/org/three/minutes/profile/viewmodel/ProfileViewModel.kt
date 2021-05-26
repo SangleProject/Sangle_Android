@@ -22,6 +22,13 @@ class ProfileViewModel : ViewModel() {
     var token = ""
 
     var profileName = MutableLiveData("")
+    /**
+     * 2021.05.26 버그 수정
+     * 프로필 업데이트 시 기존 닉네임 그대로 사용할 경우 중복체크 api에서 막히는 현상 발생
+     * 기존 변경 닉네임을 저장한 값과 현재 바꾼 닉네임을 비교하여 둘이 동일하다면
+     * 중복체크 api 호출 스킵
+     */
+    var lastProfileName = ""
     var introduce = MutableLiveData("")
     var introduceCount = MutableLiveData(0)
     var imgIndex = MutableLiveData(0)
@@ -48,6 +55,7 @@ class ProfileViewModel : ViewModel() {
                 .customEnqueue(
                     onSuccess = {
                         profileName.value = it.nickName
+                        lastProfileName = it.nickName
                         introduce.value = it.info
                         imgIndex.value = (it.imgIndex) -1
                         Log.e("ProfileActivity","index : ${it.imgIndex}")

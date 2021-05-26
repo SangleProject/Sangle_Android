@@ -60,8 +60,33 @@ class ProfileChangeActivity : AppCompatActivity() {
         // 우측 상단 저장 버튼 클릭 이벤트
         mBinding.profileChangedTxt.setOnClickListener {
             if (mViewModel.isOk) {
-                SangleServiceImpl.service.postCheckNickName(body = RequestCheckNickNameData(nickName = mViewModel.profileName.value!!))
-                    .customEnqueue(
+                if (mViewModel.profileName.value == mViewModel.lastProfileName) {
+                    SangleServiceImpl.service.putProfileChange(
+                        mViewModel.token,
+                        RequestProfileData(
+                            nickName = mViewModel.profileName.value!!,
+                            info = mViewModel.introduce.value!!,
+                            profileImg = (rcvAdpater.checkedPosition + 1).toString()
+                        )
+                    ).customEnqueue(
+                        onSuccess = {
+                            val intent = Intent()
+                            setResult(RESULT_OK, intent)
+                            finish()
+                        },
+                        onError = {
+                            Log.e(
+                                "ProfileChangeActivity",
+                                "putProfileChange ERROR : ${it.code()}"
+                            )
+                        }
+                    )
+                } else {
+                    SangleServiceImpl.service.postCheckNickName(
+                        body = RequestCheckNickNameData(
+                            nickName = mViewModel.profileName.value!!
+                        )
+                    ).customEnqueue(
                         onSuccess = {
                             if (it.isCheck) {
                                 SangleServiceImpl.service.putProfileChange(
@@ -85,14 +110,14 @@ class ProfileChangeActivity : AppCompatActivity() {
                                             )
                                         }
                                     )
-                            }
-                            else
+                            } else
                                 showToast("이미 사용중인 닉네임 이에요.")
                         },
                         onError = {
                             showToast("닉네임 체크를 실패했어요. (${it.code()})")
                         }
                     )
+                }
             } else {
                 showToast("닉네임을 입력해주세요.")
             }
@@ -120,7 +145,7 @@ class ProfileChangeActivity : AppCompatActivity() {
         })
         // 소개글 글자 수 카운팅 observer
         mViewModel.introduce.observe(this, { introduce ->
-            if (introduce != null){
+            if (introduce != null) {
                 mViewModel.introduceCount.value = introduce.length
             }
         })
