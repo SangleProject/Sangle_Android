@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import org.three.minutes.R
 import retrofit2.Call
@@ -57,6 +58,19 @@ fun ViewPager.customChangeListener(pageSelect: (Int) -> Unit , pageScrollState :
 
         override fun onPageSelected(position: Int) {
             pageSelect(position)
+        }
+    })
+}
+
+fun RecyclerView.touchControl(pageScrollState : (Int) -> Unit = {}) {
+    this.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+        }
+
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+            pageScrollState(newState)
         }
     })
 }

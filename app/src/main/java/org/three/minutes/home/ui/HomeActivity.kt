@@ -211,7 +211,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
         mBinding.homeBottomNavi.menu.getItem(1).isChecked = true
         mBinding.homePage.currentItem = 1
 
-        //뷰페이저 슬라이드 시 바텀네비 아이콘 상태 변경
+        // 스와이프 리프레시와 터치 이벤트 겹치는 현상 수정
         mBinding.homePage.customChangeListener(
             pageSelect ={
                 mBinding.homeBottomNavi.menu.getItem(it).isChecked = true
@@ -222,12 +222,12 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
 
         )
 
-        // 스와이프 리프레시와 터치 이벤트 겹치는 현상 수정
 
 
         //아이콘 안보여서 속성 설정
         mBinding.homeBottomNavi.itemIconTintList = null
 
+        //뷰페이저 슬라이드 시 바텀네비 아이콘 상태 변경
         mBinding.homeBottomNavi.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_feed -> home_page.currentItem = 0
@@ -238,7 +238,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
         }
     }
 
-    private fun isEnableSwipeRefresh(isEnable : Boolean){
+    fun isEnableSwipeRefresh(isEnable : Boolean){
         mBinding.swipe.isEnabled = isEnable
     }
 

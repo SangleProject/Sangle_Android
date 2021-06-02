@@ -190,7 +190,7 @@ class HomeViewModel(application: Application, private val useCase: HomeUseCase) 
             SangleServiceImpl.service.getFameData(token)
                 .customEnqueue(
                     onSuccess = {
-                        fameDataList.value = it
+//                        fameDataList.value = it
                         isFameComplete.value = true
                     },
                     onError = {

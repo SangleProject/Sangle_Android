@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -25,6 +26,7 @@ import org.three.minutes.server.SangleServiceImpl
 import org.three.minutes.util.LinePagerIndicatorDecoration
 import org.three.minutes.util.RcvItemDeco
 import org.three.minutes.util.customEnqueue
+import org.three.minutes.util.touchControl
 import kotlin.coroutines.CoroutineContext
 
 
@@ -52,7 +54,10 @@ class FeedFragment : Fragment(),CoroutineScope {
             if (it) {
                 if (mViewModel.fameDataList.value!!.isEmpty()) {
                     mBinding.layoutEmptyFeed.visibility = View.VISIBLE
+                    mBinding.feedRcv.visibility = View.GONE
                 } else {
+                    mBinding.layoutEmptyFeed.visibility = View.GONE
+                    mBinding.feedRcv.visibility = View.VISIBLE
                     mAdapter.data = mViewModel.fameDataList.value!!
                     mAdapter.notifyDataSetChanged()
                 }
@@ -71,6 +76,9 @@ class FeedFragment : Fragment(),CoroutineScope {
                 mBinding.root.context, LinearLayoutManager.HORIZONTAL, false
             )
             addItemDecoration(LinePagerIndicatorDecoration(mBinding.root.context))
+            touchControl { state ->
+                (activity as HomeActivity).isEnableSwipeRefresh(state == RecyclerView.SCROLL_STATE_IDLE)
+            }
         }
         snapHelper.attachToRecyclerView(mBinding.feedRcv)
     }
