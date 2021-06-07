@@ -23,14 +23,11 @@ import org.three.minutes.home.adapter.FeedRcvAdapter
 import org.three.minutes.home.data.FeedData
 import org.three.minutes.home.viewmodel.HomeViewModel
 import org.three.minutes.server.SangleServiceImpl
-import org.three.minutes.util.LinePagerIndicatorDecoration
-import org.three.minutes.util.RcvItemDeco
-import org.three.minutes.util.customEnqueue
-import org.three.minutes.util.touchControl
+import org.three.minutes.util.*
 import kotlin.coroutines.CoroutineContext
 
 
-class FeedFragment : Fragment(),CoroutineScope {
+class FeedFragment : Fragment(), CoroutineScope {
 
     private val job = Job()
     override val coroutineContext: CoroutineContext
@@ -52,15 +49,20 @@ class FeedFragment : Fragment(),CoroutineScope {
 
         mViewModel.isFameComplete.observe(viewLifecycleOwner, {
             if (it) {
-                if (mViewModel.fameDataList.value!!.isEmpty()) {
+                if (mViewModel.fameDataList.value!!.isNullOrEmpty()) {
+                    Log.i("fame", "fame is empty")
                     mBinding.layoutEmptyFeed.visibility = View.VISIBLE
                     mBinding.feedRcv.visibility = View.GONE
                 } else {
+                    Log.i("fame", "fame is not empty")
                     mBinding.layoutEmptyFeed.visibility = View.GONE
                     mBinding.feedRcv.visibility = View.VISIBLE
                     mAdapter.data = mViewModel.fameDataList.value!!
                     mAdapter.notifyDataSetChanged()
                 }
+            } else {
+                mBinding.layoutEmptyFeed.visibility = View.VISIBLE
+                mBinding.feedRcv.visibility = View.GONE
             }
         })
 

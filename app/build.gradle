@@ -21,7 +21,7 @@ android {
         applicationId "org.three.minutes"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 20210607
+        versionCode 202106071
         versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -77,6 +77,8 @@ dependencies {
     //Retrofit2
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:retrofit-mock:2.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.5'
+    implementation 'com.squareup.okhttp3:okhttp:4.2.2'
 
     //Gson
     implementation 'com.google.code.gson:gson:2.8.6'
