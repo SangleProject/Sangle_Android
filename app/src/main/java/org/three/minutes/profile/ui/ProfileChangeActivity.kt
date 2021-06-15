@@ -65,7 +65,7 @@ class ProfileChangeActivity : AppCompatActivity() {
                         mViewModel.token,
                         RequestProfileData(
                             nickName = mViewModel.profileName.value!!,
-                            info = mViewModel.introduce.value!!,
+                            info = mViewModel.introduce.value ?: "",
                             profileImg = (rcvAdpater.checkedPosition + 1).toString()
                         )
                     ).customEnqueue(
@@ -93,7 +93,7 @@ class ProfileChangeActivity : AppCompatActivity() {
                                     mViewModel.token,
                                     RequestProfileData(
                                         nickName = mViewModel.profileName.value!!,
-                                        info = mViewModel.introduce.value!!,
+                                        info = mViewModel.introduce.value ?: "",
                                         profileImg = (rcvAdpater.checkedPosition + 1).toString()
                                     )
                                 )
