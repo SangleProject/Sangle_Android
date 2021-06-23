@@ -1,19 +1,16 @@
 package org.three.minutes.detail.ui
 
+import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
-import android.view.View
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.*
 import min.dev.singleclick.mingSingleClickListener
 import org.three.minutes.R
 import org.three.minutes.databinding.ActivityDetailBinding
-import org.three.minutes.databinding.BottomSheetReportBinding
 import org.three.minutes.detail.viewmodel.DetailOtherViewModel
 import org.three.minutes.profile.ui.OtherProfileActivity
 
@@ -25,20 +22,16 @@ class DetailActivity : AppCompatActivity() {
 
     // 신고하기 바텀 시트
     private val reportBottomSheet by lazy {
-        ReportBottomDialog()
+        ReportBottomDialog(object : ReportBottomDialog.ReportClickListener {
+            override fun onClickOk() {
+                reportCheckDialog.show()
+            }
+        })
     }
 
-    // 신고하기 바텀시트 바인딩
-    private val reportBottomBinding: BottomSheetReportBinding by lazy {
-        DataBindingUtil.inflate<BottomSheetReportBinding>(
-            layoutInflater,
-            R.layout.bottom_sheet_report,
-            null,
-            false
-        ).apply {
-            lifecycleOwner = this@DetailActivity
-            viewModel = mViewModel
-        }
+    // 신고하기 한번 더 체크하는 다이얼로그
+    private val reportCheckDialog by lazy {
+        ReportDialog(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,6 +56,13 @@ class DetailActivity : AppCompatActivity() {
         setScrapListener()
 
         mBinding.detailContentsTxt.movementMethod = ScrollingMovementMethod()
+
+        // 신고하기 체크 다이얼로그 리스너 장착
+        reportCheckDialog.setClickListener(object : ReportDialog.PopUpClickListener {
+            override fun setOnOk(dialog: Dialog) {
+                dialog.dismiss()
+            }
+        })
 
         mBinding.profileId.setOnClickListener {
             val intent = Intent(this, OtherProfileActivity::class.java)

@@ -15,9 +15,13 @@ import org.three.minutes.databinding.BottomSheetReportBinding
 import org.three.minutes.detail.viewmodel.DetailOtherViewModel
 
 
-class ReportBottomDialog : BottomSheetDialogFragment() {
+class ReportBottomDialog(private val listener: ReportClickListener) : BottomSheetDialogFragment() {
     private val mViewModel: DetailOtherViewModel by activityViewModels()
     private lateinit var reportBottomBinding: BottomSheetReportBinding
+
+    interface ReportClickListener {
+        fun onClickOk()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +40,8 @@ class ReportBottomDialog : BottomSheetDialogFragment() {
             lifecycleOwner = viewLifecycleOwner
             viewModel = mViewModel
         }
+
+        observeEvent()
 
         return reportBottomBinding.root
     }
@@ -72,17 +78,33 @@ class ReportBottomDialog : BottomSheetDialogFragment() {
                 }
             }
             reportBottomBinding.edtReportEtc.clearFocus()
-            reportBottomBinding.btnReport.isEnabled = true
+
+        }
+
+        reportBottomBinding.btnReport.mingSingleClickListener {
+            listener.onClickOk()
         }
 
     }
 
+    private fun observeEvent() {
+        mViewModel.reportEtc.observe(viewLifecycleOwner, {
+            if (it.isNullOrBlank() && reportBottomBinding.radioReportEtc.isChecked) {
+                reportBottomBinding.btnReport.isEnabled = false
+            }
+            else if (it.isNotBlank() && reportBottomBinding.radioReportEtc.isChecked)
+                reportBottomBinding.btnReport.isEnabled = true
+        })
+    }
+
     private fun showReportEtcLayout() {
+        reportBottomBinding.btnReport.isEnabled = false
         if (reportBottomBinding.layoutEtc.visibility == View.INVISIBLE)
             reportBottomBinding.layoutEtc.visibility = View.VISIBLE
     }
 
     private fun hideReportEtcLayout() {
+        reportBottomBinding.btnReport.isEnabled = true
         if (reportBottomBinding.layoutEtc.visibility == View.VISIBLE) {
             reportBottomBinding.layoutEtc.visibility = View.INVISIBLE
             mViewModel.reportEtc.value = ""
