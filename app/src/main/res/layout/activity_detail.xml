@@ -248,9 +248,17 @@
                     app:layout_constraintTop_toTopOf="@+id/detail_font_size_group" />
 
 
+                <ImageView
+                    android:id="@+id/img_report"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_report"
+                    android:layout_marginEnd="4dp"
+                    app:layout_constraintBottom_toBottomOf="@id/detail_font_size_group"
+                    app:layout_constraintTop_toTopOf="@id/detail_font_size_group"
+                    app:layout_constraintEnd_toEndOf="parent"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

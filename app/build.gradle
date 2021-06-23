@@ -134,4 +134,7 @@ dependencies {
 
     // Dot Indicator
     implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
+
+    implementation 'com.github.kangmin1012:MingSingleClickListener:1.0.1'
+
 }
