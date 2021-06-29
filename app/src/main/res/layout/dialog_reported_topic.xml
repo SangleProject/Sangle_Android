@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="HardcodedText">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="16dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_report"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/txt_report_title"
+                        style="@style/H3_18pt_Regular"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="28dp"
+                        android:layout_marginTop="40dp"
+                        android:gravity="center"
+                        android:textColor="@color/black_80"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="'글감명' 으로\n작성한 게시글이 숨겨졌어요." />
+
+
+                    <TextView
+                        android:id="@+id/txt_contents_title"
+                        style="@style/P5_12pt_Bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="사유 :"
+                        android:textColor="@color/black_60"
+                        app:layout_constraintEnd_toStartOf="@+id/txt_contents"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/txt_report_title" />
+
+                    <TextView
+                        android:id="@+id/txt_contents"
+                        style="@style/P6_12pt_Regular"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:textColor="@color/black_60"
+                        app:layout_constraintBottom_toBottomOf="@+id/txt_contents_title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:maxLines="3"
+                        android:ellipsize="end"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/txt_contents_title"
+                        app:layout_constraintTop_toTopOf="@+id/txt_contents_title"
+                        tools:text="욕설이나 차별, 혐오성 게시물" />
+
+                    <TextView
+                        android:id="@+id/txt_report_caution"
+                        style="@style/P6_12pt_Regular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="숨김 처리된 내용은 생글 운영팀에서 확인하여 커뮤니티\n운영 정책 위반 여부에 따라 검토 후, 복구 또는 숨김\n상태로 유지됩니다."
+                        android:textColor="@color/black_60"
+                        app:layout_constraintEnd_toEndOf="@+id/txt_contents"
+                        app:layout_constraintStart_toStartOf="@+id/txt_contents_title"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_contents_title" />
+
+                    <Button
+                        android:id="@+id/popup_button_ok"
+                        style="@style/P1_16pt_Medium"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:background="@color/main_blue"
+                        android:text="확인"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/txt_report_caution" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+
+</layout>

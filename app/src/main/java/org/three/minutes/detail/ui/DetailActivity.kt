@@ -11,8 +11,12 @@ import kotlinx.android.synthetic.*
 import min.dev.singleclick.mingSingleClickListener
 import org.three.minutes.R
 import org.three.minutes.databinding.ActivityDetailBinding
+import org.three.minutes.detail.data.RequestReport
 import org.three.minutes.detail.viewmodel.DetailOtherViewModel
 import org.three.minutes.profile.ui.OtherProfileActivity
+import org.three.minutes.server.SangleServiceImpl
+import org.three.minutes.util.customEnqueue
+import org.three.minutes.util.showToast
 
 class DetailActivity : AppCompatActivity() {
     private val mBinding: ActivityDetailBinding by lazy {
@@ -60,7 +64,32 @@ class DetailActivity : AppCompatActivity() {
         // 신고하기 체크 다이얼로그 리스너 장착
         reportCheckDialog.setClickListener(object : ReportDialog.PopUpClickListener {
             override fun setOnOk(dialog: Dialog) {
-                dialog.dismiss()
+                val content =
+                    if (mViewModel.reportContents.isNotBlank()) mViewModel.reportContents
+                    else mViewModel.reportEtc.value.toString()
+
+                SangleServiceImpl.service.postDeclaration(
+                    mViewModel.token,
+                    mViewModel.postIdx,
+                    RequestReport(content)
+                ).customEnqueue(
+                    onSuccess ={
+                        showToast(it.adminMemo)
+                        dialog.dismiss()
+
+                    }
+                    , onError = {
+                        showToast("신고하는 도중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.")
+                        dialog.dismiss()
+
+                    },
+                    onFailure = {
+                        showToast("서버와의 연결이 끊겼습니다. 잠시 후 다시 시도해주세요.")
+                        dialog.dismiss()
+                    }
+
+                )
+
             }
         })
 

@@ -39,6 +39,7 @@ class CloseTopicPopUp(context : Context, private val topic : String) : Dialog(co
             val intent = Intent(context,WritingReadyActivity::class.java)
             intent.putExtra("topic",topic)
             context.startActivity(intent)
+            dismiss()
         }
     }
 }

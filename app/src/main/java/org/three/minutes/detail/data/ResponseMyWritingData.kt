@@ -12,5 +12,6 @@ data class ResponseMyWritingData(
     val likes : Int,
     val liked : Boolean,
     val modified : Boolean,
-    var open : Boolean
+    var open : Boolean,
+    val isBan: String
 )
