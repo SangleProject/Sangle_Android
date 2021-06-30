@@ -29,6 +29,7 @@ class DetailActivity : AppCompatActivity() {
         ReportBottomDialog(object : ReportBottomDialog.ReportClickListener {
             override fun onClickOk() {
                 reportCheckDialog.show()
+                finish()
             }
         })
     }
@@ -64,9 +65,7 @@ class DetailActivity : AppCompatActivity() {
         // 신고하기 체크 다이얼로그 리스너 장착
         reportCheckDialog.setClickListener(object : ReportDialog.PopUpClickListener {
             override fun setOnOk(dialog: Dialog) {
-                val content =
-                    if (mViewModel.reportContents.isNotBlank()) mViewModel.reportContents
-                    else mViewModel.reportEtc.value.toString()
+                val content = mViewModel.reportContents
 
                 SangleServiceImpl.service.postDeclaration(
                     mViewModel.token,

@@ -114,72 +114,7 @@
                 android:text="개인 정보를 노출하는 행위"
                 android:textColor="@color/black_60" />
 
-            <RadioButton
-                android:id="@+id/radio_report_etc"
-                style="@style/P1_16pt_Medium"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:button="@drawable/ic_radio_button_state"
-                android:paddingVertical="10dp"
-                android:paddingStart="8dp"
-                android:text="기타"
-                android:textColor="@color/black_60" />
-
         </RadioGroup>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_etc"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:visibility="invisible"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/radio_group_report">
-
-            <EditText
-                android:id="@+id/edt_report_etc"
-                style="@style/P3_14pt_Regular"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:ellipsize="end"
-                android:hint="신고 사유를 직접 입력해 주세요."
-                android:inputType="textMultiLine"
-                android:maxLines="3"
-                android:paddingBottom="16dp"
-                android:maxLength="150"
-                android:text="@={viewModel.reportEtc}"
-                android:textColor="@color/black_60"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/txt_report_etc_count"
-                style="@style/P6_12pt_Regular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0"
-                android:textColor="@color/black_40"
-                app:layout_constraintBottom_toBottomOf="@+id/txt_report_etc_max_count"
-                app:layout_constraintEnd_toStartOf="@+id/txt_report_etc_max_count"
-                app:layout_constraintTop_toTopOf="@+id/txt_report_etc_max_count"
-                tools:text="0" />
-
-            <TextView
-                android:id="@+id/txt_report_etc_max_count"
-                style="@style/P6_12pt_Regular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="/150자"
-                android:textColor="@color/black_40"
-                app:layout_constraintEnd_toEndOf="@+id/edt_report_etc"
-                app:layout_constraintTop_toBottomOf="@+id/edt_report_etc" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         <TextView
@@ -187,13 +122,12 @@
             style="@style/P6_12pt_Regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="52dp"
             android:text="@string/caution_report"
             android:textColor="@color/black_60"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout_etc" />
+            app:layout_constraintTop_toBottomOf="@+id/radio_group_report" />
 
         <TextView
             style="@style/P1_16pt_Medium"

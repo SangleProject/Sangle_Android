@@ -41,8 +41,6 @@ class ReportBottomDialog(private val listener: ReportClickListener) : BottomShee
             viewModel = mViewModel
         }
 
-        observeEvent()
-
         return reportBottomBinding.root
     }
 
@@ -57,34 +55,24 @@ class ReportBottomDialog(private val listener: ReportClickListener) : BottomShee
             when (checkedId) {
                 R.id.radio_report_a_term_of_abuse -> {
                     mViewModel.reportContents = "욕설이나 차별, 혐오성 게시물"
-                    hideReportEtcLayout()
                 }
                 R.id.radio_report_promotion -> {
                     mViewModel.reportContents = "홍보 혹은 영리목적의 게시물"
-                    hideReportEtcLayout()
                 }
                 R.id.radio_report_ero -> {
                     mViewModel.reportContents = "음란, 선정적으로 유해한 게시물"
-                    hideReportEtcLayout()
                 }
                 R.id.radio_report_illegal -> {
                     mViewModel.reportContents = "불법 정보를 제공하는 행위"
-                    hideReportEtcLayout()
                 }
                 R.id.radio_report_spam -> {
                     mViewModel.reportContents = "같은 내용 도배, 스팸 게시물"
-                    hideReportEtcLayout()
                 }
                 R.id.radio_report_privacy -> {
                     mViewModel.reportContents = "개인 정보를 노출하는 행위"
-                    hideReportEtcLayout()
-                }
-                R.id.radio_report_etc -> {
-                    showReportEtcLayout()
                 }
             }
-            reportBottomBinding.edtReportEtc.clearFocus()
-
+            reportBottomBinding.btnReport.isEnabled = true
         }
 
         reportBottomBinding.btnReport.mingSingleClickListener {
@@ -94,38 +82,10 @@ class ReportBottomDialog(private val listener: ReportClickListener) : BottomShee
 
     }
 
-    private fun observeEvent() {
-        mViewModel.reportEtc.observe(viewLifecycleOwner, {
-            if (it.isNullOrBlank() && reportBottomBinding.radioReportEtc.isChecked) {
-                reportBottomBinding.btnReport.isEnabled = false
-            }
-            else if (it.isNotBlank() && reportBottomBinding.radioReportEtc.isChecked)
-                reportBottomBinding.btnReport.isEnabled = true
-        })
-    }
-
-    private fun showReportEtcLayout() {
-        reportBottomBinding.btnReport.isEnabled = false
-        mViewModel.reportContents = ""
-        if (reportBottomBinding.layoutEtc.visibility == View.INVISIBLE) {
-            reportBottomBinding.layoutEtc.visibility = View.VISIBLE
-            mViewModel.reportEtc.value = ""
-        }
-    }
-
-    private fun hideReportEtcLayout() {
-        reportBottomBinding.btnReport.isEnabled = true
-        if (reportBottomBinding.layoutEtc.visibility == View.VISIBLE) {
-            reportBottomBinding.layoutEtc.visibility = View.INVISIBLE
-            mViewModel.reportEtc.value = ""
-        }
-    }
-
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
         reportBottomBinding.radioGroupReport.clearCheck()
         reportBottomBinding.btnReport.isEnabled = false
-        mViewModel.reportEtc.value = ""
         mViewModel.reportContents = ""
     }
 

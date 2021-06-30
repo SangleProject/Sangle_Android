@@ -32,8 +32,6 @@ class DetailOtherViewModel : ViewModel() {
     var likeCount = MutableLiveData("")
     var likeCountInteger = 0
 
-    // 신고하기 창에서 기타 탭을 눌렀을 경우 나오는 EditText 값
-    val reportEtc = MutableLiveData("")
     // 신고하기 종류 string 값
     var reportContents = ""
 
