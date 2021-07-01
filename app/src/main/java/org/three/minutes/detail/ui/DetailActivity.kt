@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.*
 import min.dev.singleclick.mingSingleClickListener
 import org.three.minutes.R
 import org.three.minutes.databinding.ActivityDetailBinding
+import org.three.minutes.detail.data.EnumAdminMemo
 import org.three.minutes.detail.data.RequestReport
 import org.three.minutes.detail.viewmodel.DetailOtherViewModel
 import org.three.minutes.profile.ui.OtherProfileActivity
@@ -29,7 +30,6 @@ class DetailActivity : AppCompatActivity() {
         ReportBottomDialog(object : ReportBottomDialog.ReportClickListener {
             override fun onClickOk() {
                 reportCheckDialog.show()
-                finish()
             }
         })
     }
@@ -76,6 +76,8 @@ class DetailActivity : AppCompatActivity() {
                         showToast(it.adminMemo)
                         dialog.dismiss()
 
+                        if (it.adminMemo == EnumAdminMemo.OK.memo) // 처음 신고하는 글일 경우에만 액티비티를 빠져 나온다.
+                            finish()
                     }
                     , onError = {
                         showToast("신고하는 도중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.")
