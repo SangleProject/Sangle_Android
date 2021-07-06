@@ -81,4 +81,6 @@
         허위신고일 경우, 신고자의 활동이 제한될 수 있으므로,\n신중하게 신고해주시기 바랍니다.
     </string>
 
+    <string name="have_recent_version">최신 업데이트 버전이 있습니다.</string>
+
 </resources>
