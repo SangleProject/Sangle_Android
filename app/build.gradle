@@ -21,8 +21,8 @@ android {
         applicationId "org.three.minutes"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 202107011
-        versionName "1.0.0"
+        versionCode 202107060
+        versionName "1.0.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -136,5 +136,8 @@ dependencies {
     implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
 
     implementation 'com.github.kangmin1012:MingSingleClickListener:1.0.1'
+
+    // jsoup
+    implementation 'org.jsoup:jsoup:1.13.1'
 
 }
