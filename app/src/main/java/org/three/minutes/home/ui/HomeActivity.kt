@@ -19,6 +19,7 @@ import androidx.viewpager.widget.ViewPager
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.home_navigation.view.*
 import kotlinx.coroutines.*
+import org.three.minutes.LogOutPopUp
 import org.three.minutes.R
 import org.three.minutes.ThreeApplication
 import org.three.minutes.badge.ui.BadgeActivity
@@ -35,6 +36,7 @@ import org.three.minutes.preferences.ui.PreferencesActivity
 import org.three.minutes.profile.ui.ProfileChangeActivity
 import org.three.minutes.singleton.GoogleLoginObject
 import org.three.minutes.util.customChangeListener
+import org.three.minutes.util.showToast
 import org.three.minutes.word.ui.WordActivity
 import org.three.minutes.writing.data.BadgeData
 import kotlin.coroutines.CoroutineContext
@@ -146,7 +148,8 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
     private fun settingDrawer() {
         // 드로어 레이아웃 슬라이드 잠금 여부 설정
         mBinding.homeDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-        mBinding.homeDrawer.ic_navi_right.setOnClickListener {
+
+        mBinding.homeDrawer.layout_profile.setOnClickListener {
             val intent = Intent(this, ProfileChangeActivity::class.java)
             startActivityForResult(intent, PROFILE_CODE)
         }
@@ -180,18 +183,23 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
             startActivity(intent)
         }
 
-        // 로그아웃 클릭 시 로그아웃하기
-        mBinding.homeDrawer.navi_log_out.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("LogOut", GoogleLoginObject.GoogleLogInCode.LOG_OUT_CODE.code)
-            startActivity(intent)
-            finish()
-        }
-
         // 공지사항 클릭 시 공지사항 뷰로 이동
         mBinding.homeDrawer.navi_notice_txt.setOnClickListener {
             val intent = Intent(this,NoticeActivity::class.java)
             startActivity(intent)
+        }
+
+        //이메일 문의하기 클릭 시 이메일 창 띄우기
+        mBinding.homeDrawer.navi_mail_txt.setOnClickListener {
+            val intent = Intent(Intent.ACTION_SEND)
+            intent.type = "plain/text"
+            val address = arrayOf("brain.malang@gmail.com")
+            intent.apply {
+                putExtra(Intent.EXTRA_EMAIL, address)
+                putExtra(Intent.EXTRA_SUBJECT, "생글 문의")
+                putExtra(Intent.EXTRA_TEXT, getString(R.string.mail_contents))
+            }
+            startActivityForResult(intent,3000)
         }
     }
 
@@ -203,7 +211,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
         mBinding.homeBottomNavi.menu.getItem(1).isChecked = true
         mBinding.homePage.currentItem = 1
 
-        //뷰페이저 슬라이드 시 바텀네비 아이콘 상태 변경
+        // 스와이프 리프레시와 터치 이벤트 겹치는 현상 수정
         mBinding.homePage.customChangeListener(
             pageSelect ={
                 mBinding.homeBottomNavi.menu.getItem(it).isChecked = true
@@ -214,12 +222,12 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
 
         )
 
-        // 스와이프 리프레시와 터치 이벤트 겹치는 현상 수정
 
 
         //아이콘 안보여서 속성 설정
         mBinding.homeBottomNavi.itemIconTintList = null
 
+        //뷰페이저 슬라이드 시 바텀네비 아이콘 상태 변경
         mBinding.homeBottomNavi.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_feed -> home_page.currentItem = 0
@@ -230,7 +238,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
         }
     }
 
-    private fun isEnableSwipeRefresh(isEnable : Boolean){
+    fun isEnableSwipeRefresh(isEnable : Boolean){
         mBinding.swipe.isEnabled = isEnable
     }
 
@@ -256,10 +264,16 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PROFILE_CODE) {
-            if (resultCode == RESULT_OK) {
-                mViewModel.setInfo()
-                Toast.makeText(this, "프로필을 저장했어요!", Toast.LENGTH_SHORT).show()
+        when(requestCode) {
+            PROFILE_CODE -> {
+                if (resultCode == RESULT_OK) {
+                    mViewModel.setInfo()
+                    Toast.makeText(this, "프로필을 저장했어요!", Toast.LENGTH_SHORT).show()
+                }
+
+            }
+            3000 -> {
+                showToast("여러분의 소중한 의견이 잘 전달되었어요 :)")
             }
         }
     }

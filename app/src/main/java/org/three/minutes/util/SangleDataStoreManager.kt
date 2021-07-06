@@ -2,6 +2,8 @@ package org.three.minutes.util
 
 import android.content.Context
 import android.util.Log
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.preferencesKey
@@ -132,4 +134,5 @@ class SangleDataStoreManager(val context: Context) {
         }
     }
 
+    fun getDataStoreCore(): DataStore<Preferences> = dataStore
 }

@@ -5,6 +5,8 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.Html
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import com.bumptech.glide.Glide
@@ -12,6 +14,7 @@ import kotlinx.android.synthetic.main.badge_opened_popup.*
 import org.three.minutes.R
 import org.three.minutes.writing.data.BadgeData
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class OpenedBadgePopup(context: Context, private val badgeData: BadgeData) : Dialog(context) {
 
     interface OnCloseListener {
@@ -38,8 +41,9 @@ class OpenedBadgePopup(context: Context, private val badgeData: BadgeData) : Dia
         window?.attributes = lp
 
         Glide.with(context).load(badgeData.badgeImg).into(open_badge_img)
+        val info = badgeData.badgeInfo.replace("\\n", System.getProperty("line.separator"))
         open_badge_title.text = badgeData.badgeName
-        open_badge_info.text = badgeData.badgeInfo
+        open_badge_info.text = info
 
         open_badge_cancel.setOnClickListener {
             if (closeListener == null){

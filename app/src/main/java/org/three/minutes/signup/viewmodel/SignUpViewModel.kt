@@ -31,6 +31,7 @@ class SignUpViewModel(application: Application, private val useCase: SignUpUseCa
 
     var isGoogle = false
     var isGoHome = MutableLiveData(false)
+    val isNickNameSame = MutableLiveData<Boolean>()
     var deviceToken = ""
 
     init {
@@ -68,13 +69,26 @@ class SignUpViewModel(application: Application, private val useCase: SignUpUseCa
             deviceToken = deviceToken
         )
 
-        useCase.callSignUp(
-            context = context,
-            isGoogle = isGoogle,
-            isGoHome = isGoHome,
-            requestSignUp = signUpData,
-            requestGoogleSignUp = googleSignUpData)
+        if (isGoogle) {
+            useCase.googleSignUp(request = googleSignUpData, isGoHome = isGoHome)
+        }
+        else {
+            useCase.signUp(request = signUpData, isGoHome = isGoHome)
+        }
+    }
 
+    fun checkNickName() {
+        val signUpData = RequestSignUpData(
+            email = email.value!!,
+            password = password.value!!,
+            gender = gender.value!!,
+            birth = age.value!!,
+            nickName = nickname.value!!,
+            deviceToken = deviceToken
+        )
+        useCase.callNickNameCheck(
+            isNickNameSame = isNickNameSame,
+            requestSignUp = signUpData)
     }
 
     override fun onCleared() {

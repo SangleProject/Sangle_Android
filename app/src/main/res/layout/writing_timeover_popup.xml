@@ -47,7 +47,7 @@
             android:layout_marginTop="8dp"
             android:gravity="center"
             android:lineSpacingExtra="0dp"
-            android:text="수고하셨어요:)\n3분만에 멋진 글이 완성됐어요!"
+            android:text="수고하셨어요 :)\n3분만에 멋진 글이 완성됐어요!"
             android:textAlignment="center"
             android:textColor="@color/black_60"
             app:layout_constraintEnd_toEndOf="parent"

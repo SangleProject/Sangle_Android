@@ -25,9 +25,7 @@
     <string name="modified">수정됨</string>
     <string name="badge_title">생글과 함께한 생각의 흔적들</string>
     <string name="badge_popup_info_sample">
-        칭찬은 고래도 춤춘다고 하죠.\n
-        당신의 하트로 인해 많은 사람들이 행복해졌을거에요.\n
-        사랑을 나눌 줄 아는 당신이 바로 생글의 큐피트?!</string>
+        칭찬은 고래도 춤춘다고 하죠.<br/>당신의 하트로 인해 많은 사람들이 행복해졌을거에요.<br/>사랑을 나눌 줄 아는 당신이 바로 생글의 큐피트?!</string>
     <string name="badge_popup_title_sample">사랑꾼</string>
     <string name="how_to_get">획득방법</string>
     <string name="badge_hot_to_get">내가 쓴 글에 하트를 3개 받아요.</string>
@@ -73,5 +71,14 @@
     <string name="membership_withdrawal_popup_ok_btn">네, 삭제할게요.</string>
     <string name="membership_withdrawal_popup_cancel_btn">계속 함께할래요!</string>
 
+    <string name="no_feed_notice">오늘의 글감을 채우고\n명예의 전당에 도전해봐요~</string>
+    <string name="mail_contents">1. 문의 유형 ( 문의, 버그 제보, 기타) :\n
+2. 회원 닉네임 (필요시 기입) :\n
+3. 문의 내용 :\n
+문의하신 사항은 생글팀이 신속하게 처리하겠습니다. 감사합니다 :)</string>
+
+    <string name="caution_report">
+        허위신고일 경우, 신고자의 활동이 제한될 수 있으므로,\n신중하게 신고해주시기 바랍니다.
+    </string>
 
 </resources>

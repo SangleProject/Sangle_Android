@@ -33,10 +33,13 @@
 
     <style name="customBottomSheet" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/bottomSheetRounding</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
     </style>
 
     <style name="bottomSheetRounding" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/top_radius_white_box</item>
+        <item name="behavior_peekHeight">1000dp</item>
     </style>
 
     <style name="CustomActivityAnimation" parent="@android:style/Animation.Activity">

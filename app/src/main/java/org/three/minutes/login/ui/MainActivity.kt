@@ -181,14 +181,16 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
                 startActivity(intent)
             },
             onError = {
-                if (it.code() == 401){
-                    showToast("아이디 또는 비밀번호를 확인해주세요.")
-                }
-                else if (it.code() == 400){
-                    showToast("존재하지 않는 아이디입니다.")
-                }
-                else{
-                    showToast("${it.code()}")
+                when {
+                    it.code() == 401 -> {
+                        showToast("아이디 또는 비밀번호를 확인해주세요.")
+                    }
+                    it.code() == 400 -> {
+                        showToast("존재하지 않는 아이디입니다.")
+                    }
+                    else -> {
+                        showToast("${it.code()}")
+                    }
                 }
             },
             onFailure = {

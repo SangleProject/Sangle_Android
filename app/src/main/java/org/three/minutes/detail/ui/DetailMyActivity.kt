@@ -3,6 +3,7 @@ package org.three.minutes.detail.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -45,6 +46,7 @@ class DetailMyActivity : AppCompatActivity() {
         mViewModel.callMyDetailData()
         mBinding.viewmodel = mViewModel
 
+        mBinding.myContentsTxt.movementMethod = ScrollingMovementMethod()
         setLikeListener()
         setTextSizeButton()
         setOpenListener()

@@ -8,7 +8,7 @@ android {
 
     signingConfigs {
         config {
-            storeFile file('/Users/paytalab/Desktop/Personal/Sangle/Sangle_KeyStore')
+            storeFile file('/Users/paytalab/Desktop/Personal/Sangle/Sangle_Key')
             storePassword 'rkdalsrn13!'
             keyAlias 'Sangle'
             keyPassword 'rkdalsrn13!'
@@ -21,7 +21,7 @@ android {
         applicationId "org.three.minutes"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 1
+        versionCode 202107011
         versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -32,7 +32,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
-            debuggable true
+            debuggable false
         }
     }
 
@@ -77,6 +77,8 @@ dependencies {
     //Retrofit2
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:retrofit-mock:2.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.5'
+    implementation 'com.squareup.okhttp3:okhttp:4.2.2'
 
     //Gson
     implementation 'com.google.code.gson:gson:2.8.6'
@@ -132,4 +134,7 @@ dependencies {
 
     // Dot Indicator
     implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
+
+    implementation 'com.github.kangmin1012:MingSingleClickListener:1.0.1'
+
 }

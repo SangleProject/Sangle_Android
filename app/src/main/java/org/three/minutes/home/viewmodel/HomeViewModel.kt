@@ -9,6 +9,7 @@ import org.three.minutes.home.data.CalendarData
 import org.three.minutes.home.data.ResponseCalendarData
 import org.three.minutes.home.data.ResponseFameData
 import org.three.minutes.server.SangleServiceImpl
+import org.three.minutes.util.ListLiveData
 import org.three.minutes.util.compareSame
 import org.three.minutes.util.customEnqueue
 import org.three.minutes.util.formatCalendarPath
@@ -67,7 +68,7 @@ class HomeViewModel(application: Application, private val useCase: HomeUseCase) 
 
     // 명예의 전당 데이터
     var isFameComplete = MutableLiveData(false)
-    var fameDataList = MutableLiveData<List<ResponseFameData>>(listOf())
+    var fameDataList = ListLiveData<ResponseFameData>()
 
     var badgeList = MutableLiveData<MutableList<BadgeData>>()
 
@@ -190,7 +191,7 @@ class HomeViewModel(application: Application, private val useCase: HomeUseCase) 
             SangleServiceImpl.service.getFameData(token)
                 .customEnqueue(
                     onSuccess = {
-                        fameDataList.value = it
+                        fameDataList.value = it.toMutableList()
                         isFameComplete.value = true
                     },
                     onError = {

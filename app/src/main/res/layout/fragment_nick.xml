@@ -42,9 +42,34 @@
             android:text="@={viewModel.nickname}"
             android:importantForAutofill="no"
             android:inputType="textPersonName"
+            android:imeOptions="actionDone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/nick_title" />
+
+        <ImageView
+            android:id="@+id/img_check"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_check"
+            android:layout_marginEnd="12dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/nick_edt"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toEndOf="@+id/nick_edt"
+            app:layout_constraintTop_toTopOf="@+id/nick_edt"
+            app:layout_constraintWidth_percent="0.05" />
+
+        <TextView
+            android:id="@+id/txt_same_nick_notice"
+            style="@style/P6_12pt_Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="이미 있는 닉네임이에요 :("
+            android:textColor="@color/red"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="@+id/nick_edt"
+            app:layout_constraintTop_toBottomOf="@+id/nick_edt" />
 
         <TextView
             android:id="@+id/service_txt"

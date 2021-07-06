@@ -2,8 +2,10 @@ package org.three.minutes.server
 
 import okhttp3.ResponseBody
 import org.three.minutes.badge.data.ResponseBadgeData
+import org.three.minutes.detail.data.RequestReport
 import org.three.minutes.detail.data.ResponseMyWritingData
 import org.three.minutes.detail.data.ResponseOtherWritingData
+import org.three.minutes.detail.data.ResponseReport
 import org.three.minutes.home.data.*
 import org.three.minutes.login.data.RequestGoogleLoginData
 import org.three.minutes.login.data.RequestLoginData
@@ -303,4 +305,12 @@ interface SangleService {
     fun deleteMembership(
         @Header("token") token : String
     ) : Call<ResponseBody>
+
+    // 신고하기
+    @POST("/posts/declaration/{postIdx}")
+    fun postDeclaration(
+        @Header("token") token: String,
+        @Path("postIdx") postIdx: Int,
+        @Body body: RequestReport
+    ): Call<ResponseReport>
 }

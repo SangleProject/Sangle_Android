@@ -13,5 +13,6 @@ data class ResponseOtherWritingData(
     val likes : Int,
     val modified : Boolean,
     val scrap : Boolean,
-    val liked : Boolean
+    val liked : Boolean,
+    val isBan: String
 )

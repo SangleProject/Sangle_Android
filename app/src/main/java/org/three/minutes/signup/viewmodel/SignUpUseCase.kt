@@ -19,29 +19,22 @@ class SignUpUseCase(private val signUpImpl: SignUpRepository) {
         signUpImpl.callCheckEmailAPI(context, nextPage, email)
     }
 
-    fun callSignUp(
-        context: Context,
-        isGoogle: Boolean,
-        isGoHome : MutableLiveData<Boolean>,
-        requestSignUp: RequestSignUpData,
-        requestGoogleSignUp: RequestGoogleSignUpData
+    fun callNickNameCheck(
+        isNickNameSame: MutableLiveData<Boolean>,
+        requestSignUp: RequestSignUpData
     ) {
         // 먼저 닉네임 중복 체크
         signUpImpl.callCheckNickNameAPI(nickName = requestSignUp.nickName,
             isAvailable =
             {
-                if (isGoogle) {
-                    googleSignUp(requestGoogleSignUp,isGoHome)
-                } else {
-                    signUp(requestSignUp, isGoHome)
-                }
+                isNickNameSame.value = true
             },
             isNotAvailable = {
-                context.showToast("중복!")
+                isNickNameSame.value = false
             })
     }
 
-    private fun googleSignUp(request : RequestGoogleSignUpData, isGoHome: MutableLiveData<Boolean>) {
+    fun googleSignUp(request : RequestGoogleSignUpData, isGoHome: MutableLiveData<Boolean>) {
         SangleServiceImpl.service.putGoogleSignUp(request)
             .customEnqueue(
                 onSuccess = {
@@ -59,7 +52,7 @@ class SignUpUseCase(private val signUpImpl: SignUpRepository) {
             )
     }
 
-    private fun signUp(request: RequestSignUpData, isGoHome: MutableLiveData<Boolean>) {
+    fun signUp(request: RequestSignUpData, isGoHome: MutableLiveData<Boolean>) {
         SangleServiceImpl.service.postSignUp(request)
             .customEnqueue(
                 onSuccess = {

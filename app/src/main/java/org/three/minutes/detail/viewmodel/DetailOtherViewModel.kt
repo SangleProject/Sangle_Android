@@ -32,6 +32,9 @@ class DetailOtherViewModel : ViewModel() {
     var likeCount = MutableLiveData("")
     var likeCountInteger = 0
 
+    // 신고하기 종류 string 값
+    var reportContents = ""
+
     // 맨 처음 액티비티 진입시 통신 값이 true면 체크 박스 값이 바뀌면서 통신이 한 번 더 일어남
     // 그러한 작업을 방지하기 위해 변수를 만들어 놓고 사용
     var likeFirst = true
