@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="data"
+            type="org.three.minutes.home.data.ResponseTodayTopicData" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/today_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="HardcodedText,RtlSymmetry">
+
+        <com.google.android.material.card.MaterialCardView
+            android:theme="@style/Theme.MaterialComponents.DayNight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/today_word_border_box"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/light_gray">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/today_img"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:scaleType="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:setGlide="@{data.img}"
+                    tools:src="@drawable/img_word_illust_001" />
+
+                <TextView
+                    android:id="@+id/today_word"
+                    style="@style/P1_16pt_Medium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:paddingVertical="10dp"
+                    android:paddingStart="10dp"
+                    android:text="@{data.topic}"
+                    android:textColor="@color/black_80"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/today_img"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:text="바다" />
+
+                <TextView
+                    android:id="@+id/textView10"
+                    style="@style/P2_16pt_Light"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="개"
+                    android:textColor="@color/black_60"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <TextView
+                    android:id="@+id/today_count"
+                    style="@style/P2_16pt_Light"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{Integer.toString(data.count)}"
+                    android:textColor="@color/black_60"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView10"
+                    app:layout_constraintEnd_toStartOf="@+id/textView10"
+                    app:layout_constraintTop_toTopOf="@+id/textView10"
+                    tools:text="16" />
+
+                <ImageView
+                    android:id="@+id/today_lock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_locked"
+                    android:visibility="@{data.used ? View.INVISIBLE : View.VISIBLE}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="invisible" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

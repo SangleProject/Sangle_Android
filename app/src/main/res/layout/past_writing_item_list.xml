@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="data"
+            type="org.three.minutes.word.data.ResponseLastTopicData" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/past_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/past_writing_list_item_box"
+        tools:ignore="HardcodedText">
+
+        <TextView
+            android:id="@+id/past_writing_date_txt"
+            style="@style/P3_14pt_Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="22dp"
+            android:layout_marginStart="20dp"
+            android:textColor="@color/black_40"
+            android:text="@{data.date}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="06.21" />
+
+        <TextView
+            android:id="@+id/past_writing_title_txt"
+            style="@style/P1_16pt_Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textColor="@color/black_80"
+            android:text="@{data.topic}"
+            app:layout_constraintBottom_toBottomOf="@+id/past_writing_date_txt"
+            app:layout_constraintStart_toEndOf="@+id/past_writing_date_txt"
+            app:layout_constraintTop_toTopOf="@+id/past_writing_date_txt"
+            tools:text="하늘" />
+
+        <TextView
+            android:id="@+id/past_writing_hot_txt"
+            style="@style/P5_12pt_Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:background="@drawable/timer_red"
+            android:padding="4dp"
+            android:text="HOT"
+            android:textColor="@color/red"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/past_writing_title_txt"
+            app:layout_constraintStart_toEndOf="@+id/past_writing_title_txt"
+            app:layout_constraintTop_toTopOf="@+id/past_writing_title_txt" />
+
+        <TextView
+            android:id="@+id/past_writing_count_txt"
+            style="@style/P4_14pt_Light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black_60"
+            android:text="@{Integer.toString(data.count)}"
+            app:layout_constraintBottom_toBottomOf="@+id/textView11"
+            app:layout_constraintEnd_toStartOf="@+id/textView11"
+            app:layout_constraintTop_toTopOf="@+id/textView11"
+            tools:text="126" />
+
+
+        <TextView
+            android:id="@+id/textView11"
+            style="@style/P4_14pt_Light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:text="개"
+            android:textColor="@color/black_60"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

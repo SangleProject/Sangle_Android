@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="badgeData"
+            type="org.three.minutes.badge.data.ResponseBadgeData" />
+
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/badge_img"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_badge01_none"
+            android:padding="8dp"
+            app:setGlideBadge="@{badgeData.badgeImg}"
+            android:scaleType="fitXY"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/badge_name_txt"
+            style="@style/P3_14pt_Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/badge_img"
+            android:text="@{badgeData.badgeName}"
+            tools:text="시작이 반이다" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

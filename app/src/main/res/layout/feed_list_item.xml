@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="HardcodedText">
+
+    <data>
+
+        <variable
+            name="data"
+            type="org.three.minutes.home.data.ResponseFameData" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/shadow_notepad"
+        android:elevation="30dp">
+
+        <ImageView
+            android:id="@+id/feed_img"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="36dp"
+            android:scaleType="centerInside"
+            tools:src="@drawable/ic_gold_medal"
+            app:setGlide="@{data.medal}"
+            app:layout_constraintWidth_percent="0.08"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/feed_word"
+            style="@style/H1_24pt_Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{data.topic}"
+            android:textColor="@color/main_blue"
+            app:layout_constraintBottom_toBottomOf="@+id/feed_img"
+            app:layout_constraintStart_toEndOf="@+id/feed_img"
+            app:layout_constraintTop_toTopOf="@+id/feed_img"
+            tools:text="빨대" />
+
+        <TextView
+            android:id="@+id/feed_date"
+            style="@style/P6_12pt_Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="70dp"
+            android:layout_marginEnd="16dp"
+            android:textColor="@color/black_60"
+            app:layout_constraintBottom_toBottomOf="@+id/feed_word"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/feed_word"
+            tools:text="2020.06.22 (월) PM 2:30" />
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/light_blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/feed_word" />
+
+        <TextView
+            android:id="@+id/feed_contents"
+            style="@style/P2_16pt_Light"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="12dp"
+            android:ellipsize="end"
+            android:text="@{data.postWrite}"
+            android:textColor="@color/black_80"
+            android:lines="8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view3"
+            tools:text="Feed\n\n\n\n\n\n\n\n\nhello\n\n\nok\nko\nko\nok\nkodsfssdfsdfsdf\nsdfsd" />
+
+        <ImageView
+            android:id="@+id/profile_img"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="20dp"
+            tools:src="@drawable/profile1"
+            app:setGlide="@{data.profileImg}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.06" />
+
+        <TextView
+            android:id="@+id/profile_name"
+            style="@style/P3_14pt_Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@{data.nickName}"
+            tools:text="@string/sample_id"
+            android:textColor="@color/black_60"
+            app:layout_constraintBottom_toBottomOf="@+id/profile_img"
+            app:layout_constraintStart_toEndOf="@+id/profile_img"
+            app:layout_constraintTop_toTopOf="@+id/profile_img" />
+
+        <CheckedTextView
+            android:id="@+id/feed_like_count"
+            style="@style/P3_14pt_Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/favorite_state_box"
+            android:drawableStart="@drawable/favorite_state_icon"
+            android:drawablePadding="4dp"
+            android:padding="8dp"
+            tools:text="1224"
+            android:checked="@{data.liked}"
+            android:textColor="@color/black_60"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/profile_name"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_gravity="center">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/badge_popup_frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="46dp"
+            android:background="@drawable/calender_frame"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/horizontal_guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.4" />
+
+            <TextView
+                android:id="@+id/close_badge_title"
+                style="@style/H3_18pt_SemiBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/badge_popup_title_sample"
+                android:textColor="@color/black_80"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/horizontal_guideline" />
+
+            <TextView
+                android:id="@+id/close_badge_how_to_txt"
+                style="@style/P5_12pt_Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/timer_blue"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="4dp"
+                android:text="@string/how_to_get"
+                android:textColor="@color/main_blue"
+                android:layout_marginTop="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/close_badge_title" />
+
+            <TextView
+                android:id="@+id/close_badge_challenge"
+                style="@style/P6_12pt_Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="44dp"
+                android:layout_marginBottom="24dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                tools:text="@string/badge_hot_to_get"
+                android:textAlignment="center"
+                android:textColor="@color/black_60"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/close_badge_how_to_txt" />
+
+            <ImageView
+                android:id="@+id/close_badge_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                android:padding="12dp"
+                android:src="@drawable/ic_cancel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/close_badge_img"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_badge01_none"
+            android:scaleType="fitXY"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.4"
+            tools:ignore="ContentDescription" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

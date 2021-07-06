@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="HardcodedText">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="org.three.minutes.word.viewmodel.WordViewModel" />
+
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RadioGroup
+            android:id="@+id/search_result_filter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/past_writing_group_box"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RadioButton
+                style="@style/P6_12pt_Regular"
+                android:id="@+id/search_result_topic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/past_writing_category"
+                android:button="@null"
+                android:elevation="4dp"
+                android:gravity="center"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="8dp"
+                android:text="글감"
+                android:checked="@{viewModel.isFilterTopic}"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginVertical="4dp"
+                android:textColor="@color/past_writing_category_color" />
+
+            <RadioButton
+                style="@style/P6_12pt_Regular"
+                android:id="@+id/search_result_contents"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/past_writing_category"
+                android:button="@null"
+                android:elevation="4dp"
+                android:gravity="center"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="8dp"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginVertical="4dp"
+                android:text="글 내용"
+                android:textColor="@color/past_writing_category_color" />
+
+            <RadioButton
+                style="@style/P6_12pt_Regular"
+                android:id="@+id/search_result_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/past_writing_category"
+                android:button="@null"
+                android:elevation="4dp"
+                android:gravity="center"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="8dp"
+                android:text="유저"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginVertical="4dp"
+                android:textColor="@color/past_writing_category_color" />
+
+        </RadioGroup>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/search_result_rcv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:paddingTop="16dp"
+            android:clipToPadding="false"
+            app:searchTopicItem="@{viewModel.searchResultList}"
+            app:searchUserItem="@{viewModel.searchUserList}"
+            app:isUser="@{viewModel.isFilterUser()}"
+            app:isWritten="@{viewModel.isWritten()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search_result_filter" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

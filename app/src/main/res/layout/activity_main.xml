@@ -5,14 +5,175 @@
 
     <data>
 
+        <variable
+            name="activity"
+            type="org.three.minutes.login.ui.MainActivity" />
+
+        <variable
+            name="viewModel"
+            type="org.three.minutes.login.viewmodel.LogInViewModel" />
+
     </data>
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".login.ui.MainActivity"
+        tools:ignore="HardcodedText"
+        tools:targetApi="p">
 
+        <TextView
+            android:id="@+id/main_title_txt"
+            style="@style/H1_24pt_Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="32dp"
+            android:text="생각을 글로 \n자유롭게 써볼까요?"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/sub_title_txt"
+            style="@style/P1_16pt_SemiBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="먼저 로그인이 필요해요."
+            android:textColor="@color/black_60"
+            app:layout_constraintStart_toStartOf="@+id/main_title_txt"
+            app:layout_constraintTop_toBottomOf="@+id/main_title_txt" />
+
+        <EditText
+            android:id="@+id/login_edt"
+            style="@style/P1_16pt_SemiBold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/login_box"
+            android:ems="10"
+            android:hint="이메일 주소"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName"
+            android:paddingVertical="12dp"
+            android:paddingStart="12dp"
+            android:textColor="@color/black_60"
+            android:text="@={viewModel.email}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/sub_title_txt"
+            app:layout_constraintTop_toBottomOf="@+id/sub_title_txt"
+            tools:ignore="RtlSymmetry" />
+
+        <EditText
+            android:id="@+id/password_edt"
+            style="@style/P1_16pt_SemiBold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/login_box"
+            android:ems="10"
+            android:hint="비밀번호"
+            android:text="@={viewModel.password}"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            android:paddingVertical="12dp"
+            android:paddingStart="12dp"
+            android:textColor="@color/black_60"
+            app:layout_constraintEnd_toEndOf="@+id/login_edt"
+            app:layout_constraintStart_toStartOf="@+id/login_edt"
+            app:layout_constraintTop_toBottomOf="@+id/login_edt"
+            tools:ignore="RtlSymmetry" />
+
+        <TextView
+            android:id="@+id/start_login_btn"
+            style="@style/P1_16pt_SemiBold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/login_ripple_btn"
+            android:gravity="center"
+            android:onClick="@{()->activity.checkLogin()}"
+            android:paddingVertical="12dp"
+            android:text="로그인"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@+id/password_edt"
+            app:layout_constraintStart_toStartOf="@+id/password_edt"
+            app:layout_constraintTop_toBottomOf="@+id/password_edt" />
+
+        <TextView
+            android:id="@+id/signup_btn"
+            style="@style/P3_14pt_Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="26dp"
+            android:layout_marginBottom="102dp"
+            android:onClick="@{()->activity.goToSignUp()}"
+            android:text="회원가입"
+            android:textColor="@color/black_80"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <View
+            android:id="@+id/line1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/black_20"
+            android:layout_marginEnd="26dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView9"
+            app:layout_constraintEnd_toStartOf="@+id/textView9"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="@+id/start_login_btn"
+            app:layout_constraintTop_toTopOf="@+id/textView9" />
+
+        <TextView
+            android:id="@+id/textView9"
+            style="@style/P2_16pt_Light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:text="또는"
+            android:textColor="@color/black_60"
+            app:layout_constraintEnd_toStartOf="@+id/line2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/line1"
+            app:layout_constraintTop_toBottomOf="@+id/start_login_btn" />
+
+        <View
+            android:id="@+id/line2"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="26dp"
+            android:background="@color/black_20"
+            app:layout_constraintBottom_toBottomOf="@+id/textView9"
+            app:layout_constraintEnd_toEndOf="@+id/start_login_btn"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView9"
+            app:layout_constraintTop_toTopOf="@+id/textView9" />
+
+
+        <Button
+            android:id="@+id/signin_google"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Sign in with Google"
+            android:gravity="start|center_vertical"
+            android:fontFamily="@font/roboto"
+            android:textFontWeight="400"
+            android:background="@drawable/common_google_signin_btn_text_light_normal"
+            android:textSize="14sp"
+            android:textAllCaps="false"
+            android:textColor="@color/black_60"
+            app:layout_constraintEnd_toEndOf="@+id/start_login_btn"
+            app:layout_constraintStart_toStartOf="@+id/start_login_btn"
+            app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </layout>

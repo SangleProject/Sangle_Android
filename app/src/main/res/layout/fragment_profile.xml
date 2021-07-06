@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="org.three.minutes.home.viewmodel.HomeViewModel" />
+        <variable
+            name="fragment"
+            type="org.three.minutes.home.ui.ProfileFragment" />
+
+    </data>
+
+
+    <RelativeLayout
+        android:id="@+id/layout_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:ignore="HardcodedText,ContentDescription,UselessParent,NestedWeights">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/top_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/home_top_layout">
+
+
+            <TextView
+                android:id="@+id/nickname_txt"
+                style="@style/H3_18pt_Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="16dp"
+                android:text="@{viewModel.nickName}"
+                tools:text="아이디"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_num4"
+                style="@style/H4_18pt_Light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="님,"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/nickname_txt"
+                app:layout_constraintStart_toEndOf="@+id/nickname_txt"
+                app:layout_constraintTop_toTopOf="@+id/nickname_txt" />
+
+            <TextView
+                android:id="@+id/textView3"
+                style="@style/H2_24pt_Light"
+                android:lineSpacingExtra="1sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="60dp"
+                android:text="오늘따라 생각이\n쑥쑥 자라날 것 같아요~"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/nickname_txt"
+                app:layout_constraintTop_toBottomOf="@+id/nickname_txt" />
+
+            <ImageView
+                android:id="@+id/avatar_img"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="11dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:scaleType="fitXY"
+                app:setGlide="@{viewModel.profileImg}"
+                tools:src="@drawable/profile1"
+                app:layout_constraintWidth_percent="0.17"
+                app:layout_constraintDimensionRatio="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView3"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/state_card"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@id/top_layout"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="-50dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="6dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                android:paddingVertical="12dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/my_all_txt"
+                        style="@style/H1_24pt_Regular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@{Integer.toString(viewModel.postCount)}"
+                        tools:text="0"
+                        android:textColor="@color/black_100" />
+
+                    <TextView
+                        style="@style/P4_14pt_Light"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="나의 모든 글"
+                        android:textColor="@color/black_80" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/my_week_txt"
+                            style="@style/H1_24pt_Regular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            tools:text="0"
+                            android:text="@{Integer.toString(viewModel.week)}"
+                            android:textColor="@color/black_100" />
+
+                        <ImageView
+                            android:id="@+id/status_img"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="4dp"
+                            android:scaleType="fitXY"
+                            app:progressImg="@{viewModel.compare}" />
+
+
+                    </LinearLayout>
+
+
+                    <TextView
+                        style="@style/P4_14pt_Light"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="이번주 쓴 글"
+                        android:textColor="@color/black_80" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/my_today_txt"
+                        style="@style/H1_24pt_Regular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        tools:text="0"
+                        android:text="@{Integer.toString(viewModel.remaining)}"
+                        android:textColor="@color/black_100" />
+
+                    <TextView
+                        style="@style/P4_14pt_Light"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="오늘 남은 글"
+                        android:textColor="@color/black_80" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_hom_main_img"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_above="@+id/writing_btn"
+            android:layout_below="@id/state_card">
+
+            <ImageView
+                android:id="@+id/home_main_img"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:scaleType="fitXY"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1:0.8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.7"
+                app:writingImg="@{viewModel.percentage}"
+                tools:src="@drawable/ic_illust_membership_withdrawal" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        <Button
+            style="@style/H3_18pt_Regular"
+            android:id="@+id/writing_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/writing_button"
+            android:gravity="center"
+            android:paddingHorizontal="68dp"
+            android:paddingVertical="14dp"
+            android:text="글쓰러 가기"
+            android:textColor="@color/white"
+            android:onClick="@{()->fragment.goToWriting()}"/>
+
+
+    </RelativeLayout>
+</layout>

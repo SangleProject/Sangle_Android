@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="org.three.minutes.word.viewmodel.WordViewModel" />
+
+        <variable
+            name="activity"
+            type="org.three.minutes.word.ui.WordActivity" />
+
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".word.ui.WordFragment"
+            tools:ignore="HardcodedText,RtlSymmetry">
+
+            <TextView
+                android:id="@+id/today_word_title_txt"
+                style="@style/H3_18pt_Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/word_title"
+                android:textColor="@color/black_100"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView12"
+                style="@style/P3_14pt_Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="하루에 3개씩 주어지는 특별한 글감들"
+                android:textColor="@color/black_60"
+                app:layout_constraintStart_toStartOf="@+id/today_word_title_txt"
+                app:layout_constraintTop_toBottomOf="@+id/today_word_title_txt" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/today_word_rcv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                android:overScrollMode="never"
+                android:paddingStart="12dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView12"
+                tools:listitem="@layout/word_lock_item_list" />
+
+
+            <TextView
+                android:id="@+id/txt_num5"
+                style="@style/P6_12pt_Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="가려진 오늘의 글감이 궁금하다면?"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/today_word_rcv" />
+
+            <TextView
+                android:id="@+id/goto_writing_btn"
+                style="@style/P1_16pt_Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/timer_blue"
+                android:gravity="center"
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="6dp"
+                android:text="지금 바로 글 쓰러 가기"
+                android:textAlignment="center"
+                android:textColor="@color/main_blue"
+                app:layout_constraintEnd_toEndOf="@+id/txt_num5"
+                app:layout_constraintStart_toStartOf="@+id/txt_num5"
+                app:layout_constraintTop_toBottomOf="@+id/txt_num5" />
+
+            <View
+                android:id="@+id/line_1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/light_light_gray"
+                android:layout_marginTop="20dp"
+                app:layout_constraintHeight_percent="0.03"
+                app:layout_constraintTop_toBottomOf="@+id/goto_writing_btn" />
+
+            <TextView
+                android:id="@+id/txt_num6"
+                style="@style/H3_18pt_Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:text="지난 글감들 &#128218;"
+                android:textColor="@color/black_100"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line_1" />
+
+            <TextView
+                android:id="@+id/txt_num7"
+                style="@style/P3_14pt_Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="놓치기 싫은 지난 글감 구경하기"
+                android:textColor="@color/black_60"
+                app:layout_constraintStart_toStartOf="@+id/txt_num6"
+                app:layout_constraintTop_toBottomOf="@+id/txt_num6" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/past_writing_rcv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:clipToPadding="false"
+                android:overScrollMode="never"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_num7"
+                tools:listitem="@layout/past_writing_item_list" />
+
+            <TextView
+                android:id="@+id/goto_all_topic_btn"
+                style="@style/P1_16pt_Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="36dp"
+                android:background="@drawable/timer_blue"
+                android:gravity="center"
+                android:paddingHorizontal="28dp"
+                android:paddingVertical="6dp"
+                android:text="전체 글감 보러 가기"
+                android:textAlignment="center"
+                android:textColor="@color/main_blue"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/past_writing_rcv" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="org.three.minutes.detail.viewmodel.DetailOtherViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        tools:ignore="HardcodedText,RtlSymmetry,ContentDescription">
+
+        <TextView
+            android:id="@+id/txt_report_title"
+            style="@style/H3_18pt_Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="28dp"
+            android:text="신고하기"
+            android:textColor="@color/black_100"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/close_bottom_sheet_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:padding="10dp"
+            android:src="@drawable/ic_cancel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RadioGroup
+            android:id="@+id/radio_group_report"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            app:layout_constraintTop_toBottomOf="@id/txt_report_title">
+
+            <RadioButton
+                android:id="@+id/radio_report_a_term_of_abuse"
+                style="@style/P1_16pt_Medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@drawable/ic_radio_button_state"
+                android:paddingVertical="10dp"
+                android:paddingStart="8dp"
+                android:text="욕설이나 차별, 혐오성 게시물"
+                android:textColor="@color/black_60" />
+
+            <RadioButton
+                android:id="@+id/radio_report_promotion"
+                style="@style/P1_16pt_Medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@drawable/ic_radio_button_state"
+                android:paddingVertical="10dp"
+                android:paddingStart="8dp"
+                android:text="홍보 혹은 영리목적의 게시물"
+                android:textColor="@color/black_60" />
+
+            <RadioButton
+                android:id="@+id/radio_report_ero"
+                style="@style/P1_16pt_Medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@drawable/ic_radio_button_state"
+                android:paddingVertical="10dp"
+                android:paddingStart="8dp"
+                android:text="음란, 선정적으로 유해한 게시물"
+                android:textColor="@color/black_60" />
+
+            <RadioButton
+                android:id="@+id/radio_report_illegal"
+                style="@style/P1_16pt_Medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@drawable/ic_radio_button_state"
+                android:paddingVertical="10dp"
+                android:paddingStart="8dp"
+                android:text="불법 정보를 제공하는 행위"
+                android:textColor="@color/black_60" />
+
+            <RadioButton
+                android:id="@+id/radio_report_spam"
+                style="@style/P1_16pt_Medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@drawable/ic_radio_button_state"
+                android:paddingVertical="10dp"
+                android:paddingStart="8dp"
+                android:text="같은 내용 도배, 스팸 게시물"
+                android:textColor="@color/black_60" />
+
+            <RadioButton
+                android:id="@+id/radio_report_privacy"
+                style="@style/P1_16pt_Medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@drawable/ic_radio_button_state"
+                android:paddingVertical="10dp"
+                android:paddingStart="8dp"
+                android:text="개인 정보를 노출하는 행위"
+                android:textColor="@color/black_60" />
+
+        </RadioGroup>
+
+
+        <TextView
+            android:id="@+id/txt_caution"
+            style="@style/P6_12pt_Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="52dp"
+            android:text="@string/caution_report"
+            android:textColor="@color/black_60"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radio_group_report" />
+
+        <TextView
+            style="@style/P1_16pt_Medium"
+            android:id="@+id/btn_report"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="26dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/signup_button"
+            android:gravity="center"
+            android:paddingVertical="12dp"
+            android:text="신고하기"
+            android:enabled="false"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_caution" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

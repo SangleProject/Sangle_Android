@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="HardcodedText">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="org.three.minutes.signup.viewmodel.SignUpViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/info_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".signup.ui.InfoFragment">
+
+
+        <TextView
+            android:id="@+id/info_title"
+            style="@style/H1_24pt_Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="72dp"
+            android:text="성별과 나이대를 알려주세요."
+            android:textColor="@color/black_100"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/info_sub_title"
+            style="@style/P1_16pt_Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="더 좋은 생글을 위해 큰 도움이 됩니다 :)"
+            android:textColor="@color/black_60"
+            app:layout_constraintStart_toStartOf="@+id/info_title"
+            app:layout_constraintTop_toBottomOf="@+id/info_title" />
+
+        <RadioGroup
+            android:id="@+id/gender_rg"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="40dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/info_sub_title">
+
+            <RadioButton
+                android:id="@+id/man_rb"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_gender"
+                android:button="@null"
+                android:gravity="center"
+                android:paddingVertical="26dp"
+                android:text="남자" />
+
+            <RadioButton
+                android:id="@+id/woman_rb"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_gender"
+                android:button="@null"
+                android:gravity="center"
+                android:paddingVertical="26dp"
+                android:text="여자" />
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/age_edt"
+            style="@style/CustomEdit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:ems="10"
+            android:inputType="number"
+            android:hint="나이(출생연도)"
+            android:text="@={viewModel.age}"
+            android:maxLength="4"
+            app:layout_constraintEnd_toEndOf="@+id/gender_rg"
+            app:layout_constraintStart_toStartOf="@+id/gender_rg"
+            app:layout_constraintTop_toBottomOf="@+id/gender_rg"
+            android:importantForAutofill="no" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

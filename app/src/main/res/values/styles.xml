@@ -1,10 +1,152 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/main_blue</item>
+        <item name="colorPrimaryDark">@color/main_blue</item>
+        <item name="colorAccent">@color/main_blue</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="bottomSheetDialogTheme">@style/customBottomSheet</item>
+        <item name="actionOverflowButtonStyle">@style/OverFlow</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="colorSecondary">@color/main_blue</item>
+<!--        <item name="android:windowAnimationStyle"></item>-->
     </style>
 
+    <style name="MaterialTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/main_blue</item>
+        <item name="colorPrimaryVariant">@color/white</item>
+        <item name="colorOnPrimary">@color/main_blue</item>
+
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/black_60</item>
+
+        <item name="colorSecondary">@color/main_blue</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+    </style>
+
+
+    <style name="OverFlow" parent="Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:tint">@color/white</item>
+    </style>
+
+    <style name="customBottomSheet" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/bottomSheetRounding</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+    </style>
+
+    <style name="bottomSheetRounding" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/top_radius_white_box</item>
+        <item name="behavior_peekHeight">1000dp</item>
+    </style>
+
+    <style name="CustomActivityAnimation" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_hold</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_hold</item>
+    </style>
+
+    <style name="baseFontSetting">
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="H1_24pt_Regular" parent="baseFontSetting">
+        <item name="fontFamily">@font/notosanskr_regular</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:lineSpacingExtra">12sp</item>
+        <item name="android:letterSpacing">-0.02</item>
+    </style>
+
+    <style name="H2_24pt_Light" parent="baseFontSetting">
+        <item name="fontFamily">@font/notosanskr_light</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:lineSpacingExtra">12sp</item>
+        <item name="android:letterSpacing">-0.02</item>
+    </style>
+
+    <style name="H3_18pt_SemiBold" parent="baseFontSetting">
+        <item name="fontFamily">@font/notosanskr_medium</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:lineSpacingExtra">6dp</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
+
+    <style name="H3_18pt_Regular" parent="baseFontSetting">
+        <item name="fontFamily">@font/notosanskr_regular</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:lineSpacingExtra">6dp</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
+
+    <style name="H4_18pt_Light" parent="baseFontSetting">
+        <item name="fontFamily">@font/notosanskr_light</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:lineSpacingExtra">6dp</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
+
+    <style name="P1_16pt_SemiBold" parent="baseFontSetting">
+        <item name="fontFamily">@font/notosanskr_medium</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineSpacingExtra">8sp</item>
+        <item name="android:letterSpacing">-0.02</item>
+    </style>
+
+    <style name="P1_16pt_Medium" parent="baseFontSetting">
+        <item name="fontFamily">@font/notosanskr_medium</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineSpacingExtra">8sp</item>
+        <item name="android:letterSpacing">-0.02</item>
+    </style>
+
+    <style name="P2_16pt_Light" parent="baseFontSetting">
+        <item name="fontFamily">@font/notosanskr_light</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineSpacingExtra">8sp</item>
+        <item name="android:letterSpacing">-0.02</item>
+    </style>
+
+    <style name="P3_14pt_Regular" parent="baseFontSetting">
+        <item name="fontFamily">@font/notosanskr_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineSpacingExtra">7sp</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
+
+    <style name="P4_14pt_Light" parent="baseFontSetting">
+        <item name="fontFamily">@font/notosanskr_light</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineSpacingExtra">7sp</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
+
+    <style name="P5_12pt_Bold" parent="baseFontSetting">
+        <item name="fontFamily">@font/notosanskr_bold</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="P6_12pt_Regular" parent="baseFontSetting">
+        <item name="fontFamily">@font/notosanskr_regular</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineSpacingExtra">6sp</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
+
+    <style name="P6_12pt_Bold" parent="baseFontSetting">
+        <item name="fontFamily">@font/notosanskr_bold</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineSpacingExtra">6sp</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
+
+
+    <style name="CustomEdit" parent="H4_18pt_Light">
+        <item name="android:backgroundTint">@color/black_20</item>
+        <item name="android:textColor">@color/black_100</item>
+        <item name="android:lines">1</item>
+        <item name="android:paddingBottom">20dp</item>
+    </style>
 </resources>
