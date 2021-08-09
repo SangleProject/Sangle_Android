@@ -1,8 +1,7 @@
 # Sangle_Android
 
 ### **하루의 3분 생각나는 것을 글로 쓰기 프로젝트**
-<img src="https://img.shields.io/badge/Language-Kotlin-0095d5?style=flat-square&logo=kotlin&logoColor=white">
-<img src="https://img.shields.io/badge/Release-v1.0.1-0095d5?style=flat-square&">
+<img src="https://img.shields.io/badge/Language-Kotlin-0095d5?style=flat-square&logo=kotlin&logoColor=white"> <img src="https://img.shields.io/badge/Release-v1.0.1-0095d5?style=flat-square&">
 
 - 다운로드 받으러 가기 : [링크](https://play.google.com/store/apps/details?id=org.three.minutes)
 
