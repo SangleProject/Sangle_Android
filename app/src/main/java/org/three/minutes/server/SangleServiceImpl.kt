@@ -1,11 +1,18 @@
 package org.three.minutes.server
 
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 
+@Module
+@InstallIn(SingletonComponent::class)
 object SangleServiceImpl {
     private const val baseUrl = "http://52.78.217.66:8080"
 
@@ -28,4 +35,8 @@ object SangleServiceImpl {
     }
 
     val service : SangleService = retrofit.create(SangleService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideSangleService(): SangleService = service
 }

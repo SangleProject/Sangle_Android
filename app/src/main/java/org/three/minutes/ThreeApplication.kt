@@ -7,12 +7,14 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
 import com.google.firebase.messaging.FirebaseMessaging
+import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.three.minutes.util.*
 
+@HiltAndroidApp
 class ThreeApplication : Application(){
     private lateinit var mImm : InputMethodManager
     private lateinit var dataStore : SangleDataStoreManager

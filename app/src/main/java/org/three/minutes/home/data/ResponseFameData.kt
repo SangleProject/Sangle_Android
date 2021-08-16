@@ -16,5 +16,6 @@ data class ResponseFameData(
     val likes : Int,
     val liked : Boolean,
     val medal : String,
-    val badge : List<BadgeData>
+    val badge : List<BadgeData>,
+    val blocked: Boolean
 ) : Serializable
