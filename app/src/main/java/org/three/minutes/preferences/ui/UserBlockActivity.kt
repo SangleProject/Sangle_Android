@@ -1,36 +1,50 @@
 package org.three.minutes.preferences.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.databinding.DataBindingUtil
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.three.minutes.R
+import org.three.minutes.architect.presentation.base.BaseActivity
 import org.three.minutes.databinding.ActivityUserBlockBinding
+import org.three.minutes.preferences.adapter.BlockedUserListAdapter
 import org.three.minutes.preferences.viewmodel.UserBlockViewModel
-import org.three.minutes.singleton.StatusObject
 
-class UserBlockActivity : AppCompatActivity() {
-    private val binding: ActivityUserBlockBinding by lazy {
-        DataBindingUtil.setContentView(this, R.layout.activity_user_block)
-    }
+@ExperimentalCoroutinesApi
+@AndroidEntryPoint
+class UserBlockActivity : BaseActivity<ActivityUserBlockBinding>(R.layout.activity_user_block) {
+
     private val userBlockViewModel: UserBlockViewModel by viewModels()
+    private val blockedUserList: BlockedUserListAdapter by lazy { BlockedUserListAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.run {
             lifecycleOwner = this@UserBlockActivity
         }
-
-        StatusObject.setStatusBar(this)
-        setObserve()
-        clickEvent()
+        initBlockedUserRcv()
+        userBlockViewModel.getBlockedUserList()
     }
 
-    private fun setObserve() {
+    override fun setObserve() {
+        super.setObserve()
+
+        userBlockViewModel.blockedUsersLiveData.observe(this) {
+            it?.let { userList ->
+                blockedUserList.blockedUserDiffUtil.set(userList.toMutableList())
+            }
+        }
 
     }
 
-    private fun clickEvent() {
+    override fun setClickEvent() {
+        super.setClickEvent()
 
+    }
+
+    private fun initBlockedUserRcv() {
+        binding.rcvBlockedUser.run {
+            adapter = blockedUserList
+        }
     }
 }

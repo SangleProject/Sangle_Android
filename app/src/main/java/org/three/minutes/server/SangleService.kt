@@ -1,6 +1,7 @@
 package org.three.minutes.server
 
 import okhttp3.ResponseBody
+import org.three.minutes.architect.data.ResponseBlockedUser
 import org.three.minutes.badge.data.ResponseBadgeData
 import org.three.minutes.detail.data.RequestReport
 import org.three.minutes.detail.data.ResponseMyWritingData
@@ -313,4 +314,10 @@ interface SangleService {
         @Path("postIdx") postIdx: Int,
         @Body body: RequestReport
     ): Call<ResponseReport>
+
+    // 차단된 유저 목록 보기
+    @GET("/users/blockList")
+    suspend fun getBlockedUserList(
+        @Header("token") token: String
+    ): List<ResponseBlockedUser>
 }
