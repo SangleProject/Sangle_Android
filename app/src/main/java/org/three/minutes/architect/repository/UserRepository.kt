@@ -5,4 +5,5 @@ import org.three.minutes.architect.data.ResponseBlockedUser
 interface UserRepository {
     suspend fun getBlockedUserList(): List<ResponseBlockedUser>
     suspend fun postBlockUser(userIdx: Int): Boolean
+    suspend fun deleteBlockUser(userIdx: Int): Boolean
 }

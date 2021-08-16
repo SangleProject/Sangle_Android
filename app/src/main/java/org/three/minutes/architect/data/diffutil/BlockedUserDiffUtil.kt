@@ -28,6 +28,16 @@ class BlockedUserDiffUtil(val adapter: RecyclerView.Adapter<RecyclerView.ViewHol
         setNewList(newList)
     }
 
+    fun remove(item: ResponseBlockedUser) {
+        val newList = mutableListOf<ResponseBlockedUser>()
+        newList.addAll(blockedUserList)
+
+        newList.remove(item)
+
+        calcDiff(newList)
+        setNewList(newList)
+    }
+
     fun removeAt(position: Int) {
         val newList = mutableListOf<ResponseBlockedUser>()
         newList.addAll(blockedUserList)

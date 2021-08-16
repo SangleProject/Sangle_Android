@@ -115,7 +115,7 @@ class OtherProfileViewModel @Inject constructor(
 
     @ExperimentalCoroutinesApi
     fun postUserBlock() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             userUseCase.postBlockUser(diffInfo.value?.userIdx ?: -1).catch {
                 when(it) {
                     is HttpException -> {

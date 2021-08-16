@@ -6,5 +6,7 @@ data class ResponseBlockedUser(
     @SerializedName("blockedIdx")
     val blockedIdx: Int,
     @SerializedName("nickName")
-    val nickName: String
+    val nickName: String,
+    @SerializedName("profileImg")
+    val profileImg: String
 )

@@ -3,6 +3,7 @@ package org.three.minutes.preferences.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import org.three.minutes.architect.data.ResponseBlockedUser
 import org.three.minutes.architect.data.diffutil.BlockedUserDiffUtil
 import org.three.minutes.databinding.ItemBlockedUserBinding
@@ -14,7 +15,7 @@ class BlockedUserListAdapter :
     private var clickListener: ClickListener? = null
 
     interface ClickListener {
-        fun onCancelBlock(blockedUser: ResponseBlockedUser)
+        fun onCancelBlock(blockedUser: ResponseBlockedUser, position: Int)
     }
 
     fun setOnClickItem(l: ClickListener) {
@@ -38,8 +39,10 @@ class BlockedUserListAdapter :
         fun onBind(data: ResponseBlockedUser, l: ClickListener?) {
             binding.blockedUser = data
 
+            Glide.with(itemView).load(data.profileImg).into(binding.imgProfile)
+
             binding.btnCancelBlock.setOnClickListener {
-                l?.onCancelBlock(data)
+                l?.onCancelBlock(data, adapterPosition)
             }
         }
     }

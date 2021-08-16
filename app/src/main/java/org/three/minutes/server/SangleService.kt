@@ -327,4 +327,11 @@ interface SangleService {
         @Header("token") token: String,
         @Path("userIdx") userIdx: Int
     ): Boolean
+
+    // 유저 차단해제
+    @DELETE("/users/deleteBlocking/{userIdx}")
+    suspend fun deleteBlockUser(
+        @Header("token") token: String,
+        @Path("userIdx") userIdx: Int
+    ): Boolean
 }

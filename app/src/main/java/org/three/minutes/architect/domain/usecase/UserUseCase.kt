@@ -38,4 +38,17 @@ class UserUseCase @Inject constructor(
             awaitClose()
         }
     }
+
+    @ExperimentalCoroutinesApi
+    suspend fun deleteBlockUser(userIdx: Int) = callbackFlow {
+        kotlin.runCatching {
+            userRepo.deleteBlockUser(userIdx)
+        }.onSuccess {
+            trySend(it)
+        }.onFailure {
+            close(it)
+        }.also {
+            awaitClose()
+        }
+    }
 }

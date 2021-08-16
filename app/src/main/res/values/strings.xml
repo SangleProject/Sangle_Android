@@ -85,5 +85,6 @@
     <string name="are_you_really_block_user">정말 차단 하시겠어요? &#128557;
 </string>
     <string name="are_you_really_block_user_contents">상대방은 생글에서 회원님의 프로필, 작성글을 찾을 수 없습니다.\n생글은 차단한 사실을 상대방에게 알리지 않습니다.</string>
+    <string name="are_you_really_delete_block_user_contents">이제 상대방이 회원님의 프로필, 작성글을 찾을 수 있습니다.\n생글은 차단 해제한 사실을 상대방에게 알리지 않습니다.</string>
 
 </resources>
