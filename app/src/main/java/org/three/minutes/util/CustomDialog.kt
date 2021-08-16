@@ -16,7 +16,7 @@ class CustomDialog(
     private val content: String,
     private val cancelTitle: String,
     private val okTitle: String,
-    private val dialogImg: Drawable
+    private val dialogImg: Int
 ) : Dialog(context) {
 
     private var clickListener: ClickListener? = null
@@ -26,6 +26,7 @@ class CustomDialog(
 
     interface ClickListener {
         fun setOnOk(dialog: Dialog)
+        fun setOnCancel(dialog: Dialog)
     }
 
     fun setDialogClickListener(l: ClickListener) {
@@ -69,6 +70,7 @@ class CustomDialog(
             dismiss()
         }
         binding.btnCancel.setOnClickListener {
+            clickListener?.setOnCancel(this)
             dismiss()
         }
     }

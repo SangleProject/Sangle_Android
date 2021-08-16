@@ -16,4 +16,9 @@ class UserRepositoryImpl @Inject constructor(
         val token = ThreeApplication.getInstance().getDataStore().token.first()
         return sangleService.getBlockedUserList(token)
     }
+
+    override suspend fun postBlockUser(userIdx: Int): Boolean {
+        val token = ThreeApplication.getInstance().getDataStore().token.first()
+        return sangleService.postBlockUser(token, userIdx)
+    }
 }

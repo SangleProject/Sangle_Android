@@ -25,4 +25,17 @@ class UserUseCase @Inject constructor(
             awaitClose()
         }
     }
+
+    @ExperimentalCoroutinesApi
+    suspend fun postBlockUser(userIdx: Int) = callbackFlow {
+        kotlin.runCatching {
+            userRepo.postBlockUser(userIdx)
+        }.onSuccess {
+            trySend(it)
+        }.onFailure {
+            close(it)
+        }.also {
+            awaitClose()
+        }
+    }
 }

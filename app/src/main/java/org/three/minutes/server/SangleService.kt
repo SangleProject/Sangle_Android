@@ -320,4 +320,11 @@ interface SangleService {
     suspend fun getBlockedUserList(
         @Header("token") token: String
     ): List<ResponseBlockedUser>
+
+    // 유저 차단하기
+    @POST("/users/addBlocking/{userIdx}")
+    suspend fun postBlockUser(
+        @Header("token") token: String,
+        @Path("userIdx") userIdx: Int
+    ): Boolean
 }
