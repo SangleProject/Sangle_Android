@@ -5,5 +5,6 @@ data class ResponseDiffProfileData(
     val nickName : String,
     val info : String,
     val allCount : Int,
-    val scrap : Int
+    val scrap : Int,
+    val userIdx: Int
 )

@@ -109,6 +109,19 @@
             tools:ignore="RtlSymmetry"
             app:drawableEndCompat="@drawable/ic_right" />
 
+        <TextView
+            android:id="@+id/service_blocked_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="차단된 계정"
+            android:background="@color/white"
+            style="@style/P2_16pt_Light"
+            android:textColor="@color/black_100"
+            android:paddingVertical="16dp"
+            android:paddingHorizontal="20dp"
+            tools:ignore="RtlSymmetry"
+            app:drawableEndCompat="@drawable/ic_right" />
+
         <LinearLayout
             android:id="@+id/layout_version"
             android:layout_width="match_parent"

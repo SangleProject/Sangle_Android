@@ -15,30 +15,37 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity">
-        <activity android:name=".signup.ui.TermsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".word.ui.WordAllTopicActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".preferences.ui.UserBlockActivity"
+            android:exported="true" />
+        <activity
+            android:name=".signup.ui.TermsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".word.ui.WordAllTopicActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".notice.ui.NoticeActivity"
             android:exported="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".login.ui.OnBoardingActivity"
             android:exported="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".home.ui.GuideActivity"
             android:exported="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".preferences.ui.PreferencesActivity"
             android:exported="true"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".profile.ui.OtherProfileActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".writing.ui.WritingEditActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".profile.ui.OtherProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".writing.ui.WritingEditActivity"
+            android:screenOrientation="portrait" />
 
         <service
             android:name=".server.SangleMessageService"
@@ -55,53 +62,53 @@
         <activity
             android:name=".detail.ui.DetailMyActivity"
             android:exported="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".detail.ui.DetailActivity"
             android:exported="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".mypage.ui.MyPageActivity"
             android:exported="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".word.ui.WordActivity"
             android:exported="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".profile.ui.ProfileChangeActivity"
             android:exported="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".writing.ui.WritingResultActivity"
             android:exported="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".writing.ui.WritingActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".writing.ui.WritingReadyActivity"
             android:exported="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".login.ui.MainActivity"
             android:exported="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".home.ui.HomeActivity"
             android:exported="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".signup.ui.SignupActivity"
             android:exported="true"
-            android:windowSoftInputMode="stateHidden|adjustPan"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".login.ui.SplashActivity"
-            android:windowSoftInputMode="stateHidden|adjustPan"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

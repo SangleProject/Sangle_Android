@@ -39,6 +39,13 @@
                     android:text="프로필 보기"
                     android:textColor="@color/white" />
 
+                <ImageView
+                    android:id="@+id/btn_user_block"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_userblock"
+                    android:layout_gravity="end"/>
+
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
 
