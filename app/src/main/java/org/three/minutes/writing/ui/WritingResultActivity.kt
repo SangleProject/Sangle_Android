@@ -84,7 +84,6 @@ class WritingResultActivity : AppCompatActivity() {
             val intent = Intent(this,WordActivity::class.java)
             intent.putExtra("topic", mViewModel.topic.value!!)
             startActivity(intent)
-            finish()
         }
 
     }

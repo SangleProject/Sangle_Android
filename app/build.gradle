@@ -25,8 +25,8 @@ android {
         applicationId "org.three.minutes"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 202107060
-        versionName "1.0.1"
+        versionCode 202108190
+        versionName "1.1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
