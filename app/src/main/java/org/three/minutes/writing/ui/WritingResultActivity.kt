@@ -11,6 +11,7 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.asLiveData
 import kotlinx.android.synthetic.main.activity_writing_result.*
+import min.dev.singleclick.mingSingleClickListener
 import org.three.minutes.R
 import org.three.minutes.ThreeApplication
 import org.three.minutes.badge.ui.OpenedBadgePopup
@@ -60,7 +61,7 @@ class WritingResultActivity : AppCompatActivity() {
         mBinding.resultContentsTxt.movementMethod = ScrollingMovementMethod()
 
         // 좌측 상단 완료 버튼
-        mBinding.resultDone.setOnClickListener {
+        mBinding.resultDone.mingSingleClickListener {
             // 1이면 공개 0이면 비공개
             val isOpen = if (mBinding.resultOpenSwitch.isChecked) {
                 1

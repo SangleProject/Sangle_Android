@@ -13,6 +13,7 @@ import androidx.databinding.DataBindingUtil
 import gun0912.tedkeyboardobserver.TedKeyboardObserver
 import kotlinx.android.synthetic.main.writing_complete_popup.*
 import kotlinx.android.synthetic.main.writing_timeover_popup.*
+import min.dev.singleclick.mingSingleClickListener
 import org.three.minutes.R
 import org.three.minutes.databinding.ActivityWritingBinding
 import org.three.minutes.singleton.PopUpObject
@@ -94,7 +95,7 @@ class WritingActivity : AppCompatActivity() {
 
     private fun initPopup() {
         mCompletePopup.apply {
-            complete_stop_btn.setOnClickListener {
+            complete_stop_btn.mingSingleClickListener {
                 dismiss()
                 val intent = Intent(this@WritingActivity, WritingResultActivity::class.java)
                 intent.putExtra("contents",mBinding.writingContentsEdt.text.toString())
@@ -111,7 +112,7 @@ class WritingActivity : AppCompatActivity() {
         }
 
         mTimeoverPopup.apply {
-            timeover_stop_btn.setOnClickListener {
+            timeover_stop_btn.mingSingleClickListener {
                 dismiss()
                 val intent = Intent(this@WritingActivity, WritingResultActivity::class.java)
                 intent.putExtra("contents",mBinding.writingContentsEdt.text.toString())
@@ -119,7 +120,7 @@ class WritingActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
-            timeover_close_btn.setOnClickListener {
+            timeover_close_btn.mingSingleClickListener {
                 dismiss()
                 val intent = Intent(this@WritingActivity, WritingResultActivity::class.java)
                 intent.putExtra("contents",mBinding.writingContentsEdt.text.toString())

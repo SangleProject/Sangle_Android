@@ -16,7 +16,8 @@ class CustomDialog(
     private val content: String,
     private val cancelTitle: String,
     private val okTitle: String,
-    private val dialogImg: Int
+    private val dialogImg: Int,
+    private val isCancelable: Boolean = true
 ) : Dialog(context) {
 
     private var clickListener: ClickListener? = null
@@ -36,6 +37,9 @@ class CustomDialog(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        setCanceledOnTouchOutside(isCancelable)
+        setCancelable(isCancelable)
 
         window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
