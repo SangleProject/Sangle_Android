@@ -52,7 +52,9 @@ class CalenderFragment : Fragment(), CoroutineScope {
         })
 
         mViewModel.weekProgress.observe(viewLifecycleOwner, {
-            mBinding.calendarProgress.setProgressCompat(it, true)
+            it?.let {
+                mBinding.calendarProgress.setProgressCompat(it, true)
+            }
         })
 
         return mBinding.root
