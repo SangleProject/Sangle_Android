@@ -62,9 +62,10 @@
         - 여름철 장마처럼 시~원하게\n
         여러분의 복잡한 머리를 씻겨줄 Team 말랑</string>
 
-    <string name="is_written_pop_up_title">더 다양한 생각을 보고 싶다면?&#x1F914;</string>
-    <string name="is_written_pop_up_contents">해당 글감의 글쓰기를 완료했을 경우에만\n완전한 글감보기가 가능합니다.</string>
-    <string name="is_written_pop_up_button">바로 글 쓰러 갈게요!</string>
+    <string name="is_written_pop_up_title">아직 이 글감의 글을 안 썼네요 &#x1F914;</string>
+    <string name="is_written_pop_up_contents">먼저 이 글감의 글쓰기에 도전해보세요!\n딱 3분이면 충분해요:)</string>
+    <string name="is_written_pop_up_button">지금 쓰러 갈게요!</string>
+    <string name="is_written_pop_up_no_writing">잠시 구경할래요</string>
 
     <string name="membership_withdrawal_popup_title">정말 계정을 삭제하시겠어요?&#x1F62D;</string>
     <string name="membership_withdrawal_popup_contents">그동안 내가 쓴 모든 글들과\n받은 배지들이 모두 사라지고 되돌릴 수 없어요.</string>

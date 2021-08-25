@@ -1,18 +1,18 @@
 package org.three.minutes.word.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.modal_bottom_sheet.*
 import org.three.minutes.R
 import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.FragmentPostDetailBinding
-import org.three.minutes.word.adapter.PastWritingRcvAdapter
 import org.three.minutes.word.viewmodel.WordViewModel
 
 
@@ -48,6 +48,11 @@ class PostDetailFragment : Fragment() {
         mBinding.wordWritingFilterTxt.setOnClickListener {
             bottomSheet.show()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.i("자세히 보기 글감 화면", "onResume")
     }
 
     private fun setBottomSheet() {
