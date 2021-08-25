@@ -103,7 +103,7 @@ class HomeViewModel(application: Application, private val useCase: HomeUseCase) 
             val y = calendar.get(Calendar.YEAR)
             val m = calendar.get(Calendar.MONTH) + 1 // 월 표시는 0 ~ 11
 
-            val sampleEmpty = GregorianCalendar(y,m-1,1,0,0,0)
+            val sampleEmpty = GregorianCalendar(y, m - 1, 1, 0, 0, 0)
             val emptyDay = sampleEmpty.get(Calendar.DAY_OF_WEEK) - 1 // 비어 있는 요일
             val max = calendar.getActualMaximum(Calendar.DAY_OF_MONTH) //마지막 날짜
 
@@ -118,7 +118,7 @@ class HomeViewModel(application: Application, private val useCase: HomeUseCase) 
             for (i in 1..max) {
                 // 해당 날짜에 값이 존재한다면
                 if (responseCalendarData.isNotEmpty()) {
-                    if (GregorianCalendar(y, m-1, i).compareSame(responseCalendarData[0].date)) {
+                    if (GregorianCalendar(y, m - 1, i).compareSame(responseCalendarData[0].date)) {
                         arrayCalendar.add(
                             CalendarData(y, m, i, responseCalendarData[0].count, false)
                         )
@@ -134,7 +134,7 @@ class HomeViewModel(application: Application, private val useCase: HomeUseCase) 
         }
     }
 
-    fun callWeekComplete(){
+    fun callWeekComplete() {
         viewModelScope.launch {
             SangleServiceImpl.service.getWeekComplete(token)
                 .customEnqueue(
@@ -150,9 +150,9 @@ class HomeViewModel(application: Application, private val useCase: HomeUseCase) 
     }
 
     // 주별 달성률 퍼센트 표시 증가 애니메이션
-    private fun startPercentageIncrease(){
+    private fun startPercentageIncrease() {
         viewModelScope.launch {
-            for (i in 0..weekProgress.value!!){
+            for (i in 0..weekProgress.value!!) {
                 percentProgress.value = i
                 delay(50)
             }
@@ -171,7 +171,7 @@ class HomeViewModel(application: Application, private val useCase: HomeUseCase) 
                         compare.postValue(it.compare)
                         remaining.postValue(it.remaining)
                         percentage.postValue(it.percentage)
-                        if (it.badge.isNotEmpty()){
+                        if (it.badge.isNotEmpty()) {
                             badgeList.value = it.badge.toMutableList()
                         }
                     },
@@ -191,7 +191,8 @@ class HomeViewModel(application: Application, private val useCase: HomeUseCase) 
             SangleServiceImpl.service.getFameData(token)
                 .customEnqueue(
                     onSuccess = {
-                        fameDataList.value = it.toMutableList()
+                        fameDataList.value =
+                            it.filter { fameData -> !fameData.blocked }.toMutableList()
                         isFameComplete.value = true
                     },
                     onError = {

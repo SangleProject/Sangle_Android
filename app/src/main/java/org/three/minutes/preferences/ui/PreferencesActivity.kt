@@ -52,6 +52,7 @@ class PreferencesActivity : AppCompatActivity(), CoroutineScope, MembershipWithd
         mViewModel.callDeleteMembership()
     }
 
+    @ExperimentalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         job = Job()
@@ -120,6 +121,9 @@ class PreferencesActivity : AppCompatActivity(), CoroutineScope, MembershipWithd
                 data = Uri.parse("https://play.google.com/store/apps/details?id=${packageName}")
             }
             startActivity(intent)
+        }
+        mBinding.serviceBlockedUser.mingSingleClickListener {
+            startActivity(Intent(this, UserBlockActivity::class.java))
         }
 
         setObserve()
