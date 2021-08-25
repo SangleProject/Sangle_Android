@@ -5,11 +5,9 @@ import android.content.Intent
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import org.three.minutes.CloseTopicPopUp
 import org.three.minutes.R
 import org.three.minutes.badge.adapter.BadgeListAdapter
 import org.three.minutes.badge.data.ResponseBadgeData
@@ -19,17 +17,13 @@ import org.three.minutes.detail.data.ResponseMyWritingData
 import org.three.minutes.detail.data.ResponseOtherWritingData
 import org.three.minutes.detail.ui.DetailActivity
 import org.three.minutes.detail.ui.DetailMyActivity
-import org.three.minutes.home.data.ResponseTodayTopicData
 import org.three.minutes.mypage.adapter.MyScrapAdapter
 import org.three.minutes.mypage.adapter.MyWritingAdapter
 import org.three.minutes.notice.adapter.NoticeListAdapter
 import org.three.minutes.notice.data.ResponseNoticeData
 import org.three.minutes.profile.adapter.OtherProfileRcvAdapter
-import org.three.minutes.server.SangleServiceImpl
 import org.three.minutes.word.adapter.SearchUserListAdapter
 import org.three.minutes.word.adapter.SearchWritingAdapter
-import org.three.minutes.word.adapter.TodayWordRcvAdapter
-import org.three.minutes.word.data.RequestWrittenData
 import org.three.minutes.word.data.ResponsePastSearchData
 import org.three.minutes.word.data.ResponseSearchTopicData
 import org.three.minutes.word.data.ResponseUserListData
@@ -59,14 +53,9 @@ fun RecyclerView.setSearchResult(
     topicAdapter.setItemClickLitener(object : SearchWritingAdapter.OnItemClickListener {
         override fun onSearchTopicItemClick(v: View, data: ResponseSearchTopicData) {
             super.onSearchTopicItemClick(v, data)
-            if (isWritten) {
                 val intent = Intent(v.context, DetailActivity::class.java)
                 intent.putExtra("postIdx", data.postIdx)
                 v.context.startActivity(intent)
-            } else {
-                CloseTopicPopUp(v.context, data.topic).show()
-            }
-
         }
     })
 
@@ -205,20 +194,9 @@ fun RecyclerView.setOtherProfileList(data: List<ResponseOtherWritingData>, token
     }
     rcvAdapter.setOnClickListener(object : OtherProfileRcvAdapter.OnItemClickListener {
         override fun onItemClick(v: View, data: ResponseOtherWritingData) {
-            SangleServiceImpl.service.postWritten(
-                token = token,
-                body = RequestWrittenData(topic = data.topic)
-            ).customEnqueue(
-                onSuccess = {
-                    if (it.written) {
-                        val intent = Intent(v.context, DetailActivity::class.java)
-                        intent.putExtra("postIdx", data.postIdx)
-                        v.context.startActivity(intent)
-                    } else {
-                        CloseTopicPopUp(v.context, data.topic).show()
-                    }
-                }
-            )
+            val intent = Intent(v.context, DetailActivity::class.java)
+            intent.putExtra("postIdx", data.postIdx)
+            v.context.startActivity(intent)
         }
     })
     rcvAdapter.data = data

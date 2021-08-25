@@ -1,6 +1,8 @@
 package org.three.minutes.word.ui
 
 
+import android.app.Dialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
@@ -19,7 +21,12 @@ import kotlinx.coroutines.Job
 import org.three.minutes.R
 import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.ActivityWordBinding
+import org.three.minutes.server.SangleServiceImpl
+import org.three.minutes.util.CustomDialog
+import org.three.minutes.util.customEnqueue
+import org.three.minutes.word.data.RequestWrittenData
 import org.three.minutes.word.viewmodel.WordViewModel
+import org.three.minutes.writing.ui.WritingReadyActivity
 import kotlin.coroutines.CoroutineContext
 
 class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, CoroutineScope {
@@ -49,6 +56,19 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
 
     private val mViewModel: WordViewModel by viewModels()
 
+
+    private val notWrittenDialog: CustomDialog by lazy {
+        CustomDialog(
+            context = this,
+            title = getString(R.string.is_written_pop_up_title),
+            content = getString(R.string.is_written_pop_up_contents),
+            cancelTitle = "잠시 구경할래요",
+            okTitle = "지금 쓰러 갈게요!",
+            dialogImg = R.drawable.illust_popup04,
+            isCancelable = false
+        )
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         job = Job()
@@ -66,12 +86,11 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
 
 
         TedKeyboardObserver(this).listen { isShow ->
-            if (isShow){
+            if (isShow) {
                 mViewModel.isKeyboardShow = true
-            }
-            else{
+            } else {
                 mViewModel.isKeyboardShow = false
-                if (mBinding.searchBoxEdt.visibility == View.VISIBLE){
+                if (mBinding.searchBoxEdt.visibility == View.VISIBLE) {
                     mBinding.searchBoxEdt.clearFocus()
                 }
             }
@@ -82,6 +101,37 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
         }
 
         getIntentData()
+
+        mViewModel.lastDetailTopic.observe(this) {
+            it?.let { topic ->
+                if (topic.isNotBlank())
+                    SangleServiceImpl.service.postWritten(
+                        token = mViewModel.token,
+                        body = RequestWrittenData(topic = topic)
+                    ).customEnqueue(
+                        onSuccess = { result ->
+                            if (!result.written) {
+                                notWrittenDialog.setDialogClickListener(object :
+                                    CustomDialog.ClickListener {
+                                    override fun setOnOk(dialog: Dialog) {
+                                        val intent =
+                                            Intent(
+                                                mBinding.root.context,
+                                                WritingReadyActivity::class.java
+                                            )
+                                        intent.putExtra("topic", topic)
+                                        startActivity(intent)
+                                    }
+
+                                    override fun setOnCancel(dialog: Dialog) {
+                                    }
+                                })
+                                notWrittenDialog.show()
+                            }
+                        }
+                    )
+            }
+        }
     }
 
     private fun getIntentData() {
@@ -118,10 +168,9 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
                 requestFocus()
                 mImm.showSoftInput(this, 0)
             }
-            if (mViewModel.searchWord.value.isNullOrBlank()){
+            if (mViewModel.searchWord.value.isNullOrBlank()) {
                 replaceSearchFragment(searchEmptyFragment, TAG_EMPTY)
-            }
-            else{
+            } else {
                 replaceSearchFragment(searchResultFragment, TAG_SEARCH)
             }
 
@@ -129,7 +178,7 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
     }
 
     private fun downKeyBoard(isSearch: Boolean) {
-        if (mViewModel.isKeyboardShow){
+        if (mViewModel.isKeyboardShow) {
             mImm.hideSoftInputFromWindow(
                 this.currentFocus?.windowToken,
                 InputMethodManager.HIDE_NOT_ALWAYS
@@ -137,9 +186,8 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
             mBinding.searchBoxEdt.apply {
                 clearFocus()
             }
-        }
-        else{
-            if (!isSearch){
+        } else {
+            if (!isSearch) {
                 replaceWordFragment()
                 mBinding.searchBoxEdt.visibility = View.GONE
             }
@@ -148,7 +196,7 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
     }
 
     private fun replaceWordFragment() {
-        supportFragmentManager.popBackStackImmediate(null,FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        supportFragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
     }
 
     private fun replaceSearchFragment(fragment: Fragment, tag: String) {
@@ -159,10 +207,10 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
             .commit()
     }
 
-    fun replaceDetailFragment(){
+    fun replaceDetailFragment() {
         supportFragmentManager
             .beginTransaction()
-            .replace(mBinding.containerLayout.id,lastDetailFragment,TAG_LAST_DETAIL)
+            .replace(mBinding.containerLayout.id, lastDetailFragment, TAG_LAST_DETAIL)
             .addToBackStack(TAG_LAST_DETAIL)
             .commit()
     }
@@ -177,13 +225,12 @@ class WordActivity : AppCompatActivity(), TextView.OnEditorActionListener, Corou
                 mViewModel.callSearchTopic()
                 mViewModel.callSearchContents()
                 mViewModel.callSearchUser()
-                if (supportFragmentManager.findFragmentByTag(TAG_SEARCH) != SearchResultFragment()){
+                if (supportFragmentManager.findFragmentByTag(TAG_SEARCH) != SearchResultFragment()) {
                     replaceSearchFragment(searchResultFragment, TAG_SEARCH)
                 }
-            }
-            else{
+            } else {
                 supportFragmentManager.beginTransaction()
-                    .replace(mBinding.containerLayout.id , searchEmptyFragment, TAG_EMPTY)
+                    .replace(mBinding.containerLayout.id, searchEmptyFragment, TAG_EMPTY)
                     .commit()
             }
         } else {
