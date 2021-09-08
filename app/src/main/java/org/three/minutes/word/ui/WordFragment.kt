@@ -65,7 +65,7 @@ class WordFragment : Fragment() {
                 rcvAdapter.setOnItemClickListener(object : PastWritingRcvAdapter.OnItemClickListener {
                     override fun onItemClick(v: View, data: ResponseLastTopicData) {
                         mViewModel.callPastDetailPopular(data.topic)
-                        mViewModel.filter.value = "최신순"
+                        mViewModel.filter.value = "인기순"
                         wordActivity.replaceDetailFragment()
                     }
                 })
