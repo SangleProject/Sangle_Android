@@ -70,7 +70,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:ellipsize="end"
-                    android:lines="3"
                     android:textColor="@color/black_80"
                     app:layout_constraintEnd_toEndOf="@+id/blue_line"
                     app:layout_constraintStart_toStartOf="@+id/blue_line"
