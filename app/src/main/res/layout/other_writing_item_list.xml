@@ -1,6 +1,6 @@
 <layout>
-    <data>
-    </data>
+
+    <data></data>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -65,8 +65,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:ellipsize="end"
+                    android:inputType="none"
                     android:textColor="@color/black_80"
-                    android:lines="3"
                     app:layout_constraintEnd_toEndOf="@+id/blue_line"
                     app:layout_constraintStart_toStartOf="@+id/blue_line"
                     app:layout_constraintTop_toBottomOf="@id/blue_line"
@@ -93,16 +93,16 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginBottom="16dp"
                     android:scaleType="fitXY"
-                    tools:src="@drawable/profile1"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintDimensionRatio="1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintWidth_percent="0.052"
-                    tools:ignore="ContentDescription" />
+                    tools:ignore="ContentDescription"
+                    tools:src="@drawable/profile1" />
 
                 <TextView
-                    style="@style/P3_14pt_Regular"
                     android:id="@+id/item_nickname"
+                    style="@style/P3_14pt_Regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"

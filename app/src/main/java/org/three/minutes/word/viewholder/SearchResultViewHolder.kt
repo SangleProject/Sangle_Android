@@ -24,7 +24,7 @@ class SearchResultViewHolder(val binding : OtherWritingItemListBinding) : Recycl
         binding.itemFavorite.isChecked = data.liked
         binding.itemDateTxt.text = "${data.date} (${data.day}) ${data.time}"
         Glide.with(itemView).load(data.profileImg).into(binding.itemUserImg)
-        binding.itemContents.setLines(3)
+        binding.itemContents.maxLines = 7
 
         itemView.setOnClickListener {
             listener?.onSearchTopicItemClick(itemView,data)

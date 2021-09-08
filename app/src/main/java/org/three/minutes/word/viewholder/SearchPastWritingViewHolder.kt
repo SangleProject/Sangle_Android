@@ -25,20 +25,11 @@ class SearchPastWritingViewHolder (val binding : OtherWritingItemListBinding)
         binding.itemFavorite.text = data.likes.formatCount()
         binding.itemDateTxt.text = "${data.date} (${data.day}) ${data.time}"
         Glide.with(itemView).load(data.profileImg).into(binding.itemUserImg)
-        binding.itemContents.setLines(10)
+        binding.itemContents.maxLines = 10
         binding.itemFavorite.isChecked = data.liked
 
         itemView.setOnClickListener {
             listener?.onPastSearchItemClick(itemView,data)
-
-//            val intent : Intent = if (data.myNickName == data.nickName){
-//                Intent(itemView.context, DetailMyActivity::class.java)
-//            } else{
-//                Intent(itemView.context, DetailActivity::class.java)
-//            }
-//
-//            intent.putExtra("postIdx",data.postIdx)
-//            itemView.context.startActivity(intent)
         }
     }
 }
