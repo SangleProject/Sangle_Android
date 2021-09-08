@@ -8,6 +8,7 @@
         <variable
             name="viewModel"
             type="org.three.minutes.home.viewmodel.HomeViewModel" />
+
         <variable
             name="fragment"
             type="org.three.minutes.home.ui.ProfileFragment" />
@@ -38,10 +39,10 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="16dp"
                 android:text="@{viewModel.nickName}"
-                tools:text="아이디"
                 android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="아이디" />
 
             <TextView
                 android:id="@+id/txt_num4"
@@ -55,12 +56,12 @@
                 app:layout_constraintTop_toTopOf="@+id/nickname_txt" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/txt_main_title"
                 style="@style/H2_24pt_Light"
-                android:lineSpacingExtra="1sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="60dp"
+                android:lineSpacingExtra="1sp"
                 android:text="오늘따라 생각이\n쑥쑥 자라날 것 같아요~"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -75,13 +76,13 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:scaleType="fitXY"
-                app:setGlide="@{viewModel.profileImg}"
-                tools:src="@drawable/profile1"
-                app:layout_constraintWidth_percent="0.17"
                 app:layout_constraintDimensionRatio="1"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView3"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toEndOf="@+id/txt_main_title"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.17"
+                app:setGlide="@{viewModel.profileImg}"
+                tools:src="@drawable/profile1" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -89,130 +90,84 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/state_card"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:layout_below="@id/top_layout"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="-50dp"
+            app:cardElevation="8dp"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="6dp">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:baselineAligned="false"
-                android:orientation="horizontal"
-                android:paddingVertical="12dp">
+                android:layout_height="match_parent">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_writing_topic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:paddingBottom="18dp">
+
+                    <ImageView
+                        android:id="@+id/img_pencil"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="18dp"
+                        android:src="@drawable/ic_main_pencil"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/my_all_txt"
-                        style="@style/H1_24pt_Regular"
+                        android:id="@+id/txt_total_my_writing_title"
+                        style="@style/P6_12pt_Regular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center"
+                        android:layout_marginStart="12dp"
+                        android:text="내가 쓴 모든 글"
+                        android:textColor="@color/black_60"
+                        app:layout_constraintBottom_toTopOf="@+id/txt_total_my_writing"
+                        app:layout_constraintStart_toEndOf="@+id/img_pencil"
+                        app:layout_constraintTop_toTopOf="@+id/img_pencil" />
+
+                    <TextView
+                        android:id="@+id/txt_total_my_writing"
+                        style="@style/H3_18pt_Regular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:text="@{Integer.toString(viewModel.postCount)}"
-                        tools:text="0"
-                        android:textColor="@color/black_100" />
+                        android:textColor="@color/black_100"
+                        app:layout_constraintBottom_toBottomOf="@+id/img_pencil"
+                        app:layout_constraintStart_toStartOf="@+id/txt_total_my_writing_title"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_total_my_writing_title"
+                        tools:text="00" />
 
                     <TextView
-                        style="@style/P4_14pt_Light"
+                        android:id="@+id/txt_1"
+                        style="@style/H3_18pt_Regular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="나의 모든 글"
-                        android:textColor="@color/black_80" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/my_week_txt"
-                            style="@style/H1_24pt_Regular"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            tools:text="0"
-                            android:text="@{Integer.toString(viewModel.week)}"
-                            android:textColor="@color/black_100" />
-
-                        <ImageView
-                            android:id="@+id/status_img"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="4dp"
-                            android:scaleType="fitXY"
-                            app:progressImg="@{viewModel.compare}" />
+                        android:text="개"
+                        android:textColor="@color/black_100"
+                        app:layout_constraintBottom_toBottomOf="@+id/txt_total_my_writing"
+                        app:layout_constraintStart_toEndOf="@+id/txt_total_my_writing" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-                    </LinearLayout>
+                <TextView
+                    android:id="@+id/txt_go_to_topic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/light_blue"
+                    android:gravity="center"
+                    android:paddingVertical="12dp"
+                    android:text="다른 유저들의 글감 구경하기 >"
+                    android:textColor="@color/main_blue"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_writing_topic" />
 
-
-                    <TextView
-                        style="@style/P4_14pt_Light"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="이번주 쓴 글"
-                        android:textColor="@color/black_80" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/my_today_txt"
-                        style="@style/H1_24pt_Regular"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        tools:text="0"
-                        android:text="@{Integer.toString(viewModel.remaining)}"
-                        android:textColor="@color/black_100" />
-
-                    <TextView
-                        style="@style/P4_14pt_Light"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="오늘 남은 글"
-                        android:textColor="@color/black_80" />
-
-                </LinearLayout>
-
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
 
@@ -220,7 +175,7 @@
             android:id="@+id/layout_hom_main_img"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_above="@+id/writing_btn"
+            android:layout_above="@+id/layout_today_remained_topic"
             android:layout_below="@id/state_card">
 
             <ImageView
@@ -237,13 +192,78 @@
                 app:writingImg="@{viewModel.percentage}"
                 tools:src="@drawable/ic_illust_membership_withdrawal" />
 
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_today_remained_topic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_round_box_light_grey_8dp"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_above="@id/writing_btn"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:id="@+id/txt_remain_1"
+                style="@style/P6_12pt_Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="오늘 남은 글"
+                android:textColor="@color/black_80"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_remained_count"
+                style="@style/P6_12pt_Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@{Integer.toString(viewModel.remaining)}"
+                android:textColor="@color/black_80"
+                app:layout_constraintBottom_toBottomOf="@id/txt_remain_1"
+                app:layout_constraintStart_toEndOf="@id/txt_remain_1"
+                app:layout_constraintTop_toTopOf="@id/txt_remain_1"
+                tools:text="0" />
+
+            <TextView
+                android:id="@+id/txt_remain_2"
+                style="@style/P6_12pt_Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="/"
+                android:textColor="@color/black_80"
+                app:layout_constraintBottom_toBottomOf="@id/txt_remained_count"
+                app:layout_constraintStart_toEndOf="@id/txt_remained_count"
+                app:layout_constraintTop_toTopOf="@id/txt_remained_count" />
+
+            <TextView
+                android:id="@+id/txt_remain_3"
+                style="@style/P6_12pt_Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="3"
+                android:textColor="@color/black_80"
+                app:layout_constraintBottom_toBottomOf="@id/txt_remain_2"
+                app:layout_constraintStart_toEndOf="@id/txt_remain_2"
+                app:layout_constraintTop_toTopOf="@id/txt_remain_2" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <Button
-            style="@style/H3_18pt_Regular"
             android:id="@+id/writing_btn"
+            style="@style/H3_18pt_Regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -251,11 +271,11 @@
             android:layout_marginBottom="20dp"
             android:background="@drawable/writing_button"
             android:gravity="center"
+            android:onClick="@{()->fragment.goToWriting()}"
             android:paddingHorizontal="68dp"
             android:paddingVertical="14dp"
             android:text="글쓰러 가기"
-            android:textColor="@color/white"
-            android:onClick="@{()->fragment.goToWriting()}"/>
+            android:textColor="@color/white" />
 
 
     </RelativeLayout>

@@ -55,6 +55,8 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
 
     private val PROFILE_CODE = 100
 
+    private var closeTime: Long = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.e("Home", "HomeActivity onCreate()")
@@ -246,8 +248,12 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
         if (mBinding.homeDrawer.isDrawerOpen(GravityCompat.START)) {
             mBinding.homeDrawer.closeDrawer(GravityCompat.START)
         } else {
-            super.onBackPressed()
-            ActivityCompat.finishAffinity(this)
+            if (System.currentTimeMillis() <= closeTime + 2000) {
+                ActivityCompat.finishAffinity(this)
+            } else {
+                showToast("'뒤로'버튼을 한번 더 누르시면 앱이 종료됩니다.")
+                closeTime = System.currentTimeMillis()
+            }
         }
     }
 
