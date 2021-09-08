@@ -2,7 +2,9 @@ package org.three.minutes.home.ui
 
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -19,6 +21,7 @@ import androidx.viewpager.widget.ViewPager
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.home_navigation.view.*
 import kotlinx.coroutines.*
+import min.dev.singleclick.mingSingleClickListener
 import org.three.minutes.LogOutPopUp
 import org.three.minutes.R
 import org.three.minutes.ThreeApplication
@@ -203,6 +206,11 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
             }
             startActivityForResult(intent,3000)
         }
+
+        // 생글 인스타그램 페이지로 이동
+        mBinding.homeDrawer.navi_go_to_instagram.mingSingleClickListener {
+            goToInstagram()
+        }
     }
 
 
@@ -242,6 +250,22 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
 
     fun isEnableSwipeRefresh(isEnable : Boolean){
         mBinding.swipe.isEnabled = isEnable
+    }
+
+    private fun goToInstagram() {
+        val instagramPageID = "sangle_official/"
+        val uri = Uri.parse("https://instagram.com/_u/$instagramPageID")
+
+        val instagramIntent = Intent(Intent.ACTION_VIEW, uri).apply {
+            `package` = "com.instagram.android"
+        }
+
+        try {
+            startActivity(instagramIntent)
+        } catch(e: ActivityNotFoundException) {
+            e.printStackTrace()
+            startActivity(Intent(Intent.ACTION_VIEW, uri))
+        }
     }
 
     override fun onBackPressed() {
