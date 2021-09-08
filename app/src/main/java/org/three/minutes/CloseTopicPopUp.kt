@@ -19,6 +19,7 @@ class CloseTopicPopUp(context : Context, private val topic : String) : Dialog(co
         setContentView(binding.root)
 
         window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        setCancelable(false)
         setCanceledOnTouchOutside(false)
 
         // dialog의 표시 영역이 기본적으로 화면 전체가 아니므로 원하는대로 안보임

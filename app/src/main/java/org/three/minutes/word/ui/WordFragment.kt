@@ -66,20 +66,7 @@ class WordFragment : Fragment() {
                     override fun onItemClick(v: View, data: ResponseLastTopicData) {
                         mViewModel.callPastDetailPopular(data.topic)
                         mViewModel.filter.value = "최신순"
-                        SangleServiceImpl.service.postWritten(
-                            token = mViewModel.token,
-                            body = RequestWrittenData(topic = data.topic)
-                        ).customEnqueue(
-                            onSuccess = { result ->
-                                if (result.written){
-                                    wordActivity.replaceDetailFragment()
-                                }
-                                else{
-                                    CloseTopicPopUp(v.context,data.topic).show()
-                                }
-                            }
-                        )
-
+                        wordActivity.replaceDetailFragment()
                     }
                 })
                 mBinding.pastWritingRcv.apply {
