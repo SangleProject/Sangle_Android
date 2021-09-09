@@ -50,15 +50,15 @@ class MyPageActivity : AppCompatActivity() {
     }
 
     private fun setSwipeRefresh() {
-        mBinding.swipe.setColorSchemeColors(ContextCompat.getColor(this,R.color.main_blue))
-        mBinding.swipe.setOnRefreshListener {
-            val intent = Intent(this,MyPageActivity::class.java)
-            overridePendingTransition(0,0)
-            startActivity(intent)
-            finish()
-
-            mBinding.swipe.isRefreshing = false
-        }
+//        mBinding.swipe.setColorSchemeColors(ContextCompat.getColor(this,R.color.main_blue))
+//        mBinding.swipe.setOnRefreshListener {
+//            val intent = Intent(this,MyPageActivity::class.java)
+//            overridePendingTransition(0,0)
+//            startActivity(intent)
+//            finish()
+//
+//            mBinding.swipe.isRefreshing = false
+//        }
     }
 
     private fun setToolBar() {
