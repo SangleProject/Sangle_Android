@@ -14,7 +14,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object SangleServiceImpl {
-    private const val baseUrl = "http://52.78.217.66:8080"
+    private const val baseUrl = "http://52.79.233.117:8080"
 
     private val client = OkHttpClient.Builder()
         .addInterceptor(getHttpLoggingInterceptor())
