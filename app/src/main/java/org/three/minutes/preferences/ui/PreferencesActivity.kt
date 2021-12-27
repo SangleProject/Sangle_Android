@@ -169,6 +169,8 @@ class PreferencesActivity : AppCompatActivity(), CoroutineScope, MembershipWithd
         lifecycleScope.launch(Dispatchers.IO) {
             var deviceVersion = ""
             var storeVersion = ""
+            storeVersion = AppVersionChecker.getMarketVersion(packageName) ?: ""
+            deviceVersion = packageManager.getPackageInfo(packageName, 0).versionName
 
             val compareJob =
                 launch(context = Dispatchers.Main, start = CoroutineStart.LAZY) compare@{
@@ -191,10 +193,9 @@ class PreferencesActivity : AppCompatActivity(), CoroutineScope, MembershipWithd
                 }
 
 
-            storeVersion = AppVersionChecker.getMarketVersion(packageName) ?: ""
+
 
             try {
-                deviceVersion = packageManager.getPackageInfo(packageName, 0).versionName
                 Log.i("기기버전", deviceVersion)
                 Log.i("마켓버전", storeVersion)
             } catch (e: PackageManager.NameNotFoundException) {
