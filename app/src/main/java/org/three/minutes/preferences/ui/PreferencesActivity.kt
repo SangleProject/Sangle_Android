@@ -75,12 +75,6 @@ class PreferencesActivity : AppCompatActivity(), CoroutineScope, MembershipWithd
             viewModel = mViewModel
         }
 
-        mBinding.notificationNoticeSwitch.setOnCheckedChangeListener { _, isChecked ->
-            launch {
-                ThreeApplication.getInstance().getDataStore().setNotificationPush(isChecked)
-            }
-        }
-
         mBinding.notificationMotiveSwitch.setOnCheckedChangeListener { _, isChecked ->
             launch {
                 ThreeApplication.getInstance().getDataStore().setMotivePush(isChecked)
