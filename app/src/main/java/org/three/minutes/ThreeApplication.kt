@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineScope
@@ -18,6 +19,7 @@ import org.three.minutes.util.*
 class ThreeApplication : Application(){
     private lateinit var mImm : InputMethodManager
     private lateinit var dataStore : SangleDataStoreManager
+    private lateinit var fireStore: FirebaseFirestore
 
     companion object{
         private lateinit var threeApplication : ThreeApplication
@@ -29,6 +31,7 @@ class ThreeApplication : Application(){
         threeApplication = this
         mImm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         dataStore = SangleDataStoreManager(this)
+        fireStore = FirebaseFirestore.getInstance()
 
 //        FirebaseMessaging.getInstance().subscribeToTopic("test")
         CoroutineScope(Dispatchers.IO).launch {
@@ -54,6 +57,7 @@ class ThreeApplication : Application(){
 
     fun getInputMethodManager() : InputMethodManager = mImm
     fun getDataStore() : SangleDataStoreManager = dataStore
+    fun getFireStore(): FirebaseFirestore = fireStore
 
     fun changeTextColor(blueText : TextView, blackText : TextView){
         blueText.changeBlueColor()

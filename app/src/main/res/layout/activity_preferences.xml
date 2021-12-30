@@ -6,6 +6,7 @@
     tools:ignore="HardcodedText">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="org.three.minutes.preferences.viewmodel.PreferencesViewModel" />
@@ -52,21 +53,6 @@
             android:text="알림 설정"
             android:textColor="@color/black_60" />
 
-
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/notification_notice_switch"
-            style="@style/P2_16pt_Light"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="12dp"
-            android:text="공지 알림"
-            android:checked="@{viewModel.isNotification}"
-            android:textColor="@color/black_100"
-            android:theme="@style/MaterialTheme" />
-
-
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/notification_motive_switch"
             style="@style/P2_16pt_Light"
@@ -81,6 +67,16 @@
             android:textColor="@color/black_100"
             android:theme="@style/MaterialTheme" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_explain"
+            android:text="매일 오후 8시에 리마인드 알림이 전송돼요!"
+            style="@style/P6_12pt_Regular"
+            android:visibility="@{viewModel.isMotive() ? View.VISIBLE : View.GONE}"
+            android:textColor="@color/black_60"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"/>
 
         <TextView
             android:id="@+id/personal_info"
