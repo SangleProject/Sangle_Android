@@ -29,7 +29,7 @@
                 android:id="@+id/draw_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:navigationIcon="@drawable/ic_back">
+                android:background="@color/main_blue">
 
                 <TextView
                     style="@style/H3_18pt_Regular"
@@ -38,13 +38,6 @@
                     android:layout_gravity="center"
                     android:text="프로필 보기"
                     android:textColor="@color/white" />
-
-                <ImageView
-                    android:id="@+id/btn_user_block"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_userblock"
-                    android:layout_gravity="end"/>
 
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>

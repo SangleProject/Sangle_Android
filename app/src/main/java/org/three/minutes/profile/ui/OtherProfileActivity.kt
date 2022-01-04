@@ -3,6 +3,8 @@ package org.three.minutes.profile.ui
 import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -14,6 +16,7 @@ import org.three.minutes.ThreeApplication
 import org.three.minutes.databinding.ActivityOtherProfileBinding
 import org.three.minutes.profile.viewmodel.OtherProfileViewModel
 import org.three.minutes.util.CustomDialog
+import org.three.minutes.util.CustomNoImageDialog
 import org.three.minutes.util.showToast
 
 @ExperimentalCoroutinesApi
@@ -26,6 +29,14 @@ class OtherProfileActivity : AppCompatActivity() {
 
     private val bottomSheet: BottomSheetDialog by lazy {
         BottomSheetDialog(mBinding.root.context)
+    }
+
+    private val userReportBottomSheet by lazy {
+        OtherProfileReportBottomSheet(object : OtherProfileReportBottomSheet.ReportClickListener {
+            override fun onClickOk() {
+                reportUserDialog.show()
+            }
+        })
     }
 
     private val blockUserDialog: CustomDialog by lazy {
@@ -51,12 +62,34 @@ class OtherProfileActivity : AppCompatActivity() {
         }
     }
 
+    private val reportUserDialog: CustomNoImageDialog by lazy {
+        CustomNoImageDialog(
+            context = this,
+            title = "정말 신고 하시겠어요?",
+            content = "허위신고일 경우, 신고자의 활동이 제한될 수 있으므로,\n신중하게 신고해주시기 바랍니다.",
+            cancelTitle = "취소하기",
+            okTitle = "제출하기",
+            isCancelable = true
+        ).apply {
+            setDialogClickListener(object : CustomNoImageDialog.ClickListener {
+                override fun setOnOk(dialog: Dialog) {
+                    showToast("상대방을 신고하였습니다.")
+                    finish()
+                }
+
+                override fun setOnCancel(dialog: Dialog) {
+                }
+            })
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         mViewModel.getToken.observe(this, {
             mViewModel.token = it
         })
+        setToolbarIcon()
         initIntent()
         setObserve()
 
@@ -71,12 +104,37 @@ class OtherProfileActivity : AppCompatActivity() {
             bottomSheet.show()
         }
 
-        mBinding.drawToolbar.setNavigationOnClickListener {
-            finish()
-        }
+    }
 
-        mBinding.btnUserBlock.setOnClickListener {
-            blockUserDialog.show()
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar_other_profile, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.action_report -> {
+                // 신고하기
+                userReportBottomSheet.show(supportFragmentManager, "user_report")
+            }
+            R.id.action_block -> {
+                // 차단하기
+                blockUserDialog.show()
+            }
+            R.id.home -> {
+                finish()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun setToolbarIcon() {
+        setSupportActionBar(mBinding.drawToolbar)
+
+        supportActionBar?.apply {
+            setDisplayShowTitleEnabled(false)
+            setDisplayHomeAsUpEnabled(true)
+            setHomeAsUpIndicator(R.drawable.ic_back)
         }
     }
 

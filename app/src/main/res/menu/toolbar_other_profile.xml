@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <group>
+        <item
+            android:id="@+id/action_report"
+            android:title="신고"
+            tools:ignore="HardcodedText" />
+        <item
+            android:id="@+id/action_block"
+            android:title="차단"
+            tools:ignore="HardcodedText" />
+    </group>
+</menu>
