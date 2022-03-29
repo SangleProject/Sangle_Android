@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="40dp" />
+                app:layout_constraintGuide_begin="32dp" />
 
 
             <TextView
@@ -38,7 +38,6 @@
                 style="@style/H3_18pt_Regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
                 android:textColor="@color/black_80"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -70,7 +69,7 @@
                 android:layout_marginHorizontal="28dp"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:text="게시글 백업기간 : 2022년 3월 28일 ~ 2022년 4월 30일"
+                android:text="게시글 백업기간 : 2022년 3월 28일 ~ 2022년 4월 29일"
                 android:textColor="@color/black_60"
                 app:layout_constraintTop_toBottomOf="@id/txt_contents" />
 
@@ -106,7 +105,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_more"
                 app:layout_constraintVertical_bias="1.0"
-                android:text="취소 버튼" />
+                android:text="다시보지 않기" />
 
             <TextView
                 android:id="@+id/btn_ok"
@@ -122,7 +121,7 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/btn_cancel"
                 app:layout_constraintTop_toTopOf="@+id/btn_cancel"
-                android:text="확인 버튼" />
+                android:text="닫기" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
