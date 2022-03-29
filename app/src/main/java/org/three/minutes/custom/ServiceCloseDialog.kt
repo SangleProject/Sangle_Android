@@ -3,12 +3,16 @@ package org.three.minutes.custom
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import android.text.style.TextAppearanceSpan
 import android.view.WindowManager
+import androidx.core.content.ContextCompat
 import org.three.minutes.R
 import org.three.minutes.databinding.DialogServiceCloseBinding
 
@@ -59,13 +63,10 @@ class ServiceCloseDialog(
         val spannable = SpannableString(binding.txtContents2.text)
 
         spannable.run {
-            setSpan(
-                TextAppearanceSpan(context, R.style.P5_12pt_Bold),
-                0,
-                10,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
+            setSpan(StyleSpan(Typeface.BOLD), 0, 10, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
+
+        binding.txtContents2.text = spannable
     }
 
     private fun clickEvent() {
