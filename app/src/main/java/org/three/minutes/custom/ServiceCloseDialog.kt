@@ -1,30 +1,30 @@
-package org.three.minutes.util
+package org.three.minutes.custom
 
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.TextAppearanceSpan
 import android.view.WindowManager
-import org.three.minutes.databinding.DialogCustomNoImgBinding
+import org.three.minutes.R
+import org.three.minutes.databinding.DialogServiceCloseBinding
 
-class CustomNoImageDialog(
-    context: Context,
-    private val title: String,
-    private val content: String,
-    private val cancelTitle: String,
-    private val okTitle: String,
-    private val isCancelable: Boolean = true
+class ServiceCloseDialog(
+    context: Context
 ) : Dialog(context) {
 
     private var clickListener: ClickListener? = null
     private val binding by lazy {
-        DialogCustomNoImgBinding.inflate(layoutInflater)
+        DialogServiceCloseBinding.inflate(layoutInflater)
     }
 
     interface ClickListener {
         fun setOnOk(dialog: Dialog)
         fun setOnCancel(dialog: Dialog)
+        fun setOnMoreClick()
     }
 
     fun setDialogClickListener(l: ClickListener) {
@@ -35,8 +35,8 @@ class CustomNoImageDialog(
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        setCanceledOnTouchOutside(isCancelable)
-        setCancelable(isCancelable)
+        setCanceledOnTouchOutside(false)
+        setCancelable(false)
 
         window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
@@ -56,11 +56,15 @@ class CustomNoImageDialog(
     }
 
     private fun displayView() {
-        binding.run {
-            txtTitle.text = title
-            txtContents.text = content
-            btnCancel.text = cancelTitle
-            btnOk.text = okTitle
+        val spannable = SpannableString(binding.txtContents2.text)
+
+        spannable.run {
+            setSpan(
+                TextAppearanceSpan(context, R.style.P5_12pt_Bold),
+                0,
+                10,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
         }
     }
 
@@ -72,6 +76,10 @@ class CustomNoImageDialog(
         binding.btnCancel.setOnClickListener {
             clickListener?.setOnCancel(this)
             dismiss()
+        }
+
+        binding.btnMore.setOnClickListener {
+            clickListener?.setOnMoreClick()
         }
     }
 }

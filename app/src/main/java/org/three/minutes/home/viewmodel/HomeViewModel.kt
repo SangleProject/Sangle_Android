@@ -4,15 +4,15 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.first
+import org.three.minutes.ThreeApplication
 import org.three.minutes.home.data.CalendarData
 import org.three.minutes.home.data.ResponseCalendarData
 import org.three.minutes.home.data.ResponseFameData
 import org.three.minutes.server.SangleServiceImpl
-import org.three.minutes.util.ListLiveData
-import org.three.minutes.util.compareSame
-import org.three.minutes.util.customEnqueue
-import org.three.minutes.util.formatCalendarPath
+import org.three.minutes.util.*
 import org.three.minutes.writing.data.BadgeData
 import java.util.*
 import kotlin.collections.ArrayList
@@ -71,6 +71,7 @@ class HomeViewModel(application: Application, private val useCase: HomeUseCase) 
     var fameDataList = ListLiveData<ResponseFameData>()
 
     var badgeList = MutableLiveData<MutableList<BadgeData>>()
+    val serviceClose = ThreeApplication.getInstance().getDataStore().closeDialogShow.asLiveData()
 
     fun setInitialCalendarData(addMonth: Int) {
         if (arrayCalendar.isNotEmpty()) {

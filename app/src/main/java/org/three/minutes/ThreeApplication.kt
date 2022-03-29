@@ -24,6 +24,8 @@ class ThreeApplication : Application(){
     companion object{
         private lateinit var threeApplication : ThreeApplication
         fun getInstance() : ThreeApplication = threeApplication
+
+        var isShowedCloseDialog = false
     }
 
     override fun onCreate() {

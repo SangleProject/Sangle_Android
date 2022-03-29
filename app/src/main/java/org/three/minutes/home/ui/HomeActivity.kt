@@ -17,6 +17,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager.widget.ViewPager
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.home_navigation.view.*
@@ -27,6 +28,7 @@ import org.three.minutes.R
 import org.three.minutes.ThreeApplication
 import org.three.minutes.badge.ui.BadgeActivity
 import org.three.minutes.badge.ui.OpenedBadgePopup
+import org.three.minutes.custom.ServiceCloseDialog
 import org.three.minutes.databinding.ActivityHomeBinding
 import org.three.minutes.home.adapter.HomePageAdapter
 import org.three.minutes.home.viewmodel.HomeUseCase
@@ -60,6 +62,26 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
 
     private var closeTime: Long = 0
 
+    private val serviceCloseDialog by lazy {
+        ServiceCloseDialog(this).apply {
+            setDialogClickListener(object : ServiceCloseDialog.ClickListener {
+                override fun setOnOk(dialog: Dialog) {
+                    ThreeApplication.isShowedCloseDialog = true
+                }
+
+                override fun setOnCancel(dialog: Dialog) {
+                    lifecycleScope.launch {
+                        ThreeApplication.getInstance().getDataStore().disableCloseDialogShow()
+                    }
+                }
+
+                override fun setOnMoreClick() {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://loving-icon-13c.notion.site/efe8c70edbc34a5683e7b71d443dd46e")))
+                }
+            })
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.e("Home", "HomeActivity onCreate()")
@@ -82,9 +104,9 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
 
         // 기기에 저장된 token값 가져오기
         ThreeApplication.getInstance().getDataStore().token.asLiveData()
-            .observe(this@HomeActivity, {
+            .observe(this@HomeActivity) {
                 mViewModel.token = it
-            })
+            }
 
         //Home_Info Api
         mViewModel.setInfo()
@@ -114,10 +136,10 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
     }
 
     private fun setSwipeRefresh() {
-        mBinding.swipe.setColorSchemeColors(ContextCompat.getColor(this,R.color.main_blue))
+        mBinding.swipe.setColorSchemeColors(ContextCompat.getColor(this, R.color.main_blue))
         mBinding.swipe.setOnRefreshListener {
-            val intent = Intent(this,HomeActivity::class.java)
-            overridePendingTransition(0,0)
+            val intent = Intent(this, HomeActivity::class.java)
+            overridePendingTransition(0, 0)
             startActivity(intent)
             finish()
 
@@ -126,21 +148,28 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
     }
 
     private fun setObserve() {
-        mViewModel.badgeList.observe(this,{
-            if (it.isNotEmpty()){
+        mViewModel.badgeList.observe(this) {
+            if (it.isNotEmpty()) {
                 showPopUp(it)
             }
-        })
+        }
+
+        mViewModel.serviceClose.observe(this) {
+            it?.let { close ->
+                if (close && !ThreeApplication.isShowedCloseDialog) {
+                    serviceCloseDialog.show()
+                }
+            }
+        }
     }
 
     private fun showPopUp(badge: MutableList<BadgeData>?) {
-        if (badge!!.isEmpty()){
+        if (badge!!.isEmpty()) {
             return
-        }
-        else{
-            val popUp = OpenedBadgePopup(this,badge[0])
+        } else {
+            val popUp = OpenedBadgePopup(this, badge[0])
             badge.removeAt(0)
-            popUp.setListener(object : OpenedBadgePopup.OnCloseListener{
+            popUp.setListener(object : OpenedBadgePopup.OnCloseListener {
                 override fun closePopUp(v: Dialog) {
                     v.dismiss()
                     showPopUp(badge)
@@ -183,14 +212,14 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
         }
 
         // 이용 안내 클릭 시 이용 안내 화면으로 이동
-       mBinding.homeDrawer.navi_info_txt.setOnClickListener {
+        mBinding.homeDrawer.navi_info_txt.setOnClickListener {
             val intent = Intent(this, GuideActivity::class.java)
             startActivity(intent)
         }
 
         // 공지사항 클릭 시 공지사항 뷰로 이동
         mBinding.homeDrawer.navi_notice_txt.setOnClickListener {
-            val intent = Intent(this,NoticeActivity::class.java)
+            val intent = Intent(this, NoticeActivity::class.java)
             startActivity(intent)
         }
 
@@ -204,7 +233,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
                 putExtra(Intent.EXTRA_SUBJECT, "생글 문의")
                 putExtra(Intent.EXTRA_TEXT, getString(R.string.mail_contents))
             }
-            startActivityForResult(intent,3000)
+            startActivityForResult(intent, 3000)
         }
 
         // 생글 인스타그램 페이지로 이동
@@ -223,15 +252,14 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
 
         // 스와이프 리프레시와 터치 이벤트 겹치는 현상 수정
         mBinding.homePage.customChangeListener(
-            pageSelect ={
+            pageSelect = {
                 mBinding.homeBottomNavi.menu.getItem(it).isChecked = true
             },
-            pageScrollState ={
+            pageScrollState = {
                 isEnableSwipeRefresh(it == ViewPager.SCROLL_STATE_IDLE)
             }
 
         )
-
 
 
         //아이콘 안보여서 속성 설정
@@ -248,7 +276,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
         }
     }
 
-    fun isEnableSwipeRefresh(isEnable : Boolean){
+    fun isEnableSwipeRefresh(isEnable: Boolean) {
         mBinding.swipe.isEnabled = isEnable
     }
 
@@ -262,7 +290,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
 
         try {
             startActivity(instagramIntent)
-        } catch(e: ActivityNotFoundException) {
+        } catch (e: ActivityNotFoundException) {
             e.printStackTrace()
             startActivity(Intent(Intent.ACTION_VIEW, uri))
         }
@@ -294,7 +322,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        when(requestCode) {
+        when (requestCode) {
             PROFILE_CODE -> {
                 if (resultCode == RESULT_OK) {
                     mViewModel.setInfo()
